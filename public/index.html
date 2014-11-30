@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular</title>
+    <!-- CSS goes here -->
+    <link rel="stylesheet" href="build/main.css">
+</head>
+<body ng-app="coApp">
+
+    <!-- NAVIGATION -->
+    <nav class="navbar navbar-inverse" role="navigation">
+        <div class="navbar-header">
+            <a class="navbar-brand">MEAN stack</a>
+        </div>
+    </nav>
+
+    <div class="jumbotron text-center">
+        <h1>MEAN Stack ready</h1>
+    </div>
+
+    <div class="container" ng-controller="TestCtrl as testCtrl">
+        <alert ng-repeat="alert in testCtrl.alerts" type="{{alert.type}}" close="testCtrl.closeAlert($index)">{{alert.msg}}</alert>
+        <p>dcs</p>
+    </div>
+
+<!-- dependencies goes here -->
+<script src="dev/lib/angular/angular.js"></script>
+<script src="dev/lib/angular-route/angular-route.js"></script>
+<script src="dev/lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+
+
+
+<!-- app js goes here -->
+<script src="dev/js/app.js"></script>
+
+<!-- <script src="build/app.min.js"></script> -->
+
+</body>
+</html>

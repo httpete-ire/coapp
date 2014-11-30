@@ -1,0 +1,40 @@
+{
+  "name": "token",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^1.7.0",
+    "gulp": "^3.8.10",
+    "gulp-cache": "^0.2.4",
+    "gulp-clean": "^0.3.1",
+    "gulp-concat": "^2.4.2",
+    "gulp-filter": "^1.0.2",
+    "gulp-jshint": "^1.9.0",
+    "gulp-load-plugins": "^0.7.1",
+    "gulp-minify-css": "^0.3.11",
+    "gulp-ng-annotate": "^0.3.6",
+    "gulp-nodemon": "^1.0.4",
+    "gulp-notify": "^2.0.1",
+    "gulp-plumber": "^0.6.6",
+    "gulp-sass": "^1.1.0",
+    "gulp-uglify": "^1.0.1"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.1.0",
+    "body-parser": "^1.9.2",
+    "express": "^4.10.1",
+    "formidable": "^1.0.15",
+    "jwt-simple": "^0.2.0",
+    "lwip": "0.0.5",
+    "mkdirp": "^0.5.0",
+    "mongoose": "^3.8.18",
+    "morgan": "^1.4.1",
+    "underscore": "^1.7.0"
+  }
+}
