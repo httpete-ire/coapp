@@ -20,6 +20,7 @@ var paths = {
     build: './public/build'
 };
 
+gulp.task('help', $.taskListing);
 
 //
 // CLIENT

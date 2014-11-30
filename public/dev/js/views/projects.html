@@ -1,0 +1,13 @@
+<h1>Movies</h1>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Title</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="project in projectCtrl.movies" >
+            <td>{{project.name}}</td>
+        </tr>
+    </tbody>
+</table>
