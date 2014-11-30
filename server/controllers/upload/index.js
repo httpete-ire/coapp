@@ -5,7 +5,6 @@ var lwip = require('lwip');
 var path = require('path');
 var FileInfo = require('./../../helpers/FileInfo.js');
 
-var Movie = require('./../../models/movies.js');
 var User = require('./../../models/user.js');
 
 
@@ -88,7 +87,7 @@ module.exports.post =  function uploadCtrl (req, res, next) {
 		fields[name] = value;
 
 		// project directory
-		projectDir = path.resolve(__dirname + opts.uploadsDir  + '/' +  req.user + '/');
+		projectDir = path.resolve(__dirname + opts.uploadsDir  + '/' +  'IADT' + '/');
 
 		// check if project and thumbnail directory
 		// exists and create them if not
@@ -108,29 +107,7 @@ module.exports.post =  function uploadCtrl (req, res, next) {
 		if (errors.length) {
 			res.status(400).send(errors[0]);
 		} else {
-			var movie = new Movie();
-
-			movie.title = fields['title'];
-			movie.rating = fields['rating'];
-			movie.imgUrl = fileInfo.url;
-			movie.thumbUrl = fileInfo.thumbnailUrl;
-
-			movie.save(function(err){
-
-				// get user
-				// add
-				console.log(movie);
-
-				User.findOne({_id: '546cb5f9fc2c7ebcefd22990'}, function (err, user) {
-					user.movies.push(movie._id);
-
-					user.save(function(err){
-						res.send(user);
-					});
-				});
-
-			});
-
+			res.send(fileInfo);
 		}
 
 	});

@@ -7,12 +7,13 @@ var GEN_SALT = 10;
 
 var User = new Schema({
     username: {
-        type: String
+        type: String,
+        index: true
     },
     email : {
         type: String,
         required: true,
-        unique: true
+        index: true
     },
     password: {
         type: String,
@@ -22,7 +23,14 @@ var User = new Schema({
         type: Date,
         default: Date.now
     },
-    movies: [{ type: Schema.Types.ObjectId, ref: 'Movie' }]
+    role: {
+        type: String,
+        default: 'Admin'
+    },
+    projects: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Project'
+    }]
 });
 
 User.pre('save', function (next) {

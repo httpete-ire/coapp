@@ -10,8 +10,6 @@ var express = require('express');
 
 var fileUpload  = require('./fileUpload.js');
 
-var config = require('./../config');
-
 /**
  * Sets middleware and properties for the app
  * @param  {object} app - app object to attach middleware to
