@@ -6,6 +6,10 @@ module.exports =  function(app, router) {
     router
     .route('/project')
     .post(projectCtrl.newProject)
-    .get(projectCtrl.getProjects);// controler
+    .get(projectCtrl.getProjects);
+
+    router
+    .route('/project/:projectid')
+    .get(projectCtrl.getProject);
 
 };

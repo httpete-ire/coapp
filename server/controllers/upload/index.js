@@ -83,11 +83,11 @@ module.exports.post =  function uploadCtrl (req, res, next) {
 
 	form.on('field', function(name, value) {
 
-		// store fields
+		// store form fields
 		fields[name] = value;
 
-		// project directory
-		projectDir = path.resolve(__dirname + opts.uploadsDir  + '/' +  'IADT' + '/');
+		// project directory using the project form field
+		projectDir = path.resolve(__dirname + opts.uploadsDir  + '/' +  fields.project + '/');
 
 		// check if project and thumbnail directory
 		// exists and create them if not
@@ -107,7 +107,10 @@ module.exports.post =  function uploadCtrl (req, res, next) {
 		if (errors.length) {
 			res.status(400).send(errors[0]);
 		} else {
-			res.send(fileInfo);
+
+			var html = '<a href="'+fileInfo.url+'">Full Image</a><br /><a href="'+fileInfo.thumbnailUrl+'">Thumbnail image</a>';
+
+			res.send(html);
 		}
 
 	});
@@ -125,5 +128,5 @@ module.exports.post =  function uploadCtrl (req, res, next) {
  * @url {URL} :: /api/uploads
  */
 module.exports.get =  function uploadCtrl (req, res, next) {
-    res.send('<form action="/api/uploads" method="post" enctype="multipart/form-data"><input type="file" name="file" id="file"><br><input type="text" name="title" /><br><br><input type="text" name="rating" /><br><input type="submit" name="submit" value="Submit"></form>');
+    res.send('<form action="/api/uploads" method="post" enctype="multipart/form-data"><input type="file" name="file" id="file"><br><input type="text" name="project" /><br><input type="submit" name="submit" value="Submit"></form>');
 }

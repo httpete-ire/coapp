@@ -17,7 +17,11 @@ var paths = {
         js: './server/**/*.js',
         start: './server/app.js'
     },
-    build: './public/build'
+    build: './public/build',
+    styleguide: {
+        src: './docs/style-guide/scss/style-guide.scss',
+        dest: './docs/style-guide/css/',
+    }
 };
 
 gulp.task('help', $.taskListing);
@@ -27,7 +31,8 @@ gulp.task('help', $.taskListing);
 //
 
 /**
- * lint client angular app
+ * Watch JavaScript files and sass filesm,
+ * run tasks if files changes
  *
  */
 gulp.task('client', ['browser-sync'],function() {
@@ -37,6 +42,16 @@ gulp.task('client', ['browser-sync'],function() {
 
 gulp.task('lint-ng', function() {
     lint(paths.client.app);
+});
+
+gulp.task('style-guide', function() {
+    gulp.src(paths.styleguide.src)
+        .pipe($.sass({
+          includePaths: require('node-bourbon').includePaths,
+          errLogToConsole: true
+        }))
+        .pipe($.concat('style-guide.css'))
+        .pipe(gulp.dest(paths.styleguide.dest));
 });
 
 /**

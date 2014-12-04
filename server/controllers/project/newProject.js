@@ -1,6 +1,7 @@
 var Project = require('./../../models/project');
 var User = require('./../../models/user');
 
+var _ = require('underscore');
 
 module.exports =  function newProject (req, res, next) {
     'use strict';
@@ -15,32 +16,55 @@ module.exports =  function newProject (req, res, next) {
             res.status(403).send(req.body.name + ' is already used');
         } else{
             var project = new Project();
+            var collaborators;
 
             project.name = req.body.name;
             project.desc = req.body.desc;
             project.owner = req.user._id;
 
-            // to do add list of collaborators
-            // use ID of user object
-            project.collaborators.push(req.user._id);
+            /**
+             * check if collaborators is defined
+             */
+            if (req.body.collaborators) {
+
+                // if collaborators is sepearted by a comma
+                // create an array with them and the owner
+                if (req.body.collaborators.indexOf(',') > -1) {
+                    collaborators = req.body.collaborators.split(',').push(project.owner);
+                } else {
+                        collaborators.push(req.body.collaborators);
+                }
+
+            } else {
+                collaborators = [project.owner];
+            }
+
+            // set project collaborator list
+            _.each(collaborators, function (user) {
+                project.collaborators.push(user);
+            });
 
             // save project
             project.save(function (err) {
                 if(err) {
                     res.send(500);
                 } else {
-                    // store reference to project in user object
-                    //
-                    // get collaborators and store refrence to project in object
-                    User
-                        .findOne({_id: req.user._id})
-                        .exec(function(err, user){
-                            user.projects.push(project._id);
 
-                            user.save(function(err){
-                                res.send(200);
-                            });
-                        });
+                    /**
+                     * Set project id in every user object
+                     */
+                     User
+                    .update({ _id: {$in: collaborators}},
+                            {$addToSet : { projects : project._id} },
+                            {multi:true},
+                            function(err, numEffected) {
+                                if (err) {
+                                    res.send(500);
+                                } else{
+                                    res.send(200);
+                                }
+                            }
+                        );
                 }
             });
         }

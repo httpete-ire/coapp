@@ -1,4 +1,5 @@
 module.exports = {
     getProjects: require('./getProjects.js'),
-    newProject: require('./newProject.js')
+    newProject: require('./newProject.js'),
+    getProject: require('./getProject.js')
 }

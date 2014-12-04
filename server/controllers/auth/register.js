@@ -1,11 +1,13 @@
 var User = require('./../../models/user.js');
 
-
 /**
- * Register a user, if a user already exists return a conflict HTTP status
+ * @api {post} /auth/register Register the user for the system
  *
- * @url :: '/auth/register'
- * @return {HTTP status} :: 200
+ * @apiName Register
+ * @apiGroup Auth
+ *
+ * @apiParam {String} email Users email address
+ * @apiParam {String} password Users password
  */
 module.exports =  function login (req, res, next) {
 
@@ -14,7 +16,7 @@ module.exports =  function login (req, res, next) {
     User.findOne({email: req.body.email}, function (err, user) {
 
         if(user) {
-            res.status(403).send(req.body.email + ' is already taken');
+            res.status(409).send(req.body.email + ' is already taken');
         } else {
             var newUser = new User({
                 email: req.body.email,
@@ -25,6 +27,8 @@ module.exports =  function login (req, res, next) {
                 if(err) {
                     return res.send(err);
                 }
+
+                console.log(newUser);
 
                 return res.send(200);
             });

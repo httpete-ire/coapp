@@ -21,11 +21,11 @@ function expires (numDays) {
  * @param  {[type]} user [description]
  * @return {[type]}      [description]
  */
-function createToken (user) {
+function createToken (user, date) {
     var payLoad = {
         user: user,
         iat: new Date().getTime(),
-        ex: expires(tokenConfig.expires)
+        ex: expires( date|| tokenConfig.expires)
     };
 
     return jwt.encode(payLoad, tokenConfig.secret);

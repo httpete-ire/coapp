@@ -13,7 +13,7 @@ module.exports = function (app, router) {
      *
      * sets req.user to user object if token is valid
      */
-    router.use(validateToken);
+    // router.use(validateToken);
 
     /**
      * dynamically load all the routes

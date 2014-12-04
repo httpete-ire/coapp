@@ -5,25 +5,6 @@
 
     app.config(function($routeProvider, $httpProvider){
 
-        function checkLoggedIn($q, $log, authService) {
-                    var deferred = $q.defer();
-
-                    if (!authService.isAuthenticated()) {
-                        $log.log('authentication required. redirect to login');
-                        deferred.reject({ needsAuthentication: true });
-                    } else {
-                        deferred.resolve();
-                    }
-
-                    return deferred.promise;
-                }
-
-        $routeProvider.whenAuthenticated = function (path, route) {
-            route.resolve = route.resolve || {};
-            angular.extend(route.resolve, { isLoggedIn: ['$q', '$log', 'authService', checkLoggedIn] });
-            return $routeProvider.when(path, route);
-        };
-
         $routeProvider
         .when('/login', {
             templateUrl: 'dev/js/views/login.html',
@@ -55,6 +36,7 @@
         $httpProvider.interceptors.push('TokenInterceptor');
 
     });//config
+
     // @ngInject
     app.run(function($rootScope, $window, $location, AuthenticationFactory){
         AuthenticationFactory.check();
