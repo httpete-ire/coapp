@@ -11,6 +11,7 @@ var tokenHelper = require('./../../helpers/token.js');
  *
  * @apiParam {String} email Users email address
  * @apiParam {String} password Users password
+ * @apiParam (Query String) {String} [userid] user's id
  *
  * @apiSuccess {String} token JSON token
  * @apiSuccess {Number} user  id of the user

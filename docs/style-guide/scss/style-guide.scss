@@ -4,20 +4,23 @@
 
 // color palette - these colors will be the color swatches of the Colors section
 
-$color-1: #00BD68; // Midknight grey
-$color-2: #19191a; // Dark Blue
-$color-3: #e4655f; // Red
-$color-4: #EDF3F8; // light grey
-$color-5: #ffffff; // white
+$color-1: #5DABE1; // Midknight grey
+$color-2: #232B2D; // Dark Blue
+$color-3: #D66666; // Red
+$color-4: #54bb87; // light grey
+$color-5: #F4F4F4; // white
+
+// $form-bg:
 
 // additional colors
 
-$success: #6fce72; // green
+$success: #54bb87;  // green
+
 $alert: $color-3;  // red
 
 // fonts
 
-$primary-font: 'Merriweather', serif;
+$primary-font: 'Open Sans', serif;
 $secondary-font: 'Open Sans', sans-serif;
 
 /* --------------------------------

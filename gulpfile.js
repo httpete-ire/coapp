@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var $ = plugins = require('gulp-load-plugins')();
 var path = require('path');
+var runSequence = require('run-sequence');
 var browserSync = require('browser-sync');
 
 
@@ -35,9 +36,15 @@ gulp.task('help', $.taskListing);
  * run tasks if files changes
  *
  */
-gulp.task('client', ['browser-sync'],function() {
+gulp.task('c', ['browser-sync'],function() {
     gulp.watch([paths.client.app], ['lint-ng']);
     gulp.watch([paths.client.sass], ['sass']);
+});
+
+gulp.task('client', function (callback){
+    runSequence('server-dev',
+                  'c',
+                  callback);
 });
 
 gulp.task('lint-ng', function() {
@@ -60,7 +67,7 @@ gulp.task('style-guide', function() {
  */
 gulp.task('browser-sync', function() {
     browserSync.init(null, {
-        proxy: "http://localhost:3000",
+        proxy: "http://localhost:3000/",
         files: ["./public/build/main.css"],
         browser: "google chrome",
         port: 7000,
@@ -108,7 +115,7 @@ gulp.task('build', function () {
  *
  */
 gulp.task('server-dev', function() {
-    $.nodemon({
+    return $.nodemon({
         script: paths.server.start,
         ext: 'html js',
         ignore: ['ignored.js']
