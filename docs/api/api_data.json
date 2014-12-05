@@ -22,6 +22,15 @@
             "field": "password",
             "description": "<p>Users password</p> "
           }
+        ],
+        "Query String": [
+          {
+            "group": "Query String",
+            "type": "String",
+            "optional": true,
+            "field": "userid",
+            "description": "<p>user&#39;s id</p> "
+          }
         ]
       }
     },
