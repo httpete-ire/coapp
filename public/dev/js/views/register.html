@@ -1,17 +1,20 @@
-<div class="col-md-4 col-md-offset-1">
-
-    <h1>Register</h1>
-    <form name="registerForm"  role="form" ng-submit="authCtrl.register(authCtrl.user)">
+<div class="vertical-align clearfix col-md-4 center">
     <alert ng-repeat='alert in authCtrl.alerts' type="{{alert.type}}" close="authCtrl.closeAlert($index)">{{alert.msg}}</alert>
-        <div class="form-group">
-            <label for="exampleInputEmail1">Username or Email</label>
-            <input ng-model="authCtrl.user.email"  type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-        </div>
+    <div class="form-container">
+
+      <h1>Register</h1>
+      <form name="registerForm"  role="form" ng-submit="authCtrl.register(authCtrl.user)">
+
           <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input ng-model="authCtrl.user.password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+              <label for="exampleInputEmail1">Username or Email</label>
+              <input ng-model="authCtrl.user.email"  type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
           </div>
-          <button type="submit" class="btn btn-sm btn-default">Sign in</button>
-            <!-- {{regCtrl.user.email}} -->
-    </form>
-</div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Password</label>
+              <input ng-model="authCtrl.user.password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            </div>
+            <button type="submit" class="btn btn-sm btn-default">Sign in</button>
+              <!-- {{regCtrl.user.email}} -->
+      </form>
+    </div>
+  </div>

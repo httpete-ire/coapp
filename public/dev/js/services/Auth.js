@@ -2,7 +2,7 @@
 
 	var coapp = angular.module('coapp');
 
-	coapp.factory('AuthFactory', function($window, $location, $http, $q, AuthenticationFactory){
+	coapp.factory('AuthFactory', ["$window", "$location", "$http", "$q", "AuthenticationFactory", function($window, $location, $http, $q, AuthenticationFactory){
 
 			var auth = {};
 
@@ -49,10 +49,10 @@
 
 			return auth;
 
-	});
+	}]);
 
 	//////////////////
-	coapp.factory('AuthenticationFactory', function($window){
+	coapp.factory('AuthenticationFactory', ["$window", function($window){
 
 		var auth = {};
 
@@ -68,9 +68,9 @@
 		}
 
 		return auth;
-	});
+	}]);
 
-	coapp.factory('TokenInterceptor', function($window, $location, $q){
+	coapp.factory('TokenInterceptor', ["$window", "$location", "$q", function($window, $location, $q){
 
 		var tokenIntercept = {};
 
@@ -94,7 +94,7 @@
 
 		return tokenIntercept;
 
-	});
+	}]);
 
 
 })();

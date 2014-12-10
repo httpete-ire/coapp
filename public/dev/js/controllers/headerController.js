@@ -13,5 +13,6 @@
             $location.path('/login');
         }
     }
+    headerController.$inject = ["AuthFactory", "$location"];
 
 })();

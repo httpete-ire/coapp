@@ -127,7 +127,7 @@ gulp.task('server-dev', function() {
 });
 
 gulp.task('server-lint', function() {
-    lint(paths.server.jshint);
+    lint(paths.server.js);
 });
 
 /**

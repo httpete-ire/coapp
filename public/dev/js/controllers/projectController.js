@@ -3,7 +3,7 @@
 
     var coapp = angular.module('coapp');
 
-    coapp.controller('projectController', function($http){
+    coapp.controller('projectController', ["$http", function($http){
         var _this = this;
 
         $http.get('/api/project')
@@ -12,6 +12,6 @@
             });
 
 
-    });
+    }]);
 
 })();

@@ -3,7 +3,7 @@
 
     var app = angular.module('coapp', ['ngRoute', 'ui.bootstrap']);
 
-    app.config(function($routeProvider, $httpProvider){
+    app.config(["$routeProvider", "$httpProvider", function($routeProvider, $httpProvider){
 
         $routeProvider
         .when('/login', {
@@ -35,10 +35,10 @@
 
         $httpProvider.interceptors.push('TokenInterceptor');
 
-    });//config
+    }]);//config
 
     // @ngInject
-    app.run(function($rootScope, $window, $location, AuthenticationFactory){
+    app.run(["$rootScope", "$window", "$location", "AuthenticationFactory", function($rootScope, $window, $location, AuthenticationFactory){
         AuthenticationFactory.check();
 
         $rootScope.$on('$routeChangeStart', function (event, nextRoute, currentRoute){
@@ -54,13 +54,15 @@
         });
 
         $rootScope.$on('$routeChangeSuccess', function (event, nextRoute, currentRoute){
+
             $rootScope.showMenu = AuthenticationFactory.isLogged;
+
             if (AuthenticationFactory.isLogged && $location.path() === '/login'){
                 $location.path('/projects');
             }
         });
 
 
-    });
+    }]);
 
 })();

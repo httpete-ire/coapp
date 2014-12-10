@@ -6,10 +6,11 @@
     <!-- CSS goes here -->
     <link rel="stylesheet" href="build/main.css">
 </head>
-<body>
+<body ng-class="{ 'table-image' : !showMenu}">
 
     <div ng-include="'dev/js/views/header.html'"></div>
-    <div class="container" ng-view></div>
+
+    <div ng-view></div>
 
 <!-- dependencies goes here -->
 <script src="dev/lib/angular/angular.js"></script>
