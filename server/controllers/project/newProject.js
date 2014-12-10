@@ -3,8 +3,27 @@ var User = require('./../../models/user');
 
 var _ = require('underscore');
 
+var Validator = require('./../../helpers/validator.js');
+
 module.exports =  function newProject (req, res, next) {
-    'use strict';
+
+    var validator = new Validator();
+
+    validator.addRule({
+        field: 'name',
+        value: req.body.name,
+        rules: ['required']
+    });
+
+    validator.addRule({
+        field: 'desc',
+        value: req.body.desc,
+        rules: ['required']
+    });
+
+    if (!validator.validate()) {
+        return res.send(validator.getErrors());
+    }
 
     var query = Project.findOne();
 

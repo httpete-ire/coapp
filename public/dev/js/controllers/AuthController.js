@@ -5,7 +5,7 @@
 	/**
 	 * @ngInject
 	 */
-	function regController($window, $location, AuthFactory, AuthenticationFactory){
+	function regController($window, $location, AuthFactory, AuthenticationFactory, $rootScope){
 
 		var _this = this;
 
@@ -84,6 +84,5 @@
 
 	}
 	regController.$inject = ["$window", "$location", "AuthFactory", "AuthenticationFactory"];
-
 
 })();

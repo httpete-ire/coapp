@@ -2,7 +2,9 @@ var User = require('./../../models/user.js');
 
 var tokenHelper = require('./../../helpers/token.js');
 
+var Validator = require('./../../helpers/validator.js');
 
+'use strict';
 
 /**
  * @api {post} /auth/login Login the user into the system
@@ -35,7 +37,24 @@ var tokenHelper = require('./../../helpers/token.js');
  */
 function login (req, res, next) {
 
-    'use strict';
+    var validator = new Validator();
+
+    validator.addRule({
+        field: 'email',
+        value: req.body.email,
+        rules: ['required', 'email']
+    });
+
+    validator.addRule({
+        field: 'password',
+        value: req.body.password,
+        rules: ['required']
+    });
+
+    if (!validator.validate()) {
+        return res.status(422).send(validator.getErrors());
+    }
+
     // find user by email
     User.findOne({email: req.body.email}, function(err, user){
 
@@ -43,7 +62,7 @@ function login (req, res, next) {
 
         // if user null return err
         if(!user){
-            return res.status(404).send('No user found with that email');
+            res.status(404).send('No user found with that email');
         }
 
         console.log('user is', user);
@@ -56,8 +75,6 @@ function login (req, res, next) {
             }
 
             var token = tokenHelper.createToken(user);
-
-            console.log(user);
 
             return res.json({
                 token: token,

@@ -6,9 +6,8 @@ var _ = require('underscore');
 
 module.exports =  function (req, res, next) {
 
-    // get user
-    // get list of projects
-    // get projects
+    // find the logged in user so project ID's
+    // cen be retrieved
     User
     .findOne({_id: req.user._id})
     .exec(function (err, user) {
@@ -19,16 +18,12 @@ module.exports =  function (req, res, next) {
             // get users projects
             var projectIds = user.projects;
 
-            if (!projectIds) {
-                // return no projects
-            }
-
             // store DB query
             var query = Project.find();
 
             if(!_.isEmpty(req.query)) {
                 // object of url queries
-                var fields = _.keys(req.query);
+                var queries = req.query;
             }
 
             // search projects using the ids of the user
@@ -37,14 +32,17 @@ module.exports =  function (req, res, next) {
             }});
 
             // if the query string join to create a string
-            if (fields) {
+            if (queries && queries.fields) {
 
-                // select certain fields to display
+                // build an array of fields
+                var fields = queries.fields.split(',');
+
+                // join the array to build a string
                 query.select(fields.join(' '));
 
                 // populate user objects on database
                 if(_.contains(fields, 'collaborators')){
-                    query.populate('collaborators');
+                    query.populate('collaborators', 'email');
                 }
             }
 

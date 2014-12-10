@@ -8,10 +8,32 @@ display: none !important;
 }
 
 @import './../lib/bootstrap-sass-official/assets/stylesheets/_bootstrap';
-<<<<<<< HEAD
+
 $main-color: green;
 body {
     background: green;
 }
-=======
->>>>>>> 0c43b0379a6f581f3e627c17748e4d84a060a826
+
+
+html, body {
+    height: 100%;
+}
+
+.table-image {
+    background: url('./../media/bg.jpg') center bottom no-repeat;
+    background-size: cover;
+    height: 100%
+}
+
+.form-container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 4px;
+}
+
+.vertical-align {
+    position: relative;
+    transform: translateY(50%);
+}
+
+.center { float: none; margin-left: auto; margin-right: auto; }

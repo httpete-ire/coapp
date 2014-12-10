@@ -54,7 +54,9 @@
         });
 
         $rootScope.$on('$routeChangeSuccess', function (event, nextRoute, currentRoute){
+
             $rootScope.showMenu = AuthenticationFactory.isLogged;
+
             if (AuthenticationFactory.isLogged && $location.path() === '/login'){
                 $location.path('/projects');
             }

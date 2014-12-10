@@ -12,8 +12,7 @@ var opts = {
     uploadsDir: './../../../public/media/uploads',
     tmpDir: './../../../public/media/tmp',
     thumbnail : {
-    	width: 200,
-    	height: 200
+    	width: 450
     }
 };
 
@@ -64,9 +63,10 @@ module.exports.post =  function uploadCtrl (req, res, next) {
 				}
 				// create thumbnail of image
 				lwip.open(projectDir + '/' + fileInfo.name, function (err, image) {
+
 					if (image) {
 						image.batch()
-						.resize(opts.thumbnail.width)
+						.resize(opts.thumbnail.width, fileInfo.dimensions.height / fileInfo.dimensions.width * opts.thumbnail.width)
 						.writeFile(projectDir + '/thumbnails/' + fileInfo.name , function (err){
 							if(err) {
 								console.log(err);

@@ -1,11 +1,16 @@
+/*jshint strict:false */
+
 var config = require('./../config').upload;
 var path = require('path');
 var _ = require('underscore');
+var sizeOf = require('image-size');
 
 function FileInfo (file, opt) {
+    console.log(file);
   this.name = file.name;
   this.size = file.size;
   this.type = file.type;
+  this.dimensions = sizeOf(file.path);
   this.modified = file.lastMod;
   this.deleteType = 'DELETE';
   this.opts = opt || {};

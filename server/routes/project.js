@@ -4,12 +4,12 @@ module.exports =  function(app, router) {
     'use strict';
 
     router
-    .route('/project')
+    .route('/projects')
     .post(projectCtrl.newProject)
     .get(projectCtrl.getProjects);
 
     router
-    .route('/project/:projectid')
+    .route('/projects/:projectid')
     .get(projectCtrl.getProject);
 
 };
