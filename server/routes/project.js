@@ -10,6 +10,7 @@ module.exports =  function(app, router) {
 
     router
     .route('/projects/:projectid')
-    .get(projectCtrl.getProject);
+    .get(projectCtrl.getProject)
+    .delete(projectCtrl.removeProject);
 
 };

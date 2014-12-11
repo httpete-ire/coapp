@@ -262,6 +262,51 @@
     "groupTitle": "Projects"
   },
   {
+    "type": "delete",
+    "url": "/api/projects/:projectid",
+    "title": "Delete project",
+    "name": "Delete_project",
+    "group": "Projects",
+    "permission": [
+      {
+        "name": "User"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "server/controllers/project/removeProject.js",
+    "groupTitle": "Projects",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NotAuthorized",
+            "description": "<p>You must be proved valid authentication details</p> "
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "ProjectNotFound",
+            "description": "<p>The <code>id</code> of the Project was not found.</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "    HTTP/1.1 401 Unauthorized\n    {\n      \"error\": \"You must be authenticated to perform this action\"\n    }",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "    HTTP/1.1 404 Not Found\n    {\n      \"error\": \"No project found with that id\"\n    }",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
     "type": "get",
     "url": "/api/projects/:projectid",
     "title": "Get single project",
