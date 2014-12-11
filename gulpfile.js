@@ -68,9 +68,9 @@ gulp.task('style-guide', function() {
  */
 gulp.task('browser-sync', function() {
     browserSync.init(null, {
-        proxy: "http://localhost:3000/",
-        files: ["./public/build/main.css"],
-        browser: "google chrome",
+        proxy: 'http://localhost:3000/',
+        files: ['./public/build/main.css'],
+        browser: 'google chrome',
         port: 7000,
     });
 });
@@ -140,14 +140,6 @@ gulp.task('dump', function() {
   });
 });
 
-// restore the database
-gulp.task('restore', function() {
-  mongobackup.restore({
-    host : 'localhost',
-    drop : true,
-    path : './dbdump/coapp'
-  });
-});
 
 /**
  * Helper functions
