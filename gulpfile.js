@@ -140,6 +140,15 @@ gulp.task('dump', function() {
   });
 });
 
+// restore the database
+gulp.task('restore', function() {
+  mongobackup.restore({
+    host : 'localhost',
+    drop : true,
+    path : './dbdump/coapp'
+  });
+});
+
 
 /**
  * Helper functions
