@@ -3,6 +3,7 @@ var $ = plugins = require('gulp-load-plugins')();
 var path = require('path');
 var runSequence = require('run-sequence');
 var browserSync = require('browser-sync');
+var mongobackup = require('mongobackup');
 
 
 /**
@@ -128,6 +129,24 @@ gulp.task('server-dev', function() {
 
 gulp.task('server-lint', function() {
     lint(paths.server.js);
+});
+
+// dump the database
+gulp.task('dump', function() {
+  mongobackup.dump({
+    host : 'localhost',
+    out : './dbdump/',
+    db: 'coapp'
+  });
+});
+
+// restore the database
+gulp.task('restore', function() {
+  mongobackup.restore({
+    host : 'localhost',
+    drop : true,
+    path : './dbdump/coapp'
+  });
 });
 
 /**
