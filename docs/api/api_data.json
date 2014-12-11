@@ -316,6 +316,13 @@
           },
           {
             "group": "Possible Fields",
+            "type": "Number",
+            "optional": false,
+            "field": "designCount",
+            "description": "<p>Count of designs                                                  resources in project</p> "
+          },
+          {
+            "group": "Possible Fields",
             "type": "Object",
             "optional": false,
             "field": "owner",

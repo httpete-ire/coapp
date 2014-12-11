@@ -17,6 +17,8 @@ var _ = require('underscore');
  * @apiParam (Possible Fields) {Date} created Date project was created
  * @apiParam (Possible Fields) {Date} update Date project was updated
  * @apiParam (Possible Fields) {String} thumbnail URL of thumbnail image
+ * @apiParam (Possible Fields) {Number} designCount Count of designs
+ *                                                  resources in project
  * @apiParam (Possible Fields) {Object} owner User object that owns the project
  * @apiParam (Possible Fields) {Array} collaborators List of user objects who
  *                                              collaborate on the project

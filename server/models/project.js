@@ -32,7 +32,11 @@ var Project = new Schema({
     designs: [{
         type: Schema.Types.ObjectId,
         ref: 'Design'
-    }]
+    }],
+    designCount: {
+        type: Number,
+        default:0
+    }
 });
 
 module.exports =  mongoose.model('Project', Project);
