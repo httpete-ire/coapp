@@ -1,10 +1,35 @@
 var Project = require('./../../models/project');
 var User = require('./../../models/user');
-
 var _ = require('underscore');
-
 var Validator = require('./../../helpers/validator.js');
 
+'use strict';
+
+/**
+ * @api {post} /api/projects Add a new project resource
+ *
+ * @apiName Add new project
+ * @apiGroup Projects
+ *
+ * @apiParam {String} name Project name
+ * @apiParam {String} desc Project description
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 201 Created
+ *
+ * @apiError Conflict You can only have one project with the same name
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 409 Conflict
+ *     {
+ *       "error": "'You can only have one project with the same name'"
+ *     }
+ *
+ * @apiUse InvalidData
+ *
+ * @apiUse NotAuthorized
+ *
+ */
 module.exports =  function newProject (req, res, next) {
 
     var validator = new Validator();
@@ -22,18 +47,28 @@ module.exports =  function newProject (req, res, next) {
     });
 
     if (!validator.validate()) {
-        return res.send(validator.getErrors());
+        return res.status(422).send(validator.getErrors());
     }
 
     var query = Project.findOne();
 
     query.where({name: req.body.name});
 
+    // ensure a user can only have one project
+    // with the same name
+    query.where({
+        $and: [
+            {name: req.body.name},
+            {owner: req.user._id}
+        ]
+    });
+
     query.exec(function (err, project) {
 
         if (project) {
             res.status(403).send(req.body.name + ' is already used');
         } else{
+
             var project = new Project();
             var collaborators;
 
@@ -54,7 +89,7 @@ module.exports =  function newProject (req, res, next) {
                         collaborators.push(req.body.collaborators);
                 }
 
-            } else {
+            } else { // else add the owner to the collaborators list
                 collaborators = [project.owner];
             }
 

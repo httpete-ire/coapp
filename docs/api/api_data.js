@@ -112,8 +112,127 @@ define({ "api": [
         ]
       }
     },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "    HTTP/1.1 201 Created",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UserConflict",
+            "description": "<p>The email is already taken</p> "
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "InvalidData",
+            "description": "<p>The data provided was invalid</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "    HTTP/1.1 409 Conflict\n    {\n      \"error\": \"'The email is already taken'\"\n    }",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "    HTTP/1.1 422 Unproc­essable Entity\n    {\n      \"fieldName\": \"Error for specific field\"\n    }",
+          "type": "json"
+        }
+      ]
+    },
     "version": "0.0.0",
     "filename": "server/controllers/auth/register.js",
     "groupTitle": "Auth"
+  },
+  {
+    "type": "post",
+    "url": "/api/projects",
+    "title": "Add a new project resource",
+    "name": "Add_new_project",
+    "group": "Projects",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Project name</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "desc",
+            "description": "<p>Project description</p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "    HTTP/1.1 201 Created",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Conflict",
+            "description": "<p>You can only have one project with the same name</p> "
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "InvalidData",
+            "description": "<p>The data provided was invalid</p> "
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NotAuthorized",
+            "description": "<p>You must be proved valid authentication details</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "    HTTP/1.1 409 Conflict\n    {\n      \"error\": \"'You can only have one project with the same name'\"\n    }",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "    HTTP/1.1 422 Unproc­essable Entity\n    {\n      \"fieldName\": \"Error for specific field\"\n    }",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "    HTTP/1.1 401 Unauthorized\n    {\n      \"error\": \"You must be authenticated to perform this action\"\n    }",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "server/controllers/project/newProject.js",
+    "groupTitle": "Projects"
   }
 ] });

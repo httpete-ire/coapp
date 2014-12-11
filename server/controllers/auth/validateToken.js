@@ -19,11 +19,11 @@ module.exports =  function (req, res, next) {
             return next();
 
         } catch (err) {
-            return res.send(401, 'not a valid token');
+            return res.send(401, 'you must be authenticated to perform this action');
         }
 
     } else {
-        return res.send(401);
+        return res.send(401, 'you must be authenticated to perform this action');
     }
 
     // continue to next middleware
