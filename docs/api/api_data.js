@@ -106,8 +106,22 @@ define({ "api": [
             "group": "Parameter",
             "type": "String",
             "optional": false,
+            "field": "username",
+            "description": "<p>Users unique name</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
             "field": "password",
             "description": "<p>Users password</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "confirmPassword",
+            "description": "<p>Confirm password</p> "
           }
         ]
       }
@@ -177,10 +191,22 @@ define({ "api": [
             "optional": false,
             "field": "desc",
             "description": "<p>Project description</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "collaborators",
+            "description": "<p>ID&#39;s of project collaborators                    (seperated by a comma)</p> "
           }
         ]
       }
     },
+    "permission": [
+      {
+        "name": "User"
+      }
+    ],
     "success": {
       "examples": [
         {
@@ -234,5 +260,119 @@ define({ "api": [
     "version": "0.0.0",
     "filename": "server/controllers/project/newProject.js",
     "groupTitle": "Projects"
+  },
+  {
+    "type": "get",
+    "url": "/api/projects",
+    "title": "Get users projects",
+    "name": "Get_users_projects",
+    "group": "Projects",
+    "parameter": {
+      "fields": {
+        "Query String": [
+          {
+            "group": "Query String",
+            "type": "String",
+            "optional": false,
+            "field": "fields",
+            "description": "<p>fields to return                                   (sepearated by a comma)</p> "
+          }
+        ],
+        "Possible Fields": [
+          {
+            "group": "Possible Fields",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Projects name</p> "
+          },
+          {
+            "group": "Possible Fields",
+            "type": "String",
+            "optional": false,
+            "field": "desc",
+            "description": "<p>Projects descriptiton</p> "
+          },
+          {
+            "group": "Possible Fields",
+            "type": "Date",
+            "optional": false,
+            "field": "created",
+            "description": "<p>Date project was created</p> "
+          },
+          {
+            "group": "Possible Fields",
+            "type": "Date",
+            "optional": false,
+            "field": "update",
+            "description": "<p>Date project was updated</p> "
+          },
+          {
+            "group": "Possible Fields",
+            "type": "String",
+            "optional": false,
+            "field": "thumbnail",
+            "description": "<p>URL of thumbnail image</p> "
+          },
+          {
+            "group": "Possible Fields",
+            "type": "Object",
+            "optional": false,
+            "field": "owner",
+            "description": "<p>User object that owns the project</p> "
+          },
+          {
+            "group": "Possible Fields",
+            "type": "Array",
+            "optional": false,
+            "field": "collaborators",
+            "description": "<p>List of user objects who                                              collaborate on the project</p> "
+          },
+          {
+            "group": "Possible Fields",
+            "type": "Array",
+            "optional": false,
+            "field": "designs",
+            "description": "<p>List of design objects                                             associated with the project</p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "    URL /api/projects?fields=name,desc,thumbnail,collaborators\n\n    HTTP/1.1 200 OK\n     [\n         {\n          \"_id\": \"5489c6736402d7296628ce60\",\n          \"desc\": \"website redesign\",\n          \"name\": \"IADT\",\n          \"collaborators\": [\n              {\n                  \"_id\": \"5489c581dd18360563c1317a\",\n                  \"email\": \"joe@coapp.com\",\n                  \"username\": \"joe\"\n              },\n              {\n                  \"_id\": \"5489c5a5dd18360563c1317b\",\n                  \"email\": \"admin@coapp.com\",\n                  \"username\": \"admin\"\n              },\n              {\n                  \"_id\": \"5489c531dd18360563c13179\",\n                  \"email\": \"pete@coapp.com\",\n                  \"username\": \"pete\"\n              }\n          ],\n          \"thumbnail\": \"http://placehold.it/350X200\"\n          }\n      ]",
+          "type": "json"
+        }
+      ]
+    },
+    "permission": [
+      {
+        "name": "User"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "server/controllers/project/getProjects.js",
+    "groupTitle": "Projects",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NotAuthorized",
+            "description": "<p>You must be proved valid authentication details</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "    HTTP/1.1 401 Unauthorized\n    {\n      \"error\": \"You must be authenticated to perform this action\"\n    }",
+          "type": "json"
+        }
+      ]
+    }
   }
 ] });
