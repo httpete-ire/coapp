@@ -9,6 +9,9 @@
 <body ng-class="{ 'table-image' : !isLoggedIn}">
 
     <!--  sidebar  ng-sho : isLoggedIn -->
+    <div ng-controller="AuthController as LogCtrl">
+        <button ng-click="LogCtrl.logout()">Logout</button>
+    </div>
 
     <div ng-view></div>
 
@@ -22,7 +25,7 @@
 
 <script src="dev/js/Auth/AuthService.js"></script>
 <script src="dev/js/Auth/AuthController.js"></script>
-
+<script src="dev/js/Controllers/LogOutController.js"></script>
 <!-- <script src="build/app.min.js"></script> -->
 
 </body>

@@ -6,6 +6,13 @@
     app.config(["$routeProvider", "$httpProvider", function($routeProvider, $httpProvider){
 
         $routeProvider
+        .when('/landing', {
+            templateUrl: 'dev/js/views/landing.html',
+
+            access:{
+                requiredLogin: false
+            }
+        })
         .when('/login', {
             templateUrl: 'dev/js/views/Auth/login.html',
             controller: 'AuthController',
@@ -30,7 +37,8 @@
                 requiredLogin: true
             }
         }).otherwise({
-          redirectTo: '/login'
+          // redirectTo: '/login'
+            redirectTo: '/landing'
         });
 
         $httpProvider.interceptors.push('TokenInterceptor');
@@ -56,7 +64,7 @@
         $rootScope.$on('$routeChangeSuccess', function (event, nextRoute, currentRoute){
 
             $rootScope.isLoggedIn = AuthenticationFactory.isLogged;
-
+            console.log($rootScope.isLoggedIn);
             if (AuthenticationFactory.isLogged && $location.path() === '/login'){
                 $location.path('/projects');
             }
