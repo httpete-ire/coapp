@@ -28,7 +28,7 @@ module.exports =  function (req, res, next) {
     // build string of fields
     var projectQuery = Project.findOne();
 
-    // seletec project by id
+    // select project by id
     projectQuery.where({_id: projectid});
 
     // use the fields query to select properties to return

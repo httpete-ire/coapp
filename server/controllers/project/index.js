@@ -1,5 +1,5 @@
 // expose all the project controller funstions
-// to the route function
+// to the route handler
 module.exports = {
     getProjects: require('./getProjects.js'),
     newProject: require('./newProject.js'),

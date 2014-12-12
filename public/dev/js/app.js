@@ -7,7 +7,7 @@
 
         $routeProvider
         .when('/login', {
-            templateUrl: 'dev/js/views/login.html',
+            templateUrl: 'dev/js/views/Auth/login.html',
             controller: 'AuthController',
             controllerAs: 'authCtrl',
             access:{
@@ -15,7 +15,7 @@
             }
         })
         .when('/register',{
-            templateUrl: 'dev/js/views/register.html',
+            templateUrl: 'dev/js/views/Auth/register.html',
             controller: 'AuthController',
             controllerAs: 'authCtrl',
             access:{
@@ -23,7 +23,7 @@
             }
         })
         .when('/projects', {
-            templateUrl: 'dev/js/views/projects.html',
+            templateUrl: 'dev/js/views/Projects/list.html',
             controller: 'projectController',
             controllerAs: 'projectCtrl',
             access: {
@@ -55,7 +55,7 @@
 
         $rootScope.$on('$routeChangeSuccess', function (event, nextRoute, currentRoute){
 
-            $rootScope.showMenu = AuthenticationFactory.isLogged;
+            $rootScope.isLoggedIn = AuthenticationFactory.isLogged;
 
             if (AuthenticationFactory.isLogged && $location.path() === '/login'){
                 $location.path('/projects');
