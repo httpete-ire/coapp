@@ -64,8 +64,13 @@
         $rootScope.$on('$routeChangeSuccess', function (event, nextRoute, currentRoute){
 
             $rootScope.isLoggedIn = AuthenticationFactory.isLogged;
-            console.log($rootScope.isLoggedIn);
-            if (AuthenticationFactory.isLogged && $location.path() === '/login'){
+
+            console.log($location.path() === '/landing');
+
+            if ((AuthenticationFactory.isLogged &&
+                $location.path() === '/login') || (AuthenticationFactory.isLogged && $location.path() === '/landing')){
+
+                console.log('working');
                 $location.path('/projects');
             }
         });
