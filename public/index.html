@@ -8,10 +8,8 @@
 </head>
 <body ng-class="{ 'table-image' : !isLoggedIn}">
 
-    <!--  sidebar  ng-sho : isLoggedIn -->
-    <div ng-controller="AuthController as LogCtrl">
-        <button ng-click="LogCtrl.logout()">Logout</button>
-    </div>
+    <!-- if logged in include sidebar -->
+    <div ng-if="isLoggedIn" ng-include="'dev/js/views/sidebar.html'"></div>
 
     <div ng-view></div>
 

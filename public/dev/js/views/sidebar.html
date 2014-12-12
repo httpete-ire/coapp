@@ -1,0 +1,25 @@
+<div id="sidebar-wrapper">
+    <ul class="sidebar">
+        <li class="sidebar-main">
+        </li>
+        <li class="sidebar-list">
+            <a href="#">Dashboard</span></a>
+        </li>
+        <li class="sidebar-list">
+            <a href="#/projects">Projects</span></a>
+        </li>
+
+        <li class="sidebar-list">
+            <a href="#/tasks">Tasks</span></a>
+        </li>
+    </ul>
+
+    <div class="sidebar-footer">
+        <div class="col-xs-4">
+            <div ng-controller="AuthController as LogCtrl">
+                <button ng-click="LogCtrl.logout()">Logout</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Sidebar -->

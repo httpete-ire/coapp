@@ -9,12 +9,6 @@ display: none !important;
 
 @import './../lib/bootstrap-sass-official/assets/stylesheets/_bootstrap';
 
-$main-color: green;
-body {
-    background: green;
-}
-
-
 html, body {
     height: 100%;
 }
@@ -38,3 +32,9 @@ html, body {
 }
 
 .center { float: none; margin-left: auto; margin-right: auto; }
+
+@import './partials/_sidebar.scss';
+
+.container-fluid {
+    margin-left: 250px // push container away from sidebar
+}
