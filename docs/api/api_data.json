@@ -269,9 +269,18 @@
     "group": "Projects",
     "permission": [
       {
-        "name": "User"
+        "name": "User and Owner of project"
       }
     ],
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "    HTTP/1.1 200 Ok",
+          "type": "json"
+        }
+      ]
+    },
     "version": "0.0.0",
     "filename": "server/controllers/project/removeProject.js",
     "groupTitle": "Projects",

@@ -7,11 +7,14 @@ var User = require('./../../models/user');
  * @apiName Delete project
  * @apiGroup Projects
  *
- * @apiPermission User
+ * @apiPermission User and Owner of project
  *
  * @apiUse NotAuthorized
  *
  * @apiUse ProjectNotFound
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 Ok
  */
 module.exports =  function removeProject(req,res,next) {
 
