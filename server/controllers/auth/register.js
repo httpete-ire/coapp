@@ -78,9 +78,9 @@ module.exports =  function login (req, res, next) {
 
             // check if username is taken
             if (user.username === req.body.username) {
-                res.status(409).send('the username' + req.body.username + ' is already taken');
+                res.status(409).send('the username ' + req.body.username + ' is already taken');
             } else { // email is taken
-                res.status(409).send('the email ' + Thereq.body.email + ' is already taken');
+                res.status(409).send('the email ' + req.body.email + ' is already taken');
             }
 
         } else {
