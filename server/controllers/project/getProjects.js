@@ -5,7 +5,7 @@ var _ = require('underscore');
 
 
 /**
- * @api {get} /api/projects Get users projects
+ * @api {get} /api/projects Get projects
  *
  * @apiName Get users projects
  * @apiGroup Projects

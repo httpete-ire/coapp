@@ -172,7 +172,7 @@
   {
     "type": "post",
     "url": "/api/projects",
-    "title": "Add a new project resource",
+    "title": "Add project",
     "name": "Add_new_project",
     "group": "Projects",
     "parameter": {
@@ -450,7 +450,7 @@
   {
     "type": "get",
     "url": "/api/projects",
-    "title": "Get users projects",
+    "title": "Get projects",
     "name": "Get_users_projects",
     "group": "Projects",
     "permission": [

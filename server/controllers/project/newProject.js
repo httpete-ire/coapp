@@ -6,7 +6,7 @@ var Validator = require('./../../helpers/validator.js');
 'use strict';
 
 /**
- * @api {post} /api/projects Add a new project resource
+ * @api {post} /api/projects Add project
  *
  * @apiName Add new project
  * @apiGroup Projects
