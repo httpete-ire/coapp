@@ -1,4 +1,6 @@
 var mongoose = require('mongoose');
+
+var Annotaion = require('./annotation.js');
 var Schema = mongoose.Schema;
 
 var Design = new Schema({

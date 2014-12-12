@@ -56,7 +56,7 @@ FileInfo.prototype.validate = function() {
 
     if (this.size  > config.size) {
         valid = false;
-        msg = 'File exceeds maximum upload size';
+        msg = 'File exceeds maximum upload size of ' + config.size.toString()[0] + ' mb';
     } else if (!_.contains(config.types, path.extname(this.name))) {
         valid = false;
         msg = 'File type not supported';

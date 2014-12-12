@@ -1,4 +1,6 @@
 var projectCtrl = require('./../controllers/project/index.js');
+var designCtrl = require('./../controllers/design/index.js');
+
 
 module.exports =  function(app, router) {
 
@@ -12,5 +14,9 @@ module.exports =  function(app, router) {
     .get(projectCtrl.getProject)
     .delete(projectCtrl.removeProject);
     // update project {PUT}
+    //
+    router
+    .route('/projects/:projectid/designs')
+    .post(projectCtrl.middleware, designCtrl.newDesign);
 
 };
