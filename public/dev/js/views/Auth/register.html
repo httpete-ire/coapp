@@ -5,13 +5,22 @@
       <h1>Register</h1>
       <form name="registerForm"  role="form" ng-submit="authCtrl.register(authCtrl.user)">
 
+
           <div class="form-group">
-              <label for="exampleInputEmail1">Username or Email</label>
+              <label for="exampleInputEmail1">Username</label>
+              <input ng-model="authCtrl.user.username"  type="text" class="form-control" id="exampleInputusername1" placeholder="Enter username">
+          </div>
+          <div class="form-group">
+              <label for="exampleInputEmail1">Email</label>
               <input ng-model="authCtrl.user.email"  type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
           </div>
             <div class="form-group">
               <label for="exampleInputPassword1">Password</label>
               <input ng-model="authCtrl.user.password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            </div>
+          <div class="form-group">
+              <label for="exampleInputPassword1">Confirm Password</label>
+              <input ng-model="authCtrl.user.confirmPassword" type="password" class="form-control" id="exampleInputPassword1" placeholder="Confirm Password">
             </div>
             <button type="submit" class="btn btn-sm btn-default">Sign in</button>
               <!-- {{regCtrl.user.email}} -->
