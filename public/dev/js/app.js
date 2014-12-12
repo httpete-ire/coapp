@@ -67,10 +67,8 @@
 
             console.log($location.path() === '/landing');
 
-            if ((AuthenticationFactory.isLogged &&
-                $location.path() === '/login') || (AuthenticationFactory.isLogged && $location.path() === '/landing')){
-
-                console.log('working');
+            if (AuthenticationFactory.isLogged &&
+                ($location.path() === '/login' || $location.path() === '/landing' || $location.path() === '/register')){
                 $location.path('/projects');
             }
         });
