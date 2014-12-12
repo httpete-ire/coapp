@@ -68,7 +68,7 @@
 					$window.localStorage.token = data.token;
 					$window.localStorage.user = data.user;
 
-					$location.path('/movies');
+					$location.path('/projectsƒ');
 
 				}, function(error){
 					_this.user = {};

@@ -9,6 +9,11 @@ display: none !important;
 
 @import './../lib/bootstrap-sass-official/assets/stylesheets/_bootstrap';
 
+$main-color: green;
+body {
+    background: green;
+}
+
 
 html, body {
     height: 100%;

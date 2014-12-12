@@ -4,6 +4,11 @@ public/dev/lib
 public/dev/css
 public/build
 
+
+.DS_Store
+public/.DS_Store
+public/dev/.DS_Store
+
 public/media/uploads
 
 docs/api/
