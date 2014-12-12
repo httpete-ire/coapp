@@ -40,7 +40,7 @@
 					.register(user)
 					.then(function(data){
 
-						$location.path('#/login');
+						$location.path('/login');
 
 					}, function(error){
 						_this.user = {};
@@ -68,7 +68,7 @@
 					$window.localStorage.token = data.token;
 					$window.localStorage.user = data.user;
 
-					$location.path('/projectsƒ');
+					$location.path('/projects');
 
 				}, function(error){
 					_this.user = {};
@@ -81,6 +81,12 @@
 				});
 
 		};
+
+		 _this.logout = function () {
+            console.log("hgkh")
+            AuthFactory.logout();
+            $location.path('/login');
+        }
 
 	}
 	regController.$inject = ["$window", "$location", "AuthFactory", "AuthenticationFactory"];
