@@ -6,9 +6,9 @@
     <!-- CSS goes here -->
     <link rel="stylesheet" href="build/main.css">
 </head>
-<body ng-class="{ 'table-image' : !showMenu}">
+<body ng-class="{ 'table-image' : !isLoggedIn}">
 
-    <div ng-include="'dev/js/views/header.html'"></div>
+    <!--  sidebar  ng-sho : isLoggedIn -->
 
     <div ng-view></div>
 
@@ -19,9 +19,9 @@
 
 <!-- app js goes here -->
 <script src="dev/js/app.js"></script>
-<script src="dev/js/services/Auth.js"></script>
-<script src="dev/js/controllers/AuthController.js"></script>
-<script src="dev/js/controllers/HeaderController.js"></script>
+
+<script src="dev/js/Auth/AuthService.js"></script>
+<script src="dev/js/Auth/AuthController.js"></script>
 
 <!-- <script src="build/app.min.js"></script> -->
 

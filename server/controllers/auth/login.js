@@ -13,7 +13,6 @@ var Validator = require('./../../helpers/validator.js');
  *
  * @apiParam {String} email Users email address
  * @apiParam {String} password Users password
- * @apiParam (Query String) {String} [userid] user's id
  *
  * @apiSuccess {String} token JSON token
  * @apiSuccess {Number} user  id of the user
@@ -34,6 +33,12 @@ var Validator = require('./../../helpers/validator.js');
  *     }
  *
  * @apiError InvalidData Invalid <code>email and/or password</code>
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 422 Unproc­essable Entity
+ *     {
+ *       "error": "'Invalid email and/or password'"
+ *     }
  */
 function login (req, res, next) {
 
@@ -51,6 +56,7 @@ function login (req, res, next) {
         rules: ['required']
     });
 
+    // if the validator fails return messages
     if (!validator.validate()) {
         return res.status(422).send(validator.getErrors());
     }
@@ -58,15 +64,12 @@ function login (req, res, next) {
     // find user by email
     User.findOne({email: req.body.email}, function(err, user){
 
-        console.log('working');
-
-        // if user null return err
+        // if a user does not exist return error
         if(!user){
             res.status(404).send('No user found with that email');
         }
 
-        console.log('user is', user);
-
+        // compare users password to the password field
         user.comparePasswords(req.body.password, function(err, isMatch){
 
             // if passwords dont match return err
@@ -74,8 +77,10 @@ function login (req, res, next) {
                 return res.status(422).send('Invalid email and/or password');
             }
 
+            // generate a JWT token that contains the user object
             var token = tokenHelper.createToken(user);
 
+            // return the token and the user id
             return res.json({
                 token: token,
                 user: user._id

@@ -34,7 +34,6 @@ var User = new Schema({
 });
 
 User.pre('save', function (next) {
-    'use strict';
     var _user = this;
 
     if(!_user.isModified('password'))  {
@@ -60,7 +59,6 @@ User.pre('save', function (next) {
 });
 
 User.methods.comparePasswords = function (password, cb) {
-    'use strict';
     bcrypt.compare(password, this.password, function(err, isMatch){
         if(err) {
             return cb(err);

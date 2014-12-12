@@ -64,6 +64,10 @@ module.exports.post =  function uploadCtrl (req, res, next) {
 				// create thumbnail of image
 				lwip.open(projectDir + '/' + fileInfo.name, function (err, image) {
 
+					console.log('thumbnail image');
+
+					// , fileInfo.dimensions.height / fileInfo.dimensions.width * opts.thumbnail.width
+
 					if (image) {
 						image.batch()
 						.resize(opts.thumbnail.width, fileInfo.dimensions.height / fileInfo.dimensions.width * opts.thumbnail.width)

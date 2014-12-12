@@ -1,7 +1,6 @@
 var projectCtrl = require('./../controllers/project/index.js');
 
 module.exports =  function(app, router) {
-    'use strict';
 
     router
     .route('/projects')
@@ -10,6 +9,8 @@ module.exports =  function(app, router) {
 
     router
     .route('/projects/:projectid')
-    .get(projectCtrl.getProject);
+    .get(projectCtrl.getProject)
+    .delete(projectCtrl.removeProject);
+    // update project {PUT}
 
 };

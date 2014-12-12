@@ -4,8 +4,22 @@ var User = require('./../../models/user');
 var _ = require('underscore');
 
 
+/**
+ * @api {get} /api/projects Get projects
+ *
+ * @apiName Get users projects
+ * @apiGroup Projects
+ *
+ * @apiUse ProjectExample
+ *
+ * @apiPermission User
+ *
+ * @apiUse ProjectFields
+ *
+ * @apiUse NotAuthorized
+ *
+ */
 module.exports =  function (req, res, next) {
-
     // find the logged in user so project ID's
     // cen be retrieved
     User
@@ -42,7 +56,7 @@ module.exports =  function (req, res, next) {
 
                 // populate user objects on database
                 if(_.contains(fields, 'collaborators')){
-                    query.populate('collaborators', 'email');
+                    query.populate('collaborators', 'email username');
                 }
             }
 
