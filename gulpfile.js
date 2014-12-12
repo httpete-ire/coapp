@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var $ = plugins = require('gulp-load-plugins')();
 var path = require('path');
-var runSequence = require('run-sequence');
+// var runSequence = require('run-sequence');
 var browserSync = require('browser-sync');
 var mongobackup = require('mongobackup');
 
