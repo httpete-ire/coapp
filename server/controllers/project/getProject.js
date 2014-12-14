@@ -46,7 +46,7 @@ module.exports =  function (req, res, next) {
 
         // populate design list
         if(_.contains(fields, 'designs')){
-            projectQuery.populate('designs');
+            projectQuery.populate('designs', 'name img.thumbnail');
         }
     }
 

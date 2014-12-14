@@ -123,7 +123,13 @@ module.exports =  function newDesignCtrl (req, res, next) {
 
                     // insert new design into the project
                     Project.update({_id: req.project._id},
-                        {$addToSet : { designs : design._id}},
+                        {
+                            $addToSet : { designs : design._id},
+                            $set: {
+                                thumbnail: design.img.thumbnail
+                            }
+
+                        },
                         function (err) {
                             if (err) {
                                 return res.status(500);
