@@ -20,6 +20,7 @@ function ProjController(ProjFactory, $modal){
         //projFactory method getProjects()
         ProjFactory.getProjects()
             .then(function(data){
+                console.log(data);
                  _this.projects = data;
 
                     }, function(error){
@@ -27,11 +28,11 @@ function ProjController(ProjFactory, $modal){
 
                     });
 
+
     }//end of getAll
 
     //get the form inputs on submit and creates project with inputs
     _this.addProject = function(project){
-        project.collaborators = '5489c581dd18360563c1317a';
         //projFactory method addProject(p), takes a project as parameter
         ProjFactory.addProject(project)
             .then(function(data){

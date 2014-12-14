@@ -6,10 +6,12 @@ public/build
 
 
 .DS_Store
-public/.DS_Store
-public/dev/.DS_Store
+./public/.DS_Store
+./public/dev/.DS_Store
 
-public/media/uploads
+./public/media/uploads
+./public/media/tmp
 
-docs/api/
+
+./docs/api/
 

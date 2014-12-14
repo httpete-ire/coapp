@@ -11,7 +11,8 @@ var opts = {
     uploadsDir: './../../../public/media/uploads',
     tmpDir: './../../../public/media/tmp',
     thumbnail : {
-        width: 450
+        width: 450,
+        height: 257
     }
 };
 
@@ -72,6 +73,7 @@ module.exports =  function newDesignCtrl (req, res, next) {
                     if (image) {
                         image.batch()
                         .resize(opts.thumbnail.width, fileInfo.dimensions.height / fileInfo.dimensions.width * opts.thumbnail.width)
+                        .crop(0, 0, opts.thumbnail.width, opts.thumbnail.height)
                         .writeFile(projectDir + '/thumbnails/' + fileInfo.name , function (err){
                             if(err) {
                                 console.log(err);
@@ -121,23 +123,35 @@ module.exports =  function newDesignCtrl (req, res, next) {
                     console.log(err);
                 } else {
 
-                    // insert new design into the project
-                    Project.update({_id: req.project._id},
-                        {
-                            $addToSet : { designs : design._id},
-                            $set: {
-                                thumbnail: design.img.thumbnail
+                    Project.findOne({_id: req.project._id}, function (err, project) {
+                        if(err) {
+                            console.log(err);
+                        }
+
+                        if(!project) {
+                            return res.status(400).send('no project found');
+                        } else {
+
+                            // set thumbnail if the
+                            // design is the projects first
+                            if(!project.designs.length) {
+                                project.thumbnail = design.img.thumbnail
                             }
 
-                        },
-                        function (err) {
-                            if (err) {
-                                return res.status(500);
-                            } else {
-                                return res.send(201);
-                            }
+                            // add design to project
+                            project.designs.push(design._id);
+
+                            project.designCount = project.designs.length;
+
+                            project.save(function(err) {
+                                if(err) {
+                                    res.sendStatus(500);
+                                } else {
+                                    res.sendStatus(201);
+                                }
+                            });
                         }
-                    );
+                    });
 
                     // get project and add to design
                 }

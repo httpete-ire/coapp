@@ -13,10 +13,16 @@
                     <li class ="col-md-4" ng-repeat="proj in projectCtrl.projects track by $index">
                     <p>Name:  {{ proj.name }}  <br/>Descrption:  {{ proj.desc }}</p>
 
-                        <a href="#/projects/{{proj.id}}">
-                            <img ng-src="{{ proj.thumbnail }}" alt="" width="100%">
-                        </a>
+                        <div class="project-img">
+                            <a href="#/projects/{{proj.id}}">
+                                <img ng-src="{{ proj.thumbnail }}" alt="" width="100%">
+                            </a>
+
+                            <p>{{ proj.designCount }} designs</p>
+                        </div>
                             <button class="btn btn-danger" ng-click="projectCtrl.deleteProject(proj._id)">delete</button>
+
+
 
                        <!--  <ul>
                             <li ng-repeat="colab in proj.collaborators track by $index">
