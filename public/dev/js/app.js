@@ -1,14 +1,14 @@
 (function () {
     'use strict';
-
+    //main aoolication name: coapp. ngRoute for page routing
     var app = angular.module('coapp', ['ngRoute', 'ui.bootstrap']);
 
     app.config(["$routeProvider", "$httpProvider", function($routeProvider, $httpProvider){
 
+        //set template based on the url
         $routeProvider
         .when('/landing', {
             templateUrl: 'dev/js/views/landing.html',
-
             access:{
                 requiredLogin: false
             }
@@ -31,13 +31,19 @@
         })
         .when('/projects', {
             templateUrl: 'dev/js/views/Projects/list.html',
-            controller: 'projectController',
+            controller: 'ProjectsController',
             controllerAs: 'projectCtrl',
             access: {
                 requiredLogin: true
             }
+        })
+        .when('/projects/:project_id', {
+            templateUrl: 'dev/js/views/landing.html',
+
+            access:{
+                requiredLogin: false
+            }
         }).otherwise({
-          // redirectTo: '/login'
             redirectTo: '/landing'
         });
 

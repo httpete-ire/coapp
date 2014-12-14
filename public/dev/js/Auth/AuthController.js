@@ -83,7 +83,7 @@
 		};
 
 		 _this.logout = function () {
-            console.log("hgkh")
+
             AuthFactory.logout();
             $location.path('/login');
         }
