@@ -105,6 +105,8 @@ module.exports =  function newDesignCtrl (req, res, next) {
         // any errors send them to the user
         if (errors.length) {
             return res.status(400).send(errors[0]);
+        } else if (!fileInfo) {
+            return res.status(404).send('no file attached to form');
         } else {
 
             var design = new Design();
