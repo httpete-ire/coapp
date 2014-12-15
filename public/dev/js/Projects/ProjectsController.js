@@ -18,6 +18,7 @@ function ProjController(ProjFactory, $modal){
 
     _this.getProjectsAll = function(){
         //projFactory method getProjects()
+        // console.log(projFactory)
         ProjFactory.getProjects()
             .then(function(data){
                 console.log(data);

@@ -10,7 +10,7 @@ var coapp = angular.module('coapp');
                 //set up the promise object
                 var defer = $q.defer();
                 //get request to server for projects
-                $http.get('/api/projects?fields=name,desc,thumbnail,designCount')
+                $http.get('/api/projects?fields=name,desc,thumbnail,designCount,created')
                     //calback if succesfull or an error
                     .success(function(data){
                             defer.resolve(data);
@@ -21,6 +21,8 @@ var coapp = angular.module('coapp');
                     //return the promise object
                     return defer.promise;
             };
+
+
             //add a project to server with path and new project from controller
             proj.addProject = function(project){
 

@@ -38,8 +38,9 @@
             }
         })
         .when('/projects/:project_id', {
-            templateUrl: 'dev/js/views/landing.html',
-
+            templateUrl: 'dev/js/views/SingleProject/SingleProjectList.html',
+            controller: 'SingleProjectController',
+            controllerAs: 'SingProjectCtrl',
             access:{
                 requiredLogin: false
             }

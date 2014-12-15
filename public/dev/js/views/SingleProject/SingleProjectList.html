@@ -1,0 +1,54 @@
+<div class="container-fluid">
+    <div id="content-wrapper">
+        <div class="page-content">
+        <div class="row">
+        <!-- <button ng-click="SingProjectCtrl.openModal()">create project</button> -->
+        <!-- <button ng-click="SingProjectCtrl.open('lg')">create project</button>
+            <div class="col-xs-12">
+                <h1>Projects</h1>
+            </div> -->
+
+            <div class="row">
+                <h1>{{SingProjectCtrl.project.name}}</h1>
+                <ul class="list-unstyled">
+                    <li class ="col-md-4" ng-repeat="des in SingProjectCtrl.project.designs">
+                    <p>Name: {{ des.name}}   <br/>Description:  {{ des.desc }}</p>
+
+                    <div class="project-img">
+                        <!-- <a href="#/projects/{{proj.id}}"> -->
+                            <img ng-src="{{ des.img.thumbnail }}" alt="" width="100%">
+                        <!-- </a> -->
+
+                    </div>
+                            <button class="btn btn-danger" ng-click="SingProjectCtrl.deleteProject(proj._id)">delete</button>
+
+
+
+                       <!--  <ul>
+                            <li ng-repeat="colab in proj.collaborators track by $index">
+                                {{colab.username}}
+                            </li>
+                        </ul> -->
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+
+        <!-- add project form -->
+        <!-- <h2>Add Project</h2>
+        <form name="loginForm"  ng-submit="projectCtrl.addProject(projectCtrl.project)" role="form" class="col-md-4">
+            <div class="form-group">
+                <label for="exampleInputEmail1">name</label>
+                <input ng-model="projectCtrl.project.name" type="text" class="form-control" placeholder="Enter name">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Description</label>
+                <input ng-model="projectCtrl.project.desc" type="text" class="form-control"  placeholder="Description">
+            </div>
+            <button type="submit" class="btn btn-sm btn-primary">Add</button>
+        </form> -->
+        </div><!-- End Page Content -->
+    </div><!-- End Content Wrapper -->
+</div>

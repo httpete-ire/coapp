@@ -10,14 +10,23 @@
             <div class="col-xs-12">
                 <h1>Projects</h1>
             </div>
+            <select ng-model="orderProp" name="select">
+                <option  value="name">By Name</option>
+                <option value="-created">Latest</option>
+                <option selected value="created">Oldest</option>
+            </select>
 
+
+
+
+            <!-- <input ng-model="Name" type="text"> -->
             <div class="row">
                 <ul class="list-unstyled">
-                    <li class ="col-md-4" ng-repeat="proj in projectCtrl.projects track by $index">
+                    <li class ="col-md-4" ng-repeat="proj in projectCtrl.projects | orderBy: orderProp">
                     <p>Name:  {{ proj.name }}  <br/>Descrption:  {{ proj.desc }}</p>
 
                         <div class="project-img">
-                            <a href="#/projects/{{proj.id}}">
+                            <a href="#/projects/{{proj._id}}">
                                 <img ng-src="{{ proj.thumbnail }}" alt="" width="100%">
                             </a>
 
