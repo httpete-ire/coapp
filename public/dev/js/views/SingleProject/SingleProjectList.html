@@ -2,34 +2,25 @@
     <div id="content-wrapper">
         <div class="page-content">
         <div class="row">
-        <!-- <button ng-click="projectCtrl.openModal()">create project</button> -->
-        <button ng-click="projectCtrl.open('lg')">create project</button>
+        <!-- <button ng-click="SingProjectCtrl.openModal()">create project</button> -->
+        <!-- <button ng-click="SingProjectCtrl.open('lg')">create project</button>
             <div class="col-xs-12">
                 <h1>Projects</h1>
-            </div>
-            <select ng-model="orderProp" name="select">
-                <option  value="name">By Name</option>
-                <option value="-created">Latest</option>
-                <option selected value="created">Oldest</option>
-            </select>
+            </div> -->
 
-
-
-
-            <!-- <input ng-model="Name" type="text"> -->
             <div class="row">
+                <h1>{{SingProjectCtrl.project.name}}</h1>
                 <ul class="list-unstyled">
-                    <li class ="col-md-4" ng-repeat="proj in projectCtrl.projects | orderBy: orderProp">
-                    <p>Name:  {{ proj.name }}  <br/>Descrption:  {{ proj.desc }}</p>
+                    <li class ="col-md-4" ng-repeat="des in SingProjectCtrl.project.designs">
+                    <p>Name: {{ des.name}}   <br/>Description:  {{ des.desc }}</p>
 
-                        <div class="project-img">
-                            <a href="#/projects/{{proj._id}}">
-                                <img ng-src="{{ proj.thumbnail }}" alt="" width="100%">
-                            </a>
+                    <div class="project-img">
+                        <!-- <a href="#/projects/{{proj.id}}"> -->
+                            <img ng-src="{{ des.img.thumbnail }}" alt="" width="100%">
+                        <!-- </a> -->
 
-                            <p>{{ proj.designCount }} designs</p>
-                        </div>
-                            <button class="btn btn-danger" ng-click="projectCtrl.deleteProject(proj._id)">delete</button>
+                    </div>
+                            <button class="btn btn-danger" ng-click="SingProjectCtrl.deleteProject(proj._id)">delete</button>
 
 
 
@@ -46,7 +37,7 @@
 
 
         <!-- add project form -->
-        <h2>Add Project</h2>
+        <!-- <h2>Add Project</h2>
         <form name="loginForm"  ng-submit="projectCtrl.addProject(projectCtrl.project)" role="form" class="col-md-4">
             <div class="form-group">
                 <label for="exampleInputEmail1">name</label>
@@ -57,7 +48,7 @@
                 <input ng-model="projectCtrl.project.desc" type="text" class="form-control"  placeholder="Description">
             </div>
             <button type="submit" class="btn btn-sm btn-primary">Add</button>
-        </form>
+        </form> -->
         </div><!-- End Page Content -->
     </div><!-- End Content Wrapper -->
 </div>
