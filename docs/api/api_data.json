@@ -171,6 +171,191 @@
   },
   {
     "type": "post",
+    "url": "/api/projects/:projectid/designs",
+    "title": "Add design to specific project",
+    "name": "Add_new_design",
+    "group": "Designs",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Design name</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "File",
+            "optional": false,
+            "field": "file",
+            "description": "<p>Design image</p> "
+          }
+        ]
+      }
+    },
+    "permission": [
+      {
+        "name": "User"
+      }
+    ],
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "    HTTP/1.1 201 Created",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "server/controllers/design/newDesign.js",
+    "groupTitle": "Designs",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "InvalidData",
+            "description": "<p>The data provided was invalid</p> "
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "ProjectNotFound",
+            "description": "<p>The <code>id</code> of the Project was not found.</p> "
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NotAuthorized",
+            "description": "<p>You must be proved valid authentication details</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "    HTTP/1.1 422 Unproc­essable Entity\n    {\n      \"fieldName\": \"Error for specific field\"\n    }",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "    HTTP/1.1 404 Not Found\n    {\n      \"error\": \"No project found with that id\"\n    }",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "    HTTP/1.1 401 Unauthorized\n    {\n      \"error\": \"You must be authenticated to perform this action\"\n    }",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/api/designs/:designid",
+    "title": "Get single design",
+    "name": "Get_single_design",
+    "group": "Designs",
+    "permission": [
+      {
+        "name": "User"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "server/controllers/design/getDesign.js",
+    "groupTitle": "Designs",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NotAuthorized",
+            "description": "<p>You must be proved valid authentication details</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "    HTTP/1.1 401 Unauthorized\n    {\n      \"error\": \"You must be authenticated to perform this action\"\n    }",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "    URL /api/designs/548ef8e922dd71b66e1f8159\n\n    HTTP/1.1 200 OK\n    {\n          \"_id\": \"548ef8e922dd71b66e1f8158\",\n          \"project\": \"548df9fc5eb4153a562e3e00\",\n          \"owner\": \"5489c531dd18360563c13179\",\n          \"name\": \"Home Page\",\n          \"__v\": 0,\n          \"annotaion\": [ ],\n          \"img\": {\n              \"thumbnail\": Path to thumbnail img,\n              \"full\": Path to img\n          },\n          \"created\": \"2014-12-15T15:06:17.520Z\"\n     }",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Query String": [
+          {
+            "group": "Query String",
+            "type": "String",
+            "optional": false,
+            "field": "fields",
+            "description": "<p>fields to return                                   (sepearated by a comma)</p> "
+          }
+        ],
+        "Possible Fields": [
+          {
+            "group": "Possible Fields",
+            "type": "Object",
+            "optional": false,
+            "field": "project",
+            "description": "<p>Project that design belongs to</p> "
+          },
+          {
+            "group": "Possible Fields",
+            "type": "Object",
+            "optional": false,
+            "field": "owner",
+            "description": "<p>Owner of design</p> "
+          },
+          {
+            "group": "Possible Fields",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Name of design</p> "
+          },
+          {
+            "group": "Possible Fields",
+            "type": "Date",
+            "optional": false,
+            "field": "created",
+            "description": "<p>Date design was created</p> "
+          },
+          {
+            "group": "Possible Fields",
+            "type": "Object",
+            "optional": false,
+            "field": "img",
+            "description": "<p>Object that contains paths to imgs</p> "
+          },
+          {
+            "group": "Possible Fields",
+            "type": "Array",
+            "optional": false,
+            "field": "annotaion",
+            "description": "<p>List of annotaion objects                                     associated with the design</p> "
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "post",
     "url": "/api/projects",
     "title": "Add project",
     "name": "Add_new_project",

@@ -6,6 +6,7 @@ var fs = require('fs');
 var lwip = require('lwip');
 var path = require('path');
 var FileInfo = require('./../../helpers/FileInfo.js');
+var mkdirp = require('mkdirp');
 
 var opts = {
     uploadsDir: './../../../public/media/uploads',
@@ -16,8 +17,26 @@ var opts = {
     }
 };
 
-var mkdirp = require('mkdirp');
-
+/**
+ * @api {post} /api/projects/:projectid/designs Add design to specific project
+ *
+ * @apiName Add new design
+ * @apiGroup Designs
+ *
+ * @apiParam {String} name Design name
+ * @apiParam {File} file Design image
+ *
+ * @apiPermission User
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 201 Created
+ *
+ * @apiUse InvalidData
+ *
+ * @apiUse ProjectNotFound
+ *
+ * @apiUse NotAuthorized
+ */
 module.exports =  function newDesignCtrl (req, res, next) {
 
     var form = new formidable.IncomingForm();
