@@ -3,6 +3,9 @@
         <div class="page-content">
         <div class="row">
         <!-- <button ng-click="projectCtrl.openModal()">create project</button> -->
+        <my-modal name='RedBull' data="breakfast@redbull.com" instance_template="addproject" use_ctrl="ProjectsController">
+                                    Add project <!--because of transclusion this will be included inside of the anchor tag in the directive's transcusion tag -->
+        </my-modal>
         <button ng-click="projectCtrl.open('lg')">create project</button>
             <div class="col-xs-12">
                 <h1>Projects</h1>
