@@ -80,9 +80,9 @@
 
             $rootScope.isLoggedIn = AuthenticationFactory.isLogged;
 
-            console.log($location.path().slice(0, 9));
+            console.log($location.path().slice(0, 7));
 
-            if($location.path().slice(0, 6) === '/design') {
+            if($location.path().slice(0, 7) === '/design') {
                 $rootScope.designPage = true;
             } else {
                 $rootScope.designPage = false;
