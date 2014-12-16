@@ -29,37 +29,10 @@ function ProjController(ProjFactory, $scope){
 
     }//end of getAll
 
-    //get the form inputs on submit and creates project with inputs
-    _this.addProject = function(project){
-        //projFactory method addProject(p), takes a project as parameter
-        ProjFactory.addProject(project)
-            .then(function(data){
-                 _this.projects = data;
-                 _this.getProjectsAll();//to refresh page to get all projects
-                 _this.project = null;//to set the form back to blank
-                    }, function(error){
-                        _this.Projects = {};
-
-                    });
-
-    }//end of addProject
-
-    //gets id of project from button click, and passes the id to the service
-    _this.deleteProject = function(id){
-        console.log("controller " +id);
-        ProjFactory.deleteProject(id)
-        .then(function(data){
-                 _this.projects = data;
-                 _this.getProjectsAll();//to refresh page to get all projects
-                    }, function(error){
-                        _this.Projects = {};
-
-                    });
-    }//end of deleteProject
-
     //get all projects whe loaded
     _this.getProjectsAll();
 
+    // listen for event and load page
     $scope.$on('project-change', function(e){
         _this.getProjectsAll();
     });
@@ -103,15 +76,14 @@ function ProjectModalController ($scope, $modalInstance, object, ProjFactory, $r
     };
 
     $scope.deleteProject = function(id){
-
         ProjFactory.deleteProject(id)
         .then(function(data){
             $modalInstance.dismiss('cancel');
-
             $rootScope.$broadcast('project-change');
-                    }, function(error){
-
-                    });
+            }, function(error){
+                // alert boxes
+            }
+        );
     };
 
 }
