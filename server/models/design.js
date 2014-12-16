@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
-var Annotaion = require('./annotation.js');
+var Annotation = require('./annotation.js');
 
 var Design = new Schema({
     name: {
@@ -32,7 +32,7 @@ var Design = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Project'
     },
-    annotaions: [Annotaion.schema]      // annotaion sub document
+    annotations: [Annotation.schema]      // annotaion sub document
 });
 
 module.exports =  mongoose.model('Design', Design);

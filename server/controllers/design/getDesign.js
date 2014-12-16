@@ -32,6 +32,14 @@ module.exports =  function getDesign (req, res, next) {
         // join the array to build a string
         designQuery.select(fields.join(' '));
 
+        if(_.contains(fields, 'owner')){
+            designQuery.populate('owner', 'email username');
+        }
+
+        if(_.contains(fields, 'annotaions')){
+            designQuery.populate('annotaions.owner', 'email username');
+        }
+
     }
 
     designQuery

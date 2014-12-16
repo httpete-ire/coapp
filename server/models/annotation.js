@@ -5,6 +5,10 @@ var Annotaion = new Schema({
     body: {
         type: String
     },
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
      created: {
         type: Date,
         default: Date.now

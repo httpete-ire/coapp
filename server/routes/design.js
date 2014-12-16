@@ -9,6 +9,6 @@ module.exports =  function(app, router) {
 
     router
     .route('/designs/:designid/annotations')
-    .post(designCtrl.designMiddleware, designCtrl.newAnnotation);
+    .post(designCtrl.newAnnotation);
 
 };
