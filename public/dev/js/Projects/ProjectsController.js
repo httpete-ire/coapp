@@ -1,20 +1,17 @@
 (function(){
 
 angular.module('coapp')
-.controller('ProjectsController', ProjController);
+.controller('ProjectsController', ProjController)
+.controller('ProjectModalController', ProjectModalController);
 /**
  * @ngInject
  */
 //projFactory is project service for http requests, projFactory methods can now be called
-function ProjController(ProjFactory, $modal){
+function ProjController(ProjFactory, $scope){
 
     var _this = this;
 
     _this.projects = [];
-
-    var modalInstance = 'test';
-
-
 
     _this.getProjectsAll = function(){
         //projFactory method getProjects()
@@ -60,22 +57,55 @@ function ProjController(ProjFactory, $modal){
                     });
     }//end of deleteProject
 
+    _this.ok = function(){
+        $modalInstance.close();
+    };
 
-    _this.open = function (size) {
-        // _this.openModal = function ($modal){
-
-        modalInstance = $modal.open({
-            templateUrl: '/dev/js/views/Projects/addProjectModal.html'
-        });
-
-    }
+    _this.cancel = function () {
+        console.log('tsfdfsd');
+        $modalInstance.dismiss('cancel');
+    };
 
 
     //get all projects whe loaded
     _this.getProjectsAll();
 
-}
-ProjController.$inject = ["ProjFactory",'$modal'];
+    $scope.$on('project-change', function(e){
+        _this.getProjectsAll();
+    });
 
+}
+ProjController.$inject = ["ProjFactory", '$scope'];
+
+/**
+ * @ngInject
+ */
+function ProjectModalController ($scope, $modalInstance, object, ProjFactory, $rootScope) {
+
+    $scope.object = object;
+
+    $scope.ok = function(){
+        $modalInstance.close();
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+
+    $scope.addProject = function (project) {
+        ProjFactory.addProject(project)
+                    .then(function(data){
+                        // closes modal if project added
+                        $modalInstance.dismiss('cancel');
+
+                        $rootScope.$broadcast('project-change');
+
+                        $scope.project = null;//to set the form back to blank
+                    }, function(error){
+                        console.log(error);
+                    });
+    };
+
+}
 
 })();

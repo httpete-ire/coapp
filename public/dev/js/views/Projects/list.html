@@ -2,11 +2,12 @@
     <div id="content-wrapper">
         <div class="page-content">
         <div class="row">
-        <!-- <button ng-click="projectCtrl.openModal()">create project</button> -->
-        <my-modal name='RedBull' data="breakfast@redbull.com" instance_template="addproject" use_ctrl="ProjectsController">
-                                    Add project <!--because of transclusion this will be included inside of the anchor tag in the directive's transcusion tag -->
-        </my-modal>
-        <button ng-click="projectCtrl.open('lg')">create project</button>
+
+
+            <button ng-click="projectCtrl.open('lg')">create project</button>
+
+            <modal template="addproject" ctrl="ProjectModalController" ctrlAs="projectModalCtrl" objectId="12345">New Project</modal>
+
             <div class="col-xs-12">
                 <h1>Projects</h1>
             </div>
@@ -33,6 +34,8 @@
                             <p>{{ proj.designCount }} designs</p>
                         </div>
                             <button class="btn btn-danger" ng-click="projectCtrl.deleteProject(proj._id)">delete</button>
+
+                            <modal template="deleteProject" ctrl="ProjectModalController" id="{{proj._id}}" name="{{proj.name}}" size=" ">delete</modal>
 
 
 

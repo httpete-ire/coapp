@@ -1,23 +1,16 @@
-
-<div class="modal-header">
-    <h2>The title</h2>
-</div>
 <div class="modal-body">
-    <form name="ProjectForm"  ng-submit="projModalCtrl.addProject(projModalCtrl.project)" role="form">
-            <div class="form-group">
-                <label for="exampleInputEmail1">name</label>
-                <input ng-model="projModalCtrl.project.name" type="text" class="form-control"  placeholder="Enter name">
-            </div>
-
-            <div class="form-group">
-                <label for="exampleInputEmail1">desc</label>
-                <input ng-model="projModalCtrl.project.desc" type="text" class="form-control"  placeholder="Enter desc">
-            </div>
-
-              <button type="submit" class="btn btn-sm btn-default">ADd projects</button>
-                <!-- {{regCtrl.user.email}} -->
-        </form>
+            <form name="loginForm"  ng-submit="addProject(project)" role="form" class="col-md-4">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">name</label>
+                    <input ng-model="project.name" type="text" class="form-control" placeholder="Enter name">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Description</label>
+                    <input ng-model="project.desc" type="text" class="form-control"  placeholder="Description">
+                </div>
+                <button type="submit" class="btn btn-sm btn-primary">Add</button>
+            </form>
 </div>
 <div class="modal-footer">
-    <button class="btn" ng-click="projModalCtrl.cancel()">Close</button>
+    <button class="btn" ng-click="cancel()">Close</button>
 </div>
