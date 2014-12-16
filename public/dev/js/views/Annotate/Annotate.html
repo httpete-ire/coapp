@@ -11,9 +11,9 @@
                         <p>Name: {{ des.name}}   <br/>Description:  {{ des.desc }}</p> -->
 
                         <div class="project-img">
-                            <!-- <a href="#/projects/{{proj.id}}"> -->
-                                <img ng-src="{{ AnnotateCtrl.design.img.full }}" alt="" width="100%">
-                            <!-- </a> -->
+
+                                <img ng-src="{{ AnnotateCtrl.design.img.full }}" alt="" width="100%" ng-click="AnnotateCtrl.annotate($event)">
+
 
                         </div>
                            <!--  <button class="btn btn-danger" ng-click="AnnotateCtrl.deleteProject(proj._id)">delete</button> -->

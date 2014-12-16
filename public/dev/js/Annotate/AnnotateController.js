@@ -26,9 +26,28 @@
                     });
         }
 
+        _this.annotate = function(e) {
+            var mouse = getMouse(e);
+
+            console.log(mouse);
+        };
+
+
+
+
 
 
          _this.getDesign();
+
+    }
+
+    function getMouse(e) {
+        var target = e.target.getBoundingClientRect();
+
+        return {
+            x: e.clientX - target.left,
+            y: e.clientY - target.top
+        };
 
     }
 
