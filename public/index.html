@@ -6,7 +6,10 @@
     <!-- CSS goes here -->
     <link rel="stylesheet" href="build/main.css">
 </head>
-<body ng-class="{ 'table-image' : !isLoggedIn}">
+<body ng-class="{
+    'table-image' : !isLoggedIn,
+    'design-page' : designPage
+    }">
 
     <!-- if logged in include sidebar -->
     <div ng-if="isLoggedIn" ng-include="'dev/js/views/sidebar.html'"></div>

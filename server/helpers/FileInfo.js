@@ -8,6 +8,7 @@ var sizeOf = require('image-size');
 function FileInfo (file, opt) {
     console.log(file);
   this.name = file.name;
+  this.designName = createName(file.name);
   this.size = file.size;
   this.type = file.type;
   this.dimensions = sizeOf(file.path);
@@ -68,4 +69,9 @@ FileInfo.prototype.validate = function() {
     };
 };
 
+function createName(name) {
+    var newName = name.replace(/-/g, ' ');
+
+    return newName.charAt(0).toUpperCase() + newName.slice(1, newName.indexOf('.'));
+}
 module.exports =  FileInfo;

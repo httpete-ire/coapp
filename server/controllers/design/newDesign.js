@@ -130,7 +130,7 @@ module.exports =  function newDesignCtrl (req, res, next) {
 
             var design = new Design();
 
-            design.name = fields['name'];
+            design.name = fileInfo.designName || fileInfo.name;
 
             design.img.full = fileInfo.url;
             design.img.thumbnail = fileInfo.thumbnailUrl;

@@ -7,5 +7,8 @@ module.exports =  function(app, router) {
     .get(designCtrl.getDesign);
 
 
+    router
+    .route('/designs/:designid/annotations')
+    .post(designCtrl.designMiddleware, designCtrl.newAnnotation);
 
 };

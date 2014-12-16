@@ -80,7 +80,13 @@
 
             $rootScope.isLoggedIn = AuthenticationFactory.isLogged;
 
-            console.log($location.path() === '/landing');
+            console.log($location.path().slice(0, 9));
+
+            if($location.path().slice(0, 6) === '/design') {
+                $rootScope.designPage = true;
+            } else {
+                $rootScope.designPage = false;
+            }
 
             if (AuthenticationFactory.isLogged &&
                 ($location.path() === '/login' || $location.path() === '/landing' || $location.path() === '/register')){
