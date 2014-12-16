@@ -57,16 +57,6 @@ function ProjController(ProjFactory, $scope){
                     });
     }//end of deleteProject
 
-    _this.ok = function(){
-        $modalInstance.close();
-    };
-
-    _this.cancel = function () {
-        console.log('tsfdfsd');
-        $modalInstance.dismiss('cancel');
-    };
-
-
     //get all projects whe loaded
     _this.getProjectsAll();
 
@@ -82,6 +72,10 @@ ProjController.$inject = ["ProjFactory", '$scope'];
  */
 function ProjectModalController ($scope, $modalInstance, object, ProjFactory, $rootScope) {
 
+
+    // todo
+    // alerts in modals
+
     $scope.object = object;
 
     $scope.ok = function(){
@@ -93,6 +87,7 @@ function ProjectModalController ($scope, $modalInstance, object, ProjFactory, $r
     };
 
     $scope.addProject = function (project) {
+
         ProjFactory.addProject(project)
                     .then(function(data){
                         // closes modal if project added
@@ -103,6 +98,19 @@ function ProjectModalController ($scope, $modalInstance, object, ProjFactory, $r
                         $scope.project = null;//to set the form back to blank
                     }, function(error){
                         console.log(error);
+                    });
+
+    };
+
+    $scope.deleteProject = function(id){
+
+        ProjFactory.deleteProject(id)
+        .then(function(data){
+            $modalInstance.dismiss('cancel');
+
+            $rootScope.$broadcast('project-change');
+                    }, function(error){
+
                     });
     };
 
