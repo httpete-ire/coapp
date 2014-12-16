@@ -6,7 +6,7 @@
 
 
 
-    function SingProjCtrl(SingProjFactory){
+    function SingProjCtrl(SingProjFactory, $scope, $upload){
 
         _this = this;
         _this.project = {};
@@ -26,9 +26,24 @@
                     });
         }
 
+        _this.onFileSelect = function($files) {
+
+            var file = $files[0];
+
+            $scope.upload = SingProjFactory
+                            .upload(file)
+                            .then(function(data){
+                                setTimeout(function(){
+                                    _this.getProjectDesigns();
+                                },500);
+                            });
+
+        };
+
          _this.getProjectDesigns();
 
-
     }
-SingProjCtrl.$inject = ["SingProjFactory",'$modal'];
+
+    SingProjCtrl.$inject = ["SingProjFactory",'$scope', '$upload'];
+
 })();

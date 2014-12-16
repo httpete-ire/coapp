@@ -1,7 +1,7 @@
 (function () {
     'use strict';
     //main aoolication name: coapp. ngRoute for page routing
-    var app = angular.module('coapp', ['ngRoute', 'ui.bootstrap']);
+    var app = angular.module('coapp', ['ngRoute', 'ui.bootstrap', 'angularFileUpload']);
 
     app.config(["$routeProvider", "$httpProvider", function($routeProvider, $httpProvider){
 

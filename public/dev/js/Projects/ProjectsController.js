@@ -3,6 +3,7 @@
 angular.module('coapp')
 .controller('ProjectsController', ProjController)
 .controller('ProjectModalController', ProjectModalController);
+
 /**
  * @ngInject
  */

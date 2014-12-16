@@ -40,3 +40,19 @@ html, body {
 .container-fluid {
     margin-left: 250px // push container away from sidebar
 }
+
+.drop-box {
+    border-radius: 3px;
+    border: 2px solid #5DABE1;
+    height: 250px;
+}
+
+.dragover {
+    background: green !important;
+}
+
+.dragover-err {
+    background: red !important;
+}
+
+
