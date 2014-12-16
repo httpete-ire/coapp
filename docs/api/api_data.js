@@ -171,6 +171,67 @@ define({ "api": [
   },
   {
     "type": "post",
+    "url": "/api/designs/:designid/annotaions",
+    "title": "Add new annotaion",
+    "name": "Add_annotaion_to_design",
+    "group": "Designs",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "body",
+            "description": "<p>Body of message</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "x",
+            "description": "<p>x position of message</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "y",
+            "description": "<p>y position of message</p> "
+          }
+        ]
+      }
+    },
+    "permission": [
+      {
+        "name": "User"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "server/controllers/design/newAnnotation.js",
+    "groupTitle": "Designs",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NotAuthorized",
+            "description": "<p>You must be proved valid authentication details</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "    HTTP/1.1 401 Unauthorized\n    {\n      \"error\": \"You must be authenticated to perform this action\"\n    }",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "post",
     "url": "/api/projects/:projectid/designs",
     "title": "Add design to specific project",
     "name": "Add_new_design",
