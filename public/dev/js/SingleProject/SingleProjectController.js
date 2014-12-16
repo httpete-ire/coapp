@@ -33,9 +33,7 @@
             $scope.upload = SingProjFactory
                             .upload(file)
                             .then(function(data){
-                                setTimeout(function(){
-                                    _this.getProjectDesigns();
-                                },500);
+                                _this.getProjectDesigns();
                             });
 
         };
