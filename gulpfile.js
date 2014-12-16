@@ -13,7 +13,8 @@ var paths = {
     client: {
         js: './public/dev/js',
         app: './public/dev/js/**/*.js',
-        sass: './public/dev/sass/*.scss'
+        sass: './public/dev/sass/**/*.scss',
+        font: './public/dev/lib/fontawesome/fonts/**.*'
     },
     server : {
         js: './server/**/*.js',
@@ -147,6 +148,11 @@ gulp.task('restore', function() {
     drop : true,
     path : './dbdump/coapp'
   });
+});
+
+gulp.task('icons', function() { 
+    return gulp.src(paths.client.font)
+        .pipe(gulp.dest('./public/build/fonts')); 
 });
 
 

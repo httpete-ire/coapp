@@ -7,7 +7,17 @@
 display: none !important;
 }
 
+// override modals
+@import './partials/_modals.scss';
+
+// variables
+@import './_variables.scss';
+
+
+
 @import './../lib/bootstrap-sass-official/assets/stylesheets/_bootstrap';
+@import './../lib/fontawesome/scss/font-awesome';
+
 
 html, body {
     height: 100%;
@@ -34,8 +44,7 @@ html, body {
 .center { float: none; margin-left: auto; margin-right: auto; }
 
 @import './partials/_sidebar.scss';
-// @import './partials/_projects.scss';
-
+@import './partials/_drag.scss';
 
 .container-fluid {
     margin-left: 250px // push container away from sidebar
@@ -44,19 +53,3 @@ html, body {
 .design-page  .container-fluid{
     margin-left: 100px;
 }
-
-.drop-box {
-    border-radius: 3px;
-    border: 2px solid #5DABE1;
-    height: 250px;
-}
-
-.dragover {
-    background: green !important;
-}
-
-.dragover-err {
-    background: red !important;
-}
-
-

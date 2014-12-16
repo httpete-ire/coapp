@@ -1,8 +1,12 @@
-<div class="modal-footer">
+<div class="modal-body modal-center">
 
-    <p>Are you sure you want to delte {{object.name}}</p>
+    <h5>Are you sure you want to delete {{object.name}} ?</h5>
 
-    <button class="btn" ng-click="deleteProject(object.id)">delete</button>
+    <i class="fa fa-paypal"></i>
 
-    <button class="btn" ng-click="cancel()">Close</button>
 </div>
+
+<ul class="modal-delete clearfix">
+    <li class="modal-delete--btns danger" ng-click="deleteProject(object.id)">Yes</li>
+    <li class="modal-delete--btns cancel" ng-click="cancel()">No</li>
+</ul>

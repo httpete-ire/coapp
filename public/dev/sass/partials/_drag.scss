@@ -1,0 +1,31 @@
+$border: 3px;
+$drag-color: #d6d6d6;
+
+.drop-box {
+    border-radius: 3px;
+    border: $border dashed $drag-color;
+    height: 250px;
+}
+
+.dragover {
+    border: $border dashed $emerald;
+}
+
+.dragover-err {
+    border: $border dashed $red;
+}
+
+.drag-container {
+    text-align: center;
+    color: $drag-color;
+    margin-top: 45px;
+
+    // set fontsize of icon
+    .fa {
+
+
+        font: {
+            size: 100px;
+        }
+    }
+}

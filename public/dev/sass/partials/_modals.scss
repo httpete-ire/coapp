@@ -1,0 +1,41 @@
+$modal-content-bg: #f4f4f4;
+$modal-sm: 450px;
+$modal-backdrop-bg: #232b2d;
+$modal-backdrop-opacity: 0.75;
+$modal-inner-padding: 25px;
+
+.modal-delete {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-align: center;
+    color: #f4f4f4;
+
+    &--btns {
+        width: 50%;
+        float: left;
+        padding: 20px 0;
+        cursor: pointer;
+    }
+
+}
+
+.danger {
+    background: #D66666;
+}
+
+.cancel {
+    background: #39464A;
+}
+
+.modal-center {
+    text-align: center;
+}
+
+.modal-content {
+    overflow: hidden;
+
+    p {
+        margin-bottom: 0;
+    }
+}
