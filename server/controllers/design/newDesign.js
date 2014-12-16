@@ -47,6 +47,8 @@ module.exports =  function newDesignCtrl (req, res, next) {
     var errors = [], // errors
         fields = {};
 
+    var fileCount = 1;
+
     var projectDir = '';   // expose projectDir
 
     // set ulpoads file
@@ -97,6 +99,9 @@ module.exports =  function newDesignCtrl (req, res, next) {
                             if(err) {
                                 console.log(err);
                                 errors.push(err);
+                            } else {
+                                fileCount--;
+                                finish();
                             }
                         });
                     }
@@ -115,71 +120,77 @@ module.exports =  function newDesignCtrl (req, res, next) {
     });
 
     form.on('end', function () {
-
-        // generate urls for images
-        if(fileInfo) {
-            fileInfo.urls(req);
-        }
-
-        // any errors send them to the user
-        if (errors.length) {
-            return res.status(400).send(errors[0]);
-        } else if (!fileInfo) {
-            return res.status(404).send('no file attached to form');
-        } else {
-
-            var design = new Design();
-
-            design.name = fileInfo.designName || fileInfo.name;
-
-            design.img.full = fileInfo.url;
-            design.img.thumbnail = fileInfo.thumbnailUrl;
-
-            design.owner = req.user._id;
-
-            design.project = req.project._id;
-
-            design.save(function(err){
-                if(err) {
-                    console.log(err);
-                } else {
-
-                    Project.findOne({_id: req.project._id}, function (err, project) {
-                        if(err) {
-                            console.log(err);
-                        }
-
-                        if(!project) {
-                            return res.status(400).send('no project found');
-                        } else {
-
-                            // set thumbnail if the
-                            // design is the projects first
-                            if(!project.designs.length) {
-                                project.thumbnail = design.img.thumbnail
-                            }
-
-                            // add design to project
-                            project.designs.push(design._id);
-
-                            project.designCount = project.designs.length;
-
-                            project.save(function(err) {
-                                if(err) {
-                                    res.sendStatus(500);
-                                } else {
-                                    res.sendStatus(201);
-                                }
-                            });
-                        }
-                    });
-
-                    // get project and add to design
-                }
-            });
-        }
-
+        finish();
     });
 
     form.parse(req);
+
+    // if all files are downloaded and thumbnials created then save to db
+    function finish() {
+
+        if (!fileCount) {
+            // generate urls for images
+            if(fileInfo) {
+                fileInfo.urls(req);
+            }
+
+            // any errors send them to the user
+            if (errors.length) {
+                return res.status(400).send(errors[0]);
+            } else if (!fileInfo) {
+                return res.status(404).send('no file attached to form');
+            } else {
+
+                var design = new Design();
+
+                design.name = fileInfo.designName || fileInfo.name;
+
+                design.img.full = fileInfo.url;
+                design.img.thumbnail = fileInfo.thumbnailUrl;
+
+                design.owner = req.user._id;
+
+                design.project = req.project._id;
+
+                design.save(function(err){
+                    if(err) {
+                        console.log(err);
+                    } else {
+
+                        Project.findOne({_id: req.project._id}, function (err, project) {
+                            if(err) {
+                                console.log(err);
+                            }
+
+                            if(!project) {
+                                return res.status(400).send('no project found');
+                            } else {
+
+                                // set thumbnail if the
+                                // design is the projects first
+                                if(!project.designs.length) {
+                                    project.thumbnail = design.img.thumbnail
+                                }
+
+                                // add design to project
+                                project.designs.push(design._id);
+
+                                project.designCount = project.designs.length;
+
+                                project.save(function(err) {
+                                    if(err) {
+                                        res.sendStatus(500);
+                                    } else {
+                                        res.sendStatus(201);
+                                    }
+                                });
+                            }
+                        });
+
+                        // get project and add to design
+                    }
+                });
+            }
+        }
+    }
 };
