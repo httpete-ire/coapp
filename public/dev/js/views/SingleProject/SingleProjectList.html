@@ -15,9 +15,9 @@
                     <p>Name: {{ des.name}}   <br/>Description:  {{ des.desc }}</p>
 
                     <div class="project-img">
-                        <!-- <a href="#/projects/{{proj.id}}"> -->
+                        <a href="#/design/{{des._id}}">
                             <img ng-src="{{ des.img.thumbnail }}" alt="" width="100%">
-                        <!-- </a> -->
+                        </a>
 
                     </div>
                             <button class="btn btn-danger" ng-click="SingProjectCtrl.deleteProject(proj._id)">delete</button>

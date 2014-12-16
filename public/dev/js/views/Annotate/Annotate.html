@@ -1,0 +1,24 @@
+<div class="container-fluid">
+    <div id="content-wrapper">
+        <div class="page-content">
+            <div class="row">
+
+                <div class="row">
+                <a href="#/projects/{{AnnotateCtrl.design.project}}"> Back</a>
+                    <h1>{{AnnotateCtrl.design.name}}</h1>
+                    <ul class="list-unstyled">
+                        <!-- <li class ="col-md-4" ng-repeat="des in AnnotateCtrl.project.designs">
+                        <p>Name: {{ des.name}}   <br/>Description:  {{ des.desc }}</p> -->
+
+                        <div class="project-img">
+                            <!-- <a href="#/projects/{{proj.id}}"> -->
+                                <img ng-src="{{ AnnotateCtrl.design.img.full }}" alt="" width="100%">
+                            <!-- </a> -->
+
+                        </div>
+                           <!--  <button class="btn btn-danger" ng-click="AnnotateCtrl.deleteProject(proj._id)">delete</button> -->
+                </div>
+            </div>
+        </div><!-- End Page Content -->
+    </div><!-- End Content Wrapper -->
+</div>

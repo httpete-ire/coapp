@@ -44,6 +44,14 @@
             access:{
                 requiredLogin: false
             }
+        })
+        .when('/design/:design_id', {
+            templateUrl: 'dev/js/views/Annotate/Annotate.html',
+            controller: 'AnnotateController',
+            controllerAs: 'AnnotateCtrl',
+            access:{
+                requiredLogin: false
+            }
         }).otherwise({
             redirectTo: '/landing'
         });
