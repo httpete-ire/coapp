@@ -7,15 +7,52 @@
                 <a href="#/projects/{{AnnotateCtrl.design.project}}"> Back</a>
                     <h1>{{AnnotateCtrl.design.name}}</h1>
                         <div class="design-img">
-                            <img ng-src="{{ AnnotateCtrl.design.img.full }}" ng-click="AnnotateCtrl.annotate($event)">
+                            <img ng-src="{{ AnnotateCtrl.design.img.full }}" ng-click="AnnotateCtrl.annotate($event)" class="design--full-img">
                              <ul>
-                                <li ng-repeat="mark in AnnotateCtrl.design.annotations">
+                                <!-- <li ng-repeat="mark in AnnotateCtrl.design.annotations">
 
 
                                     <span ng-style="{ 'background' : mark.circle.color, 'top':mark.circle.y + 'px', 'left':mark.circle.x + 'px'}"class="marks"></span>
 
+                                </li> -->
+
+                                <li
+                                ng-repeat="mark in AnnotateCtrl.design.annotations track by $index"
+                                class="cd-single-point"
+                                ng-style="{ 'background' : mark.circle.color, 'top':mark.circle.y + 'px', 'left':mark.circle.x + 'px'}"
+                                ng-class="{'is-open': AnnotateCtrl.openComment && $index === AnnotateCtrl.commentSelected}"
+                                ng-mouseleave="AnnotateCtrl.toggleComments($index)">
+
+                                    <a class="cd-img-replace" ng-mouseenter="AnnotateCtrl.toggleComments($index)">More</a>
+                                    <div class="cd-more-info cd-left">
+
+                                        <p>{{mark.body}}</p>
+                                       <div class="form-group">
+                                           <input type="text">
+                                       </div>
+                                        <a href="#0" class="cd-close-info cd-img-replace">Close</a>
+                                    </div>
+                                </li>
+
+                                <li  ng-if="AnnotateCtrl.newAnnotation" ng-style="{ 'background' : AnnotateCtrl.newAnnotation.circle.color, 'top':AnnotateCtrl.newAnnotation.circle.y - 15 + 'px', 'left':AnnotateCtrl.newAnnotation.circle.x - 15 + 'px'}" class="cd-single-point is-open">
+
+                                <a class="cd-img-replace" ng-mouseenter="AnnotateCtrl.toggleComments($index)">More</a>
+
+                                <div
+                                    class="cd-more-info"
+                                    ng-class="AnnotateCtrl.checkCoords(AnnotateCtrl.newAnnotation.circle.x, 500) ? 'cd-left' : 'cd-right'"
+                                >
+
+                                    <p>{{mark.body}}</p>
+                                   <div class="form-group">
+                                       <input type="text">
+                                   </div>
+                                    <a href="#0" class="cd-close-info cd-img-replace">Close</a>
+                                </div>
                                 </li>
                             </ul>
+
+                            <h1>{{AnnotateCtrl.height}}</h1>
                 </div>
             </div>
         </div><!-- End Page Content -->
@@ -23,13 +60,4 @@
 </div>
 
 
-<!-- <li class="cd-single-point" style="top: 250px; right:500px;">
-    <a class="cd-img-replace" href="#0">More</a>
-    <div class="cd-more-info cd-top">
-        <h2>Title</h2>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae distinctio esse placeat minus fugit, voluptate, quos, ea, nisi temporibus repudiandae perspiciatis natus quasi ipsa corrupti ipsum amet facere ut nihil.
-        </p>
-        <a href="#0" class="cd-close-info cd-img-replace">Close</a>
-    </div>
-</li> <!-- .cd-single-point --> -->
+ <!-- .cd-single-point -->
