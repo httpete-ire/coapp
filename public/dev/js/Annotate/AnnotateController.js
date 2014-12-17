@@ -17,9 +17,9 @@
 
             .then(function(data){
                 console.log("returned data: ");
-                console.log(data);
+                // console.log(data.annotations);
                  _this.design = data;
-
+                    console.log(_this.design.annotations);
                     }, function(error){
                         _this.design = {};
 
