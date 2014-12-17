@@ -28,7 +28,15 @@
 
         _this.annotate = function(e) {
             var mouse = getMouse(e);
-
+            console.log(_this.design.annotations);
+            if(_this.design.annotations){
+                var mark = {};
+                mark.circle = {};
+                mark.circle.x = mouse.x;
+                mark.circle.y = mouse.y;
+                mark.circle.color = "#000";
+                _this.design.annotations.push(mark);
+            }
             console.log(mouse);
         };
 
