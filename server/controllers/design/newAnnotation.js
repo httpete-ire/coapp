@@ -31,13 +31,13 @@ module.exports =  function newAnnotation (req, res, next) {
 
     validator.addRule({
         field: 'x postition',
-        value: req.body.x,
+        value: req.body.circle.x,
         rules: ['required']
     });
 
     validator.addRule({
         field: 'y postition',
-        value: req.body.y,
+        value: req.body.circle.y,
         rules: ['required']
     });
 
@@ -64,8 +64,8 @@ module.exports =  function newAnnotation (req, res, next) {
                             created: Date.now(),
                             isTask: false,
                             circle: {
-                                x: req.body.x,
-                                y: req.body.y
+                                x: req.body.circle.x,
+                                y: req.body.circle.y
                             }
                         });
 

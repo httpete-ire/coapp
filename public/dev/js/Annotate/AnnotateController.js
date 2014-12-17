@@ -52,7 +52,16 @@
         }
 
         _this.addAnnotation = function(annotation) {
-            console.log(annotation);
+            AnnotateFactory
+                .addAnnotation(annotation)
+                .then(function(data){
+                    _this.newAnnotation = null;
+                    _this.getDesign();
+                });
+        }
+
+        _this.clearForm = function () {
+            _this.newAnnotation = null;
         }
 
          _this.getDesign();

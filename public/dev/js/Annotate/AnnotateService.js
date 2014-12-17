@@ -37,7 +37,7 @@
                 defer.reject(err);
             })
 
-            return defer.promise.
+            return defer.promise;
         }
 
 
