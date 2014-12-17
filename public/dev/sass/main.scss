@@ -1,27 +1,15 @@
-[ng\:cloak],
-[ng-cloak],
-[data-ng-cloak],
-[x-ng-cloak],
-.ng-cloak,
-.x-ng-cloak {
-display: none !important;
-}
+// load variables first to override bootstrap
+@import './theme/_variables.scss';
 
-// override modals
-@import './partials/_modals.scss';
-
-// variables
-@import './_variables.scss';
-
-
-
+// load vendor libraries
 @import './../lib/bootstrap-sass-official/assets/stylesheets/_bootstrap';
 @import './../lib/fontawesome/scss/font-awesome';
 
+// load base settings
+@import './base/base.scss';
 
-html, body {
-    height: 100%;
-}
+@import './layout/_sidebar.scss';
+@import './modules/_drag.scss';
 
 .table-image {
     background: url('./../media/bg.jpg') center bottom no-repeat;
@@ -36,16 +24,6 @@ html, body {
     border-radius: 4px;
 }
 
-.vertical-align {
-    position: relative;
-    transform: translateY(50%);
-}
-
-.center { float: none; margin-left: auto; margin-right: auto; }
-
-@import './partials/_sidebar.scss';
-@import './partials/_drag.scss';
-
 .container-fluid {
     margin-left: 250px // push container away from sidebar
 }
@@ -59,7 +37,10 @@ html, body {
 }
 
 .marks {
-    width: 30px;
-    height: 30px;
+    width: 15px;
+    height: 15px;
+    background: red;
+    border-radius: 50%;
     position: absolute;
+    display: block;
 }
