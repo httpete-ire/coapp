@@ -6,7 +6,7 @@
 
 
 
-    function AnnotateCtrl(AnnotateFactory, $scope){
+    function AnnotateCtrl(AnnotateFactory, focus){
 
         _this = this;
 
@@ -38,6 +38,8 @@
             newAnnote.circle.y = mouse.y;
             newAnnote.circle.color = '#000';
 
+            focus('focus-this');
+
             _this.newAnnotation = newAnnote;
         };
 
@@ -52,7 +54,16 @@
         }
 
         _this.addAnnotation = function(annotation) {
-            console.log(annotation);
+            AnnotateFactory
+                .addAnnotation(annotation)
+                .then(function(data){
+                    _this.newAnnotation = null;
+                    _this.getDesign();
+                });
+        }
+
+        _this.clearForm = function () {
+            _this.newAnnotation = null;
         }
 
          _this.getDesign();
@@ -69,6 +80,6 @@
 
     }
 
-    AnnotateCtrl.$inject = ["AnnotateFactory",'$scope'];
+    AnnotateCtrl.$inject = ["AnnotateFactory", 'focus'];
 
 })();

@@ -40,6 +40,7 @@
                 })
 
             return defer.promise;
+
         };
 
 

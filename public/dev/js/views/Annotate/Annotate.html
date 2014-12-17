@@ -19,12 +19,15 @@
                                 <li
                                 ng-repeat="mark in AnnotateCtrl.design.annotations track by $index"
                                 class="cd-single-point"
-                                ng-style="{ 'background' : mark.circle.color, 'top':mark.circle.y + 'px', 'left':mark.circle.x + 'px'}"
+                                ng-style="{ 'background' : mark.circle.color, 'top':mark.circle.y - 15 + 'px', 'left': mark.circle.x - 15 + 'px'}"
                                 ng-class="{'is-open': AnnotateCtrl.openComment && $index === AnnotateCtrl.commentSelected}"
                                 ng-mouseleave="AnnotateCtrl.toggleComments($index)">
 
                                     <a class="cd-img-replace" ng-mouseenter="AnnotateCtrl.toggleComments($index)">More</a>
-                                    <div class="cd-more-info cd-left">
+                                        <div
+                                            class="cd-more-info"
+                                            ng-class="AnnotateCtrl.checkCoords(mark.circle.x, 500) ? 'cd-left' : 'cd-right'"
+                                        >
 
                                         <p>{{mark.body}}</p>
                                        <div class="form-group">
@@ -35,25 +38,26 @@
                                 </li>
 
                                 <!-- handle new annotations -->
-                                <li  ng-if="AnnotateCtrl.newAnnotation" ng-style="{ 'background' : AnnotateCtrl.newAnnotation.circle.color, 'top':AnnotateCtrl.newAnnotation.circle.y - 15 + 'px', 'left':AnnotateCtrl.newAnnotation.circle.x - 15 + 'px'}" class="cd-single-point is-open">
+                                <li  ng-show="AnnotateCtrl.newAnnotation !== null" ng-style="{ 'background' : AnnotateCtrl.newAnnotation.circle.color, 'top':AnnotateCtrl.newAnnotation.circle.y - 15 + 'px', 'left':AnnotateCtrl.newAnnotation.circle.x - 15 + 'px'}" class="cd-single-point is-open">
 
-                                <a class="cd-img-replace" ng-mouseenter="AnnotateCtrl.toggleComments($index)">More</a>
+                                    <a class="cd-img-replace" ng-click="AnnotateCtrl.clearForm()">More</a>
 
-                                <div
-                                    class="cd-more-info"
-                                    ng-class="AnnotateCtrl.checkCoords(AnnotateCtrl.newAnnotation.circle.x, 500) ? 'cd-left' : 'cd-right'"
-                                >
-                                   <form name="loginForm"  ng-submit="AnnotateCtrl.addAnnotation(AnnotateCtrl.newAnnotation)" role="form">
-                                       <div class="form-group">
-                                           <label for="annotateBody">Comment</label>
-                                           <input ng-model="AnnotateCtrl.newAnnotation.body" type="text" class="form-control" placeholder="Write your comment">
-                                       </div>
-                                       <button type="submit" class="btn btn-sm btn-primary">Add</button>
-                                   </form>
+                                    <div
+                                        class="cd-more-info"
+                                        ng-class="AnnotateCtrl.checkCoords(AnnotateCtrl.newAnnotation.circle.x, 500) ? 'cd-left' : 'cd-right'"
+                                    >
+                                       <form name="loginForm"  ng-submit="AnnotateCtrl.addAnnotation(AnnotateCtrl.newAnnotation)" role="form">
+                                           <div class="form-group">
+                                               <label for="annotateBody">Comment</label>
+                                               <input ng-model="AnnotateCtrl.newAnnotation.body" type="text" class="form-control" placeholder="Write your comment" set-focus="focus-this">
+                                           </div>
+                                           <button type="submit" class="btn btn-sm btn-primary">Add</button>
+                                       </form>
 
 
-                                    <a href="#0" class="cd-close-info cd-img-replace">Close</a>
-                                </div>
+                                        <a href="#0" class="cd-close-info cd-img-replace">Close</a>
+                                    </div>
+
                                 </li>
                             </ul>
 

@@ -12,26 +12,10 @@
 @import './modules/_drag.scss';
 @import './modules/_annotate.scss';
 
-
-.table-image {
-    background: url('./../media/bg.jpg') center bottom no-repeat;
-    // background: red;
-    background-size: cover;
-    height: 100%
-}
-
 .form-container {
     background: #fff;
     padding: 20px;
     border-radius: 4px;
-}
-
-.container-fluid {
-    margin-left: 250px // push container away from sidebar
-}
-
-.design-page  .container-fluid{
-    margin-left: 100px;
 }
 
 .design-img {
