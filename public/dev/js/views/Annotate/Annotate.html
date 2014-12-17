@@ -34,6 +34,7 @@
                                     </div>
                                 </li>
 
+                                <!-- handle new annotations -->
                                 <li  ng-if="AnnotateCtrl.newAnnotation" ng-style="{ 'background' : AnnotateCtrl.newAnnotation.circle.color, 'top':AnnotateCtrl.newAnnotation.circle.y - 15 + 'px', 'left':AnnotateCtrl.newAnnotation.circle.x - 15 + 'px'}" class="cd-single-point is-open">
 
                                 <a class="cd-img-replace" ng-mouseenter="AnnotateCtrl.toggleComments($index)">More</a>
@@ -42,11 +43,15 @@
                                     class="cd-more-info"
                                     ng-class="AnnotateCtrl.checkCoords(AnnotateCtrl.newAnnotation.circle.x, 500) ? 'cd-left' : 'cd-right'"
                                 >
+                                   <form name="loginForm"  ng-submit="AnnotateCtrl.addAnnotation(AnnotateCtrl.newAnnotation)" role="form">
+                                       <div class="form-group">
+                                           <label for="annotateBody">Comment</label>
+                                           <input ng-model="AnnotateCtrl.newAnnotation.body" type="text" class="form-control" placeholder="Write your comment">
+                                       </div>
+                                       <button type="submit" class="btn btn-sm btn-primary">Add</button>
+                                   </form>
 
-                                    <p>{{mark.body}}</p>
-                                   <div class="form-group">
-                                       <input type="text">
-                                   </div>
+
                                     <a href="#0" class="cd-close-info cd-img-replace">Close</a>
                                 </div>
                                 </li>
