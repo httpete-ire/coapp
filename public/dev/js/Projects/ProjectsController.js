@@ -15,14 +15,10 @@ function ProjController(ProjFactory, $scope){
     _this.projects = [];
 
     _this.getProjectsAll = function(){
-        //projFactory method getProjects()
-        // console.log(projFactory)
         ProjFactory.getProjects()
             .then(function(data){
-                console.log(data);
-                 _this.projects = data;
-
-                    }, function(error){
+                _this.projects = data;
+            }, function(error){
                         _this.Projects = {};
 
                     });
@@ -30,7 +26,7 @@ function ProjController(ProjFactory, $scope){
 
     }//end of getAll
 
-    //get all projects whe loaded
+    //get all projects when loaded
     _this.getProjectsAll();
 
     // listen for event and load page
@@ -66,9 +62,8 @@ function ProjectModalController ($scope, $modalInstance, object, ProjFactory, $r
                     .then(function(data){
                         // closes modal if project added
                         $modalInstance.dismiss('cancel');
-
+                        //Broadcasts out, for a listener to listen for
                         $rootScope.$broadcast('project-change');
-
                         $scope.project = null;//to set the form back to blank
                     }, function(error){
                         console.log(error);
@@ -81,7 +76,7 @@ function ProjectModalController ($scope, $modalInstance, object, ProjFactory, $r
         .then(function(data){
             $modalInstance.dismiss('cancel');
             $rootScope.$broadcast('project-change');
-            }, function(error){
+        }, function(error){
                 // alert boxes
             }
         );

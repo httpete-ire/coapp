@@ -16,10 +16,7 @@
             SingProjFactory.getProject()
 
             .then(function(data){
-                console.log("returned data: ");
-                console.log(data);
                  _this.project = data;
-
                     }, function(error){
                         _this.project = {};
 

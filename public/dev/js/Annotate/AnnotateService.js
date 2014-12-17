@@ -7,14 +7,16 @@
         //epmty object to be returned when methods are added
         var SingDesign = {};
 
+        var getDesignPath = '/api/designs/'+$routeParams.design_id;
+        var addAnnotationPath = 'api/designs/'+$routeParams.design_id+"/annotations", anno;
+
         SingDesign.getDesign = function(){
 
             var defer = $q.defer();
 
-            $http.get('/api/designs/'+$routeParams.design_id)
+            $http.get(getDesignPath)
                 //calback if succesfull or an error
                 .success(function(data){
-
                         defer.resolve(data);
                 })
                 .error(function(err, status){
@@ -29,16 +31,16 @@
 
             var defer =$q.defer();
 
-            $http.post('api/designs/'+$routeParams.design_id+"/annotations", anno)
-            .success(function(data){
-                defer.resolve(data);
-            })
-            .error(function(err, status){
-                defer.reject(err);
-            })
+            $http.post(addAnnotationPath)
+                .success(function(data){
+                    defer.resolve(data);
+                })
+                .error(function(err, status){
+                    defer.reject(err);
+                })
 
-            return defer.promise.
-        }
+            return defer.promise;
+        };
 
 
 
