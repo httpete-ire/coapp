@@ -25,6 +25,22 @@
 
         };
 
+        SingDesign.addAnnotation = function(anno){
+
+            var defer =$q.defer();
+
+            $http.post('api/designs/'+$routeParams.design_id+"/annotations", anno)
+            .success(function(data){
+                defer.resolve(data);
+            })
+            .error(function(err, status){
+                defer.reject(err);
+            })
+
+            return defer.promise.
+        }
+
+
 
 
         return SingDesign;
