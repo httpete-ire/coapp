@@ -6,7 +6,7 @@
 
 
 
-    function AnnotateCtrl(AnnotateFactory, $scope){
+    function AnnotateCtrl(AnnotateFactory){
 
         _this = this;
 
@@ -69,6 +69,6 @@
 
     }
 
-    AnnotateCtrl.$inject = ["AnnotateFactory",'$scope'];
+    AnnotateCtrl.$inject = ["AnnotateFactory"];
 
 })();
