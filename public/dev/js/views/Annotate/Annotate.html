@@ -38,7 +38,7 @@
                                 </li>
 
                                 <!-- handle new annotations -->
-                                <li  ng-if="AnnotateCtrl.newAnnotation" ng-style="{ 'background' : AnnotateCtrl.newAnnotation.circle.color, 'top':AnnotateCtrl.newAnnotation.circle.y - 15 + 'px', 'left':AnnotateCtrl.newAnnotation.circle.x - 15 + 'px'}" class="cd-single-point is-open">
+                                <li  ng-show="AnnotateCtrl.newAnnotation !== null" ng-style="{ 'background' : AnnotateCtrl.newAnnotation.circle.color, 'top':AnnotateCtrl.newAnnotation.circle.y - 15 + 'px', 'left':AnnotateCtrl.newAnnotation.circle.x - 15 + 'px'}" class="cd-single-point is-open">
 
                                     <a class="cd-img-replace" ng-click="AnnotateCtrl.clearForm()">More</a>
 
@@ -49,7 +49,7 @@
                                        <form name="loginForm"  ng-submit="AnnotateCtrl.addAnnotation(AnnotateCtrl.newAnnotation)" role="form">
                                            <div class="form-group">
                                                <label for="annotateBody">Comment</label>
-                                               <input ng-model="AnnotateCtrl.newAnnotation.body" type="text" class="form-control" placeholder="Write your comment" autofocus>
+                                               <input ng-model="AnnotateCtrl.newAnnotation.body" type="text" class="form-control" placeholder="Write your comment" set-focus="focus-this">
                                            </div>
                                            <button type="submit" class="btn btn-sm btn-primary">Add</button>
                                        </form>

@@ -6,7 +6,7 @@
 
 
 
-    function AnnotateCtrl(AnnotateFactory){
+    function AnnotateCtrl(AnnotateFactory, focus){
 
         _this = this;
 
@@ -37,6 +37,8 @@
             newAnnote.circle.x = mouse.x;
             newAnnote.circle.y = mouse.y;
             newAnnote.circle.color = '#000';
+
+            focus('focus-this');
 
             _this.newAnnotation = newAnnote;
         };
@@ -78,6 +80,6 @@
 
     }
 
-    AnnotateCtrl.$inject = ["AnnotateFactory"];
+    AnnotateCtrl.$inject = ["AnnotateFactory", 'focus'];
 
 })();
