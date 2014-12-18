@@ -1,3 +1,5 @@
+@import './../theme/_variables.scss';
+
 html, body {
     height: 100%;
 }
@@ -16,7 +18,7 @@ html, body {
 }
 
 .container-fluid {
-    margin-left: 250px // push container away from sidebar
+    margin-left: $sidebar-width; // push container away from sidebar
 }
 
 .design-page  .container-fluid{

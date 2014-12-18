@@ -1,25 +1,23 @@
 <div class="sidebar-wrapper">
     <ul class="sidebar--list">
-        <li class="sidebar-main">
+        <li class="sidebar--list-main">
+            <img src="./../../../media/icon.png" width="55px">
         </li>
         <li class="sidebar--list-item">
-            <a href="#/">Dashboard</span></a>
+            <a href="#/"><span class="fa fa-tachometer fa-2x"></span> <span>Dashboard</span></a>
         </li>
         <li class="sidebar--list-item">
-            <a href="#/projects">Projects</span></a>
+            <a href="#/projects"><span class="fa fa-picture-o fa-2x"></span> <span>Projects</span></a>
         </li>
 
         <li class="sidebar--list-item">
-            <a href="#/tasks">Tasks</span></a>
+            <a href="#/tasks"><span class="fa fa-check-square-o fa-2x"></span> <span>Tasks</span></a>
         </li>
     </ul>
 
-    <div class="sidebar-footer">
-        <div class="col-xs-4">
-            <div ng-controller="AuthController as LogCtrl">
-                <button ng-click="LogCtrl.logout()">Logout</button>
-            </div>
-        </div>
+    <div class="sidebar--footer" ng-controller="AuthController as LogCtrl">
+        <div class="col-xs-6 sidebar--footer-div">username</div>
+        <div class="col-xs-6 sidebar--footer-icon"><span class="fa fa-sign-out" ng-click="LogCtrl.logout()"></span></div>
     </div>
 </div>
 <!-- End Sidebar -->
