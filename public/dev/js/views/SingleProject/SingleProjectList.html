@@ -2,12 +2,6 @@
     <div id="content-wrapper">
         <div class="page-content">
         <div class="row">
-        <!-- <button ng-click="SingProjectCtrl.openModal()">create project</button> -->
-        <!-- <button ng-click="SingProjectCtrl.open('lg')">create project</button>
-            <div class="col-xs-12">
-                <h1>Projects</h1>
-            </div> -->
-
             <div class="row">
                 <h1>{{SingProjectCtrl.project.name}}</h1>
                 <ul class="list-unstyled">
@@ -21,14 +15,6 @@
 
                     </div>
                             <button class="btn btn-danger" ng-click="SingProjectCtrl.deleteProject(proj._id)">delete</button>
-
-
-
-                       <!--  <ul>
-                            <li ng-repeat="colab in proj.collaborators track by $index">
-                                {{colab.username}}
-                            </li>
-                        </ul> -->
                     </li>
 
                     <li class="col-md-4">
@@ -47,12 +33,12 @@
                             ng-file-drop
                             ng-file-change="SingProjectCtrl.onFileSelect($files)"
                         >
-                                    <div class="div">
-                                        <div class="drag-container">
-                                            <i class="fa fa-cloud-upload"></i>
-                                            <p>drag and drop to upload design</p>
-                                        </div>
-                                    </div>
+                             <div class="div">
+                               <div class="drag-container">
+                                    <i class="fa fa-cloud-upload"></i>
+                                        <p>drag and drop to upload design</p>
+                                </div>
+                             </div>
                         </div>
                     </li>
 

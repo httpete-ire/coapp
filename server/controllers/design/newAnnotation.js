@@ -21,6 +21,7 @@ var Validator = require('./../../helpers/validator.js');
  */
 module.exports =  function newAnnotation (req, res, next) {
 
+
     var validator = new Validator();
 
     validator.addRule({

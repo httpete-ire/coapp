@@ -17,10 +17,10 @@
 
 
 
-            <!-- <input ng-model="Name" type="text"> -->
+            <input ng-model="Name" type="text" placeholder="Filter by">
             <div class="row">
                 <ul class="list-unstyled">
-                    <li class ="col-md-4" ng-repeat="proj in projectCtrl.projects | orderBy: orderProp">
+                    <li class ="col-md-4" ng-repeat="proj in projectCtrl.projects | orderBy: orderProp |filter: Name">
                     <p>Name:  {{ proj.name }}  <br/>Descrption:  {{ proj.desc }}</p>
 
                         <div class="project-img">

@@ -7,11 +7,21 @@
         //epmty object to be returned when methods are added
         var SingProj = {};
 
+        var paths = {
+            api: '/api/projects/',
+            fields: '?fields=designs,name',
+            id: $routeParams.project_id
+        };
+
+        var getSingleProjectPath = paths.api + paths.id + paths.fields;
+
+        var uploadUrl = paths.api + paths.id + '/designs';
+
         SingProj.getProject = function(){
 
             var defer = $q.defer();
 
-            $http.get('/api/projects/'+$routeParams.project_id+'?fields=designs,name')
+            $http.get(getSingleProjectPath)
                 //calback if succesfull or an error
                 .success(function(data){
                         defer.resolve(data);
@@ -26,13 +36,10 @@
 
         SingProj.upload = function(file) {
 
-            var url = '/api/projects/'+ $routeParams.project_id + '/designs';
-
             var defer = $q.defer();
 
-
             $upload.upload({
-                url: url,
+                url: uploadUrl,
                 file: file
             }).success(function(data, status, headers, config) {
                 defer.resolve(data);
