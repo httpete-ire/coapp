@@ -1,5 +1,10 @@
 var Project = require('./../../models/project');
 var User = require('./../../models/user');
+var rmdir = require('rimraf');
+var path = require('path');
+var mediaPaths = './../../../public/media/uploads';
+
+
 
 /**
  * @api {delete} /api/projects/:projectid Delete project
@@ -54,8 +59,17 @@ module.exports =  function removeProject(req,res,next) {
 
                         // when design route done
                         // remove designs and then folder
+                        var projectDir = path.resolve(__dirname + mediaPaths + '/' + projectid);
 
-                        res.send(200);
+                        console.log(projectDir);
+
+                        rmdir(projectDir, function(err){
+                            if (err) {
+                                console.log(err);
+                            } else{
+                                res.sendStatus(200);
+                            };
+                        });
                     }
                 );
             }
