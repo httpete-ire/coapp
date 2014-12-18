@@ -28,26 +28,52 @@
 
             <div class="row">
                 <ul class="list-unstyled">
-                    <li class ="col-xs-4" ng-repeat="proj in projectCtrl.projects | orderBy: orderProp |filter: Name">
-                    <p>Name:  {{ proj.name }}  <br/>Descrption:  {{ proj.desc }}</p>
+                    <li class ="col-md-4" ng-repeat="proj in projectCtrl.projects | orderBy: orderProp |filter: Name">
 
-                        <div class="project-img">
-                            <a href="#/projects/{{proj._id}}">
-                                <img ng-src="{{ proj.thumbnail }}" alt="" width="100%">
-                            </a>
+                        <div class="project--container">
+                            <div class="project--img-container">
+                                <a href="#/projects/{{proj._id}}">
+                                    <img ng-src="{{ proj.thumbnail }}" alt="" width="100%">
+                                </a>
 
-                            <p>{{ proj.designCount }} designs</p>
+                                <div class="project--img-bg"></div>
+                                    <div class="project--img-settings">
+
+                                        <ul class="project--img-icons">
+                                            <li>
+                                                <a href="#/projects/{{proj._id}}"><span class="fa fa-eye"></span></a>
+                                            </li>
+                                            <li>
+                                                <span class="fa fa-edit"></span>
+                                            </li>
+                                            <li>
+
+                                                <modal template="deleteProject" ctrl="ProjectModalController" id="{{proj._id}}" name="{{proj.name}}" size="sm">
+                                                    <span class="fa fa-trash-o"></span>
+                                                </modal>
+
+                                            </li>
+                                        </ul>
+                                    </div>
+                            </div>
+
+                            <div class="project--details">
+
+                                <div class="project--details-container">
+
+                                    <div class="project--details-name">
+                                        <h4 >{{proj.name}}</h4>
+                                    </div>
+
+                                    <span class="fa fa-file-image-o"> {{proj.designCount}} designs</span>
+
+                                </div> <!-- project--details-container -->
+                            </div> <!-- 'project--details' -->
+
                         </div>
 
-                            <span modal template="deleteProject" ctrl="ProjectModalController" id="{{proj._id}}" name="{{proj.name}}" size="sm" class="btn btn-danger">delete</span>
+                            <!-- <span modal template="deleteProject" ctrl="ProjectModalController" id="{{proj._id}}" name="{{proj.name}}" size="sm" class="btn btn-danger">delete</span> -->
 
-
-
-                       <!--  <ul>
-                            <li ng-repeat="colab in proj.collaborators track by $index">
-                                {{colab.username}}
-                            </li>
-                        </ul> -->
                     </li>
 
                 </ul>

@@ -58,8 +58,6 @@ module.exports =  function removeProject(req,res,next) {
                         res.send(200);
                     }
                 );
-                // return ok
-                // res.send(200);
             }
         });
 

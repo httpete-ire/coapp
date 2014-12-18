@@ -8,11 +8,11 @@ $drag-color: #d6d6d6;
 }
 
 .dragover {
-    border: $border dashed $green;
+    border: $border dashed green;
 }
 
 .dragover-err {
-    border: $border dashed $red;
+    border: $border dashed red;
 }
 
 .drag-container {

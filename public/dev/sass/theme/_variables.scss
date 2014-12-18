@@ -4,7 +4,17 @@ $green: #54BB87;
 $red: #D66666;
 $dark-grey: #232b2d;
 $text-grey: #5b7075;
+$off-white: #f4f4f4;
+$icon-grey: #d6d6d6;
 
 // width settings
 $sidebar-width: 240px;
 $closed-menu: 80px;
+
+// override bootstrap settings
+$font-family-sans-serif:  'Open Sans', sans-serif;
+
+$font-family-serif:       $font-family-sans-serif;
+$font-family-monospace:   $font-family-sans-serif;
+$font-family-base:        $font-family-sans-serif;
+

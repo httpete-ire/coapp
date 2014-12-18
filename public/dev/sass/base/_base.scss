@@ -1,0 +1,17 @@
+@import './_reset.scss';
+@import './_html.scss';
+@import './_ng.scss';
+
+// remove on all links
+a, a:hover {
+    text-decoration: none;
+}
+
+// mixins
+%vertical-align {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
