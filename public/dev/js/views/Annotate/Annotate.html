@@ -7,14 +7,9 @@
                 <a href="#/projects/{{AnnotateCtrl.design.project}}"> Back</a>
                     <h1>{{AnnotateCtrl.design.name}}</h1>
                         <div class="design-img">
-                            <img ng-src="{{ AnnotateCtrl.design.img.full }}" ng-click="AnnotateCtrl.annotate($event)" class="design--full-img">
+                            <img ng-src="{{ AnnotateCtrl.design.img.full }}" ng-click="AnnotateCtrl.annotate($event)" class="lan">
                              <ul>
-                                <!-- <li ng-repeat="mark in AnnotateCtrl.design.annotations">
 
-
-                                    <span ng-style="{ 'background' : mark.circle.color, 'top':mark.circle.y + 'px', 'left':mark.circle.x + 'px'}"class="marks"></span>
-
-                                </li> -->
 
                                 <li
                                 ng-repeat="mark in AnnotateCtrl.design.annotations track by $index"

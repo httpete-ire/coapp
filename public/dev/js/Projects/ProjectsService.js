@@ -5,9 +5,11 @@ var coapp = angular.module('coapp');
             //epmty object to be returned when methods are added
             var proj = {};
 
-            var getProjectsPath = '/api/projects?fields=name,desc,thumbnail,designCount,created';
-            var addProjectPath = '/api/projects';
-            var deleteProjectPath = '/api/projects/';
+            var paths = {
+                api: '/api/projects',
+                fields: '?fields=name,desc,thumbnail,designCount,created',
+            }
+            var getProjectsPath = paths.api+paths.fields;
 
 
             //get projects from server
@@ -33,7 +35,7 @@ var coapp = angular.module('coapp');
 
                 var defer = $q.defer();
                 //post a project to server, with project created from form
-                $http.post(addProjectPath, project)
+                $http.post(paths.api, project)
                     .success(function(data){
                         defer.resolve(data);
                     })
@@ -46,8 +48,8 @@ var coapp = angular.module('coapp');
             //delete a project by the id passed from the controller
             proj.deleteProject = function(projectid){
                var defer = $q.defer();
-
-                $http.delete(deleteProjectPath+projectid)
+               alert('delete');
+                $http.delete(paths.api+'/'+projectid)
                     .success(function(data){
                         defer.resolve(data);
                     })

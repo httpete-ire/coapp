@@ -59,15 +59,15 @@ function ProjectModalController ($scope, $modalInstance, object, ProjFactory, $r
     $scope.addProject = function (project) {
 
         ProjFactory.addProject(project)
-                    .then(function(data){
-                        // closes modal if project added
-                        $modalInstance.dismiss('cancel');
-                        //Broadcasts out, for a listener to listen for
-                        $rootScope.$broadcast('project-change');
-                        $scope.project = null;//to set the form back to blank
-                    }, function(error){
-                        console.log(error);
-                    });
+        .then(function(data){
+        // closes modal if project added
+            $modalInstance.dismiss('cancel');
+            //Broadcasts out, for a listener to listen for
+            $rootScope.$broadcast('project-change');
+            $scope.project = null;//to set the form back to blank
+        }, function(error){
+                console.log(error);
+            });
 
     };
 

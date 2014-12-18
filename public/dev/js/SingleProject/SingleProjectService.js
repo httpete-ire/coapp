@@ -7,9 +7,16 @@
         //epmty object to be returned when methods are added
         var SingProj = {};
 
+        var paths = {
+            api: '/api/projects/',
+            fields: '?fields=designs,name',
+            id: $routeParams.project_id
+        };
 
-        var getSingleProjectPath = '/api/projects/'+$routeParams.project_id+'?fields=designs,name';
-        var uploadUrl = '/api/projects/'+ $routeParams.project_id + '/designs';
+        var getSingleProjectPath = paths.api + paths.id + paths.fields;
+
+        var uploadUrl = paths.api + paths.id + '/designs';
+
         SingProj.getProject = function(){
 
             var defer = $q.defer();

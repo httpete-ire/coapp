@@ -7,8 +7,9 @@
         //epmty object to be returned when methods are added
         var SingDesign = {};
 
-        var getDesignPath = '/api/designs/'+$routeParams.design_id;
-        var addAnnotationPath = 'api/designs/'+$routeParams.design_id+"/annotations", anno;
+        var Path = '/api/designs/';
+        var getDesignPath = Path+$routeParams.design_id;
+        var addAnnotationPath = Path+$routeParams.design_id+"/annotations";
 
         SingDesign.getDesign = function(){
 
@@ -29,9 +30,9 @@
 
         SingDesign.addAnnotation = function(anno){
 
-            var defer =$q.defer();
+            var defer = $q.defer();
 
-            $http.post(addAnnotationPath)
+            $http.post(addAnnotationPath, anno)
                 .success(function(data){
                     defer.resolve(data);
                 })
