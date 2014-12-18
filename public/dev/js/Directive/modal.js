@@ -16,7 +16,7 @@
         return {
             transclude: true,    // so html
             restrict: 'EA',
-            template: '<span ng-click="open()" ng-transclude class="btn btn-default">{{name}}</span>',
+            template: '<span ng-click="open()"ng-transclude>{{name}}</span>',
 
             scope: {
                 size: '@',

@@ -3,24 +3,32 @@
         <div class="page-content">
         <div class="row">
 
-            <modal template="addproject" ctrl="ProjectModalController" ctrlAs="projectModalCtrl" objectId="12345" btnClass="default">New Project</modal>
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        <input ng-model="Name" type="text" placeholder="Search project by name" class="form-control">
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <select ng-model="orderProp" class="form-control">
+                        <option value="" selected>Sort by</option>
+                        <option value="name">By Name</option>
+                        <option value="-created">Latest</option>
+                        <option value="created">Oldest</option>
+                    </select>
+                </div>
+
+                <div class="col-xs-1 col-xs-offset-4">
+                    <span class="btn btn-success" modal ctrl="ProjectModalController" ctrlAs="projectModalCtrl" template="addproject">Add new project</span>
+
+                </div>
 
             <div class="col-xs-12">
                 <h1>Projects</h1>
             </div>
-            <select ng-model="orderProp" name="select">
-                <option  value="name">By Name</option>
-                <option value="-created">Latest</option>
-                <option selected value="created">Oldest</option>
-            </select>
 
-
-
-
-            <input ng-model="Name" type="text" placeholder="Filter by">
             <div class="row">
                 <ul class="list-unstyled">
-                    <li class ="col-md-4" ng-repeat="proj in projectCtrl.projects | orderBy: orderProp |filter: Name">
+                    <li class ="col-xs-4" ng-repeat="proj in projectCtrl.projects | orderBy: orderProp |filter: Name">
                     <p>Name:  {{ proj.name }}  <br/>Descrption:  {{ proj.desc }}</p>
 
                         <div class="project-img">
@@ -31,7 +39,7 @@
                             <p>{{ proj.designCount }} designs</p>
                         </div>
 
-                            <modal template="deleteProject" ctrl="ProjectModalController" id="{{proj._id}}" name="{{proj.name}}" size="sm">delete</modal>
+                            <span modal template="deleteProject" ctrl="ProjectModalController" id="{{proj._id}}" name="{{proj.name}}" size="sm" class="btn btn-danger">delete</span>
 
 
 
