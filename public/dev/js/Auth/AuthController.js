@@ -12,6 +12,9 @@
 		//set up
 		_this.alerts = [];
 
+		// expose username
+		_this.username = AuthenticationFactory.username;
+
 		/**
 		 * removes bootstrap alert
 		 * @param  {[type]} index
@@ -64,9 +67,11 @@
 				.then(function(data){
 					AuthenticationFactory.isLogged = true;
 					AuthenticationFactory.user = data.user;
+					AuthenticationFactory.username = data.username;
 
 					$window.localStorage.token = data.token;
 					$window.localStorage.user = data.user;
+					$window.localStorage.username = data.username;
 
 					$location.path('/projects');
 

@@ -70,8 +70,9 @@
                  event.preventDefault();        // hack to prevent page loading
                 $location.path('/login');
             } else {
-                if(!AuthenticationFactory.user) {
+                if(!AuthenticationFactory.user && !AuthenticationFactory.username) {
                     AuthenticationFactory.user = $window.localStorage.user;
+                    AuthenticationFactory.username = $window.localStorage.username;
                 }
             }
         });

@@ -83,7 +83,8 @@ function login (req, res, next) {
             // return the token and the user id
             return res.json({
                 token: token,
-                user: user._id
+                user: user._id,
+                username: user.username
             });
         });
     });

@@ -15,9 +15,9 @@
         </li>
     </ul>
 
-    <div class="sidebar--footer" ng-controller="AuthController as LogCtrl">
-        <div class="col-xs-6 sidebar--footer-div">username</div>
-        <div class="col-xs-6 sidebar--footer-icon"><span class="fa fa-sign-out" ng-click="LogCtrl.logout()"></span></div>
+    <div class="sidebar--footer" ng-controller="AuthController as authCtrl">
+        <div class="col-xs-6 sidebar--footer-div">{{authCtrl.username}}</div>
+        <div class="col-xs-6 sidebar--footer-icon"><span class="fa fa-sign-out" ng-click="authCtrl.logout()"></span></div>
     </div>
 </div>
 <!-- End Sidebar -->

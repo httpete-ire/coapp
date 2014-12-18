@@ -58,6 +58,8 @@
 
 		auth.isLogged = false;
 
+		auth.username = '';
+
 		auth.check = function () {
 			if($window.localStorage.token && $window.localStorage.user) {
 				this.isLogged = true;
