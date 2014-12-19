@@ -21,7 +21,7 @@ var mediaPaths = './../../../public/media/uploads';
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 Ok
  */
-module.exports =  function removeProject(req,res,next) {
+module.exports =  function removeProject(req, res, next) {
 
     // get the id from the URL
     var projectid = req.params.projectid;
@@ -49,7 +49,7 @@ module.exports =  function removeProject(req,res,next) {
                 User.update({
                         // update every user who is a
                         // collaborator on the project
-                        _id: {$in: project.collaborators}
+                        _id: { $in: project.collaborators }
                     }, {
                         // pull the project id from the user
                         $pull: { projects : project._id}
@@ -57,12 +57,10 @@ module.exports =  function removeProject(req,res,next) {
                         multi:true
                     }, function(err, numEffected) {
 
-                        // when design route done
-                        // remove designs and then folder
+
                         var projectDir = path.resolve(__dirname + mediaPaths + '/' + projectid);
 
-                        console.log(projectDir);
-
+                        // delete project directory
                         rmdir(projectDir, function(err){
                             if (err) {
                                 console.log(err);
