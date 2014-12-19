@@ -8,12 +8,14 @@
  */
 module.exports =  function (err, req, res, next) {
 
-    var message = err.message;
+    req.unhandledError = err;
+
     var error = err.error || err;
     var status = err.status || 500;
 
-    // return status
+
+
     res.json({
-         error: error
-     }, status);
+        response: error
+    }, status);
 };

@@ -26,8 +26,17 @@ module.exports =  function (req, res, next) {
     .findOne({_id: req.user._id})
     .exec(function (err, user) {
         if (err) {
-            console.log(err);
+            return next({
+                    message: 'something went wrong when querying the DB', status: 500
+                });
         } else{
+
+            if (!user) {
+                return next({
+                    message: 'no user found',
+                    status: 404
+                })
+            }
 
             // get users projects
             var projectIds = user.projects;
@@ -63,7 +72,9 @@ module.exports =  function (req, res, next) {
             // execute query
             query.exec(function(err, projects) {
                 if (err) {
-                    console.log(err);
+                    return next({
+                        message: 'something went wrong when querying the DB', status: 500
+                    });
                 } else{
                     res.json(projects);
                 }

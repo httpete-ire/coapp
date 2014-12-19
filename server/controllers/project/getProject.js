@@ -52,13 +52,20 @@ module.exports =  function (req, res, next) {
 
     projectQuery.exec(function (err, project) {
         if (err) {
-            console.log(err);
+            return next({
+                err: err,
+                message: 'there was a problem querying the database',
+                status: 500
+            });
         }
 
         if(!project) {
-            res.status(404).send('no project found');
-        } else {
-            res.status(200).json(project);
+            return next({
+                message: 'no project found',
+                status: 404
+            });
         }
+
+        res.status(200).json(project);
     });
 };
