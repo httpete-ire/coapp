@@ -1,4 +1,5 @@
 var validateToken  = require('./../controllers/auth').validateToken;
+var errorHandler = require('./../controllers/errorMiddleware.js');
 var fs = require('fs');
 
 /**
@@ -28,6 +29,11 @@ module.exports = function (app, router) {
             require('./' + file)(app, router);
         }
     });
+
+    /**
+     * Middle ware to handle errors and return message to user
+     */
+    router.use(errorHandler);
 
     /**
      *  Set the routes to have /api appended before them
