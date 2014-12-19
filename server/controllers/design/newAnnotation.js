@@ -44,45 +44,48 @@ module.exports =  function newAnnotation (req, res, next) {
 
     // validate data
     if (!validator.validate()) {
-        return res.status(422).send(validator.getErrors());
-    } else {
-
-        Design
-            .findOne({_id: req.params.designid})
-            .exec(function(err, design){
-
-                if(err) {
-                    console.log(err);
-                } else {
-
-                    if(!design) {
-                        return res.status(404).send('no design found');
-                    } else {
-
-                        design.annotations.push({
-                            body: req.body.body,
-                            owner: req.user._id,
-                            created: Date.now(),
-                            isTask: false,
-                            circle: {
-                                x: req.body.circle.x,
-                                y: req.body.circle.y
-                            }
-                        });
-
-                        console.log('here');
-
-                        design.save(function(err){
-                            console.log('asdcasdcasd');
-                            if (err) {
-                                console.log(err);
-                            } else{
-                                return res.sendStatus(201);
-                            }
-                        });
-                    }
-                }
-            });
+        return next({
+            message: 'invalid data',
+            status: 422,
+            fields: validator.getErrors()
+        });
     }
 
+    Design
+        .findOne({_id: req.params.designid})
+        .exec(function(err, design){
+
+            if(err) {
+                next(err);
+            }
+
+            if(!design) {
+                return next({
+                    message: 'no design found',
+                    status: 404
+                })
+            }
+
+            design.annotations.push({
+                body: req.body.body,
+                owner: req.user._id,
+                created: Date.now(),
+                isTask: false,
+                circle: {
+                    x: req.body.circle.x,
+                    y: req.body.circle.y
+                }
+            });
+
+            design.save(function(err){
+
+                if (err) {
+                   return next(err);
+                }
+
+                return res.sendStatus(201);
+
+            });
+
+    });
 };

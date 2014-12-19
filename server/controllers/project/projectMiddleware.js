@@ -5,7 +5,7 @@ module.exports =  function (req, res, next) {
     .findOne({_id: req.params.projectid})
     .exec(function(err, project){
         if(err) {
-            console.log(err);
+            return next(err);
         }
 
         if(!project) {

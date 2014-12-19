@@ -6,11 +6,14 @@ module.exports =  function (req, res, next) {
     .findOne({_id: req.params.designid})
     .exec(function(err, design){
         if(err) {
-            console.log(err);
+            return next(err);
         }
 
         if(!design) {
-            res.status(404).send('no design found');
+            return next({
+                message: 'no design found',
+                status: 404
+            });
         } else {
             // project exists so set on req object
             req.design = design;

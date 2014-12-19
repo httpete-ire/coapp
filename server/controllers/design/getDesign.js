@@ -45,13 +45,16 @@ module.exports =  function getDesign (req, res, next) {
     designQuery
     .exec(function(err, design){
         if (err) {
-            console.log(err);
-        } else {
-            if (!design) {
-                return res.status(404).send('no design found');
-            } else {
-                return res.status(200).json(design);
-            }
+            next(err);
         }
+
+        if (!design) {
+            return next({
+                message: 'no design found',
+                status: 404
+            });
+        }
+
+        return res.status(200).json(design);
     });
 };

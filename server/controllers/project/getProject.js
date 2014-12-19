@@ -52,11 +52,7 @@ module.exports =  function (req, res, next) {
 
     projectQuery.exec(function (err, project) {
         if (err) {
-            return next({
-                err: err,
-                message: 'there was a problem querying the database',
-                status: 500
-            });
+            return next(err);
         }
 
         if(!project) {

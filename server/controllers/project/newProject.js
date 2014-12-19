@@ -52,7 +52,11 @@ module.exports =  function newProject (req, res, next) {
 
     // validate data
     if (!validator.validate()) {
-        return res.status(422).send(validator.getErrors());
+        return next({
+            message: 'invalid data',
+            status: 422,
+            fields: validator.getErrors()
+        });
     }
 
     // start prooject query
@@ -70,67 +74,74 @@ module.exports =  function newProject (req, res, next) {
     // ensure a user can only have one project with the same name
     query.exec(function (err, project) {
 
+        if (err) {
+            return next(err);
+        }
+
         if (project) {
             // project already exists so return conflict error
-            res.status(403).send(req.body.name + ' is already used');
-        } else{
-
-            var project = new Project();
-            var collaborators = [];
-
-            project.name = req.body.name;
-            project.desc = req.body.desc;
-
-            // set the owner to the user logged in
-            project.owner = req.user._id;
-
-            console.log('logged in as', req.user._id);
-
-            /**
-             * check if collaborators is defined
-             */
-            if (req.body.collaborators) {
-
-                // if collaborators is sepearted by a comma
-                // create an array with them and the owner
-                if (req.body.collaborators.indexOf(',') > -1) {
-                    collaborators = req.body.collaborators.split(',');
-                } else { // only one collaborator add them and the owner
-                    collaborators.push(req.body.collaborators);
-                }
-                collaborators.push(project.owner);
-            } else { // else add the owner to the collaborators list
-                collaborators = [project.owner];
-            }
-
-            // set project collaborator list
-            _.each(collaborators, function (user) {
-                project.collaborators.push(user);
-            });
-
-            // save project
-            project.save(function (err) {
-                if(err) {
-                    res.send(500, err);
-                } else {
-                    // update every user who is listed as a collaborator
-                    // and add the project to their project list
-                     User
-                    .update({ _id: {$in: project.collaborators}},
-                            // add project to user
-                            {$addToSet : { projects : project._id} },
-                            {multi:true},
-                            function(err, numEffected) {
-                                if (err) {
-                                    res.send(500);
-                                } else{
-                                    res.send(201);
-                                }
-                            }
-                        );
-                }
+            return next({
+                message: req.body.name + ' is already used',
+                status: 409
             });
         }
+
+        var project = new Project();
+        var collaborators = [];
+
+        project.name = req.body.name;
+        project.desc = req.body.desc;
+
+        // set the owner to the user logged in
+        project.owner = req.user._id;
+
+        /**
+         * check if collaborators is defined
+         */
+        if (req.body.collaborators) {
+
+            // if collaborators is sepearted by a comma
+            // create an array with them and the owner
+            if (req.body.collaborators.indexOf(',') > -1) {
+                collaborators = req.body.collaborators.split(',');
+            } else { // only one collaborator add them and the owner
+                collaborators.push(req.body.collaborators);
+            }
+            collaborators.push(project.owner);
+        } else { // else add the owner to the collaborators list
+            collaborators = [project.owner];
+        }
+
+        // set project collaborator list
+        _.each(collaborators, function (user) {
+            project.collaborators.push(user);
+        });
+
+        // save project
+        project.save(function (err) {
+            if(err) {
+                return next(err);
+            }
+
+            // update every user who is listed as a collaborator
+            // and add the project to their project list
+             User
+            .update({ _id: {$in: project.collaborators}},
+                    // add project to user
+                    {$addToSet : { projects : project._id} },
+                    {multi:true},
+                    function(err, numEffected) {
+
+                        if (err) {
+                            return next(err);
+                        }
+
+                        res.send(201);
+                    }
+            );
+
+        });
+
     });
 
 };

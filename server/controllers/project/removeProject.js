@@ -38,39 +38,41 @@ module.exports =  function removeProject(req, res, next) {
         .exec(function(err, project) {
 
             if (err) {
-                console.log(err);
-                res.status(500).send('server internal error');
+                return next(err);
             }
 
             if (!project){
-                res.status(404).send('No project found with that id');
-            } else {
-
-                User.update({
-                        // update every user who is a
-                        // collaborator on the project
-                        _id: { $in: project.collaborators }
-                    }, {
-                        // pull the project id from the user
-                        $pull: { projects : project._id}
-                    }, {
-                        multi:true
-                    }, function(err, numEffected) {
-
-
-                        var projectDir = path.resolve(__dirname + mediaPaths + '/' + projectid);
-
-                        // delete project directory
-                        rmdir(projectDir, function(err){
-                            if (err) {
-                                console.log(err);
-                            } else{
-                                res.sendStatus(200);
-                            };
-                        });
-                    }
-                );
+                return next({
+                    message: 'no project found with that id',
+                    status: 404
+                });
             }
+
+            User.update({
+                    // update every user who is a
+                    // collaborator on the project
+                    _id: { $in: project.collaborators }
+                }, {
+                    // pull the project id from the user
+                    $pull: { projects : project._id}
+                }, {
+                    multi:true
+                }, function(err, numEffected) {
+
+                    var projectDir = path.resolve(__dirname + mediaPaths + '/' + projectid);
+
+                    // delete project directory
+                    rmdir(projectDir, function(err){
+
+                        if (err) {
+                            return next(err);
+                        }
+
+                        res.sendStatus(200);
+
+                    });
+                }
+            );
         });
 
 };

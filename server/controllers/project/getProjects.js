@@ -26,9 +26,7 @@ module.exports =  function (req, res, next) {
     .findOne({_id: req.user._id})
     .exec(function (err, user) {
         if (err) {
-            return next({
-                    message: 'something went wrong when querying the DB', status: 500
-                });
+            return next(err);
         } else{
 
             if (!user) {

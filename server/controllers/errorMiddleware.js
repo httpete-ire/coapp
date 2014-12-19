@@ -13,8 +13,6 @@ module.exports =  function (err, req, res, next) {
     var error = err.error || err;
     var status = err.status || 500;
 
-
-
     res.json({
         response: error
     }, status);
