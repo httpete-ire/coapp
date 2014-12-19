@@ -5,7 +5,14 @@ var Validator = require('./../../helpers/validator.js');
  * @api {post} /api/design/:designid/annotations/:annotationid/messages Add new
  *                                                                      message
  *
+ * @apiName Add new message to annotation
+ * @apiGroup Designs
  *
+ * @apiParam {String} body Body of reply
+ * @apiParam {String} username Username of sender
+ *
+ * @apiPermission User
+ * @apiUse NotAuthorized
  *
  */
 module.exports =  function (req, res, next) {
@@ -15,12 +22,6 @@ module.exports =  function (req, res, next) {
     validator.addRule({
         field: 'body',
         value: req.body.body,
-        rules: ['required']
-    });
-
-    validator.addRule({
-        field: 'username',
-        value: req.body.username,
         rules: ['required']
     });
 
@@ -57,7 +58,7 @@ module.exports =  function (req, res, next) {
 
             var msg = {
                 body: req.body.body,
-                username: req.body.username
+                owner: req.user._id
             }
 
             annotation.messages.push(msg);
