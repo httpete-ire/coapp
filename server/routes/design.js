@@ -14,8 +14,8 @@ module.exports =  function(app, router) {
     .route('/designs/:designid/annotations')
     .post(annotationCtrl.newAnnotation);
 
-    // router
-    // .route('/designs/:designid/annotations/:annotationid/messages')
-    // .post(annotationCtrl.newMessage);
+    router
+    .route('/designs/:designid/annotations/:annotationid/messages')
+    .post(annotationCtrl.newMessage);
 
 };
