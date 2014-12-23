@@ -1,7 +1,8 @@
 (function () {
     'use strict';
 
-    coapp.factory('SingProjFactory', singleProjectFactory);
+    angular.module('coapp')
+    .factory('SingProjFactory', singleProjectFactory);
 
     function singleProjectFactory ($http, $q, $routeParams, $upload) {
         //epmty object to be returned when methods are added

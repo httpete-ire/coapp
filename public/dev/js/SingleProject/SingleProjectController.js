@@ -1,6 +1,5 @@
 (function(){
 
-
     angular.module('coapp')
     .controller('SingleProjectController', SingProjCtrl);
 

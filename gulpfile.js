@@ -11,6 +11,7 @@ var mongobackup = require('mongobackup');
  */
 var paths = {
     client: {
+        lib: './public/dev/lib/**/*.js',
         js: './public/dev/js',
         app: './public/dev/js/**/*.js',
         sass: './public/dev/sass/**/*.scss',

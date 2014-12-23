@@ -1,58 +1,61 @@
 (function(){
 
-	angular.module('coapp');
+	angular.module('coapp')
+	.factory('AuthFactory', AuthFactory)
+	.factory('TokenInterceptor', TokenInterceptor)
+	.factory('AuthenticationFactory', AuthenticationFactory);
 
-	coapp.factory('AuthFactory', ["$window", "$location", "$http", "$q", "AuthenticationFactory", function($window, $location, $http, $q, AuthenticationFactory){
+	// @ngInject
+	function AuthFactory($window, $location, $http, $q, AuthenticationFactory){
+		var auth = {};
 
-			var auth = {};
+		auth.login = function(user){
 
-				auth.login = function(user){
+			var defer = $q.defer();
 
-					var defer = $q.defer();
+			 $http.post('/auth/login', user)
+				.success(function(data){
+					defer.resolve(data);
+				})
+				.error(function(err, status){
+					defer.reject(err);
+				})
 
-					 $http.post('/auth/login', user)
-						.success(function(data){
-							defer.resolve(data);
-						})
-						.error(function(err, status){
-							defer.reject(err);
-						})
+			return defer.promise;
+		};
 
-					return defer.promise;
-				};
+		auth.register = function(user){
 
-				auth.register = function(user){
+			var defer = $q.defer();
 
-					var defer = $q.defer();
+			 $http.post('/auth/register', user)
+				.success(function(data){
+					defer.resolve(data);
+				})
+				.error(function(err, status){
+					defer.reject(err);
+				})
 
-					 $http.post('/auth/register', user)
-						.success(function(data){
-							defer.resolve(data);
-						})
-						.error(function(err, status){
-							defer.reject(err);
-						})
+			return defer.promise;
+		};
 
-					return defer.promise;
-				};
+		auth.logout = function($location) {
+			if (AuthenticationFactory.isLogged) {
+				AuthenticationFactory.isLogged = false;
 
-				auth.logout = function($location) {
-					if (AuthenticationFactory.isLogged) {
-						AuthenticationFactory.isLogged = false;
+				delete $window.localStorage.user;
+				delete $window.localStorage.token;
 
-						delete $window.localStorage.user;
-						delete $window.localStorage.token;
+				delete AuthenticationFactory.user;
+			}
+		};
 
-						delete AuthenticationFactory.user;
-					}
-				};
+		return auth;
+	}
+	AuthFactory.$inject = ["$window", "$location", "$http", "$q", "AuthenticationFactory"];
 
-			return auth;
-
-	}]);
-
-	//////////////////
-	coapp.factory('AuthenticationFactory', ["$window", function($window){
+	// @ngInject
+	function AuthenticationFactory ($window){
 
 		var auth = {};
 
@@ -70,10 +73,11 @@
 		}
 
 		return auth;
-	}]);
+	}
+	AuthenticationFactory.$inject = ["$window"];
 
-	coapp.factory('TokenInterceptor', ["$window", "$location", "$q", function($window, $location, $q){
-
+	// @ngInject
+	function TokenInterceptor ($window, $location, $q) {
 		var tokenIntercept = {};
 
 		tokenIntercept.request = function(config){
@@ -95,8 +99,8 @@
 		}
 
 		return tokenIntercept;
-
-	}]);
+	}
+	TokenInterceptor.$inject = ["$window", "$location", "$q"];
 
 
 })();

@@ -1,7 +1,8 @@
 (function () {
     'use strict';
 
-    coapp.factory('AnnotateFactory', AnnotateFactory);
+    angular.module('coapp')
+    .factory('AnnotateFactory', AnnotateFactory);
 
     // @ngInject
     function AnnotateFactory ($http, $q, $routeParams) {
