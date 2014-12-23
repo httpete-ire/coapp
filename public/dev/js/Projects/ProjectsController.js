@@ -42,6 +42,7 @@ ProjController.$inject = ["ProjFactory", '$scope'];
  */
 function ProjectModalController ($scope, $modalInstance, object, ProjFactory, $rootScope) {
 
+    // store collaborators in an array
     $scope.collaborators = [];
 
     // todo
@@ -53,10 +54,17 @@ function ProjectModalController ($scope, $modalInstance, object, ProjFactory, $r
         $modalInstance.close();
     };
 
+    /**
+     * close modal
+     */
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
 
+    /**
+     * add new project and a list of collaborators on the project
+     * @param {[type]} project [description]
+     */
     $scope.addProject = function (project) {
 
         project.collaborators = [];
@@ -76,11 +84,16 @@ function ProjectModalController ($scope, $modalInstance, object, ProjFactory, $r
             $rootScope.$broadcast('project-change');
             $scope.project = null;//to set the form back to blank
         }, function(error){
-            console.log(error);
+            // handle alerts here
+
         });
 
     };
 
+    /**
+     * delete project and all its assets based on id
+     * @param  {int} id :: id of project
+     */
     $scope.deleteProject = function(id){
         ProjFactory.deleteProject(id)
         .then(function(data){
@@ -92,28 +105,43 @@ function ProjectModalController ($scope, $modalInstance, object, ProjFactory, $r
         );
     };
 
+    /**
+     * remove user from collaborator list
+     * @param  {int} $index :: index of user in list
+     */
     $scope.removeCollaborator = function ($index) {
         $scope.collaborators.splice($index, 1);
     }
-
+    /**
+     * search the db for users by name
+     * @param  {String} val :: search query
+     * @return {Promise}    :: return search service for directive to use
+     */
     $scope.searchUsers = function (val) {
         var ids = [];
 
+        // loop over every collaborator and push there id to a seperate array
         angular.forEach($scope.collaborators, function(user) {
             ids.push(user._id);
         })
 
-        console.log('ids are', ids);
         // return service promise
         return ProjFactory.searchUsers(val, ids.join(','));
     }
 
+    /**
+     * push selected user to an array of collaborators
+     * @param  {Object} $item  :: user object
+     * @param  {Object} $model :: user id
+     * @param  {Object} $label :: user name
+     */
     $scope.onSelect = function ($item, $model, $label) {
         $scope.collaborators.push($item);
         $scope.project.collaborators = null; // clear form
     };
 
 }
+
 ProjectModalController.$inject = ["$scope", "$modalInstance", "object", "ProjFactory", "$rootScope"];
 
 })();

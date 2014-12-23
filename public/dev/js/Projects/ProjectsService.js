@@ -48,7 +48,7 @@ var coapp = angular.module('coapp');
             //delete a project by the id passed from the controller
             proj.deleteProject = function(projectid){
                var defer = $q.defer();
-                $http.delete(paths.api+'/'+projectid)
+                $http.delete(paths.api + '/' + projectid)
                     .success(function(data){
                         defer.resolve(data);
                     })
@@ -59,6 +59,12 @@ var coapp = angular.module('coapp');
                     return defer.promise;
                 };
 
+            /**
+             * search system for users based on username
+             * @param  {String} name :: name of user
+             * @param  {Mongo ID's} ids  :: id's of existing collabarators
+             * @return {Promise}  :: return a http promise
+             */
             proj.searchUsers = function (name, ids) {
                 var defer = $q.defer();
 

@@ -27,6 +27,8 @@ module.exports =  function(req, res, next) {
     // add the logged in user
     ids.push(req.user._id);
 
+    // search for users whose usernames starts with the search query
+    // ignore users with ids
     User.find({
         username: new RegExp('^'+name, "i"),
         _id: { $nin: ids }
