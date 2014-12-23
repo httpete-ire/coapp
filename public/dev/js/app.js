@@ -54,7 +54,7 @@
             controller: 'AnnotateController',
             controllerAs: 'AnnotateCtrl',
             access:{
-                requiredLogin: false
+                requiredLogin: true
             }
         }).otherwise({
             redirectTo: '/landing'
@@ -63,12 +63,14 @@
         $httpProvider.interceptors.push('TokenInterceptor');
 
     }
+
     appConfig.$inject = ["$routeProvider", "$httpProvider"];
 
     // @ngInject
     function appRun ($rootScope, $window, $location, AuthenticationFactory) {
         AuthenticationFactory.check();
 
+        // @ngInject
         $rootScope.$on('$routeChangeStart', function (event, nextRoute, currentRoute){
 
             if((nextRoute.access && nextRoute.access.requiredLogin) && !AuthenticationFactory.isLogged) {
@@ -82,6 +84,7 @@
             }
         });
 
+        // @ngInject
         $rootScope.$on('$routeChangeSuccess', function (event, nextRoute, currentRoute){
 
             $rootScope.isLoggedIn = AuthenticationFactory.isLogged;
@@ -99,6 +102,7 @@
             }
         });
     }
+
     appRun.$inject = ["$rootScope", "$window", "$location", "AuthenticationFactory"];
 
 

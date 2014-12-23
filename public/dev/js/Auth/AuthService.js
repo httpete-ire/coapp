@@ -1,6 +1,6 @@
 (function(){
 
-	var coapp = angular.module('coapp');
+	angular.module('coapp');
 
 	coapp.factory('AuthFactory', ["$window", "$location", "$http", "$q", "AuthenticationFactory", function($window, $location, $http, $q, AuthenticationFactory){
 

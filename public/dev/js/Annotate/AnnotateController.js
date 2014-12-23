@@ -4,8 +4,7 @@
     angular.module('coapp')
     .controller('AnnotateController', AnnotateCtrl);
 
-
-
+    // @ngInject
     function AnnotateCtrl(AnnotateFactory, focus){
 
         _this = this;
@@ -69,6 +68,7 @@
          _this.getDesign();
 
     }
+    AnnotateCtrl.$inject = ["AnnotateFactory", "focus"];
 
     function getMouse(e) {
         var target = e.target.getBoundingClientRect();
@@ -79,7 +79,5 @@
         };
 
     }
-
-    AnnotateCtrl.$inject = ["AnnotateFactory", 'focus'];
 
 })();

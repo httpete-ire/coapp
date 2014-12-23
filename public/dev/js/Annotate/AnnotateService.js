@@ -3,6 +3,7 @@
 
     coapp.factory('AnnotateFactory', AnnotateFactory);
 
+    // @ngInject
     function AnnotateFactory ($http, $q, $routeParams) {
         //epmty object to be returned when methods are added
         var SingDesign = {};
@@ -49,7 +50,6 @@
 
         return SingDesign;
     }
-
-    AnnotateFactory.$inject = ['$http', '$q', '$routeParams'];
+    AnnotateFactory.$inject = ["$http", "$q", "$routeParams"];
 
 })();
