@@ -21,8 +21,20 @@
         </div>
 
         <div class="form-group">
+
             <label for="projectCollabs">Add collaborator </label><i class="fa fa-question-circle modal--form-fa" tooltip-placement="right" tooltip="On the Right!"></i>
-            <input type="text" class="form-control" placeholder="Add user" typeahead="name.name for name in users" ng-model="project.collaborators">
+
+            <!-- added users -->
+            <ul>
+                <li ng-repeat="user in collaborators" class="collaborator--list-item">{{user.username}} <i class="fa fa-trash-o pull-right" ng-click="removeCollaborator($index)"></i></li>
+            </ul>
+
+            <input type="text" class="form-control"
+            placeholder="Add user"
+            typeahead="user._id as user.username for user in searchUsers($viewValue)"
+            ng-model="project.collaborators"
+            typeahead-on-select='onSelect($item, $model, $label)'
+            typeahead-wait-ms="100">
         </div>
 
         <button type="submit" class="btn btn-block btn-primary">Add Project</button>

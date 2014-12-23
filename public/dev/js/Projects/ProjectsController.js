@@ -42,6 +42,7 @@ ProjController.$inject = ["ProjFactory", '$scope'];
  */
 function ProjectModalController ($scope, $modalInstance, object, ProjFactory, $rootScope) {
 
+    $scope.collaborators = [];
 
     // todo
     // alerts in modals
@@ -58,16 +59,25 @@ function ProjectModalController ($scope, $modalInstance, object, ProjFactory, $r
 
     $scope.addProject = function (project) {
 
+        project.collaborators = [];
+
+        // push collaborators on to project
+        if($scope.collaborators.length) {
+            angular.forEach($scope.collaborators, function(user) {
+                project.collaborators.push(user._id);
+            })
+        }
+
         ProjFactory.addProject(project)
         .then(function(data){
-        // closes modal if project added
+            // closes modal if project added
             $modalInstance.dismiss('cancel');
             //Broadcasts out, for a listener to listen for
             $rootScope.$broadcast('project-change');
             $scope.project = null;//to set the form back to blank
         }, function(error){
-                console.log(error);
-            });
+            console.log(error);
+        });
 
     };
 
@@ -82,7 +92,26 @@ function ProjectModalController ($scope, $modalInstance, object, ProjFactory, $r
         );
     };
 
-    $scope.users = [{name:'Alex'}, {name: 'Pete'}, {name: 'Sue'}, {name: 'Sam'}];
+    $scope.removeCollaborator = function ($index) {
+        $scope.collaborators.splice($index, 1);
+    }
+
+    $scope.searchUsers = function (val) {
+        var ids = [];
+
+        angular.forEach($scope.collaborators, function(user) {
+            ids.push(user._id);
+        })
+
+        console.log('ids are', ids);
+        // return service promise
+        return ProjFactory.searchUsers(val, ids.join(','));
+    }
+
+    $scope.onSelect = function ($item, $model, $label) {
+        $scope.collaborators.push($item);
+        $scope.project.collaborators = null; // clear form
+    };
 
 }
 ProjectModalController.$inject = ["$scope", "$modalInstance", "object", "ProjFactory", "$rootScope"];

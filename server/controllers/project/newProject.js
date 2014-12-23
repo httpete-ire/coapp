@@ -100,10 +100,12 @@ module.exports =  function newProject (req, res, next) {
          */
         if (req.body.collaborators) {
 
+            console.log('collaborators are: ', req.body.collaborators);
+
             // if collaborators is sepearted by a comma
             // create an array with them and the owner
-            if (req.body.collaborators.indexOf(',') > -1) {
-                collaborators = req.body.collaborators.split(',');
+            if (req.body.collaborators.length > 1) {
+                collaborators = req.body.collaborators;
             } else { // only one collaborator add them and the owner
                 collaborators.push(req.body.collaborators);
             }

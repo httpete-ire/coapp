@@ -16,8 +16,20 @@ module.exports =  function(req, res, next) {
         });
     }
 
+    // ids of users to exclude from search
+    var ids = [];
+
+    if (req.query.ids) {
+        // turn query string into array
+        ids = req.query.ids.split(',');
+    }
+
+    // add the logged in user
+    ids.push(req.user._id);
+
     User.find({
-        username: new RegExp('^'+name, "i")
+        username: new RegExp('^'+name, "i"),
+        _id: { $nin: ids }
     })
     .select('username _id email')
     .exec(function(err, users){

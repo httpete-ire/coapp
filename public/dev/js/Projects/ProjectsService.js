@@ -59,6 +59,25 @@ var coapp = angular.module('coapp');
                     return defer.promise;
                 };
 
+            proj.searchUsers = function (name, ids) {
+                var defer = $q.defer();
+
+                $http.get('/api/users', {
+                    params: {
+                            search: name,
+                            ids: ids
+                    }
+                })
+                .success(function(data){
+                    defer.resolve(data);
+                })
+                .error(function(err, status){
+                    defer.reject(err);
+                });
+
+                return defer.promise;
+            }
+
             //return the proj object with: deleteProject, addProject, getProjects methods available for the controller to use
             return proj;
         } ]);

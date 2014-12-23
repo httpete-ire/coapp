@@ -104,6 +104,20 @@
         color: #9B9B9B;
     }
 
+}
 
+.collaborator--list-item {
+
+    padding: 10px 20px;
+    border-bottom: 1px solid $icon-grey;
+
+    &:last-child {
+        border-bottom: none;
+        padding: 10px 20px 15px 20px;
+    }
+
+    .fa {
+        cursor: pointer;
+    }
 
 }
