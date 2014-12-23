@@ -78,10 +78,32 @@
                 margin-right: 8px
             }
         }
+
     }
 
-    &-name {
-        width: 72%;
-        display: inline-block;
+}
+
+.app-header {
+    padding: 35px 0 47px 0;
+}
+
+.search {
+
+    &--form {
+        position: relative;
     }
+
+    &--input {
+        padding-left: 35px;
+    }
+
+    &--icon {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        color: #9B9B9B;
+    }
+
+
+
 }
