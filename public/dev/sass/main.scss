@@ -11,13 +11,8 @@
 
 @import './modules/_modules.scss';
 
+@import './theme/_overrides';
 
-
-.form-container {
-    background: #fff;
-    padding: 20px;
-    border-radius: 4px;
-}
 
 .design-img {
     position: relative;

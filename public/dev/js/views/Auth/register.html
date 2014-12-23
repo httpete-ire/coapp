@@ -1,29 +1,41 @@
-<div class="vertical-align clearfix col-md-4 center">
-    <alert ng-repeat='alert in authCtrl.alerts' type="{{alert.type}}" close="authCtrl.closeAlert($index)">{{alert.msg}}</alert>
-    <div class="form-container">
+<div class="col-md-4 center vertical-align">
 
-      <h1>Register</h1>
+    <alert ng-repeat='alert in authCtrl.alerts' type="{{alert.type}}" close="authCtrl.closeAlert($index)">{{alert.msg}}</alert>
+
+    <div class="auth--container">
+
+      <img src="./../../../media/icon_alt.png" alt="" class="auth--container-img">
+
+      <h3 class="auth--container-title">Sign up</h3>
+
       <form name="registerForm"  role="form" ng-submit="authCtrl.register(authCtrl.user)">
 
 
-          <div class="form-group">
-              <label for="exampleInputEmail1">Username</label>
-              <input ng-model="authCtrl.user.username"  type="text" class="form-control" id="exampleInputusername1" placeholder="Enter username">
-          </div>
-          <div class="form-group">
-              <label for="exampleInputEmail1">Email</label>
-              <input ng-model="authCtrl.user.email"  type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-          </div>
-            <div class="form-group">
-              <label for="exampleInputPassword1">Password</label>
-              <input ng-model="authCtrl.user.password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-            </div>
-          <div class="form-group">
-              <label for="exampleInputPassword1">Confirm Password</label>
-              <input ng-model="authCtrl.user.confirmPassword" type="password" class="form-control" id="exampleInputPassword1" placeholder="Confirm Password">
-            </div>
-            <button type="submit" class="btn btn-sm btn-default">Sign in</button>
-              <!-- {{regCtrl.user.email}} -->
+      <div class="form-group">
+        <input ng-model="authCtrl.user.username"  type="text" class="form-control"  placeholder="Enter username">
+        <span class="form--error-popup">Please enter a valid email</span>
+      </div>
+
+      <div class="form-group">
+          <input ng-model="authCtrl.user.email"  type="email" class="form-control"  placeholder="Enter email">
+      </div>
+
+      <div class="form-group">
+          <input ng-model="authCtrl.user.password" type="password" class="form-control"  placeholder="Password">
+      </div>
+
+      <div class="form-group">
+          <input ng-model="authCtrl.user.confirmPassword" type="password" class="form-control" placeholder="Confirm Password">
+      </div>
+
+      <button type="submit" class="btn btn-block btn-primary">Sign in</button>
+      <!-- {{regCtrl.user.email}} -->
       </form>
+
     </div>
-  </div>
+
+    <div class="auth--container-link pull-right">
+        <p>already have an account? <a href="#/login">sign in here</a></p>
+    </div>
+
+</div>

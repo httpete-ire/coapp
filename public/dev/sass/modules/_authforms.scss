@@ -1,0 +1,102 @@
+.auth--container {
+    background: $off-white;
+    border-radius: 4px;
+    text-align: center;
+    padding: 15px;
+
+    &-img,
+    &-title {
+        padding-bottom: 15px
+    }
+
+    &-link {
+        padding: 10px;
+        color: $input-border;
+    }
+
+    &-icon {
+        font-size: 72px;
+        color: $blue;
+    }
+
+    label {
+        text-align: left;
+        margin-bottom: 10px;
+    }
+
+}
+
+.has-error .form-control {
+    border: 2px solid $red;
+}
+
+.form-group {
+    position: relative;
+}
+
+.form--error-popup {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: -290px;
+    background: $red;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 40px;
+    color: $off-white;
+    width: 270px;
+    border-radius: 3px;
+    display: none;
+
+    &::before {
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 18px 31.2px 18px 0;
+        border-color: transparent #d66666 transparent transparent;
+        content: '';
+        position: absolute;
+        left: -15px;
+    }
+}
+
+.project--desc {
+    height: 100px !important;
+}
+
+.modal--form {
+
+    &-icon {
+        font-size: 72px;
+        color: $blue;
+        margin-bottom: 25px;
+    }
+
+    &-title {
+        margin-bottom: 25px;
+    }
+
+    &-header {
+        text-align: center;
+        position: relative;
+    }
+
+    label {
+        margin-bottom: 15px !important;
+    }
+
+    &-fa {
+        margin-left: 10px;
+    }
+}
+
+.close-fa {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    padding: 10px;
+    display: block;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}

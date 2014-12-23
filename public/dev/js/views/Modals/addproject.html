@@ -1,16 +1,35 @@
 <div class="modal-body">
-            <form name="loginForm"  ng-submit="addProject(project)" role="form" class="col-md-4">
-                <div class="form-group">
-                    <label for="exampleInputEmail1">name</label>
-                    <input ng-model="project.name" type="text" class="form-control" placeholder="Enter name">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Description</label>
-                    <input ng-model="project.desc" type="text" class="form-control"  placeholder="Description">
-                </div>
-                <button type="submit" class="btn btn-sm btn-primary">Add</button>
-            </form>
-</div>
-<div class="modal-footer">
-    <button class="btn" ng-click="cancel()">Close</button>
-</div>
+
+    <form ng-submit="addProject(project)" role="form" class="modal--form">
+
+        <i class="fa fa-times close-fa" ng-click="cancel()"></i>
+
+        <div class="modal--form-header">
+            <span class="fa fa-picture-o modal--form-icon"></span>
+
+            <h3 class="modal--form-title">Add project</h3>
+        </div>
+
+        <div class="form-group">
+            <label for="projectName">Project name</label>
+            <input ng-model="project.name" type="text" class="form-control" placeholder="Enter name" name="projectName">
+        </div>
+
+        <div class="form-group">
+            <label for="projectDesc">Project description</label>
+            <textarea ng-model="project.desc" class="form-control project--desc"  placeholder="Description" name="projectDesc" row="3"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="projectCollabs">Add collaborator </label><i class="fa fa-question-circle modal--form-fa" tooltip-placement="right" tooltip="On the Right!"></i>
+            <input type="text" class="form-control" placeholder="Add user">
+        </div>
+
+        <button type="submit" class="btn btn-block btn-primary">Add Project</button>
+
+    </form>
+
+</div><!--
+
+    <button class="btn" ng-click="cancel()">Close</button> -->
+

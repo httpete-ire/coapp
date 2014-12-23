@@ -14,10 +14,6 @@ module.exports =  function (req, res, next) {
                 });
             }
 
-            console.log('id in url is', req.params.messageid);
-
-            console.log('id in url is', req.params.messageid);
-
             // remove
             var messages = design.annotations.id(req.params.annotationid)
             .messages;

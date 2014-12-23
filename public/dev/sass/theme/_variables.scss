@@ -2,10 +2,13 @@
 $blue: #5DABE1;
 $green: #54BB87;
 $red: #D66666;
+
 $dark-grey: #232b2d;
 $text-grey: #5b7075;
 $off-white: #f4f4f4;
 $icon-grey: #d6d6d6;
+
+$brand-danger: $red;
 
 // width settings
 $sidebar-width: 240px;
@@ -13,8 +16,28 @@ $closed-menu: 80px;
 
 // override bootstrap settings
 $font-family-sans-serif:  'Open Sans', sans-serif;
-
 $font-family-serif:       $font-family-sans-serif;
 $font-family-monospace:   $font-family-sans-serif;
 $font-family-base:        $font-family-sans-serif;
 
+$body-bg: #f0f3f6;
+$text-color: $text-grey;
+
+// bootstrap color overrides
+$brand-primary: $blue;
+
+// bootstrap form overrides
+$input-bg: #e7e7e7;
+$input-color: #333;
+$input-border: #b8b8b8;
+$input-border-focus: $input-border;
+
+$font-size-base: 16px;
+
+$modal-backdrop-bg: #232b2d;
+$modal-backdrop-opacity: .7;
+$modal-sm:  410px;
+
+// alert boxes
+$alert-danger-bg: $red;
+$alert-danger-text: #f4f4f4;

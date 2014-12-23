@@ -36,8 +36,13 @@ var Annotaion = new Schema({
             type: String
         },
         owner: {
-            type: Schema.Types.ObjectId,
-            ref: 'User'
+            name: {
+                type: String
+            },
+            id: {
+                type: Schema.Types.ObjectId,
+                ref: 'User'
+            }
         },
         created: {
             type: Date,
