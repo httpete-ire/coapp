@@ -21,15 +21,16 @@ $modal-inner-padding: 25px;
 }
 
 .danger {
-    background: #D66666;
+    background: $red;
 }
 
 .cancel {
-    background: #39464A;
+    background: #5B7075;
 }
 
 .modal-center {
     text-align: center;
+    padding: 25px 15px;
 }
 
 .modal-content {

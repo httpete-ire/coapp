@@ -48,7 +48,6 @@ var coapp = angular.module('coapp');
             //delete a project by the id passed from the controller
             proj.deleteProject = function(projectid){
                var defer = $q.defer();
-               alert('delete');
                 $http.delete(paths.api+'/'+projectid)
                     .success(function(data){
                         defer.resolve(data);
