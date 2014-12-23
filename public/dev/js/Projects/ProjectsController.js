@@ -82,6 +82,8 @@ function ProjectModalController ($scope, $modalInstance, object, ProjFactory, $r
         );
     };
 
+    $scope.users = [{name:'Alex'}, {name: 'Pete'}, {name: 'Sue'}, {name: 'Sam'}];
+
 }
 ProjectModalController.$inject = ["$scope", "$modalInstance", "object", "ProjFactory", "$rootScope"];
 

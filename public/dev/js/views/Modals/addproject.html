@@ -2,7 +2,7 @@
 
     <form ng-submit="addProject(project)" role="form" class="modal--form">
 
-        <i class="fa fa-times close-fa" ng-click="cancel()"></i>
+        <span class="fa fa-times close-fa" ng-click="cancel()">fhfg</span>
 
         <div class="modal--form-header">
             <span class="fa fa-picture-o modal--form-icon"></span>
@@ -22,7 +22,7 @@
 
         <div class="form-group">
             <label for="projectCollabs">Add collaborator </label><i class="fa fa-question-circle modal--form-fa" tooltip-placement="right" tooltip="On the Right!"></i>
-            <input type="text" class="form-control" placeholder="Add user">
+            <input type="text" class="form-control" placeholder="Add user" typeahead="name.name for name in users" ng-model="project.collaborators">
         </div>
 
         <button type="submit" class="btn btn-block btn-primary">Add Project</button>
