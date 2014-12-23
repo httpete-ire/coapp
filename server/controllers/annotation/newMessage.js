@@ -56,12 +56,10 @@ module.exports =  function (req, res, next) {
                 });
             }
 
-            var msg = {
+            annotation.messages.push({
                 body: req.body.body,
                 owner: req.user._id
-            }
-
-            annotation.messages.push(msg);
+            });
 
             design.save(function (err) {
                 if(err) {
