@@ -83,5 +83,6 @@ function ProjectModalController ($scope, $modalInstance, object, ProjFactory, $r
     };
 
 }
+ProjectModalController.$inject = ["$scope", "$modalInstance", "object", "ProjFactory", "$rootScope"];
 
 })();

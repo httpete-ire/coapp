@@ -1,9 +1,13 @@
 (function () {
     'use strict';
     //main aoolication name: coapp. ngRoute for page routing
-    var app = angular.module('coapp', ['ngRoute', 'ui.bootstrap', 'angularFileUpload']);
+    angular
+    .module('coapp', ['ngRoute', 'ui.bootstrap', 'angularFileUpload'])
+    .config(appConfig)
+    .run(appRun);
 
-    app.config(["$routeProvider", "$httpProvider", function($routeProvider, $httpProvider){
+    // @ngInject
+    function appConfig ($routeProvider, $httpProvider){
 
         //set template based on the url
         $routeProvider
@@ -42,7 +46,7 @@
             controller: 'SingleProjectController',
             controllerAs: 'SingProjectCtrl',
             access:{
-                requiredLogin: false
+                requiredLogin: true
             }
         })
         .when('/design/:design_id', {
@@ -58,10 +62,11 @@
 
         $httpProvider.interceptors.push('TokenInterceptor');
 
-    }]);//config
+    }
+    appConfig.$inject = ["$routeProvider", "$httpProvider"];
 
     // @ngInject
-    app.run(["$rootScope", "$window", "$location", "AuthenticationFactory", function($rootScope, $window, $location, AuthenticationFactory){
+    function appRun ($rootScope, $window, $location, AuthenticationFactory) {
         AuthenticationFactory.check();
 
         $rootScope.$on('$routeChangeStart', function (event, nextRoute, currentRoute){
@@ -93,8 +98,8 @@
                 $location.path('/projects');
             }
         });
+    }
+    appRun.$inject = ["$rootScope", "$window", "$location", "AuthenticationFactory"];
 
-
-    }]);
 
 })();

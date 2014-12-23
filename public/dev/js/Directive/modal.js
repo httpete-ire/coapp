@@ -53,5 +53,6 @@
 
 
     }
+    modal.$inject = ["$modal"];
 
 })();

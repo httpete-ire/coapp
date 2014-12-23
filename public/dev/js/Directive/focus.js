@@ -26,6 +26,7 @@
           });
         }
     }
+    focusFactory.$inject = ["$rootScope", "$timeout"];
 
 
 })();
