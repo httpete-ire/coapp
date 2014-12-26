@@ -6,7 +6,6 @@ var _ = require('underscore');
 var sizeOf = require('image-size');
 
 function FileInfo (file, opt) {
-    console.log(file);
   this.name = file.name;
   this.designName = createName(file.name);
   this.size = file.size;
