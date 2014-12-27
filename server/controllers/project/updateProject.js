@@ -1,7 +1,27 @@
 var Project = require('./../../models/project');
-var User = require('./../../models/user');
 var Validator = require('./../../helpers/validator.js');
 
+/**
+ * @api {put} /api/projects Update project
+ *
+ * @apiName Update project
+ * @apiGroup Projects
+ *
+ * @apiParam {String} name Project name
+ * @apiParam {String} desc Project description
+ * @apiParam {String} collaborators ID's of project collaborators
+ *                    (seperated by a comma)
+ *
+ * @apiPermission User
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 Ok
+ *
+ * @apiUse InvalidData
+ *
+ * @apiUse NotAuthorized
+ *
+ */
 module.exports =  function removeProject(req, res, next) {
 
     var validator = new Validator();
