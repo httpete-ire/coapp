@@ -1,0 +1,47 @@
+<div class="modal-body">
+
+    <form ng-submit="updateProject(project)" role="form" class="modal--form">
+
+        <span class="fa fa-times close-fa" ng-click="cancel()"></span>
+
+        <div class="modal--form-header">
+            <span class="fa fa-picture-o modal--form-icon"></span>
+
+            <h3 class="modal--form-title">Update project</h3>
+        </div>
+
+        <div class="form-group">
+            <label for="projectName">Project name</label>
+            <input ng-model="project.name" type="text" class="form-control" placeholder="Enter name" name="projectName">
+        </div>
+
+        <div class="form-group">
+            <label for="projectDesc">Project description</label>
+            <textarea ng-model="project.desc" class="form-control project--desc"  placeholder="Description" name="projectDesc" row="3"></textarea>
+        </div>
+
+        <div class="form-group">
+
+            <label for="projectCollabs">Add collaborator </label><i class="fa fa-question-circle modal--form-fa" tooltip="Add user by username" tooltip-placement="right"></i>
+
+            <!-- added users -->
+            <ul>
+                <li ng-repeat="user in collaborators" class="collaborator--list-item">{{user.username}} <i class="fa fa-trash-o pull-right" ng-click="removeCollaborator($index)"></i></li>
+            </ul>
+
+            <input type="text" class="form-control"
+            placeholder="Add user"
+            typeahead="user._id as user.username for user in searchUsers($viewValue)"
+            ng-model="project.collaborators"
+            typeahead-on-select='onSelect($item, $model, $label)'
+            typeahead-wait-ms="100">
+        </div>
+
+        <button type="submit" class="btn btn-block btn-primary">Update Project</button>
+
+    </form>
+
+</div><!--
+
+    <button class="btn" ng-click="cancel()">Close</button> -->
+

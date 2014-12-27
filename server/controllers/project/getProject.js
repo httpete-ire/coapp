@@ -41,7 +41,7 @@ module.exports =  function (req, res, next) {
 
         // populate collabarorator list
         if(_.contains(fields, 'collaborators')){
-            projectQuery.populate('collaborators', 'email username');
+            projectQuery.populate('collaborators', '_id email username');
         }
 
         // populate design list

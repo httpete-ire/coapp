@@ -17,7 +17,7 @@
 
 
         //get projects from server
-        proj.getProjects = function(){
+        proj.getProjects = function() {
             //set up the promise object
             var defer = $q.defer();
             //get request to server for projects
@@ -30,9 +30,27 @@
                     defer.reject(err);
                 })
                 //return the promise object
-                return defer.promise;
+            return defer.promise;
         };
 
+        proj.getProject = function (projectid) {
+            var defer = $q.defer();
+
+            $http.get(paths.api + '/' + projectid, {
+                params: {
+                        fields: 'name,desc,collaborators'
+                }
+            })
+            //calback if succesfull or an error
+            .success(function(data){
+                    defer.resolve(data);
+            })
+            .error(function(err, status){
+                defer.reject(err);
+            })
+                //return the promise object
+            return defer.promise;
+        };
 
         //add a project to server with path and new project from controller
         proj.addProject = function(project){
@@ -45,10 +63,11 @@
                 })
                 .error(function(err, status){
                    defer.reject(err);
-                })
+                });
 
-                return defer.promise;
-            };
+            return defer.promise;
+        };
+
         //delete a project by the id passed from the controller
         proj.deleteProject = function(projectid){
            var defer = $q.defer();
@@ -60,8 +79,22 @@
                    defer.reject(err);
                 })
 
-                return defer.promise;
-            };
+            return defer.promise;
+        };
+
+        proj.updateProject = function (project) {
+            var defer = $q.defer();
+
+            $http.put(paths.api + '/' + project._id, project)
+                .success(function(data){
+                    defer.resolve(data);
+                })
+                .error(function(err){
+                    defer.reject(err);
+                });
+
+            return defer.promise;
+        }
 
         /**
          * search system for users based on username

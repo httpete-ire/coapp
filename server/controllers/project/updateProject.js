@@ -24,6 +24,8 @@ var Validator = require('./../../helpers/validator.js');
  */
 module.exports =  function removeProject(req, res, next) {
 
+    console.log(req.body);
+
     var validator = new Validator();
 
     validator.addRule({
@@ -75,9 +77,6 @@ module.exports =  function removeProject(req, res, next) {
             project.name = req.body.name;
             project.desc = req.body.desc;
             project.collaborators = req.body.collaborators || [];
-
-            // ensure the owner is always a collaborator
-            project.collaborators.push(req.user._id);
 
             project.save(function(err){
                 if (err) {
