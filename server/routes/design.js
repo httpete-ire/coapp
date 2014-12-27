@@ -16,10 +16,12 @@ module.exports =  function(app, router) {
 
     router
     .route('/designs/:designid/annotations/:annotationid/messages')
-    .post(annotationCtrl.newMessage);
+    .post(annotationCtrl.newMessage)
+    .get(annotationCtrl.getMessages);
 
     router
     .route('/designs/:designid/annotations/:annotationid/messages/:messageid')
-    .delete(annotationCtrl.deleteMessage);
+    .delete(annotationCtrl.deleteMessage)
+    .put(annotationCtrl.updateMessage);
 
 };
