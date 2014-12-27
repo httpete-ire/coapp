@@ -198,6 +198,13 @@
             "optional": false,
             "field": "y",
             "description": "<p>y position of message</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "color",
+            "description": "<p>color of mark</p> "
           }
         ]
       }
@@ -208,7 +215,7 @@
       }
     ],
     "version": "0.0.0",
-    "filename": "server/controllers/design/newAnnotation.js",
+    "filename": "server/controllers/annotation/newAnnotation.js",
     "groupTitle": "Designs",
     "error": {
       "fields": {
@@ -307,6 +314,53 @@
           "content": "    HTTP/1.1 404 Not Found\n    {\n      \"error\": \"No project found with that id\"\n    }",
           "type": "json"
         },
+        {
+          "title": "Error-Response:",
+          "content": "    HTTP/1.1 401 Unauthorized\n    {\n      \"error\": \"You must be authenticated to perform this action\"\n    }",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "post",
+    "url": "/api/design/:designid/annotations/:annotationid/messages",
+    "title": "New message",
+    "name": "Add_new_message_to_annotation",
+    "group": "Designs",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "body",
+            "description": "<p>Body of reply</p> "
+          }
+        ]
+      }
+    },
+    "permission": [
+      {
+        "name": "User"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "server/controllers/annotation/newMessage.js",
+    "groupTitle": "Designs",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NotAuthorized",
+            "description": "<p>You must be proved valid authentication details</p> "
+          }
+        ]
+      },
+      "examples": [
         {
           "title": "Error-Response:",
           "content": "    HTTP/1.1 401 Unauthorized\n    {\n      \"error\": \"You must be authenticated to perform this action\"\n    }",
@@ -813,5 +867,81 @@
         }
       ]
     }
+  },
+  {
+    "type": "get",
+    "url": "/api/users",
+    "title": "Search users by username",
+    "name": "User",
+    "group": "User",
+    "parameter": {
+      "fields": {
+        "Query String": [
+          {
+            "group": "Query String",
+            "type": "String",
+            "optional": false,
+            "field": "search",
+            "description": "<p>name of user to search for</p> "
+          },
+          {
+            "group": "Query String",
+            "type": "String",
+            "optional": false,
+            "field": "ids",
+            "description": "<p>ids of users to ignore</p> "
+          },
+          {
+            "group": "Query String",
+            "type": "boolean",
+            "optional": false,
+            "field": "owner",
+            "description": "<p>ignore logged in user</p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "    URL /api/users?search=pe&owner=true\n\n    HTTP/1.1 200 OK\n\n    [{\n        \"_id\": \"5489c531dd18360563c13179\",\n        \"email\": \"pete@coapp.com\",\n        \"username\": \"pete\"\n    },{\n        \"_id\": \"549964b740a64d0000c701a3\",\n        \"email\": \"pearse@coapp.com\",\n        \"username\": \"pearse\"\n    }]",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UserNotFound",
+            "description": "<p>no user found by the username provided     {         &quot;response&quot;: {             &quot;message&quot;: &quot;no users found&quot;,             &quot;status&quot;: 404         }      }</p> "
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NotAuthorized",
+            "description": "<p>You must be proved valid authentication details</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "    HTTP/1.1 401 Unauthorized\n    {\n      \"error\": \"You must be authenticated to perform this action\"\n    }",
+          "type": "json"
+        }
+      ]
+    },
+    "permission": [
+      {
+        "name": "User"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "server/controllers/user/search.js",
+    "groupTitle": "User"
   }
 ]

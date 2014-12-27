@@ -2,14 +2,12 @@ var Design = require('./../../models/design');
 var Validator = require('./../../helpers/validator.js');
 
 /**
- * @api {post} /api/design/:designid/annotations/:annotationid/messages Add new
- *                                                                      message
+ * @api {post} /api/design/:designid/annotations/:annotationid/messages New message
  *
  * @apiName Add new message to annotation
  * @apiGroup Designs
  *
  * @apiParam {String} body Body of reply
- * @apiParam {String} username Username of sender
  *
  * @apiPermission User
  * @apiUse NotAuthorized

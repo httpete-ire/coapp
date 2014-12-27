@@ -10,6 +10,7 @@ var Validator = require('./../../helpers/validator.js');
  * @apiParam {String} body Body of message
  * @apiParam {Number} x x position of message
  * @apiParam {Number} y y position of message
+ * @apiParam {String} color color of mark
  *
  * @apiPermission User
  *
