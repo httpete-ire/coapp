@@ -1,5 +1,18 @@
 var Design = require('./../../models/design');
 
+/**
+ * @api {delete} /api/design/:designid/annotations/:annotationid/messages/:messageid Delete message
+ *
+ * @apiName Delete message
+ * @apiGroup Annotation
+ *
+ * @apiPermission User and Owner of message
+ *
+ * @apiUse NotAuthorized
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 Ok
+ */
 module.exports =  function (req, res, next) {
     Design.findOne({_id: req.params.designid})
         .exec(function (err, design) {
@@ -19,6 +32,8 @@ module.exports =  function (req, res, next) {
             .messages;
 
             messages.id(req.params.messageid).remove();
+
+            // check if owner remove if so
 
             design.save(function (err) {
                 if(err) {

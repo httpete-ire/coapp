@@ -5,7 +5,7 @@ var Validator = require('./../../helpers/validator.js');
  * @api {post} /api/design/:designid/annotations/:annotationid/messages New message
  *
  * @apiName Add new message to annotation
- * @apiGroup Designs
+ * @apiGroup Annotation
  *
  * @apiParam {String} body Body of reply
  *

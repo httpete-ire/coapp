@@ -1,6 +1,164 @@
 [
   {
     "type": "post",
+    "url": "/api/designs/:designid/annotaions",
+    "title": "Add new annotaion",
+    "name": "Add_annotaion_to_design",
+    "group": "Annotation",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "body",
+            "description": "<p>Body of message</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "x",
+            "description": "<p>x position of message</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "y",
+            "description": "<p>y position of message</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "color",
+            "description": "<p>color of mark</p> "
+          }
+        ]
+      }
+    },
+    "permission": [
+      {
+        "name": "User"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "server/controllers/annotation/newAnnotation.js",
+    "groupTitle": "Annotation",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NotAuthorized",
+            "description": "<p>You must be proved valid authentication details</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "    HTTP/1.1 401 Unauthorized\n    {\n      \"error\": \"You must be authenticated to perform this action\"\n    }",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "post",
+    "url": "/api/design/:designid/annotations/:annotationid/messages",
+    "title": "New message",
+    "name": "Add_new_message_to_annotation",
+    "group": "Annotation",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "body",
+            "description": "<p>Body of reply</p> "
+          }
+        ]
+      }
+    },
+    "permission": [
+      {
+        "name": "User"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "server/controllers/annotation/newMessage.js",
+    "groupTitle": "Annotation",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NotAuthorized",
+            "description": "<p>You must be proved valid authentication details</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "    HTTP/1.1 401 Unauthorized\n    {\n      \"error\": \"You must be authenticated to perform this action\"\n    }",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "delete",
+    "url": "/api/design/:designid/annotations/:annotationid/messages/:messageid",
+    "title": "Delete message",
+    "name": "Delete_message",
+    "group": "Annotation",
+    "permission": [
+      {
+        "name": "User and Owner of message"
+      }
+    ],
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "    HTTP/1.1 200 Ok",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "server/controllers/annotation/deleteMessage.js",
+    "groupTitle": "Annotation",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NotAuthorized",
+            "description": "<p>You must be proved valid authentication details</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "    HTTP/1.1 401 Unauthorized\n    {\n      \"error\": \"You must be authenticated to perform this action\"\n    }",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "post",
     "url": "/auth/login",
     "title": "Login the user into the system",
     "name": "Login",
@@ -171,74 +329,6 @@
   },
   {
     "type": "post",
-    "url": "/api/designs/:designid/annotaions",
-    "title": "Add new annotaion",
-    "name": "Add_annotaion_to_design",
-    "group": "Designs",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "body",
-            "description": "<p>Body of message</p> "
-          },
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "x",
-            "description": "<p>x position of message</p> "
-          },
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "y",
-            "description": "<p>y position of message</p> "
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "color",
-            "description": "<p>color of mark</p> "
-          }
-        ]
-      }
-    },
-    "permission": [
-      {
-        "name": "User"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "server/controllers/annotation/newAnnotation.js",
-    "groupTitle": "Designs",
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "NotAuthorized",
-            "description": "<p>You must be proved valid authentication details</p> "
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Error-Response:",
-          "content": "    HTTP/1.1 401 Unauthorized\n    {\n      \"error\": \"You must be authenticated to perform this action\"\n    }",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
-    "type": "post",
     "url": "/api/projects/:projectid/designs",
     "title": "Add design to specific project",
     "name": "Add_new_design",
@@ -314,53 +404,6 @@
           "content": "    HTTP/1.1 404 Not Found\n    {\n      \"error\": \"No project found with that id\"\n    }",
           "type": "json"
         },
-        {
-          "title": "Error-Response:",
-          "content": "    HTTP/1.1 401 Unauthorized\n    {\n      \"error\": \"You must be authenticated to perform this action\"\n    }",
-          "type": "json"
-        }
-      ]
-    }
-  },
-  {
-    "type": "post",
-    "url": "/api/design/:designid/annotations/:annotationid/messages",
-    "title": "New message",
-    "name": "Add_new_message_to_annotation",
-    "group": "Designs",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "body",
-            "description": "<p>Body of reply</p> "
-          }
-        ]
-      }
-    },
-    "permission": [
-      {
-        "name": "User"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "server/controllers/annotation/newMessage.js",
-    "groupTitle": "Designs",
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "NotAuthorized",
-            "description": "<p>You must be proved valid authentication details</p> "
-          }
-        ]
-      },
-      "examples": [
         {
           "title": "Error-Response:",
           "content": "    HTTP/1.1 401 Unauthorized\n    {\n      \"error\": \"You must be authenticated to perform this action\"\n    }",
