@@ -5,5 +5,6 @@ module.exports = {
     newProject: require('./newProject.js'),
     getProject: require('./getProject.js'),
     removeProject: require('./removeProject.js'),
-    middleware: require('./projectMiddleware.js')
+    middleware: require('./projectMiddleware.js'),
+    updateProject: require('./updateProject.js')
 }

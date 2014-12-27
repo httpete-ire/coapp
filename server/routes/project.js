@@ -12,9 +12,9 @@ module.exports =  function(app, router) {
     router
     .route('/projects/:projectid')
     .get(projectCtrl.getProject)
-    .delete(projectCtrl.removeProject);
-    // update project {PUT}
-    //
+    .delete(projectCtrl.removeProject)
+    .put(projectCtrl.updateProject);
+
     router
     .route('/projects/:projectid/designs')
     .post(projectCtrl.middleware, designCtrl.newDesign);

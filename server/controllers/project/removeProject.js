@@ -4,8 +4,6 @@ var rmdir = require('rimraf');
 var path = require('path');
 var mediaPaths = './../../../public/media/uploads';
 
-
-
 /**
  * @api {delete} /api/projects/:projectid Delete project
  *
