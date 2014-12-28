@@ -48,6 +48,9 @@
 
         $scope.project = {};
 
+        // expose object to modal scope
+        $scope.object = object;
+
         // if object ID defined get project details for update modal
         if (object.id) {
             ProjFactory.getProject(object.id)

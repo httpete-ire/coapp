@@ -36,6 +36,8 @@ module.exports =  function removeProject(req, res, next) {
         .exec(function(err, project) {
 
             if (err) {
+                console.log('in the error');
+                console.log(err);
                 return next(err);
             }
 
@@ -57,12 +59,18 @@ module.exports =  function removeProject(req, res, next) {
                     multi:true
                 }, function(err, numEffected) {
 
+                    if (err) {
+                        console.log(err);
+                        return next(err);
+                    }
+
                     var projectDir = path.resolve(__dirname + mediaPaths + '/' + projectid);
 
                     // delete project directory
                     rmdir(projectDir, function(err){
 
                         if (err) {
+                            console.log(err);
                             return next(err);
                         }
 

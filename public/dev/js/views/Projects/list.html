@@ -43,11 +43,10 @@
                                             <li>
                                                 <a href="#/projects/{{proj._id}}"><span class="fa fa-eye"></span></a>
                                             </li>
-                                            <li>
+                                            <li> <!-- edit -->
                                                 <a modal ctrl="ProjectModalController" template="editproject" size="sm" id="{{proj._id}}"><span class="fa fa-edit"></span></a>
                                             </li>
-                                            <li>
-
+                                            <li> <!-- delete -->
                                                 <modal template="deleteProject" ctrl="ProjectModalController" id="{{proj._id}}" name="{{proj.name}}" size="sm">
                                                     <span class="fa fa-trash-o"></span>
                                                 </modal>

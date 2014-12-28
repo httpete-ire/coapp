@@ -29,6 +29,9 @@
             link: function (scope, element, attrs) {
 
                 scope.open = function(){
+
+                    console.log(scope.name);
+
                     var modalInstance = $modal.open({
                         templateUrl: modalViews + attrs.template + '.html',
                         controller: scope.ctrl,
