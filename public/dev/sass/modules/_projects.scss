@@ -39,6 +39,10 @@
         height: 100%;
     }
 
+    &-icons {
+        text-align: center;
+    }
+
     &-icons a {
         color: darken($off-white, 25%);
     }

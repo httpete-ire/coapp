@@ -8,7 +8,7 @@
      * @ngInject
      */
     //projFactory is project service for http requests, projFactory methods can now be called
-    function ProjController(ProjFactory, $scope){
+    function ProjController(ProjFactory, $scope, AuthenticationFactory){
 
         var _this = this;
 
@@ -30,13 +30,15 @@
         //get all projects when loaded
         _this.getProjectsAll();
 
+        _this.isOwner = AuthenticationFactory.isOwner;
+
         // listen for event and load page
         $scope.$on('project-change', function(e){
             _this.getProjectsAll();
         });
 
     }
-    ProjController.$inject = ["ProjFactory", '$scope'];
+    ProjController.$inject = ["ProjFactory", '$scope', 'AuthenticationFactory'];
 
     /**
      * @ngInject

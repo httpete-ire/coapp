@@ -43,10 +43,10 @@
                                             <li>
                                                 <a href="#/projects/{{proj._id}}"><span class="fa fa-eye"></span></a>
                                             </li>
-                                            <li> <!-- edit -->
+                                            <li ng-if="projectCtrl.isOwner(proj.owner)"> <!-- edit -->
                                                 <a modal ctrl="ProjectModalController" template="editproject" size="sm" id="{{proj._id}}"><span class="fa fa-edit"></span></a>
                                             </li>
-                                            <li> <!-- delete -->
+                                            <li ng-if="projectCtrl.isOwner(proj.owner)"> <!-- delete -->
                                                 <modal template="deleteProject" ctrl="ProjectModalController" id="{{proj._id}}" name="{{proj.name}}" size="sm">
                                                     <span class="fa fa-trash-o"></span>
                                                 </modal>

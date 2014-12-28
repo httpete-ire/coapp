@@ -11,7 +11,7 @@
 
         var paths = {
             api: '/api/projects',
-            fields: '?fields=name,desc,thumbnail,designCount,created',
+            fields: '?fields=name,desc,thumbnail,designCount,created,owner',
         }
         var getProjectsPath = paths.api+paths.fields;
 

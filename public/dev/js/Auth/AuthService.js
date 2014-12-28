@@ -63,6 +63,10 @@
 
 		auth.username = '';
 
+		auth.isOwner = function (id) {
+			return $window.localStorage.user === id;
+		}
+
 		auth.check = function () {
 			if($window.localStorage.token && $window.localStorage.user) {
 				this.isLogged = true;
