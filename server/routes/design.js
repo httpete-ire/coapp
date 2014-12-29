@@ -7,7 +7,8 @@ module.exports =  function(app, router) {
     // get design attributes
     router
     .route('/designs/:designid')
-    .get(designCtrl.getDesign);
+    .get(designCtrl.getDesign)
+    .delete(designCtrl.deleteDesign);
 
     // design specific annotations
     router
