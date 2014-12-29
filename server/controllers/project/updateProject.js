@@ -1,7 +1,10 @@
 var Project = require('./../../models/project');
 var Validator = require('./../../helpers/validator.js');
-var _ = require('underscore');
 var User = require('./../../models/user');
+
+var _ = require('underscore');
+var async = require('async');
+
 
 
 /**
@@ -78,6 +81,7 @@ module.exports =  function removeProject(req, res, next) {
             project.name = req.body.name;
             project.desc = req.body.desc;
 
+            // store old collabartors
             var oldCollaborators = project.collaborators;
 
             project.collaborators = req.body.collaborators || [];
@@ -88,71 +92,55 @@ module.exports =  function removeProject(req, res, next) {
                     return next(err);
                 }
 
-                var addCollaborators = [],
-                    removeCollaborators = [];
+                async.series([
+                    // add project to users
+                    function (cb) {
 
-                if (_.isEmpty(oldCollaborators)) {
-                    // no old collaborators so any of the project
-                    // collaborators are new in the database
-                    addCollaborators = project.collaborators;
-                } else {
-                    // compare old collborators to new collborators and
-                    // build array of users to remove
-                    _.each(oldCollaborators, function (user){
-                        if (project.collaborators.indexOf(user) === -1) {
-                            removeCollaborators.push(user + '');
-                        } else {
-                            addCollaborators.push(user + '');
-                        }
-                    });
+                        // remove project form every user
+                        updateUserProjects(oldCollaborators,
+                            {$pull : { projects : project._id}}, cb);
 
-                }
+                    },
+                    // remove project to users
+                    function (cb) {
 
-                // no chnages to collaborators so return
-                if (_.isEmpty(addCollaborators)
-                    && _.isEmpty(removeCollaborators)) {
-                    return res.sendStatus(200);
-                }
+                        // add project to new users
+                        updateUserProjects(project.collaborators,{$push : { projects : project._id} }, cb);
 
+                    }], function (err) {
 
-                // add project to new collaborators
-                User
-                .update({
-                    _id: {$in: addCollaborators}},
-                    // add project to user
-                    {$push : { projects : project._id} },
-                    {multi:true},
-                    function(err) {
-
-                        if (err) {
-                            return next(err);
-                        }
-
-                        if (!_.isEmpty(removeCollaborators)) {
-
-                            // remove project from each collaborator that
-                            // was removed
-                            User
-                            .update({
-                                _id: {$in: removeCollaborators}},
-                                // pull from user
-                                {$pull : { projects : project._id} },
-                                {multi:true},
-                                function(err) {
-                                    if (err) {
-                                        return next(err);
-                                    }
-
-                                    return res.sendStatus(200);
-                                }
-                            );
-
-                        } else { // no users to remove so return ok
-                            return res.sendStatus(200);
-                        }
+                    if(err) {
+                        return next(err);
                     }
-                );
+
+                    return res.sendStatus(200);
+                });
             }
         );
     });
 };
+
+/**
+ * add or remove projects from users
+ * depending on mehtod provided
+ *
+ * @param  {Array}   arr     :: users to update
+ * @param  {Object}   method :: method to run on db
+ * @param  {Function} cb     :: callback function
+ *
+ */
+function updateUserProjects (arr, method, cb) {
+
+    if(_.isEmpty(arr)) {
+        return cb();
+    }
+
+    User.update({_id: {$in: arr}},
+    method,
+    { multi:true },
+    function (err) {
+        if(err) return cb(err);
+
+        return cb();
+    });
+}
