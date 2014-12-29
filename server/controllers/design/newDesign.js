@@ -1,12 +1,14 @@
 var Design = require('./../../models/design');
 var Project = require('./../../models/project');
+var FileInfo = require('./../../helpers/FileInfo.js');
+
 var _ = require('underscore');
 var formidable = require('formidable');
 var fs = require('fs');
 var lwip = require('lwip');
 var path = require('path');
-var FileInfo = require('./../../helpers/FileInfo.js');
 var mkdirp = require('mkdirp');
+var async = require('async');
 
 var opts = {
     uploadsDir: './../../../public/media/uploads',
@@ -128,77 +130,93 @@ module.exports =  function newDesignCtrl (req, res, next) {
     // if all files are downloaded and thumbnials created then save to db
     function finish() {
 
+        // any errors send them to the user
+        if (errors.length) {
+            return next({
+                message: errors[0],
+                status: 400
+            });
+        }
+
+        if (!fileInfo) {
+            return next({
+                message: 'no file attached',
+                status: 404
+            });
+        }
+
         if (!fileCount) {
-            // generate urls for images
-            if(fileInfo) {
-                fileInfo.urls(req);
-            }
 
-            // any errors send them to the user
-            if (errors.length) {
-                return next({
-                    message: errors[0],
-                    status: 400
-                });
-            }
+            async.waterfall([
+                // save design
+                function (cb) {
+                    // generate URL's
+                    fileInfo.urls(req);
 
-            if (!fileInfo) {
-                return next({
-                    message: 'no file attached',
-                    status: 404
-                });
-            }
+                    // set up new design and set values on it
+                    var design = new Design();
+                    design.name = fileInfo.designName || fileInfo.name;
+                    design.img.full = fileInfo.url;
+                    design.img.thumbnail = fileInfo.thumbnailUrl;
+                    design.owner = req.user._id;
+                    design.project = req.project._id;
 
-            var design = new Design();
+                    design.save(function(err){
 
-            design.name = fileInfo.designName || fileInfo.name;
+                        if (err) {
+                            return cb(err);
+                        }
 
-            design.img.full = fileInfo.url;
-            design.img.thumbnail = fileInfo.thumbnailUrl;
+                        cb(null, design);
 
-            design.owner = req.user._id;
+                    });
 
-            design.project = req.project._id;
+                },
+                // save refernece of design in project
+                function (design, cb) {
+                    Project
+                    .findOne({_id: req.project._id})
+                    .exec(function (err, project) {
+                        if(err) {
+                            return cb(err);
+                        }
 
-            design.save(function(err){
+                        if(!project) {
+                            return cb({
+                                message: 'no project found',
+                                status: 404
+                            });
+                        }
 
-                if(err) {
+                        // set thumbnail if the
+                        // design is the projects first
+                        if(!project.designs.length) {
+                            project.thumbnail = design.img.thumbnail
+                        }
+
+                        // add design to project
+                        project.designs.push(design._id);
+
+                        project.designCount = project.designs.length;
+
+                        project.save(function(err) {
+                            if(err) {
+                                return cb(err);
+                            }
+
+                            cb(null);
+                        });
+
+                    });
+                }
+                ],
+                // handle response
+                function(err) {
+                if (err) {
                     return next(err);
                 }
 
-                Project.findOne({_id: req.project._id}, function (err, project) {
-                    if(err) {
-                        return next(err);
-                    }
-
-                    if(!project) {
-                        return next({
-                            message: 'no project found',
-                            status: 404
-                        });
-                    }
-
-                    // set thumbnail if the
-                    // design is the projects first
-                    if(!project.designs.length) {
-                        project.thumbnail = design.img.thumbnail
-                    }
-
-                    // add design to project
-                    project.designs.push(design._id);
-
-                    project.designCount = project.designs.length;
-
-                    project.save(function(err) {
-                        if(err) {
-                            return next(err);
-                        }
-
-                        res.sendStatus(201);
-                    });
-
-                });
-
+                res.sendStatus(201);
             });
 
         }
