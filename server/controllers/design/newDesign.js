@@ -1,11 +1,12 @@
 var Design = require('./../../models/design');
 var Project = require('./../../models/project');
 var FileInfo = require('./../../helpers/FileInfo.js');
+var fileUpload = require('./../../helpers/fileUpload.js');
+
 
 var _ = require('underscore');
 var formidable = require('formidable');
 var fs = require('fs');
-var lwip = require('lwip');
 var path = require('path');
 var mkdirp = require('mkdirp');
 var async = require('async');
@@ -49,6 +50,7 @@ module.exports =  function newDesignCtrl (req, res, next) {
     var errors = [], // errors
         fields = {};
 
+    // only allow one file to be uploaded
     var fileCount = 1;
 
     var projectDir = '';   // expose projectDir
@@ -73,6 +75,8 @@ module.exports =  function newDesignCtrl (req, res, next) {
             project: req.project._id
         });
 
+        fileInfo.init();
+
         // timestamp the image
         fileInfo.safeName();
 
@@ -85,30 +89,14 @@ module.exports =  function newDesignCtrl (req, res, next) {
             errors.push(validObj.msg);
         } else {
             // move image from tmp dir to uplaods dir
-            fs.rename(file.path, projectDir + '/' + fileInfo.name, function (err) {
+            fileUpload.upload(fileInfo, function(err){
                 if(err) {
                     console.log(err);
                     errors.push(err);
+                } else {
+                    fileCount--;
+                    finish();
                 }
-                // create thumbnail of image
-                lwip.open(projectDir + '/' + fileInfo.name, function (err, image) {
-
-                    if (image) {
-                        image.batch()
-                        .resize(opts.thumbnail.width, fileInfo.dimensions.height / fileInfo.dimensions.width * opts.thumbnail.width)
-                        .crop(0, 0, opts.thumbnail.width, opts.thumbnail.height)
-                        .writeFile(projectDir + '/thumbnails/' + fileInfo.name , function (err){
-                            if(err) {
-                                console.log(err);
-                                errors.push(err);
-                            } else {
-                                fileCount--;
-                                finish();
-                            }
-                        });
-                    }
-                });
-
             });
         }
 

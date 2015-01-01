@@ -1,20 +1,31 @@
 /*jshint strict:false */
-
 var config = require('./../config').upload;
 var path = require('path');
 var _ = require('underscore');
 var sizeOf = require('image-size');
+
+var opts = {
+    uploadsDir: './../../public/media/uploads'
+};
 
 function FileInfo (file, opt) {
   this.name = file.name;
   this.designName = createName(file.name);
   this.size = file.size;
   this.type = file.type;
+  this.path = file.path;
+  this.uploadDir = null;
   this.dimensions = sizeOf(file.path);
   this.modified = file.lastMod;
   this.deleteType = 'DELETE';
   this.opts = opt || {};
 };
+
+FileInfo.prototype.init = function () {
+    var _this = this;
+
+    _this.uploadDir = path.resolve(__dirname + opts.uploadsDir  + '/' +  _this.opts.project + '/');
+}
 
 FileInfo.prototype.safeName = function() {
 
