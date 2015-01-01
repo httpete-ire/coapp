@@ -1,10 +1,10 @@
 // expose all the project controller funstions
 // to the route handler
 module.exports = {
-    getProjects: require('./getProjects.js'),
-    newProject: require('./newProject.js'),
-    getProject: require('./getProject.js'),
-    removeProject: require('./removeProject.js'),
-    middleware: require('./projectMiddleware.js'),
-    updateProject: require('./updateProject.js')
+    getProjects: require('./projects/read.js'),
+    create: require('./create.js'),
+    read: require('./read.js'),
+    delete: require('./delete.js'),
+    middleware: require('./middleware.js'),
+    update: require('./update.js')
 }

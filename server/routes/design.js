@@ -1,28 +1,38 @@
 var designCtrl = require('./../controllers/design/index.js');
+var projectCtrl = require('./../controllers/project/index.js');
 var annotationCtrl = require('./../controllers/annotation/index.js');
+var commentCtrl = require('./../controllers/comments/index.js');
+
 
 
 module.exports =  function(app, router) {
 
+    // create new design
+    router
+    .route('/projects/:projectid/designs')
+    .post(projectCtrl.middleware, designCtrl.create);
+
     // get design attributes
     router
     .route('/designs/:designid')
-    .get(designCtrl.getDesign)
-    .delete(designCtrl.deleteDesign);
+    .get(designCtrl.read)
+    .delete(designCtrl.delete);
 
     // design specific annotations
     router
     .route('/designs/:designid/annotations')
-    .post(annotationCtrl.newAnnotation);
+    .post(annotationCtrl.create);
 
+    // annotation comments
     router
-    .route('/designs/:designid/annotations/:annotationid/messages')
-    .post(annotationCtrl.newMessage)
-    .get(annotationCtrl.getMessages);
+    .route('/designs/:designid/annotations/:annotationid/comments')
+    .post(commentCtrl.create)
+    .get(commentCtrl.read);
 
+    // annotation comments
     router
-    .route('/designs/:designid/annotations/:annotationid/messages/:messageid')
-    .delete(annotationCtrl.deleteMessage)
-    .put(annotationCtrl.updateMessage);
+    .route('/designs/:designid/annotations/:annotationid/comments/:commentid')
+    .delete(commentCtrl.delete)
+    .put(commentCtrl.update);
 
 };

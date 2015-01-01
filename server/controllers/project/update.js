@@ -5,8 +5,6 @@ var User = require('./../../models/user');
 var _ = require('underscore');
 var async = require('async');
 
-
-
 /**
  * @api {put} /api/projects Update project
  *

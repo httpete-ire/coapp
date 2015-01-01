@@ -31,7 +31,7 @@ var Annotaion = new Schema({
             default: '#8e44ad'
         }
     },
-    messages: [{
+    comments: [{
         body: {
             type: String
         },

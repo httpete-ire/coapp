@@ -1,7 +1,6 @@
-module.exports =  {
-    // attach functions
+module.exports = {
     create: require('./create.js'),
     read: require('./read.js'),
     delete: require('./delete.js'),
-    designMiddleware: require('./middleware.js')
-};
+    update: require('./update.js')
+}

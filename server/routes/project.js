@@ -1,22 +1,16 @@
 var projectCtrl = require('./../controllers/project/index.js');
-var designCtrl = require('./../controllers/design/index.js');
-
 
 module.exports =  function(app, router) {
 
     router
     .route('/projects')
-    .post(projectCtrl.newProject)
+    .post(projectCtrl.create)
     .get(projectCtrl.getProjects);
 
     router
     .route('/projects/:projectid')
-    .get(projectCtrl.getProject)
-    .delete(projectCtrl.removeProject)
-    .put(projectCtrl.updateProject);
-
-    router
-    .route('/projects/:projectid/designs')
-    .post(projectCtrl.middleware, designCtrl.newDesign);
+    .get(projectCtrl.read)
+    .delete(projectCtrl.delete)
+    .put(projectCtrl.update);
 
 };

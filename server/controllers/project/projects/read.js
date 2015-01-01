@@ -1,5 +1,5 @@
-var Project = require('./../../models/project');
-var User = require('./../../models/user');
+var Project = require('./../../../models/project');
+var User = require('./../../../models/user');
 
 var _ = require('underscore');
 

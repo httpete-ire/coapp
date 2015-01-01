@@ -1,17 +1,17 @@
-var Design = require('./../../../models/design');
-var Validator = require('./../../../helpers/validator.js');
-
+var Design = require('./../../models/design');
+var Validator = require('./../../helpers/validator.js');
 /**
- * @api {post} /api/design/:designid/annotations/:annotationid/messages New message
+ * @api {post} /api/design/:designid/annotations/:annotationid/comments/:commentid Update comment
  *
- * @apiName Add new message to annotation
+ * @apiParam {String} body comment body
+ *
+ * @apiName Update comment
  * @apiGroup Annotation
  *
- * @apiParam {String} body Body of reply
+ * @apiPermission User and Owner of comment
  *
- * @apiPermission User
- * @apiUse NotAuthorized
- *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 Ok
  */
 module.exports =  function (req, res, next) {
 
@@ -47,23 +47,29 @@ module.exports =  function (req, res, next) {
 
             var annotation = design.annotations.id(req.params.annotationid);
 
-            if(!annotation) {
+            if (!annotation) {
                 return next({
                     message: 'no annotation found',
                     status: 404
                 });
             }
 
-            annotation.messages.push({
-                body: req.body.body,
-                owner: req.user._id
-            });
+            var comment = annotation.comments.id(req.params.commentid);
+
+            if (!comment) {
+                return next({
+                    message: 'no message found',
+                    status: 404
+                });
+            }
+
+            comment.body = req.body.body;
 
             design.save(function (err) {
                 if(err) {
                     return next(err);
                 }
-                return res.status(201).json(annotation.messages);
+                return res.status(201).json(annotation.comments);
             }
         );
 

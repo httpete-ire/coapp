@@ -1,12 +1,12 @@
-var Design = require('./../../../models/design');
+var Design = require('./../../models/design');
 
 /**
- * @api {delete} /api/design/:designid/annotations/:annotationid/messages/:messageid Delete message
+ * @api {delete} /api/design/:designid/annotations/:annotationid/comments/:commentid Delete message
  *
- * @apiName Delete message
+ * @apiName Delete comment
  * @apiGroup Annotation
  *
- * @apiPermission User and Owner of message
+ * @apiPermission User and Owner of comment
  *
  * @apiUse NotAuthorized
  *
@@ -28,10 +28,10 @@ module.exports =  function (req, res, next) {
             }
 
             // remove
-            var messages = design.annotations.id(req.params.annotationid)
-            .messages;
+            var comments = design.annotations.id(req.params.annotationid)
+            .comments;
 
-            messages.id(req.params.messageid).remove();
+            comments.id(req.params.commentid).remove();
 
             // check if owner remove if so
 

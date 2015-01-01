@@ -1,9 +1,9 @@
-var Design = require('./../../../models/design');
+var Design = require('./../../models/design');
 
 /**
- * @api {get} /api/design/:designid/annotations/:annotationid/messages/ Get messages
+ * @api {get} /api/design/:designid/annotations/:annotationid/comments/ Get comments
  *
- * @apiName Get messages
+ * @apiName Get comments
  * @apiGroup Annotation
  *
  * @apiPermission User
@@ -27,7 +27,7 @@ var Design = require('./../../../models/design');
  */
 module.exports =  function (req, res, next) {
     Design.findOne({_id: req.params.designid})
-        .populate('annotations.messages.owner', 'email username')
+        .populate('annotations.comments.owner', 'email username')
         .exec(function (err, design) {
             if (err) {
                 return next(err);
@@ -41,12 +41,12 @@ module.exports =  function (req, res, next) {
             }
 
             // remove
-            var messages = design.annotations.id(req.params.annotationid)
-            .messages;
+            var comments = design.annotations.id(req.params.annotationid)
+            .comments;
 
-            if(!messages) {
+            if(!comments) {
                 return next({
-                    message: 'no messages found',
+                    message: 'no comments found',
                     status: 404
                 });
             }
@@ -57,7 +57,7 @@ module.exports =  function (req, res, next) {
                 if(err) {
                     return next(err);
                 }
-                return res.status(200).json(messages);
+                return res.status(200).json(comments);
             }
         );
 
