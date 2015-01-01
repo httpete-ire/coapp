@@ -38,7 +38,7 @@ module.exports =  function getDesign (req, res, next) {
 
         if(_.contains(fields, 'annotations')){
             designQuery.populate('annotations.owner', 'email username');
-            designQuery.populate('annotations.messages.owner', 'email username');
+            designQuery.populate('annotations.comments.owner', 'email username');
         }
 
     }
