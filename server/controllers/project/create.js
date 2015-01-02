@@ -98,7 +98,7 @@ module.exports =  function newProject (req, res, next) {
         /**
          * check if collaborators is defined
          */
-        if (req.body.collaborators) {
+        if (req.body.collaborators.length) {
 
             // if collaborators is sepearted by a comma
             // create an array with them and the owner
