@@ -1,7 +1,9 @@
 var Design = require('./../../models/design');
 var Validator = require('./../../helpers/validator.js');
+var async = require('async');
+
 /**
- * @api {post} /api/design/:designid/annotations/:annotationid/comments/:commentid Update comment
+ * @api {put} /api/design/:designid/annotations/:annotationid/comments/:commentid Update comment
  *
  * @apiParam {String} body comment body
  *
@@ -15,63 +17,84 @@ var Validator = require('./../../helpers/validator.js');
  */
 module.exports =  function (req, res, next) {
 
-    var validator = new Validator();
+    async.waterfall([function (cb) {
 
-    validator.addRule({
-        field: 'body',
-        value: req.body.body,
-        rules: ['required']
-    });
+        var validator = new Validator();
 
-    // validate data
-    if (!validator.validate()) {
-        return next({
-            message: 'invalid data',
-            status: 422,
-            fields: validator.getErrors()
+        validator.addRule({
+            field: 'body',
+            value: req.body.body,
+            rules: ['required']
         });
-    }
 
-    Design.findOne({_id: req.params.designid})
-        .exec(function (err, design) {
-            if (err) {
-                return next(err);
-            }
+        // validate data
+        if (!validator.validate()) {
+            return cb({
+                message: 'invalid data',
+                status: 422,
+                fields: validator.getErrors()
+            });
+        }
 
-            if (!design) {
-                return next({
-                    message: 'no design found',
-                    status: 404
-                });
-            }
+        cb(null);
 
-            var annotation = design.annotations.id(req.params.annotationid);
+    }, function (cb) {
 
-            if (!annotation) {
-                return next({
-                    message: 'no annotation found',
-                    status: 404
-                });
-            }
+        Design.findOne({_id: req.params.designid})
+            .exec(function (err, design) {
+                if (err) return cb(err);
 
-            var comment = annotation.comments.id(req.params.commentid);
-
-            if (!comment) {
-                return next({
-                    message: 'no message found',
-                    status: 404
-                });
-            }
-
-            comment.body = req.body.body;
-
-            design.save(function (err) {
-                if(err) {
-                    return next(err);
+                if(!design) {
+                    return cb({
+                        message: 'no design found',
+                        status: 404
+                    });
                 }
-                return res.status(201).json(annotation.comments);
-            }
-        );
 
+                cb(null, design);
+            });
+
+    }, function (design, cb) {
+        var annotation = design.annotations.id(req.params.annotationid);
+
+        if (!annotation) {
+            return cb({
+                message: 'no annotation found',
+                status: 404
+            });
+        }
+
+        cb(null, annotation, design);
+
+    }, function (annotation, design, cb) {
+
+        var comment = annotation.comments.id(req.params.commentid);
+
+        if (!comment) {
+            return cb({
+                message: 'no comment found',
+                status: 404
+            });
+        }
+
+        comment.body = req.body.body;
+
+        comment.update = Date.now();
+
+        console.log('here');
+
+        design.save(function (err) {
+            if(err) {
+                return cb(err);
+            }
+
+            cb(null);
+        });
+
+    }], function (err, response) {
+        if (err) return next(err);
+
+        return res.sendStatus(200);
     });
+
 };

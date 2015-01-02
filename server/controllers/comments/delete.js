@@ -1,5 +1,5 @@
 var Design = require('./../../models/design');
-
+var async = require('async');
 /**
  * @api {delete} /api/design/:designid/annotations/:annotationid/comments/:commentid Delete message
  *
@@ -14,34 +14,37 @@ var Design = require('./../../models/design');
  *     HTTP/1.1 200 Ok
  */
 module.exports =  function (req, res, next) {
-    Design.findOne({_id: req.params.designid})
-        .exec(function (err, design) {
-            if (err) {
-                return next(err);
-            }
 
-            if (!design) {
-                return next({
-                    message: 'no design found',
-                    status: 404
-                });
-            }
+    async.waterfall([function (cb) { // get design
+        Design.findOne({_id: req.params.designid})
+            .exec(function(err, design) {
+                if (err) return cb(err);
 
-            // remove
-            var comments = design.annotations.id(req.params.annotationid)
-            .comments;
-
-            comments.id(req.params.commentid).remove();
-
-            // check if owner remove if so
-
-            design.save(function (err) {
-                if(err) {
-                    return next(err);
+                if(!design) {
+                    return cb({
+                        message: 'no design found',
+                        status: 404
+                    });
                 }
-                return res.sendStatus(200);
-            }
-        );
 
+                cb(null, design);
+            });
+    }, function (design, cb) { // remove comment
+
+        var comments = design.annotations.id(req.params.annotationid)
+        .comments;
+
+        comments.id(req.params.commentid).remove();
+
+        design.save(function(err){
+            if(err) return cb(err);
+
+            cb(null);
+        });
+
+    }], function(err) {
+        if(err) return next(err);
+        return res.sendStatus(200);
     });
+
 };

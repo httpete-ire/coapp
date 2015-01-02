@@ -1,5 +1,7 @@
 var Design = require('./../../models/design');
 
+var async = require('async');
+
 /**
  * @api {get} /api/design/:designid/annotations/:annotationid/comments/ Get comments
  *
@@ -26,40 +28,38 @@ var Design = require('./../../models/design');
  *      ]
  */
 module.exports =  function (req, res, next) {
-    Design.findOne({_id: req.params.designid})
-        .populate('annotations.comments.owner', 'email username')
-        .exec(function (err, design) {
-            if (err) {
-                return next(err);
-            }
 
-            if (!design) {
-                return next({
-                    message: 'no design found',
-                    status: 404
-                });
-            }
+    async.waterfall([function (cb){ // get design
 
-            // remove
-            var comments = design.annotations.id(req.params.annotationid)
-            .comments;
-
-            if(!comments) {
-                return next({
-                    message: 'no comments found',
-                    status: 404
-                });
-            }
-
-            // check if owner remove if so
-
-            design.save(function (err) {
+        Design.findOne({_id: req.params.designid})
+            .populate('annotations.comments.owner', 'email username')
+            .exec(function (err, design) {
                 if(err) {
-                    return next(err);
+                    return cb(err);
                 }
-                return res.status(200).json(comments);
-            }
-        );
 
+                cb(null, design);
+            });
+
+    },function (design, cb) { // get comments
+        // remove
+        var comments = design.annotations.id(req.params.annotationid)
+        .comments;
+
+        if(!comments) {
+            return cb({
+                message: 'no comments found',
+                status: 404
+            });
+        }
+
+        return cb(null, comments);
+
+    }], function (err, response) { // handle err and response
+        if(err) {
+            return next(err);
+        }
+
+        return res.status(200).json(response);
     });
 };
