@@ -84,6 +84,9 @@ module.exports =  function removeProject(req, res, next) {
 
             project.collaborators = req.body.collaborators || [];
 
+            // always add the owner of the project
+            project.collaborators.push(project.owner);
+
             project.save(function(err){
 
                 if (err) {
