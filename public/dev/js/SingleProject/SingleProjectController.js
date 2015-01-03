@@ -5,13 +5,14 @@
 
 
 
-    function SingProjCtrl(SingProjFactory, $scope, $upload){
+    function SingProjCtrl(SingProjFactory, $scope, $upload, $routeParams){
 
         _this = this;
         _this.project = {};
 
         _this.getProjectDesigns=function(){
-            SingProjFactory.getProject()
+
+            SingProjFactory.getProject($routeParams.project_id)
 
             .then(function(data){
                  _this.project = data;
@@ -26,7 +27,7 @@
             var file = $files[0];
 
             $scope.upload = SingProjFactory
-                            .upload(file)
+                            .upload(file, $routeParams.project_id)
                             .then(function(data){
                                 _this.getProjectDesigns();
                             });
@@ -37,6 +38,6 @@
 
     }
 
-    SingProjCtrl.$inject = ["SingProjFactory",'$scope', '$upload'];
+    SingProjCtrl.$inject = ["SingProjFactory",'$scope', '$upload', '$routeParams'];
 
 })();

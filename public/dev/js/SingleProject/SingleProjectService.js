@@ -10,19 +10,14 @@
 
         var paths = {
             api: '/api/projects/',
-            fields: '?fields=designs,name',
-            id: $routeParams.project_id
+            fields: '?fields=designs,name'
         };
 
-        var getSingleProjectPath = paths.api + paths.id + paths.fields;
-
-        var uploadUrl = paths.api + paths.id + '/designs';
-
-        SingProj.getProject = function(){
+        SingProj.getProject = function(projectid){
 
             var defer = $q.defer();
 
-            $http.get(getSingleProjectPath)
+            $http.get(paths.api + projectid + paths.fields)
                 //calback if succesfull or an error
                 .success(function(data){
                         defer.resolve(data);
@@ -35,7 +30,9 @@
 
         };
 
-        SingProj.upload = function(file) {
+        SingProj.upload = function(file, projectid) {
+
+            var uploadUrl = paths.api + projectid + '/designs';
 
             var defer = $q.defer();
 
