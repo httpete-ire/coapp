@@ -5,7 +5,7 @@ var async = require('async');
 var path = require('path');
 var fs = require('fs');
 
-
+var fileUpload = require('./../../helpers/fileUpload.js');
 var uploadsDir = './../../../public/media/uploads';
 
 /**
@@ -84,34 +84,14 @@ module.exports =  function (req, res, next) {
         // remove imgs
         function (project, design, cb) {
 
-            // get project directory
-            // get name of design & thumbnail
-            var uploadDir = path.resolve(__dirname + uploadsDir + '/');
-
             // get indexOf project id in design URL, substring
             // the rest of the string
             var imgs = [design.img.full, design.img.thumbnail];
 
-            async.each(imgs, function(img, cb){
+            fileUpload.deleteImgs(imgs, project._id, function (err) {
+                if (err) return cb(err);
 
-                // get the name of the image
-                var imgPath = img.indexOf(project._id.toString());
-                img = img.substring(imgPath, img.length);
-
-                // remove the image
-                fs.unlink(uploadDir + '/' + img, function (err) {
-
-                    if (err) return cb(err);
-
-                    return cb(null);
-                });
-            },
-            // handle end of each loop
-            function (err){
-                if(err) {
-                    return cb(err)
-                }
-                return cb(null);
+                cb(null);
             });
 
         }],

@@ -3,9 +3,10 @@ var mkdirp = require('mkdirp');
 var path = require('path');
 var _ = require('underscore');
 var lwip = require('lwip');
+var async = require('async');
 
 var opts = {
-    uploadsDir: './../../../public/media/uploads',
+    uploadsDir: './../../public/media/uploads',
     tmpDir: './../../../public/media/tmp',
     thumbnail : {
         width: 450,
@@ -79,7 +80,41 @@ function upload (fileInfo, cb) {
 
 }
 
+/**
+ * remove images from system
+ *
+ * @param  {Array}   images              :: array of image paths
+ * @param  {Mongo Object ID}   projectId :: ID of project
+ * @param  {Function} cb                 :: callback to execute
+ */
+function removeImgs (images, projectId, cb) {
+
+    var uploadDir = path.resolve(__dirname + opts.uploadsDir + '/');
+
+    console.log(uploadDir);
+
+    async.each(images, function (img, cb) {
+        // get the name of the image
+        var imgPath = img.indexOf(projectId.toString());
+        img = img.substring(imgPath, img.length);
+
+        // remove the image
+        fs.unlink(uploadDir + '/' + img, function (err) {
+
+            if (err) return cb(err);
+
+            return cb(null);
+        });
+    }, function (err) {
+        if (err) return cb(err);
+
+        return cb(null);
+    });
+
+}
+
 module.exports = {
     checkExists: checkExists,
-    upload: upload
+    upload: upload,
+    deleteImgs: removeImgs
 };
