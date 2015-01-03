@@ -23,6 +23,10 @@ module.exports =  function(app, router) {
     .route('/designs/:designid/annotations')
     .post(annotationCtrl.create);
 
+    router
+    .route('/designs/:designid/annotations/:annotationid')
+    .delete(annotationCtrl.delete);
+
     // annotation comments
     router
     .route('/designs/:designid/annotations/:annotationid/comments')
