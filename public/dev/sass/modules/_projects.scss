@@ -71,7 +71,7 @@
 
 .project--details {
     &-container {
-        padding: 20px 0 20px 20px;
+        padding: 20px 0 60px 20px;
 
         // target icons
         & span {
@@ -124,4 +124,8 @@
         cursor: pointer;
     }
 
+}
+
+.fa-arrow-left{
+    font-size: 40px
 }

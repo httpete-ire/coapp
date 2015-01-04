@@ -30,6 +30,21 @@
 
         };
 
+        SingProj.deleteDesign = function(designid){
+            var defer = $q.defer();
+
+            $http.delete('/api/designs/' + designid)
+
+            .success(function(data){
+                        defer.resolve(data);
+                })
+                .error(function(err, status){
+                    defer.reject(err);
+                });
+
+            return defer.promise;
+        };
+
         SingProj.upload = function(file, projectid) {
 
             var uploadUrl = paths.api + projectid + '/designs';
