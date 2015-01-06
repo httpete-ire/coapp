@@ -34,8 +34,11 @@
 
 		}; // register
 
-		_this.login = function(user){
+		_this.login = function(form, valid, user){
 
+			if(!valid){
+				return false;
+			}
 			AuthFactory
 				.login(user)
 				.then(function(data){
@@ -49,10 +52,18 @@
 
 					$location.path('/projects');
 
+					_this.alertService.close();
+
 				}, function(error){
 					_this.user = {};
 
 					_this.alertService.setAlert(error);
+
+					_this.alertService.sleep(3500);
+
+					// set form to valid
+					form.$setUntouched();
+					form.$setPristine();
 				});
 
 		};

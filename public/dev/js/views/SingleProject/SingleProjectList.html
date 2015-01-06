@@ -54,17 +54,17 @@
                                             </li>
                                             <!-- <li ng-if="projectCtrl.isOwner(proj.owner)">
                                                 <a modal ctrl="ProjectModalController" template="editproject" size="sm" id="{{proj._id}}"><span class="fa fa-edit"></span></a>
-                                            </li>
-                                            <li ng-if="SingProjectCtrl.isOwner(proj.owner)">
-                                                <modal template="deleteProject" ctrl="ProjectModalController" id="{{proj._id}}" name="{{proj.name}}" size="sm">
+                                            </li>-->
+                                            <li ng-if="SingProjectCtrl.isOwner(SingProjectCtrl.project.owner)">
+                                                <modal template="deletedesign" ctrl="SingleProjectModalController" id="{{des._id}}" name="{{des.name}}" size="sm">
                                                     <span class="fa fa-trash-o"></span>
                                                 </modal>
 
-                                            </li> -->
+                                            </li>
                                         </ul>
                                     </div>
                             </div>
-                               <button class="btn btn-danger" ng-click="SingProjectCtrl.deleteDesign(des._id)">delete</button>
+
 
                             <div class="project--details">
 

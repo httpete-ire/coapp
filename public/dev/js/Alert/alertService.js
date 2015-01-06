@@ -8,7 +8,7 @@
     /**
      * @ngInject
      */
-    function alertService () {
+    function alertService ($timeout) {
 
         var alertService = this;
 
@@ -28,6 +28,15 @@
             alertService.alertMessage = err;
             alertService.showAlert = true;
         }
+
+        alertService.sleep = function (time) {
+            var _this = this;
+            $timeout(function() {
+                _this.close();
+            }, (time || 3000));
+        }
     }
+
+    alertService.$inject = ['$timeout'];
 
 })();

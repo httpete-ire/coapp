@@ -6,20 +6,26 @@
         <app-alert></app-alert>
 
         <div class="auth--container">
-            <img src="./../../../media/icon_alt.png" alt="" class="auth--container-img">
+            <img src="../../../../media/icon.png" alt="" class="auth--container-img">
 
             <h3 class="auth--container-title">Sign in</h3>
 
-            <form name="loginForm"  ng-submit="authCtrl.login(authCtrl.user)" role="form">
+            <form name="loginForm"  ng-submit="authCtrl.login(this.loginForm,loginForm.$valid, authCtrl.user)" role="form" novalidate>
 
                 <div class="form-group">
-                    <input ng-model="authCtrl.user.email" type="email" class="form-control" placeholder="Enter email">
-                    <span class="form--error-popup">Please enter a valid email</span>
+                    <input ng-model="authCtrl.user.email" ng-model-options="{ updateOn: 'blur' }" type="email" class="form-control" placeholder="Enter email" name="email" required>
+
+                    <span class="form--error-popup" ng-show="loginForm.email.$error.required && loginForm.email.$pristine && loginForm.$submitted">Email required</span>
+
+                    <!-- valid email -->
+                    <span class="form--error-popup" ng-show="loginForm.email.$touched && loginForm.email.$error.email ">Enter a valid email</span>
+
                 </div>
 
                 <div class="form-group">
-                    <input ng-model="authCtrl.user.password" type="password" class="form-control" placeholder="Password">
-                    <span class="form--error-popup">Password required</span>
+                    <input ng-model="authCtrl.user.password" type="password" class="form-control" ng-model-options="{ updateOn: 'blur' }" placeholder="Password" name="password" required>
+                    <span class="form--error-popup"  ng-show="loginForm.password.$touched && loginForm.password.$error.required || (loginForm.password.$pristine && loginForm.$submitted)">Password required</span>
+
                 </div>
 
                 <button type="submit" class="btn btn-block btn-primary">Sign in</button>
