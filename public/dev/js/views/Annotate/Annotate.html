@@ -23,7 +23,7 @@
             <div class="design-img">
                 <img ng-src="{{ AnnotateCtrl.design.img.full }}" ng-click="AnnotateCtrl.annotate($event)" class="lan">
                  <ul>
-                    <li
+                    <!-- <li
                     ng-repeat="mark in AnnotateCtrl.design.annotations track by $index"
                     class="cd-single-point"
                     ng-style="{ 'background' : mark.circle.color, 'top':mark.circle.y - 15 + 'px', 'left': mark.circle.x - 15 + 'px'}"
@@ -43,9 +43,35 @@
                             <a href="#0" class="cd-close-info cd-img-replace">Close</a>
                         </div>
                     </li>
+ -->
+                    <li
+                    ng-repeat="mark in AnnotateCtrl.design.annotations track by $index"
+                    class="annotation"
+                    ng-style="{ 'background' : mark.circle.color, 'top':mark.circle.y - 15 + 'px', 'left': mark.circle.x - 15 + 'px'}"
+                    ng-class="{'is-open': AnnotateCtrl.openComment && $index === AnnotateCtrl.commentSelected}"
+                    ng-mouseleave="AnnotateCtrl.toggleComments($index)">
 
-                    <!-- handle new annotations -->
-                    <li  ng-show="AnnotateCtrl.newAnnotation !== null" ng-style="{ 'background' : AnnotateCtrl.newAnnotation.circle.color, 'top':AnnotateCtrl.newAnnotation.circle.y - 15 + 'px', 'left':AnnotateCtrl.newAnnotation.circle.x - 15 + 'px'}" class="cd-single-point is-open">
+                        <a class="annotation--mark" ng-mouseenter="AnnotateCtrl.toggleComments($index)">More</a>
+
+                            <div
+                                class="annotation--details"
+                                ng-class="AnnotateCtrl.checkCoords(mark.circle.x, 500) ? 'annotation--details-left' : 'annotation--details-right'"
+                            >
+
+                                <div class="annotation--details-comment">
+
+                                    <span class="comment--owner">{{mark.owner.username}}</span>
+
+                                    <span class="comment--date">{{mark.created | date:"MM/dd/yyyy 'at' h:mma"}}</span>
+
+                                    <p>{{mark.body}}</p>
+                                </div>
+
+                            </div>
+                    </li>
+
+                    <!-- <!-- handle new annotations -->
+                    <!--<li  ng-show="AnnotateCtrl.newAnnotation !== null" ng-style="{ 'background' : AnnotateCtrl.newAnnotation.circle.color, 'top':AnnotateCtrl.newAnnotation.circle.y - 15 + 'px', 'left':AnnotateCtrl.newAnnotation.circle.x - 15 + 'px'}" class="cd-single-point is-open">
 
                         <a class="cd-img-replace" ng-click="AnnotateCtrl.clearForm()">More</a>
 
@@ -65,6 +91,58 @@
                             <a href="#0" class="cd-close-info cd-img-replace">Close</a>
                         </div>
 
+                    </li> -->
+
+                    <li class="annotation is-open" ng-show="AnnotateCtrl.newAnnotation !== null"
+                    ng-style="{ 'background' : AnnotateCtrl.newAnnotation.circle.color, 'top':AnnotateCtrl.newAnnotation.circle.y - 15 + 'px', 'left':AnnotateCtrl.newAnnotation.circle.x - 15 + 'px'}"
+                    >
+
+                        <a  class="annotation--mark">more</a>
+
+                        <div class="annotation--details"
+                        ng-class="AnnotateCtrl.checkCoords(AnnotateCtrl.newAnnotation.circle.x, 500) ? 'annotation--details-left' : 'annotation--details-right'"
+                        >
+                            <!-- circles -->
+                            <!-- close -->
+
+                            <div class="annotation--details-header clearfix">
+                                <!-- select target person -->
+                                <ul class="annotation--person">
+                                    <li class="annotation--person-circle circle--every circle--selected" tooltip="Everyone" tooltip-placement="bottom"></li>
+                                    <li class="annotation--person-circle circle--design" tooltip="Designer" tooltip-placement="bottom"></li>
+                                    <li class="annotation--person-circle circle--dev" tooltip="Developer" tooltip-placement="bottom"></li>
+                                </ul>
+
+                                <!-- close popup -->
+                                <span class="fa fa-close pull-right" ng-click="AnnotateCtrl.clearForm()"></span>
+                            </div>
+
+                            <form ng-submit="AnnotateCtrl.addAnnotation(AnnotateCtrl.newAnnotation)" role="form">
+
+                                <div class="form-group">
+                                    <label for="projectDesc">Comment</label>
+                                    <textarea ng-model="AnnotateCtrl.newAnnotation.body" class="form-control project--desc" row="3"></textarea>
+                                </div>
+
+
+                                <span class="fa fa-plus-square annotation--details-assign" ng-if="!AnnotateCtrl.assignTask" ng-click="AnnotateCtrl.toggleAssign()"> assign as task</span>
+
+                                <div class="annotation--details-collaborators" ng-if="AnnotateCtrl.assignTask">
+                                    <div class="form-group">
+                                        <label>Assign to </label> <br />
+                                        <select ng-model="AnnotateCtrl.newAnnotation.assignedTo" class="form-control" >
+                                            <option value="">Assign to</option>
+                                            <option ng-repeat="collaborator in AnnotateCtrl.design.project.collaborators" value="{{collaborator}}">{{collaborator}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary btn-block">Add annotation</button>
+
+                            </form>
+                            <!-- form -->
+
+                        </div> <!-- /annotation--details -->
                     </li>
                 </ul>
                 <h1>{{AnnotateCtrl.height}}</h1>

@@ -16,6 +16,8 @@
 
         _this.newAnnotation = null;
 
+        _this.assignTask = false;
+
         _this.getDesign = function(){
             AnnotateFactory.getDesign($routeParams.design_id)
             .then(function(data){
@@ -58,16 +60,23 @@
                 .then(function(data){
                     _this.newAnnotation = null;
                     _this.getDesign();
+                    _this.assignTask = false;
                 });
         }
 
         _this.clearForm = function () {
             _this.newAnnotation = null;
+            _this.assignTask = false;
+        }
+
+        _this.toggleAssign = function () {
+            _this.assignTask = !_this.assignTask;
         }
 
          _this.getDesign();
 
     }
+
     AnnotateCtrl.$inject = ["AnnotateFactory", "focus", "$routeParams"];
 
     function getMouse(e) {

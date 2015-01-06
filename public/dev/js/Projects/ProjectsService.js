@@ -38,7 +38,7 @@
 
             $http.get(paths.api + '/' + projectid, {
                 params: {
-                        fields: 'name,desc,collaborators'
+                    fields: 'name,desc,collaborators'
                 }
             })
             //calback if succesfull or an error

@@ -1,22 +1,219 @@
 .cd-container {
   /* this class is used to give a max-width to the element it is applied to, and center it horizontally when it reaches that max-width */
-  width: 90%;
-  max-width: 1170px;
-  margin: 0 auto;
+    width: 90%;
+    max-width: 1170px;
+    margin: 0 auto;
 }
 .cd-container:after {
-  content: "";
-  display: table;
-  clear: both;
+    content: "";
+    display: table;
+    clear: both;
 }
 
 .cd-img-replace {
-  /* replace text with background images */
-  display: inline-block;
-  overflow: hidden;
-  text-indent: 100%;
-  white-space: nowrap;
+        /* replace text with background images */
+    display: inline-block;
+    overflow: hidden;
+    text-indent: 100%;
+    white-space: nowrap;
 }
+
+.annotation {
+    position: absolute;
+    border-radius: 50%;
+
+    &--mark {
+        position: relative;
+        z-index: 2;
+        display: block;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: #d95353;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        -webkit-transition: background-color 0.2s;
+        -moz-transition: background-color 0.2s;
+        transition: background-color 0.2s;
+        text-indent: -9999px;
+    }
+
+    &--mark::after, &--mark:before {
+        /* rotating plus icon */
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        bottom: auto;
+        right: auto;
+        -webkit-transform: translateX(-50%) translateY(-50%);
+        -moz-transform: translateX(-50%) translateY(-50%);
+        -ms-transform: translateX(-50%) translateY(-50%);
+        -o-transform: translateX(-50%) translateY(-50%);
+        transform: translateX(-50%) translateY(-50%);
+        background-color: #ffffff;
+        -webkit-transition-property: -webkit-transform;
+        -moz-transition-property: -moz-transform;
+        transition-property: transform;
+        -webkit-transition-duration: 0.2s;
+        -moz-transition-duration: 0.2s;
+        transition-duration: 0.2s;
+    }
+
+    &--mark::after {
+            height: 2px;
+            width: 12px;
+    }
+
+    &--mark::before {
+        height: 12px;
+        width: 2px;
+    }
+
+  // annotation popup body
+    &--details {
+        position: absolute;
+        width: 220px;
+        padding: 15px;
+        overflow-y: visible;
+        line-height: 1.4;
+        border-radius: 0.25em;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        background: #fff;
+        display: none;
+
+        &-left {
+            right: 160%;
+            left: auto;
+            top: -40px;
+
+            &::before {
+                border-left-color: rgba(255, 255, 255, 0.95);
+                left: 100%;
+            }
+        }
+
+        &-right {
+            left: 160%;
+            top: -40px;
+
+            &::before {
+                border-right-color: rgba(255, 255, 255, 0.95);
+                right: 100%;
+            }
+        }
+
+    &-top,
+    &-bottom {
+        left: 50%;
+        right: auto;
+        -webkit-transform: translateX(-50%);
+        -moz-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        -o-transform: translateX(-50%);
+        transform: translateX(-50%);
+    }
+
+    &-top::before {
+        border-top-color: rgba(255, 255, 255, 0.95);
+        top: 100%;
+    }
+
+    &-bottom::before {
+        border-bottom-color: rgba(255, 255, 255, 0.95);
+        bottom: 100%;
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        height: 0;
+        width: 0;
+        display: none;
+        border: 8px solid transparent;
+    }
+
+  } // -details
+
+
+    &--person {
+        float: left;
+
+        &-circle {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+        }
+    }
+
+  // header for annoation
+    &--details-header {
+        margin-bottom: 15px;
+    }
+
+    &--details-assign {
+        color: $blue;
+        cursor: pointer;
+        display: block;
+        margin-bottom: 10px;
+
+        &::before {
+          margin-right: 10px;
+        }
+
+      }
+
+} // annotation
+
+.is-open {
+
+    .annotation--details {
+        display: block;
+        z-index: 9999;
+    }
+
+    .annotation--mark {
+        background-color: #475f74;
+    }
+
+    .annotation--mark::after,
+    .annotation--mark::before {
+        -webkit-transform: translateX(-50%) translateY(-50%) rotate(135deg);
+        -moz-transform: translateX(-50%) translateY(-50%) rotate(135deg);
+        -ms-transform: translateX(-50%) translateY(-50%) rotate(135deg);
+        -o-transform: translateX(-50%) translateY(-50%) rotate(135deg);
+        transform: translateX(-50%) translateY(-50%) rotate(135deg);
+    }
+}
+
+.comment {
+    &--owner {
+        font-size: 12px;
+    }
+
+    &--date {
+        font-size: 12px;
+    }
+}
+
+.circle {
+    &--dev {
+        background: $dev-color;
+    }
+
+    &--design {
+        background: $design-color;
+    }
+
+    &--every {
+        background: $every-color;
+    }
+
+    // &--selected {
+    //     border: 2px solid $dark-grey;
+    // }
+}
+
 
 /* --------------------------------
 

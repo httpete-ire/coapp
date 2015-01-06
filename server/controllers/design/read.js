@@ -1,4 +1,5 @@
 var Design = require('./../../models/design');
+var Project = require('./../../models/project');
 var _ = require('underscore');
 
 /**
@@ -39,6 +40,10 @@ module.exports =  function getDesign (req, res, next) {
         if(_.contains(fields, 'annotations')){
             designQuery.populate('annotations.owner', 'email username');
             designQuery.populate('annotations.comments.owner', 'email username');
+        }
+
+        if(_.contains(fields, 'project')) {
+            designQuery.populate('project' , 'collaborators');
         }
 
     }

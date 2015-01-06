@@ -16,7 +16,11 @@
 
             var defer = $q.defer();
 
-            $http.get(Path + design_id)
+            $http.get(Path + design_id, {
+                    params: {
+                        fields: 'name,project,annotations,img'
+                    }
+                })
                 //calback if succesfull or an error
                 .success(function(data){
                         defer.resolve(data);
