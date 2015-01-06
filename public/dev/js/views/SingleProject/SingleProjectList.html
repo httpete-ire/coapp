@@ -1,50 +1,114 @@
 <div class="container-fluid">
     <div id="content-wrapper">
         <div class="page-content">
-        <div class="row">
             <div class="row">
-                <h1>{{SingProjectCtrl.project.name}}</h1>
-                <ul class="list-unstyled">
-                    <li class ="col-md-4" ng-repeat="des in SingProjectCtrl.project.designs">
-                    <p>Name: {{ des.name}}   <br/>Description:  {{ des.desc }}</p>
 
-                    <div class="project-img">
-                        <a href="#/design/{{des._id}}">
-                            <img ng-src="{{ des.img.thumbnail }}" alt="" width="100%">
-                        </a>
-
+                <div class="app-header">
+                    <div class="col-xs-1">
+                        <a href="#/projects"><i class="fa fa-arrow-left"></i></a>
                     </div>
-                            <button class="btn btn-danger" ng-click="SingProjectCtrl.deleteProject(proj._id)">delete</button>
-                    </li>
-
-                    <li class="col-md-4">
-                        <div
-                            ng-file-drop
-                            ng-model="files"
-                            class="drop-box"
-                            drag-over-class="{
-                                accept:'dragover',
-                                reject:'dragover-err',
-                                 delay:100
-                            }"
-                            multiple="false"
-                            allow-dir="false"
-                            accept="image/*"
-                            ng-file-drop
-                            ng-file-change="SingProjectCtrl.onFileSelect($files)"
-                        >
-                             <div class="div">
-                               <div class="drag-container">
-                                    <i class="fa fa-cloud-upload"></i>
-                                        <p>drag and drop to upload design</p>
-                                </div>
-                             </div>
+                <div class="col-xs-3">
+                    <h1>{{SingProjectCtrl.project.name}}</h1>
+                </div>
+                  <div class="col-xs-3">
+                        <div class="form-group search--form">
+                            <input ng-model="Name" type="text" placeholder="Search design by name" class="form-control search--input">
+                            <i class="fa fa-search search--icon"></i>
                         </div>
-                    </li>
+                    </div>
+                    <div class="col-xs-3">
+                        <select ng-model="orderProp" class="form-control">
+                            <option value="" selected>Sort by</option>
+                            <option value="name">By Name</option>
+                            <option value="-created">Latest</option>
+                            <option value="created">Oldest</option>
+                        </select>
+                    </div>
 
+
+                </div>
+            </div>
+            <div class="row">
+
+
+                <ul class="list-unstyled">
+
+                        <li class ="col-md-4" ng-repeat="des in SingProjectCtrl.project.designs | orderBy: orderProp |filter: Name">
+                        <div class="project--container">
+                        <div class="project--img-container">
+
+
+                        <div class="project-img">
+                            <a href="#/design/{{des._id}}">
+                                <img ng-src="{{ des.img.thumbnail }}" alt="" width="100%">
+                            </a>
+
+                        </div>
+
+                        <div class="project--img-bg"></div>
+                                    <div class="project--img-settings">
+
+                                        <ul class="project--img-icons">
+                                            <li>
+                                                <a href="#/design/{{des._id}}"><span class="fa fa-eye"></span></a>
+                                            </li>
+                                            <!-- <li ng-if="projectCtrl.isOwner(proj.owner)">
+                                                <a modal ctrl="ProjectModalController" template="editproject" size="sm" id="{{proj._id}}"><span class="fa fa-edit"></span></a>
+                                            </li>-->
+                                            <li ng-if="SingProjectCtrl.isOwner(SingProjectCtrl.project.owner)">
+                                                <modal template="deletedesign" ctrl="SingleProjectModalController" id="{{des._id}}" name="{{des.name}}" size="sm">
+                                                    <span class="fa fa-trash-o"></span>
+                                                </modal>
+
+                                            </li>
+                                        </ul>
+                                    </div>
+                            </div>
+
+
+                            <div class="project--details">
+
+                                <div class="project--details-container">
+
+                                    <div class="project--details-name col-md-6">
+                                        <h4><a href="#/design/{{des._id}}">{{ des.name}}</a>   </h4>
+                                    </div>
+
+                                </div> <!-- details-container -->
+                            </div>  <!-- project--details -->
+                        <!-- </li> -->
+
+                        <li class="col-md-4">
+                            <div
+                                ng-file-drop
+                                ng-model="files"
+                                class="drop-box"
+                                drag-over-class="{
+                                    accept:'dragover',
+                                    reject:'dragover-err',
+                                     delay:100
+                                }"
+                                multiple="false"
+                                allow-dir="false"
+                                accept="image/*"
+                                ng-file-drop
+                                ng-file-change="SingProjectCtrl.onFileSelect($files)"
+                            >
+                                 <div class="div">
+                                   <div class="drag-container">
+                                        <i class="fa fa-cloud-upload"></i>
+                                            <p>drag and drop to upload design</p>
+                                    </div>
+                                 </div>
+                            </div> <!-- files -->
+                        </li>
+                        </div> <!-- img-container -->
+                        </div> <!-- container -->
+
+                    </li>
                 </ul>
             </div>
-        </div>
+
 
 
         </div><!-- End Page Content -->

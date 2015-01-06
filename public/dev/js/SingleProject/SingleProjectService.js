@@ -10,7 +10,7 @@
 
         var paths = {
             api: '/api/projects/',
-            fields: '?fields=designs,name'
+            fields: '?fields=designs,name,owner'
         };
 
         SingProj.getProject = function(projectid){
@@ -28,6 +28,21 @@
 
             return defer.promise;
 
+        };
+
+        SingProj.deleteDesign = function(designid){
+            var defer = $q.defer();
+
+            $http.delete('/api/designs/' + designid)
+
+            .success(function(data){
+                        defer.resolve(data);
+                })
+                .error(function(err, status){
+                    defer.reject(err);
+                });
+
+            return defer.promise;
         };
 
         SingProj.upload = function(file, projectid) {

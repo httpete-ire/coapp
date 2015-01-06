@@ -10,14 +10,13 @@
         var SingDesign = {};
 
         var Path = '/api/designs/';
-        var getDesignPath = Path+$routeParams.design_id;
         var addAnnotationPath = Path+$routeParams.design_id+"/annotations";
 
-        SingDesign.getDesign = function(){
+        SingDesign.getDesign = function(design_id){
 
             var defer = $q.defer();
 
-            $http.get(getDesignPath)
+            $http.get(Path + design_id)
                 //calback if succesfull or an error
                 .success(function(data){
                         defer.resolve(data);

@@ -64,6 +64,7 @@
 		auth.username = '';
 
 		auth.isOwner = function (id) {
+			console.log(id);
 			return $window.localStorage.user === id;
 		}
 

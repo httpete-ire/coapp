@@ -71,7 +71,7 @@
 
 .project--details {
     &-container {
-        padding: 20px 0 20px 20px;
+        padding: 20px 0 60px 20px;
 
         // target icons
         & span {
@@ -124,4 +124,26 @@
         cursor: pointer;
     }
 
+}
+
+.fa-arrow-left{
+    font-size: 40px
+}
+
+
+input.ng-dirty.ng-invalid{
+    border:1px solid red
+}
+
+.formError{
+    padding: 10px 0px 10px 10px;
+    position: absolute;
+    display: block;
+    left: 340px;
+    border-radius: 5px;
+    top: 0px;
+    width: 185px;
+    color: #323232;
+    background: #CB4647;
+    text-align: left;
 }

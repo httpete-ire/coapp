@@ -5,7 +5,7 @@
     .controller('AnnotateController', AnnotateCtrl);
 
     // @ngInject
-    function AnnotateCtrl(AnnotateFactory, focus){
+    function AnnotateCtrl(AnnotateFactory, focus, $routeParams){
 
         _this = this;
 
@@ -17,7 +17,7 @@
         _this.newAnnotation = null;
 
         _this.getDesign = function(){
-            AnnotateFactory.getDesign()
+            AnnotateFactory.getDesign($routeParams.design_id)
             .then(function(data){
                 _this.design = data;
                 }, function(error){
@@ -68,7 +68,7 @@
          _this.getDesign();
 
     }
-    AnnotateCtrl.$inject = ["AnnotateFactory", "focus"];
+    AnnotateCtrl.$inject = ["AnnotateFactory", "focus", "$routeParams"];
 
     function getMouse(e) {
         var target = e.target.getBoundingClientRect();
