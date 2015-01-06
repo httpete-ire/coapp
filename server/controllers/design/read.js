@@ -43,7 +43,7 @@ module.exports =  function getDesign (req, res, next) {
         }
 
         if(_.contains(fields, 'project')) {
-            designQuery.populate('project' , 'collaborators');
+            designQuery.populate('project', 'collaborators');
         }
 
     }
@@ -61,6 +61,22 @@ module.exports =  function getDesign (req, res, next) {
             });
         }
 
-        return res.status(200).json(design);
+        if(design.project.collaborators.length) {
+
+            Project.populate(design.project, {
+                path: 'collaborators',
+                select: 'email username'
+            },function (err, users) {
+
+                return res.status(200).json(design);
+            });
+
+        } else {
+            return res.status(200).json(design);
+        }
+
+
+
+
     });
 };
