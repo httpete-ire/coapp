@@ -132,7 +132,7 @@
                                         <label>Assign to </label> <br />
                                         <select ng-model="AnnotateCtrl.newAnnotation.assignedTo" class="form-control" >
                                             <option value="">Assign to</option>
-                                            <option ng-repeat="collaborator in AnnotateCtrl.design.project.collaborators" value="{{collaborator}}">{{collaborator}}</option>
+                                            <option ng-repeat="collaborator in AnnotateCtrl.design.project.collaborators" value="{{collaborator._id}}">{{collaborator.username}}</option>
                                         </select>
                                     </div>
                                 </div>
