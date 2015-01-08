@@ -71,7 +71,7 @@
 
 .project--details {
     &-container {
-        padding: 20px 0 60px 20px;
+        padding: 15px 0 60px 0;
 
         // target icons
         & span {
@@ -83,6 +83,13 @@
             }
         }
 
+    }
+
+    &-name {
+        max-width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
 }

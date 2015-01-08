@@ -29,6 +29,7 @@
 						_this.user = {};
 
 						_this.alertService.setAlert(error);
+						_this.alertService.sleep(3500);
 					});
 			}
 

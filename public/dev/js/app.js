@@ -66,11 +66,13 @@
     appConfig.$inject = ["$routeProvider", "$httpProvider"];
 
     // @ngInject
-    function appRun ($rootScope, $window, $location, AuthenticationFactory) {
+    function appRun ($rootScope, $window, $location, AuthenticationFactory, alertService) {
         AuthenticationFactory.check();
 
         // @ngInject
         $rootScope.$on('$routeChangeStart', function (event, nextRoute, currentRoute){
+
+            alertService.close();
 
             if((nextRoute.access && nextRoute.access.requiredLogin) && !AuthenticationFactory.isLogged) {
                  event.preventDefault();        // hack to prevent page loading
@@ -102,7 +104,7 @@
         });
     }
 
-    appRun.$inject = ["$rootScope", "$window", "$location", "AuthenticationFactory"];
+    appRun.$inject = ["$rootScope", "$window", "$location", "AuthenticationFactory", "alertService"];
 
 
 })();

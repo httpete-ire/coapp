@@ -12,8 +12,10 @@
         return {
             bindToController: true,
             controller: "AlertCtrl as appAlert",
-            template: '<alert ng-if="appAlert.alertService.showAlert" type="{{ appAlert.alertService.alertType }}" close="appAlert.closeAlert()">{{ appAlert.alertService.alertMessage }}</alert>'
+            template: '<alert ng-if="appAlert.alertService.showAlert" type="{{ appAlert.alertService.alertType }}" >{{ appAlert.alertService.alertMessage }}</alert>'
         };
     }
+
+    // close="appAlert.closeAlert()"
 
 })();
