@@ -21,12 +21,12 @@ var Task = new Schema({
         type: Date
     },
     isComplete: {
-        type: boolean,
+        type: Boolean,
         default: false
     },
-    project: {
+    design: {
         type: Schema.Types.ObjectId,
-        ref: 'Proejct'
+        ref: 'Design'
     }
 });
 

@@ -16,8 +16,9 @@ var Annotaion = new Schema({
     updated: {
         type: Date
     },
-    isTask: {
-        type: Boolean
+    task: {
+            type: Schema.Types.ObjectId,
+            ref: 'Task'
     },
     circle: {
         x: {
@@ -36,8 +37,8 @@ var Annotaion = new Schema({
             type: String
         },
         owner: {
-                type: Schema.Types.ObjectId,
-                ref: 'User'
+            type: Schema.Types.ObjectId,
+            ref: 'User'
         },
         created: {
             type: Date,

@@ -32,7 +32,13 @@ var Design = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Project'
     },
-    annotations: [Annotation.schema]      // annotaion sub document
+    annotations: [
+        Annotation.schema  // annotaion sub document
+    ],
+    tasks: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Task'
+    }]
 });
 
 module.exports =  mongoose.model('Design', Design);

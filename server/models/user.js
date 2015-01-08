@@ -30,6 +30,10 @@ var User = new Schema({
     projects: [{
         type: Schema.Types.ObjectId,
         ref: 'Project'
+    }],
+    tasks: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Task'
     }]
 });
 
