@@ -1,5 +1,10 @@
 var Design = require('./../../models/design');
 var Project = require('./../../models/project');
+var Task = require('./../../models/task');
+var User = require('./../../models/user');
+
+
+var async = require('async');
 var _ = require('underscore');
 
 /**
@@ -39,6 +44,7 @@ module.exports =  function getDesign (req, res, next) {
 
         if(_.contains(fields, 'annotations')){
             designQuery.populate('annotations.owner', 'email username');
+            designQuery.populate('annotations.task');
             designQuery.populate('annotations.comments.owner', 'email username');
         }
 
@@ -61,22 +67,13 @@ module.exports =  function getDesign (req, res, next) {
             });
         }
 
-        if(design.project.collaborators.length) {
+        Project.populate(design.project, {
+            path: 'collaborators',
+            select: 'email username'
+        },function (err) {
 
-            Project.populate(design.project, {
-                path: 'collaborators',
-                select: 'email username'
-            },function (err, users) {
-
-                return res.status(200).json(design);
-            });
-
-        } else {
             return res.status(200).json(design);
-        }
-
-
-
+        });
 
     });
 };
