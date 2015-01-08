@@ -23,27 +23,7 @@
             <div class="design-img">
                 <img ng-src="{{ AnnotateCtrl.design.img.full }}" ng-click="AnnotateCtrl.annotate($event)" class="lan">
                  <ul>
-                    <!-- <li
-                    ng-repeat="mark in AnnotateCtrl.design.annotations track by $index"
-                    class="cd-single-point"
-                    ng-style="{ 'background' : mark.circle.color, 'top':mark.circle.y - 15 + 'px', 'left': mark.circle.x - 15 + 'px'}"
-                    ng-class="{'is-open': AnnotateCtrl.openComment && $index === AnnotateCtrl.commentSelected}"
-                    ng-mouseleave="AnnotateCtrl.toggleComments($index)">
 
-                        <a class="cd-img-replace" ng-mouseenter="AnnotateCtrl.toggleComments($index)">More</a>
-                            <div
-                                class="cd-more-info"
-                                ng-class="AnnotateCtrl.checkCoords(mark.circle.x, 500) ? 'cd-left' : 'cd-right'"
-                            >
-
-                            <p>{{mark.body}}</p>
-                           <div class="form-group">
-                               <input type="text">
-                           </div>
-                            <a href="#0" class="cd-close-info cd-img-replace">Close</a>
-                        </div>
-                    </li>
- -->
                     <li
                     ng-repeat="mark in AnnotateCtrl.design.annotations track by $index"
                     class="annotation"
@@ -58,7 +38,7 @@
                                 ng-class="AnnotateCtrl.checkCoords(mark.circle.x, 500) ? 'annotation--details-left' : 'annotation--details-right'"
                             >
 
-                                <div class="annotation--details-comment">
+                                <div class="annotation--details-body">
 
                                     <span class="comment--owner">{{mark.owner.username}}</span>
 
@@ -67,31 +47,41 @@
                                     <p>{{mark.body}}</p>
                                 </div>
 
+                                <div class="annotation--task-container">
+                                    <!-- task to go here -->
+                                    <!-- if no task button to create task -->
+                                </div>
+                                <!-- /.annotation--task -->
+
+                                <div class="annotation--comments-container">
+
+                                    <!-- list of comments -->
+                                    <ul class="annotation--comments">
+                                        <li class="annotation--comments-item" ng-repeat="comment in mark.comments">{{comment.body}}
+                                        {{comment.owner.username}}
+                                        {{comment.created | date:"MM/dd/yyyy 'at' h:mma"}}</li>
+                                    </ul>
+
+                                    <!-- form to add new comment -->
+                                    <form name="commentForm" role="form" ng-submit="AnnotateCtrl.addComment(AnnotateCtrl.comment, mark)">
+
+                                        <div class="form-group">
+
+                                            <label for="projectDesc">Reply</label>
+                                            <textarea class="form-control project--desc" row="3" ng-model="AnnotateCtrl.comment.body"></textarea>
+
+                                            <input type="hidden" ng-model="AnnotateCtrl.comment.annotation" value="{{mark._id}}">
+
+                                            <button type="submit" class="btn btn-primary btn-block">Add comment</button>
+                                        </div>
+
+                                    </form>
+
+                                </div>
+                                <!-- /.annotation--comments -->
+
                             </div>
                     </li>
-
-                    <!-- <!-- handle new annotations -->
-                    <!--<li  ng-show="AnnotateCtrl.newAnnotation !== null" ng-style="{ 'background' : AnnotateCtrl.newAnnotation.circle.color, 'top':AnnotateCtrl.newAnnotation.circle.y - 15 + 'px', 'left':AnnotateCtrl.newAnnotation.circle.x - 15 + 'px'}" class="cd-single-point is-open">
-
-                        <a class="cd-img-replace" ng-click="AnnotateCtrl.clearForm()">More</a>
-
-                        <div
-                            class="cd-more-info"
-                            ng-class="AnnotateCtrl.checkCoords(AnnotateCtrl.newAnnotation.circle.x, 500) ? 'cd-left' : 'cd-right'"
-                        >
-                           <form name="loginForm"  ng-submit="AnnotateCtrl.addAnnotation(AnnotateCtrl.newAnnotation)" role="form">
-                               <div class="form-group">
-                                   <label for="annotateBody">Comment</label>
-                                   <input ng-model="AnnotateCtrl.newAnnotation.body" type="text" class="form-control" placeholder="Write your comment" set-focus="focus-this">
-                               </div>
-                               <button type="submit" class="btn btn-sm btn-primary">Add</button>
-                           </form>
-
-
-                            <a href="#0" class="cd-close-info cd-img-replace">Close</a>
-                        </div>
-
-                    </li> -->
 
                     <li class="annotation is-open" ng-show="AnnotateCtrl.newAnnotation !== null"
                     ng-style="{ 'background' : AnnotateCtrl.newAnnotation.circle.color, 'top':AnnotateCtrl.newAnnotation.circle.y - 15 + 'px', 'left':AnnotateCtrl.newAnnotation.circle.x - 15 + 'px'}"
@@ -123,7 +113,6 @@
                                     <label for="projectDesc">Comment</label>
                                     <textarea ng-model="AnnotateCtrl.newAnnotation.body" class="form-control project--desc" row="3"></textarea>
                                 </div>
-
 
                                 <span class="fa fa-plus-square annotation--details-assign" ng-if="!AnnotateCtrl.assignTask" ng-click="AnnotateCtrl.toggleAssign()"> assign as task</span>
 

@@ -5,7 +5,7 @@
     .controller('AnnotateController', AnnotateCtrl);
 
     // @ngInject
-    function AnnotateCtrl(AnnotateFactory, focus, $routeParams){
+    function AnnotateCtrl(AnnotateFactory, focus, $routeParams, AuthenticationFactory){
 
         _this = this;
 
@@ -55,8 +55,9 @@
         }
 
         _this.addAnnotation = function(annotation) {
+
             AnnotateFactory
-                .addAnnotation(annotation)
+                .addAnnotation(annotation, $routeParams.design_id)
                 .then(function(data){
                     _this.newAnnotation = null;
                     _this.getDesign();
@@ -73,11 +74,28 @@
             _this.assignTask = !_this.assignTask;
         }
 
-         _this.getDesign();
+        _this.addComment = function (comment, annotation) {
+
+            AnnotateFactory
+            .addComment(comment, $routeParams.design_id, annotation._id)
+            .then(function(data) {
+                // add new comment object to list of comments
+                var newComment = {};
+                newComment.body = comment.body;
+                newComment.created = Date.now();
+                newComment.owner = {};
+                newComment.owner.username = AuthenticationFactory.username;
+
+                // add new comment
+                annotation.comments.push(newComment);
+            });
+        }
+
+        _this.getDesign();
 
     }
 
-    AnnotateCtrl.$inject = ["AnnotateFactory", "focus", "$routeParams"];
+    AnnotateCtrl.$inject = ["AnnotateFactory", "focus", "$routeParams", 'AuthenticationFactory'];
 
     function getMouse(e) {
         var target = e.target.getBoundingClientRect();

@@ -10,7 +10,7 @@
         var SingDesign = {};
 
         var Path = '/api/designs/';
-        var addAnnotationPath = Path+$routeParams.design_id+"/annotations";
+
 
         SingDesign.getDesign = function(design_id){
 
@@ -33,7 +33,9 @@
 
         };
 
-        SingDesign.addAnnotation = function(anno){
+        SingDesign.addAnnotation = function(anno, designId){
+
+            var addAnnotationPath = Path + designId + "/annotations";
 
             var defer = $q.defer();
 
@@ -43,14 +45,31 @@
                 })
                 .error(function(err, status){
                     defer.reject(err);
-                })
+                });
 
             return defer.promise;
 
         };
 
+        SingDesign.addComment = function (comment, designId, annotationId) {
 
+            // api/design/:designid/annotations/:annotationid/comments
 
+            var defer = $q.defer();
+
+            var commentPath = Path + designId + '/annotations/' + annotationId + '/comments';
+
+            $http.post(commentPath, comment)
+                .success(function (data) {
+                    defer.resolve(data);
+                })
+                .error(function (err, status){
+                    defer.reject(err);
+                });
+
+            return defer.promise;
+
+        };
 
         return SingDesign;
     }
