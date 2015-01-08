@@ -43,12 +43,14 @@
     /**
      * @ngInject
      */
-    function ProjectModalController ($scope, $modalInstance, object, ProjFactory, $rootScope, $window) {
+    function ProjectModalController ($scope, $modalInstance, object, ProjFactory, $rootScope, $window, alertService) {
 
         // store collaborators in an array
         $scope.collaborators = [];
 
         $scope.project = {};
+
+        $scope.alertService = alertService;
 
         // expose object to modal scope
         $scope.object = object;
@@ -101,6 +103,11 @@
                 $scope.project = null;//to set the form back to blank
             }, function(error){
                 // handle alerts here
+                $scope.alertService.setAlert(error.response.message);
+                $scope.alertService.sleep(3500);
+
+                // reset name of project
+                $scope.project.name = null;
 
             });
 
@@ -169,7 +176,13 @@
                 $modalInstance.dismiss('cancel');
                 $rootScope.$broadcast('project-change');
 
-            }, function(err){
+            }, function(error){
+
+                $scope.alertService.setAlert(error.response.message);
+                $scope.alertService.sleep(3500);
+
+                // reset name of project
+                $scope.project.name = null;
 
             });
         }
@@ -194,7 +207,7 @@
 
     }
 
-    ProjectModalController.$inject = ["$scope", "$modalInstance", "object", "ProjFactory", "$rootScope", "$window"];
+    ProjectModalController.$inject = ["$scope", "$modalInstance", "object", "ProjFactory", "$rootScope", "$window", "alertService"];
 
 
 })();
