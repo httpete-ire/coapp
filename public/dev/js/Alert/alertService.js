@@ -10,6 +10,8 @@
      */
     function alertService ($timeout) {
 
+        var time = 3500;
+
         var alertService = this;
 
         alertService.alertMessage = "Something Failed";
@@ -27,13 +29,10 @@
         alertService.setAlert = function (err) {
             alertService.alertMessage = err;
             alertService.showAlert = true;
-        }
-
-        alertService.sleep = function (time) {
-            var _this = this;
-            $timeout(function() {
-                _this.close();
-            }, (time || 3000));
+            // close alert auto
+            $timeout(function () {
+                alertService.close();
+            }, time);
         }
     }
 

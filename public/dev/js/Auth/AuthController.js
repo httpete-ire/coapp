@@ -29,7 +29,6 @@
 						_this.user = {};
 
 						_this.alertService.setAlert(error);
-						_this.alertService.sleep(3500);
 					});
 			}
 
@@ -59,8 +58,6 @@
 					_this.user = {};
 
 					_this.alertService.setAlert(error);
-
-					_this.alertService.sleep(3500);
 
 					// set form to valid
 					form.$setUntouched();

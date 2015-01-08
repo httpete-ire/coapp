@@ -104,7 +104,6 @@
             }, function(error){
                 // handle alerts here
                 $scope.alertService.setAlert(error.response.message);
-                $scope.alertService.sleep(3500);
 
                 // reset name of project
                 $scope.project.name = null;
@@ -179,7 +178,6 @@
             }, function(error){
 
                 $scope.alertService.setAlert(error.response.message);
-                $scope.alertService.sleep(3500);
 
                 // reset name of project
                 $scope.project.name = null;
