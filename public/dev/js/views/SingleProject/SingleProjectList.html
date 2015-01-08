@@ -33,6 +33,31 @@
 
                 <ul class="list-unstyled">
 
+                    <li class="col-md-4">
+                        <div
+                            ng-file-drop
+                            ng-model="files"
+                            class="drop-box"
+                            drag-over-class="{
+                                accept:'dragover',
+                                reject:'dragover-err',
+                                 delay:100
+                            }"
+                            multiple="false"
+                            allow-dir="false"
+                            accept="image/*"
+                            ng-file-drop
+                            ng-file-change="SingProjectCtrl.onFileSelect($files)"
+                        >
+                             <div class="div">
+                               <div class="drag-container">
+                                    <i class="fa fa-cloud-upload"></i>
+                                        <p>drag and drop to upload design</p>
+                                </div>
+                             </div>
+                        </div> <!-- files -->
+                    </li>
+
                         <li class ="col-md-4" ng-repeat="des in SingProjectCtrl.project.designs | orderBy: orderProp |filter: Name">
                         <div class="project--container">
                         <div class="project--img-container">
@@ -78,34 +103,13 @@
                             </div>  <!-- project--details -->
                         <!-- </li> -->
 
-                        <li class="col-md-4">
-                            <div
-                                ng-file-drop
-                                ng-model="files"
-                                class="drop-box"
-                                drag-over-class="{
-                                    accept:'dragover',
-                                    reject:'dragover-err',
-                                     delay:100
-                                }"
-                                multiple="false"
-                                allow-dir="false"
-                                accept="image/*"
-                                ng-file-drop
-                                ng-file-change="SingProjectCtrl.onFileSelect($files)"
-                            >
-                                 <div class="div">
-                                   <div class="drag-container">
-                                        <i class="fa fa-cloud-upload"></i>
-                                            <p>drag and drop to upload design</p>
-                                    </div>
-                                 </div>
-                            </div> <!-- files -->
-                        </li>
+
                         </div> <!-- img-container -->
                         </div> <!-- container -->
 
                     </li>
+
+
                 </ul>
             </div>
 
