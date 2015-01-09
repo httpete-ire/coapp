@@ -1,0 +1,11 @@
+.btn {
+    &-outline {
+        border: 2px solid $blue;
+        color: #fff;
+
+        &:hover {
+            background: $blue;
+            color: #fff;
+        }
+    }
+}

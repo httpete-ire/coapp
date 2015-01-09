@@ -34,6 +34,7 @@
         })
         .when('/projects', {
             templateUrl: 'dev/js/views/Projects/list.html',
+            activeLink: 'projects',
             controller: 'ProjectsController',
             controllerAs: 'projectCtrl',
             access: {
@@ -42,6 +43,7 @@
         })
         .when('/projects/:project_id', {
             templateUrl: 'dev/js/views/SingleProject/SingleProjectList.html',
+            activeLink: 'projects',
             controller: 'SingleProjectController',
             controllerAs: 'SingProjectCtrl',
             access:{
@@ -50,6 +52,7 @@
         })
         .when('/design/:design_id', {
             templateUrl: 'dev/js/views/Annotate/Annotate.html',
+            activeLink: 'proejcts',
             controller: 'AnnotateController',
             controllerAs: 'AnnotateCtrl',
             access:{
@@ -72,6 +75,7 @@
         // @ngInject
         $rootScope.$on('$routeChangeStart', function (event, nextRoute, currentRoute){
 
+            // close alerts between page changes
             alertService.close();
 
             if((nextRoute.access && nextRoute.access.requiredLogin) && !AuthenticationFactory.isLogged) {

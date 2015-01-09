@@ -64,7 +64,6 @@
 		auth.username = '';
 
 		auth.isOwner = function (id) {
-			console.log(id);
 			return $window.localStorage.user === id;
 		}
 
@@ -94,8 +93,6 @@
 		};
 
 		tokenIntercept.responseError = function (rejection) {
-			console.log(rejection);
-
 			return $q.reject(rejection);
 		};
 
