@@ -42,7 +42,8 @@
 
                                     <span class="comment--owner">{{mark.owner.username}}</span>
 
-                                    <span class="comment--date">{{mark.created | date:"MM/dd/yyyy 'at' h:mma"}}</span>
+
+                                    <span am-time-ago="mark.created" class="comment--date"></span>
 
                                     <p>{{mark.body}}</p>
                                 </div>
