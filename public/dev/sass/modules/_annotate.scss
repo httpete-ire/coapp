@@ -72,7 +72,7 @@
   // annotation popup body
     &--details {
         position: absolute;
-        width: 220px;
+        width: 320px;
         padding: 15px;
         overflow-y: visible;
         line-height: 1.4;
@@ -188,11 +188,25 @@
 
 .comment {
     &--owner {
-        font-size: 12px;
+        font-size: 18px;
+        color: #333;
+        width: 60%;
+        display: inline-block;
     }
 
     &--date {
         font-size: 12px;
+        margin-top: 5px;
+        color: darken($icon-grey, 15%);
+
+        &::before {
+          margin-right: 6px;
+        }
+    }
+
+    &--body {
+      padding: 10px 0;
+      margin-bottom: 10px;
     }
 }
 
@@ -209,11 +223,56 @@
         background: $every-color;
     }
 
-    // &--selected {
-    //     border: 2px solid $dark-grey;
-    // }
 }
 
+.annotation--task {
+
+    &-container {
+        min-height: 50px;
+        background: $body-bg;
+        margin: 0 -15px;
+    }
+
+    &-body {
+        padding: 20px 15px 10px 15px;
+    }
+
+    &-empty {
+        text-align: center;
+    }
+
+}
+
+.comment--expand {
+    min-height: 80px;
+}
+
+.annotation--comments {
+    max-height: 200px;
+    overflow-y: scroll;
+    margin-bottom: 15px;
+
+    &-item {
+        margin-top: 10px;
+        border-bottom: 1px solid $body-bg;
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+
+    &-reply {
+        height: 40px !important;
+    }
+}
+
+.btn-reply {
+    margin-top: 15px;
+}
+
+.pull-right {
+    cursor: pointer;
+}
 
 /* --------------------------------
 

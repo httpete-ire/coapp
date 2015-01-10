@@ -74,7 +74,9 @@
             _this.assignTask = !_this.assignTask;
         }
 
-        _this.addComment = function (comment, annotation) {
+        _this.addComment = function (comment, annotation, form) {
+
+
 
             AnnotateFactory
             .addComment(comment, $routeParams.design_id, annotation._id)
@@ -85,6 +87,11 @@
                 newComment.created = Date.now();
                 newComment.owner = {};
                 newComment.owner.username = AuthenticationFactory.username;
+
+                _this.comment = null;
+                // set form to valid
+                form.commentForm.$setUntouched();
+                form.commentForm.$setPristine();
 
                 // add new comment
                 annotation.comments.push(newComment);
