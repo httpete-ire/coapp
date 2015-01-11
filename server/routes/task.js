@@ -4,7 +4,7 @@ module.exports =  function(app, router) {
 
     // create new design
     router
-    .route('/tasks/')
+    .route('/designs/:designid/annotations/:annotationid/tasks/')
     .get(taskCtrl.read)
     .post(taskCtrl.create);
 
