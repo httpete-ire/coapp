@@ -5,7 +5,24 @@ var User = require('./../../models/user');
 
 var async = require('async');
 
-
+/**
+ * @api {post} /api/designs/:designid/annotations/:annotationid/tasks
+ *
+ * @apiName Add new task
+ * @apiGroup Tasks
+ *
+ * @apiParam {String} action Tasks action to complete
+ * @apiParam {Object ID} assignedTo ID of user task is assign to
+ *
+ * @apiPermission User
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 201 Created
+ *
+ * @apiUse InvalidData
+ *
+ * @apiUse NotAuthorized
+ */
 module.exports =  function createTask (req, res, next){
 
     async.waterfall([function (cb) {
@@ -60,9 +77,10 @@ module.exports =  function createTask (req, res, next){
         var task = new Task ();
 
         task.action = req.body.action;
-        task.project = design.project._id;
+        task.project = design.project;
         task.assignedTo = req.body.assignedTo;
         task.assignedBy = req.user._id;
+        task.design = design._id;
 
         task.save(function (err) {
             if (err) {

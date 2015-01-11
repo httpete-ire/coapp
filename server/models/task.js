@@ -27,6 +27,10 @@ var Task = new Schema({
     design: {
         type: Schema.Types.ObjectId,
         ref: 'Design'
+    },
+    project: {
+        type: Schema.Types.ObjectId,
+        ref: 'Project'
     }
 });
 

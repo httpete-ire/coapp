@@ -80,9 +80,10 @@ module.exports =  function newAnnotation (req, res, next) {
             var task = new Task ();
 
             task.action = req.body.body;
-            task.project = design.project._id;
+            task.project = design.project;
             task.assignedTo = req.body.assignedTo;
             task.assignedBy = req.user._id;
+            task.design = design._id;
 
             task.save(function (err) {
                 if (err) {
@@ -120,7 +121,8 @@ module.exports =  function newAnnotation (req, res, next) {
             circle: {
                 x: req.body.circle.x,
                 y: req.body.circle.y
-            }
+            },
+            type: req.body.type
         });
 
         design.save(function(err){

@@ -56,6 +56,8 @@
 
         _this.addAnnotation = function(annotation) {
 
+            console.log(annotation);
+
             AnnotateFactory
                 .addAnnotation(annotation, $routeParams.design_id)
                 .then(function(data){

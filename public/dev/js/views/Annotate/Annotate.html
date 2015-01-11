@@ -30,7 +30,7 @@
                     ng-style="{ 'background' : mark.circle.color, 'top':mark.circle.y - 15 + 'px', 'left': mark.circle.x - 15 + 'px'}"
                     ng-class="{'is-open': AnnotateCtrl.openComment && $index === AnnotateCtrl.commentSelected && AnnotateCtrl.newAnnotation === null}">
 
-                        <a class="annotation--mark" ng-click="AnnotateCtrl.toggleComments($index)">More</a>
+                        <a class="annotation--mark" ng-click="AnnotateCtrl.toggleComments($index)" ng-class="mark.type">More</a>
 
                             <div
                                 class="annotation--details"
@@ -140,19 +140,37 @@
                             <!-- circles -->
                             <!-- close -->
 
-                            <div class="annotation--details-header clearfix">
-                                <!-- select target person -->
-                                <ul class="annotation--person">
-                                    <li class="annotation--person-circle circle--every circle--selected" tooltip="Everyone" tooltip-placement="bottom"></li>
-                                    <li class="annotation--person-circle circle--design" tooltip="Designer" tooltip-placement="bottom"></li>
-                                    <li class="annotation--person-circle circle--dev" tooltip="Developer" tooltip-placement="bottom"></li>
-                                </ul>
-
-                                <!-- close popup -->
-                                <span class="fa fa-close pull-right" ng-click="AnnotateCtrl.clearForm()"></span>
-                            </div>
-
                             <form ng-submit="AnnotateCtrl.addAnnotation(AnnotateCtrl.newAnnotation)" role="form">
+
+                                <div class="annotation--details-header clearfix">
+
+                                    <!-- radio btns for type -->
+                                    <div class="annotation--type">
+                                        <input type="radio" id="everyoneRadio" class="hidden--radio" name="radio"ng-model="AnnotateCtrl.newAnnotation.type" value="everyone" checked>
+                                        <label for="everyoneRadio">
+                                        <span class="annotation--type-circle circle--every" tooltip="Everyone" tooltip-placement="bottom"></span>
+                                        </label>
+                                    </div>
+
+                                    <div class="annotation--type">
+                                        <input type="radio" id="designerRadio" class="hidden--radio" name="radio" ng-model="AnnotateCtrl.newAnnotation.type" value="designer" />
+                                        <label for="designerRadio">
+                                        <span class="annotation--type-circle circle--design" tooltip="Designer" tooltip-placement="bottom"></span>
+                                        </label>
+                                    </div>
+
+                                    <div class="annotation--type">
+                                        <input type="radio" id="devRadio" class="hidden--radio" name="radio" ng-model="AnnotateCtrl.newAnnotation.type" value="developer" />
+                                        <label for="devRadio">
+                                        <span class="annotation--type-circle circle--dev" tooltip="Developer" tooltip-placement="bottom"></span>
+                                        </label>
+                                    </div>
+
+
+
+                                    <!-- close popup -->
+                                    <span class="fa fa-close pull-right" ng-click="AnnotateCtrl.clearForm()"></span>
+                                </div>
 
                                 <div class="form-group">
                                     <label for="projectDesc">Comment</label>
