@@ -25,27 +25,27 @@ var _ = require('underscore');
  */
 module.exports =  function getDesign (req, res, next) {
 
-    var designId = req.params.designid;
-
-    var designQuery = Design.findOne({
-        _id: designId
-    });
-
-    // use the fields query to select properties to return
-    if (!_.isEmpty(req.query) && req.query.fields) {
-        // build an array of fields
-        var fields = req.query.fields.split(',');
-
-        // join the array to build a string
-        designQuery.select(fields.join(' '));
-
-        var opts = getPopullateOptions(fields);
-
-        designQuery.populate(opts);
-
-    }
-
     async.waterfall([function (cb) {
+
+        var designId = req.params.designid;
+
+        var designQuery = Design.findOne({
+            _id: designId
+        });
+
+        // use the fields query to select properties to return
+        if (!_.isEmpty(req.query) && req.query.fields) {
+            // build an array of fields
+            var fields = req.query.fields.split(',');
+
+            // join the array to build a string
+            designQuery.select(fields.join(' '));
+
+            var opts = getPopullateOptions(fields);
+
+            designQuery.populate(opts);
+
+        }
 
         // run design query
         designQuery.exec(function(err, design){
@@ -60,6 +60,7 @@ module.exports =  function getDesign (req, res, next) {
 
             cb(null, design);
         });
+
     }, function (design, cb) {
 
         populateData(design, cb);
