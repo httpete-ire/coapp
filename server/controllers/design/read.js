@@ -1,8 +1,9 @@
 var Design = require('./../../models/design');
 var Project = require('./../../models/project');
-var Task = require('./../../models/task');
 var User = require('./../../models/user');
 
+var taskHelper = require('./../../helpers/taskHelper');
+var dbHelper = require('./../../helpers/dbHelper');
 
 var async = require('async');
 var _ = require('underscore');
@@ -38,42 +39,100 @@ module.exports =  function getDesign (req, res, next) {
         // join the array to build a string
         designQuery.select(fields.join(' '));
 
-        if(_.contains(fields, 'owner')){
-            designQuery.populate('owner', 'email username');
-        }
+        var opts = getPopullateOptions(fields);
 
-        if(_.contains(fields, 'annotations')){
-            designQuery.populate('annotations.owner', 'email username');
-            designQuery.populate('annotations.task');
-            designQuery.populate('annotations.comments.owner', 'email username');
-        }
-
-        if(_.contains(fields, 'project')) {
-            designQuery.populate('project', 'collaborators');
-        }
+        designQuery.populate(opts);
 
     }
 
-    designQuery
-    .exec(function(err, design){
-        if (err) {
-            next(err);
-        }
+    async.waterfall([function (cb) {
 
-        if (!design) {
-            return next({
-                message: 'no design found',
-                status: 404
-            });
-        }
+        // run design query
+        designQuery.exec(function(err, design){
+            if (err) return cb(err);
 
-        Project.populate(design.project, {
-            path: 'collaborators',
-            select: 'email username'
-        },function (err) {
+            if (!design) {
+                return cb({
+                    message: 'no design found',
+                    status: 404
+                });
+            }
 
-            return res.status(200).json(design);
+            cb(null, design);
         });
+    }, function (design, cb) {
+
+        populateData(design, cb);
+
+    }], function (err, design) {
+
+        if (err) return next(err);
+
+        return res.status(200).json(design[0]);
 
     });
 };
+
+/**
+ * populate the project and tasks of each annotation
+ * of the design, this happens in parallel to prevent blocking the system
+ *
+ * @param  {Object}   design :: design object
+ * @param  {Function} cb     :: callback to execute if successful
+ */
+function populateData (design, cb) {
+    // in parrell load populate project and tasks
+    async.parallel([function (callback) {
+
+        var opts = {
+            path: 'collaborators',
+            select: 'email username'
+        };
+
+        // populate project
+        Project.populate(design.project, opts, function (err) {
+
+            if(err) return callback(err);
+
+            return callback(null, design);
+        });
+
+    }, function (callback) {
+
+        dbHelper.populateTasks(design.annotations, callback);
+
+    }], function (err, design){
+
+        if(err) {
+            return cb(err);
+        }
+
+        return cb(null, design);
+    });
+};
+
+function getPopullateOptions (array) {
+
+    // config settings for popullation
+    var popFields = [{
+        field: 'owner',
+        query: {
+            path: 'owner', select: 'email username'}
+    }, {
+        field: 'project',
+        query: {
+            path: 'project', select: 'collaborators'}
+    }, {
+        field: 'annotations',
+        query: [{
+            path: 'annotations.owner', select: 'email username'
+        }, {
+            path: 'annotations.task'
+        }, {
+            path: 'annotations.comments.owner',
+            select: 'email username'
+        }]
+    }];
+
+    return dbHelper.popullateOpts(array, popFields);
+}
