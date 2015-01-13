@@ -38,4 +38,18 @@ var Project = new Schema({
     }
 });
 
+Project.pre('save', function (next) {
+    var project = this;
+
+    var now = Date.now();
+
+    project.updated = now;
+
+    if(!project.created) {
+        project.created = now;
+    }
+
+    next();
+});
+
 module.exports =  mongoose.model('Project', Project);
