@@ -34,4 +34,18 @@ var Task = new Schema({
     }
 });
 
+Task.pre('save', function (next) {
+    var task = this;
+
+    var now = Date.now();
+
+    task.updated = now;
+
+    if(!task.created) {
+        task.created = now;
+    }
+
+    next();
+});
+
 module.exports =  mongoose.model('Task', Task);
