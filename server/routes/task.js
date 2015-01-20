@@ -23,5 +23,4 @@ module.exports =  function(app, router) {
     .route('/tasks')
     .get(taskCtrl.read);
 
-
 };
