@@ -187,6 +187,13 @@ module.exports =  function newDesignCtrl (req, res, next) {
 
                         project.designCount = project.designs.length;
 
+                        // add to recent activites of project
+                        project.recentActivities.push({
+                            activityType: 'new design',
+                            completedBy: req.user._id,
+                            design: design._id
+                        });
+
                         project.save(function(err) {
                             if(err) {
                                 return cb(err);

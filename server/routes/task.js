@@ -10,13 +10,16 @@ module.exports =  function(app, router) {
     // read tasks from a design
     router
     .route('/designs/:designid/tasks')
-    .get();
+    .put();
+
+
 
     // specific tasks
     router
     .route('/tasks/:taskid')
-    .put(taskCtrl.update)
-    .delete(taskCtrl.delete);
+    .put(taskCtrl.update);
+
+    // .delete(taskCtrl.delete);
 
     // find user tasks
     router

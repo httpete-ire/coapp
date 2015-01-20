@@ -35,7 +35,25 @@ var Project = new Schema({
     designCount: {
         type: Number,
         default:0
-    }
+    },
+    recentActivities: [{
+
+        activityType: {
+            type: String
+        },
+        completedBy: {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        },
+        completedDate: {
+            type: Date,
+            default: Date.now
+        },
+        design: {
+            type: Schema.Types.ObjectId,
+            ref: 'Design'
+        }
+    }]
 });
 
 Project.pre('save', function (next) {
