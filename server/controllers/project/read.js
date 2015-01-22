@@ -2,6 +2,10 @@ var Project = require('./../../models/project');
 
 var _ = require('underscore');
 
+var async = require('async');
+
+var dbHelper = require('./../../helpers/dbHelper');
+
 /**
  * @api {get} /api/projects/:projectid Get single project
  *
@@ -39,15 +43,9 @@ module.exports =  function (req, res, next) {
         // join the array to build a string
         projectQuery.select(fields.join(' '));
 
-        // populate collabarorator list
-        if(_.contains(fields, 'collaborators')){
-            projectQuery.populate('collaborators', '_id email username');
-        }
+        var opts = getPopullateOptions(fields);
 
-        // populate design list
-        if(_.contains(fields, 'designs')){
-            projectQuery.populate('designs', 'name img.thumbnail');
-        }
+        projectQuery.populate(opts);
     }
 
     projectQuery.exec(function (err, project) {
@@ -65,3 +63,29 @@ module.exports =  function (req, res, next) {
         res.status(200).json(project);
     });
 };
+
+function getPopullateOptions (array) {
+
+    var popFields = [{
+        field: 'collaborators',
+        query: {
+            path: 'collaborators', select: 'email username'
+        }
+    }, {
+        field: 'designs',
+        query: {
+            path: 'designs', select: 'name img.thumbnail'
+        }
+    }, {
+        field: 'recentActivities',
+        query: [{
+            path: 'recentActivities.completedBy',
+            select: 'username'
+        },{
+            path: 'recentActivities.design',
+            select: 'name'
+        }]
+    }];
+
+    return dbHelper.popullateOpts(array, popFields);
+}

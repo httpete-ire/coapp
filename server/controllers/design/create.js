@@ -3,7 +3,6 @@ var Project = require('./../../models/project');
 var FileInfo = require('./../../helpers/FileInfo.js');
 var fileUpload = require('./../../helpers/fileUpload.js');
 
-
 var _ = require('underscore');
 var formidable = require('formidable');
 var fs = require('fs');

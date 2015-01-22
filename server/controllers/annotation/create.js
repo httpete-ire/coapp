@@ -1,6 +1,7 @@
 var Design = require('./../../models/design');
 var Task = require('./../../models/task');
 var User = require('./../../models/user');
+var Project = require('./../../models/project');
 
 var Validator = require('./../../helpers/validator.js');
 
@@ -130,14 +131,14 @@ module.exports =  function newAnnotation (req, res, next) {
                 return cb(err);
             }
 
-            cb(null, task);
+            cb(null, design, task);
         });
 
-    }, function (task, cb) { // if task is defined add to user
+    }, function (design, task, cb) { // if task is defined add to user
 
         // no task so return callback
         if (!task) {
-            return cb(null);
+            return cb(null, design, task);
         }
 
         User.findOne({
@@ -151,10 +152,43 @@ module.exports =  function newAnnotation (req, res, next) {
             user.save(function (err) {
                 if (err) return cb(err);
 
-                cb(null);
+                cb(null, design, task);
             });
         });
 
+
+    }, function (design, task, cb) {
+
+        console.log(cb);
+
+
+
+        Project
+            .findOne({_id: design.project})
+            .exec(function(err, project){
+                if (err) {
+                    return cb(err);
+                }
+
+                var activity = {};
+
+                activity.activityType = (!task) ? 'new annotation' : 'new task';
+
+                activity.completedBy = req.user._id;
+                activity.design = design._id;
+
+                project.recentActivities.push(activity);
+
+                project.save(function(err) {
+                    if(err) {
+                        return cb(err);
+                    }
+
+                    cb(null);
+                });
+
+
+            });
 
     }], function (err) {
         if (err) {

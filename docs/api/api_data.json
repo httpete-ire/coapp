@@ -45,7 +45,7 @@
       }
     ],
     "version": "0.0.0",
-    "filename": "server/controllers/annotation/newAnnotation.js",
+    "filename": "server/controllers/annotation/create.js",
     "groupTitle": "Annotation",
     "error": {
       "fields": {
@@ -69,9 +69,9 @@
   },
   {
     "type": "post",
-    "url": "/api/design/:designid/annotations/:annotationid/messages",
-    "title": "New message",
-    "name": "Add_new_message_to_annotation",
+    "url": "/api/design/:designid/annotations/:annotationid/comments",
+    "title": "New comment",
+    "name": "Add_new_comment_to_annotation",
     "group": "Annotation",
     "parameter": {
       "fields": {
@@ -92,7 +92,7 @@
       }
     ],
     "version": "0.0.0",
-    "filename": "server/controllers/annotation/newMessage.js",
+    "filename": "server/controllers/comment/create.js",
     "groupTitle": "Annotation",
     "error": {
       "fields": {
@@ -116,26 +116,17 @@
   },
   {
     "type": "delete",
-    "url": "/api/design/:designid/annotations/:annotationid/messages/:messageid",
-    "title": "Delete message",
-    "name": "Delete_message",
+    "url": "/api/designs/:designid/annotaions/:annotationid",
+    "title": "Delete annotaion",
+    "name": "Delete_annotation_from_design",
     "group": "Annotation",
     "permission": [
       {
-        "name": "User and Owner of message"
+        "name": "User"
       }
     ],
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "    HTTP/1.1 200 Ok",
-          "type": "json"
-        }
-      ]
-    },
     "version": "0.0.0",
-    "filename": "server/controllers/annotation/deleteMessage.js",
+    "filename": "server/controllers/annotation/delete.js",
     "groupTitle": "Annotation",
     "error": {
       "fields": {
@@ -156,6 +147,129 @@
         }
       ]
     }
+  },
+  {
+    "type": "delete",
+    "url": "/api/design/:designid/annotations/:annotationid/comments/:commentid",
+    "title": "Delete message",
+    "name": "Delete_comment",
+    "group": "Annotation",
+    "permission": [
+      {
+        "name": "User and Owner of comment"
+      }
+    ],
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "    HTTP/1.1 200 Ok",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "server/controllers/comment/delete.js",
+    "groupTitle": "Annotation",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NotAuthorized",
+            "description": "<p>You must be proved valid authentication details</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "    HTTP/1.1 401 Unauthorized\n    {\n      \"error\": \"You must be authenticated to perform this action\"\n    }",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/api/design/:designid/annotations/:annotationid/comments/",
+    "title": "Get comments",
+    "name": "Get_comments",
+    "group": "Annotation",
+    "permission": [
+      {
+        "name": "User"
+      }
+    ],
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "    HTTP/1.1 200 Ok\n    [\n      {\n          \"body\": \"I love it\",\n          \"owner\": {\n              \"_id\": \"5489c531dd18360563c13179\",\n              \"email\": \"pete@coapp.com\",\n              \"username\": \"pete\"\n          },\n          \"_id\": \"549ed6f946fc3383cdd2ff7d\",\n          \"created\": \"2014-12-27T15:57:45.311Z\"\n      }\n     ]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "server/controllers/comment/read.js",
+    "groupTitle": "Annotation",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NotAuthorized",
+            "description": "<p>You must be proved valid authentication details</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "    HTTP/1.1 401 Unauthorized\n    {\n      \"error\": \"You must be authenticated to perform this action\"\n    }",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "put",
+    "url": "/api/design/:designid/annotations/:annotationid/comments/:commentid",
+    "title": "Update comment",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "body",
+            "description": "<p>comment body</p> "
+          }
+        ]
+      }
+    },
+    "name": "Update_comment",
+    "group": "Annotation",
+    "permission": [
+      {
+        "name": "User and Owner of comment"
+      }
+    ],
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "    HTTP/1.1 200 Ok",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "server/controllers/comment/update.js",
+    "groupTitle": "Annotation"
   },
   {
     "type": "post",
@@ -368,7 +482,7 @@
       ]
     },
     "version": "0.0.0",
-    "filename": "server/controllers/design/newDesign.js",
+    "filename": "server/controllers/design/create.js",
     "groupTitle": "Designs",
     "error": {
       "fields": {
@@ -413,6 +527,51 @@
     }
   },
   {
+    "type": "DELETE",
+    "url": "/api/projects/:projectid/designs",
+    "title": "Delete design",
+    "name": "Delete_design",
+    "group": "Designs",
+    "permission": [
+      {
+        "name": "User"
+      }
+    ],
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "DesignNotFound",
+            "description": "<p>The <code>id</code> of the Design was not found.</p> "
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NotAuthorized",
+            "description": "<p>You must be proved valid authentication details</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "    HTTP/1.1 404 Not Found\n    {\n      \"error\": \"No design found with that id\"\n    }",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "    HTTP/1.1 401 Unauthorized\n    {\n      \"error\": \"You must be authenticated to perform this action\"\n    }",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "server/controllers/design/delete.js",
+    "groupTitle": "Designs"
+  },
+  {
     "type": "get",
     "url": "/api/designs/:designid",
     "title": "Get single design",
@@ -424,7 +583,7 @@
       }
     ],
     "version": "0.0.0",
-    "filename": "server/controllers/design/getDesign.js",
+    "filename": "server/controllers/design/read.js",
     "groupTitle": "Designs",
     "error": {
       "fields": {
@@ -601,7 +760,7 @@
       ]
     },
     "version": "0.0.0",
-    "filename": "server/controllers/project/newProject.js",
+    "filename": "server/controllers/project/create.js",
     "groupTitle": "Projects"
   },
   {
@@ -625,7 +784,7 @@
       ]
     },
     "version": "0.0.0",
-    "filename": "server/controllers/project/removeProject.js",
+    "filename": "server/controllers/project/delete.js",
     "groupTitle": "Projects",
     "error": {
       "fields": {
@@ -670,7 +829,7 @@
       }
     ],
     "version": "0.0.0",
-    "filename": "server/controllers/project/getProject.js",
+    "filename": "server/controllers/project/read.js",
     "groupTitle": "Projects",
     "error": {
       "fields": {
@@ -802,7 +961,7 @@
       }
     ],
     "version": "0.0.0",
-    "filename": "server/controllers/project/getProjects.js",
+    "filename": "server/controllers/project/projects/read.js",
     "groupTitle": "Projects",
     "success": {
       "examples": [
@@ -891,6 +1050,195 @@
         ]
       }
     },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NotAuthorized",
+            "description": "<p>You must be proved valid authentication details</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "    HTTP/1.1 401 Unauthorized\n    {\n      \"error\": \"You must be authenticated to perform this action\"\n    }",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "put",
+    "url": "/api/projects",
+    "title": "Update project",
+    "name": "Update_project",
+    "group": "Projects",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Project name</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "desc",
+            "description": "<p>Project description</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "collaborators",
+            "description": "<p>ID&#39;s of project collaborators                    (seperated by a comma)</p> "
+          }
+        ]
+      }
+    },
+    "permission": [
+      {
+        "name": "User"
+      }
+    ],
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "    HTTP/1.1 200 Ok",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "server/controllers/project/update.js",
+    "groupTitle": "Projects",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "InvalidData",
+            "description": "<p>The data provided was invalid</p> "
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NotAuthorized",
+            "description": "<p>You must be proved valid authentication details</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "    HTTP/1.1 422 Unproc­essable Entity\n    {\n      \"fieldName\": \"Error for specific field\"\n    }",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "    HTTP/1.1 401 Unauthorized\n    {\n      \"error\": \"You must be authenticated to perform this action\"\n    }",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "post",
+    "url": "/api/designs/:designid/annotations/:annotationid/tasks",
+    "title": "",
+    "name": "Add_new_task",
+    "group": "Tasks",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "action",
+            "description": "<p>Tasks action to complete</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "assignedTo",
+            "description": "<p>ID of user task is assign to</p> "
+          }
+        ]
+      }
+    },
+    "permission": [
+      {
+        "name": "User"
+      }
+    ],
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "    HTTP/1.1 201 Created",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "server/controllers/task/create.js",
+    "groupTitle": "Tasks",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "InvalidData",
+            "description": "<p>The data provided was invalid</p> "
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NotAuthorized",
+            "description": "<p>You must be proved valid authentication details</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "    HTTP/1.1 422 Unproc­essable Entity\n    {\n      \"fieldName\": \"Error for specific field\"\n    }",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "    HTTP/1.1 401 Unauthorized\n    {\n      \"error\": \"You must be authenticated to perform this action\"\n    }",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/api/tasks/",
+    "title": "Get users task list",
+    "name": "Get_users_tasks",
+    "group": "Tasks",
+    "permission": [
+      {
+        "name": "User"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "server/controllers/task/read.js",
+    "groupTitle": "Tasks",
     "error": {
       "fields": {
         "Error 4xx": [

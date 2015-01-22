@@ -12,7 +12,7 @@ var async = require('async');
  * @apiGroup Tasks
  *
  * @apiParam {String} action Tasks action to complete
- * @apiParam {Object ID} assignedTo ID of user task is assign to
+ * @apiParam {Object} assignedTo ID of user task is assign to
  *
  * @apiPermission User
  *

@@ -1,4 +1,5 @@
 var Task = require('./../../models/task');
+var Project = require('./../../models/project');
 var Validator = require('./../../helpers/validator.js');
 
 var async = require('async');
@@ -63,19 +64,41 @@ module.exports =  function updateTask (req, res, next) {
                 return cb(err);
             }
 
-            cb(null);
+            cb(null, task);
         });
 
-    }, function (cb) {
-
+    }, function (task, cb) {
         //
         // if task marked as complete
-        // find the project it belongs too
-        // and add as activity
         //
+        if (task.isComplete) {
+            // find the project it belongs too
+            // and add as activity
+            Project
+            .findOne({_id: task.project})
+            .exec(function (err, project) {
 
+                var activity = {
+                    activityType: 'task complete',
+                    completedBy: req.user._id,
+                    design: task.design
+                };
 
-        cb(null);
+                project.recentActivities.push(activity);
+
+                 project.save(function(err) {
+                    if(err) {
+                        return cb(err);
+                    }
+
+                    cb(null);
+                });
+
+            });
+        } else {
+            cb(null);
+        }
+
     }],function (err) {
         if (err) return next(err);
 

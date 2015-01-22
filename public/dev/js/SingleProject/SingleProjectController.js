@@ -23,16 +23,6 @@
                     });
         }
 
-        // _this.deleteDesign = function(id){
-        //     SingProjFactory.deleteDesign(id)
-        //     .then(function(data){
-        //         _this.getProjectDesigns();
-        //             }, function(error){
-        //                 // _this.project = {};
-
-        //             });
-        // }
-
         _this.onFileSelect = function($files) {
 
             var file = $files[0];
@@ -56,16 +46,12 @@
 
     SingProjCtrl.$inject = ["SingProjFactory",'$scope', '$upload', '$routeParams', 'AuthenticationFactory'];
 
-
     function SingProjModalCtrl ($scope, $modalInstance, object, SingProjFactory, $rootScope, $window) {
-
 
         $scope.design = {};
 
         // expose object to modal scope
         $scope.object = object;
-
-
 
         $scope.ok = function(){
             $modalInstance.close();
@@ -78,11 +64,6 @@
             $modalInstance.dismiss('cancel');
         };
 
-
-
-
-
-
         $scope.deleteDesign = function(id){
             SingProjFactory.deleteDesign(id)
             .then(function(data){
@@ -93,15 +74,6 @@
 
                     });
         }
-
-
-
-
-
-
-
-
-
     }
 
     SingProjModalCtrl.$inject = ["$scope", "$modalInstance", "object", "SingProjFactory", "$rootScope", "$window"];
