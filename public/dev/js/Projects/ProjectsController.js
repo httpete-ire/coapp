@@ -90,8 +90,10 @@
          * add new project and a list of collaborators on the project
          * @param {[type]} project [description]
          */
-        $scope.addProject = function (project) {
-
+        $scope.addProject = function (form, valid, project) {
+            if(!valid){
+                return false;
+            }
             addCollaborators(project);
 
             ProjFactory.addProject(project)
@@ -107,6 +109,8 @@
 
                 // reset name of project
                 $scope.project.name = null;
+                form.$setUntouched();
+                // form.$setPristine();
 
             });
 
