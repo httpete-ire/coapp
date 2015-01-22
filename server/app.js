@@ -1,9 +1,9 @@
 'use strict';
 
-var express = require('express')
+var express = require('express');
 
 // bootstrap app
-var app = require('./helpers/appSetup')(express());
+var app = require('./helpers/appHelper')(express());
 
 // set up routes
 require('./routes')(app, express.Router());

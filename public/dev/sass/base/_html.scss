@@ -38,3 +38,11 @@ html, body {
 .row > div {
   margin-bottom: 15px;
 }
+
+textarea {
+    resize: none;
+}
+
+.fa.pull-right {
+  margin-left: 0;
+}

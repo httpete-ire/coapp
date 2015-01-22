@@ -1,7 +1,7 @@
 var designCtrl = require('./../controllers/design/index.js');
 var projectCtrl = require('./../controllers/project/index.js');
 var annotationCtrl = require('./../controllers/annotation/index.js');
-var commentCtrl = require('./../controllers/comments/index.js');
+var commentCtrl = require('./../controllers/comment/index.js');
 
 
 

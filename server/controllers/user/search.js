@@ -72,7 +72,7 @@ module.exports =  function(req, res, next) {
     // search for users whose usernames starts with the search query
     // ignore users with ids
     User.find({
-        username: new RegExp('^'+name, "i"),
+        username: new RegExp('^'+name, 'i'),
         _id: { $nin: ids }
     })
     .select('username _id email')

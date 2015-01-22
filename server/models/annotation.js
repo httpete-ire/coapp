@@ -44,7 +44,11 @@ var Annotaion = new Schema({
             type: Date,
             default: Date.now
         }
-    }]
+    }],
+    type: {
+        type: String,
+        default: 'everyone'
+    }
 });
 
 module.exports =  mongoose.model('Annotaion', Annotaion);

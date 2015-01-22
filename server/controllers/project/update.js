@@ -87,8 +87,6 @@ module.exports =  function removeProject(req, res, next) {
             // always add the owner of the project
             project.collaborators.push(project.owner);
 
-            console.log();
-
             project.save(function(err){
 
                 if (err) {
@@ -125,7 +123,7 @@ module.exports =  function removeProject(req, res, next) {
 
 /**
  * add or remove projects from users
- * depending on mehtod provided
+ * depending on method provided
  *
  * @param  {Array}   arr     :: users to update
  * @param  {Object}   method :: method to run on db

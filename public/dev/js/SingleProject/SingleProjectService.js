@@ -10,7 +10,7 @@
 
         var paths = {
             api: '/api/projects/',
-            fields: '?fields=designs,name,owner'
+            fields: '?fields=designs,name,owner,recentActivities'
         };
 
         SingProj.getProject = function(projectid){

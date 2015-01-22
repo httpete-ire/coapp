@@ -27,7 +27,25 @@ var Task = new Schema({
     design: {
         type: Schema.Types.ObjectId,
         ref: 'Design'
+    },
+    project: {
+        type: Schema.Types.ObjectId,
+        ref: 'Project'
     }
+});
+
+Task.pre('save', function (next) {
+    var task = this;
+
+    var now = Date.now();
+
+    task.updated = now;
+
+    if(!task.created) {
+        task.created = now;
+    }
+
+    next();
 });
 
 module.exports =  mongoose.model('Task', Task);

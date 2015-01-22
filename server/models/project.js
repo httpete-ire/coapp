@@ -35,7 +35,39 @@ var Project = new Schema({
     designCount: {
         type: Number,
         default:0
+    },
+    recentActivities: [{
+
+        activityType: {
+            type: String
+        },
+        completedBy: {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        },
+        completedDate: {
+            type: Date,
+            default: Date.now
+        },
+        design: {
+            type: Schema.Types.ObjectId,
+            ref: 'Design'
+        }
+    }]
+});
+
+Project.pre('save', function (next) {
+    var project = this;
+
+    var now = Date.now();
+
+    project.updated = now;
+
+    if(!project.created) {
+        project.created = now;
     }
+
+    next();
 });
 
 module.exports =  mongoose.model('Project', Project);

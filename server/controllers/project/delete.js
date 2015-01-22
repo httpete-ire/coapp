@@ -36,8 +36,6 @@ module.exports =  function removeProject(req, res, next) {
         .exec(function(err, project) {
 
             if (err) {
-                console.log('in the error');
-                console.log(err);
                 return next(err);
             }
 
@@ -60,7 +58,6 @@ module.exports =  function removeProject(req, res, next) {
                 }, function(err, numEffected) {
 
                     if (err) {
-                        console.log(err);
                         return next(err);
                     }
 
@@ -70,7 +67,6 @@ module.exports =  function removeProject(req, res, next) {
                     rmdir(projectDir, function(err){
 
                         if (err) {
-                            console.log(err);
                             return next(err);
                         }
 

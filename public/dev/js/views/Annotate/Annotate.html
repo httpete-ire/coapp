@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="app-header">
                     <div class="col-xs-1">
-                        <a href="#/projects/{{AnnotateCtrl.design.project}}"><i class="fa fa-arrow-left"></i></a>
+                        <a href="#/projects/{{AnnotateCtrl.design.project._id}}"><i class="fa fa-arrow-left"></i></a>
                     </div>
                 <div class="col-xs-3">
                     <h1>{{AnnotateCtrl.design.name}}</h1>
@@ -28,26 +28,50 @@
                     ng-repeat="mark in AnnotateCtrl.design.annotations track by $index"
                     class="annotation"
                     ng-style="{ 'background' : mark.circle.color, 'top':mark.circle.y - 15 + 'px', 'left': mark.circle.x - 15 + 'px'}"
-                    ng-class="{'is-open': AnnotateCtrl.openComment && $index === AnnotateCtrl.commentSelected}"
-                    ng-mouseleave="AnnotateCtrl.toggleComments($index)">
+                    ng-class="{'is-open': AnnotateCtrl.openComment && $index === AnnotateCtrl.commentSelected && AnnotateCtrl.newAnnotation === null}">
 
-                        <a class="annotation--mark" ng-mouseenter="AnnotateCtrl.toggleComments($index)">More</a>
+                        <a class="annotation--mark" ng-click="AnnotateCtrl.toggleComments($index)" ng-class="mark.type">More</a>
 
                             <div
                                 class="annotation--details"
                                 ng-class="AnnotateCtrl.checkCoords(mark.circle.x, 500) ? 'annotation--details-left' : 'annotation--details-right'"
                             >
+                                <div class="annotation--details-header clearfix">
+                                    <!-- close popup -->
+                                    <span class="fa fa-close pull-right" ng-click="AnnotateCtrl.toggleComments($index)"></span>
+                                </div>
 
-                                <div class="annotation--details-body">
+                                <div class="annotation--details-body clearfix">
 
                                     <span class="comment--owner">{{mark.owner.username}}</span>
 
-                                    <span class="comment--date">{{mark.created | date:"MM/dd/yyyy 'at' h:mma"}}</span>
 
-                                    <p>{{mark.body}}</p>
+                                    <span am-time-ago="mark.created" class="comment--date pull-right fa  fa-clock-o"></span>
+
+                                    <div class="comment--body">
+                                        <p>{{mark.body}}</p>
+                                    </div>
+
+
+
                                 </div>
 
                                 <div class="annotation--task-container">
+
+                                    <div class="annotation--task-body">
+
+                                        <!-- hide if task defined -->
+                                        <span ng-if="!mark.task" class="fa fa-plus-square annotation--details-assign" ng-if="!AnnotateCtrl.assignTask"> assign as task</span>
+                                        <!-- no task assigned -->
+
+                                        <div ng-if="mark.task" class="annotation--task-details">
+                                            {{mark.task.action}}
+                                        </div>
+
+                                    </div>
+
+
+
                                     <!-- task to go here -->
                                     <!-- if no task button to create task -->
                                 </div>
@@ -57,22 +81,43 @@
 
                                     <!-- list of comments -->
                                     <ul class="annotation--comments">
-                                        <li class="annotation--comments-item" ng-repeat="comment in mark.comments">{{comment.body}}
-                                        {{comment.owner.username}}
-                                        {{comment.created | date:"MM/dd/yyyy 'at' h:mma"}}</li>
+                                        <li class="annotation--comments-item" ng-repeat="comment in mark.comments">
+                                            <div class="annotation--details-body clearfix">
+
+                                                <span class="comment--owner">{{comment.owner.username}}</span>
+
+
+                                                <span am-time-ago="comment.created" class="comment--date pull-right fa  fa-clock-o"></span>
+
+                                                <div class="comment--body">
+                                                    <p>{{comment.body}}</p>
+                                                </div>
+
+                                            </div>
                                     </ul>
 
                                     <!-- form to add new comment -->
-                                    <form name="commentForm" role="form" ng-submit="AnnotateCtrl.addComment(AnnotateCtrl.comment, mark)">
+                                    <form name="commentForm" role="form" ng-submit="AnnotateCtrl.addComment(AnnotateCtrl.comment, mark, this)">
 
                                         <div class="form-group">
 
-                                            <label for="projectDesc">Reply</label>
-                                            <textarea class="form-control project--desc" row="3" ng-model="AnnotateCtrl.comment.body"></textarea>
+                                            <textarea class="form-control annotation--comments-reply" row="3"
+                                            ng-model="AnnotateCtrl.comment.body" name="reply"
+                                            ng-init="focus = false"
+                                            ng-focus="focus = true"
+                                            ng-blur="focus = false"
+                                            ng-class="{
+                                                'comment--expand' : focus || (commentForm.reply.$touched && commentForm.reply.$dirty)
+                                            }"
+                                            placeholder="Enter reply here"
+                                            ></textarea>
 
                                             <input type="hidden" ng-model="AnnotateCtrl.comment.annotation" value="{{mark._id}}">
 
-                                            <button type="submit" class="btn btn-primary btn-block">Add comment</button>
+                                            <!-- hide if form is pristine -->
+                                            <button type="submit" class="btn btn-primary btn-block btn-reply" ng-if="focus || (commentForm.reply.$touched && commentForm.reply.$dirty)">Add comment</button>
+
+
                                         </div>
 
                                     </form>
@@ -87,7 +132,7 @@
                     ng-style="{ 'background' : AnnotateCtrl.newAnnotation.circle.color, 'top':AnnotateCtrl.newAnnotation.circle.y - 15 + 'px', 'left':AnnotateCtrl.newAnnotation.circle.x - 15 + 'px'}"
                     >
 
-                        <a  class="annotation--mark">more</a>
+                        <a  class="annotation--mark" ng-click="AnnotateCtrl.clearForm()">more</a>
 
                         <div class="annotation--details"
                         ng-class="AnnotateCtrl.checkCoords(AnnotateCtrl.newAnnotation.circle.x, 500) ? 'annotation--details-left' : 'annotation--details-right'"
@@ -95,19 +140,37 @@
                             <!-- circles -->
                             <!-- close -->
 
-                            <div class="annotation--details-header clearfix">
-                                <!-- select target person -->
-                                <ul class="annotation--person">
-                                    <li class="annotation--person-circle circle--every circle--selected" tooltip="Everyone" tooltip-placement="bottom"></li>
-                                    <li class="annotation--person-circle circle--design" tooltip="Designer" tooltip-placement="bottom"></li>
-                                    <li class="annotation--person-circle circle--dev" tooltip="Developer" tooltip-placement="bottom"></li>
-                                </ul>
-
-                                <!-- close popup -->
-                                <span class="fa fa-close pull-right" ng-click="AnnotateCtrl.clearForm()"></span>
-                            </div>
-
                             <form ng-submit="AnnotateCtrl.addAnnotation(AnnotateCtrl.newAnnotation)" role="form">
+
+                                <div class="annotation--details-header clearfix">
+
+                                    <!-- radio btns for type -->
+                                    <div class="annotation--type">
+                                        <input type="radio" id="everyoneRadio" class="hidden--radio" name="radio"ng-model="AnnotateCtrl.newAnnotation.type" value="everyone" checked>
+                                        <label for="everyoneRadio">
+                                        <span class="annotation--type-circle circle--every" tooltip="Everyone" tooltip-placement="bottom"></span>
+                                        </label>
+                                    </div>
+
+                                    <div class="annotation--type">
+                                        <input type="radio" id="designerRadio" class="hidden--radio" name="radio" ng-model="AnnotateCtrl.newAnnotation.type" value="designer" />
+                                        <label for="designerRadio">
+                                        <span class="annotation--type-circle circle--design" tooltip="Designer" tooltip-placement="bottom"></span>
+                                        </label>
+                                    </div>
+
+                                    <div class="annotation--type">
+                                        <input type="radio" id="devRadio" class="hidden--radio" name="radio" ng-model="AnnotateCtrl.newAnnotation.type" value="developer" />
+                                        <label for="devRadio">
+                                        <span class="annotation--type-circle circle--dev" tooltip="Developer" tooltip-placement="bottom"></span>
+                                        </label>
+                                    </div>
+
+
+
+                                    <!-- close popup -->
+                                    <span class="fa fa-close pull-right" ng-click="AnnotateCtrl.clearForm()"></span>
+                                </div>
 
                                 <div class="form-group">
                                     <label for="projectDesc">Comment</label>
