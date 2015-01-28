@@ -1,0 +1,154 @@
+$project-sidebar-color: #2a3336;
+
+.project--sidebar {
+    width: 280px;
+    position: fixed;
+    left: $sidebar-width;
+    height: 100%;
+    background: $project-sidebar-color;
+    padding: 20px 20px 20px 20px;
+    color: $off-white;
+}
+
+.project--specs {
+
+    height: 130px;
+
+    &-details {
+        font-size: 14px;
+        line-height: 18px;
+    }
+
+    &-date {
+        color: $text-grey;
+        margin: 10px 0;
+    }
+
+}
+
+.project--collabs {
+    height: 180px;
+    margin-top: 10px;
+
+    &-title {
+        display: inline-block;
+        color: $text-grey;
+        margin-right: 5px;
+        margin-bottom: 20px;
+    }
+
+    span {
+        color: $text-grey;
+    }
+
+    &-list {
+        max-height: 105px;
+        position: relative;
+        overflow-y: scroll;
+    }
+
+    &-list-item {
+        margin-bottom: 14px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &-name {
+        margin-left: 50px;
+        line-height: 25px;
+
+        &::before {
+            content: '';
+            background: url('./../../../media/avatar.png');
+            width: 25px;
+            height: 25px;
+            background-size: 25px;
+            position: absolute;
+            left: 0;
+        }
+    }
+
+    &-add {
+        margin-top: 10px;
+        display: block;
+        font-size: 12px;
+        float: right;
+    }
+}
+
+.project--timeline {
+    height: 210px;
+    margin-top: 10px;
+
+    &-title {
+        color: $text-grey;
+        margin-bottom: 20px;
+    }
+
+}
+
+.recent--timeline {
+    position: relative;
+    max-height: 180px;
+
+
+    &::before {
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 5px;
+        background: $text-grey;
+        z-index: 10;
+        left: 12.5px;
+    }
+
+    &-list {
+        position: relative;
+        z-index: 100;
+        overflow-y: scroll;
+        max-height: 170px;
+    }
+
+    &-item {
+        margin-bottom: 15px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+}
+
+.timeline--circle {
+    width: 30px;
+    height: 30px;
+    background-color: $project-sidebar-color;
+    display: block;
+    border-radius: 50%;
+    border: 3px solid $green;
+    float: left;
+    text-align: center;
+    line-height: 25px;
+    font-size: 14px;
+}
+
+.timeline--details {
+    float: left;
+    margin-left: 10px;
+    font-size: 12px;
+    margin-top: 4px;
+
+    &-date {
+        font-size: 10px;
+        display: block;
+        color: $text-grey;
+    }
+}
+
+
+.project--upload {
+    height: 180px;
+    margin-top: 20px;
+}

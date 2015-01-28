@@ -4,6 +4,18 @@ var Validator = require('./../../helpers/validator.js');
 
 var async = require('async');
 
+
+/**
+ * @api {put} /api/tasks/:taskid Update task
+ *
+ * @apiName Update task
+ * @apiGroup Tasks
+ *
+ * @apiPermission User
+ *
+ * @apiUse NotAuthorized
+ *
+ */
 module.exports =  function updateTask (req, res, next) {
 
     async.waterfall([function (cb) {

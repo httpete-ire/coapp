@@ -1,10 +1,9 @@
 $border: 3px;
-$drag-color: #d6d6d6;
+$drag-color: $text-color;
 
 .drop-box {
     border-radius: 3px;
     border: $border dashed $drag-color;
-    height: 250px;
 }
 
 .dragover {
@@ -16,9 +15,10 @@ $drag-color: #d6d6d6;
 }
 
 .drag-container {
+    font-size: 14px;
     text-align: center;
     color: $drag-color;
-    margin-top: 45px;
+    padding: 24px 30px;
 
     // set fontsize of icon
     .fa {

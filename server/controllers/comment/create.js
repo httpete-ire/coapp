@@ -77,7 +77,7 @@ module.exports =  function (req, res, next) {
                 return cb(err);
             }
 
-            cb(null, annotation.comments)
+            cb(null)
         });
 
     }], function (err) {
@@ -85,7 +85,7 @@ module.exports =  function (req, res, next) {
             return next(err);
         }
 
-        return res.sendStatus(200);
+        return res.sendStatus(201);
     });
 
 };

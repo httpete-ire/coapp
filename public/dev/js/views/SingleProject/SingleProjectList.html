@@ -1,22 +1,116 @@
-<div class="container-fluid">
+<div class="project--sidebar">
+
+    <div class="project--specs">
+
+        <h2>{{SingProjectCtrl.project.name}}</h2>
+
+        <div class="project--specs-details">
+            <div class="project--specs-date clearfix">
+                <p>Last updated<span am-time-ago="SingProjectCtrl.project.updated" class="pull-right"></span></p>
+            </div>
+
+            <p>{{SingProjectCtrl.project.desc}}</p>
+        </div>
+
+
+    </div>
+    <!-- /.project--details -->
+
+    <div class="project--collabs">
+
+        <h4 class="project--collabs-title">collaborators</h4> <span>({{SingProjectCtrl.project.collaborators.length}})</span>
+
+        <!-- if collabarorators do this -->
+        <ul class="project--collabs-list">
+            <li ng-repeat="collab in SingProjectCtrl.project.collaborators" class="project--collabs-list-item">
+                <p class="project--collabs-name">{{collab.username}}</p>
+            </li>
+        </ul>
+
+        <a href="#" class="project--collabs-add pull-right">add collaborator</a>
+
+
+
+    </div>
+    <!-- /.project--collabs -->
+
+    <div class="project--timeline">
+
+    <h4 class="project--timeline-title">recent activities</h4>
+
+    <!-- show if there are any recent activites -->
+    <section class="recent--timeline">
+
+        <ul class="recent--timeline-list">
+
+
+            <li class="recent--timeline-item clearfix" ng-repeat="activity in SingProjectCtrl.project.recentActivities">
+                <!-- circle -->
+                <span class="timeline--circle">
+                    <span class="fa" ng-class="SingProjectCtrl.getActivtyIcon(activity.activityType)"></span>
+                </span>
+                <!-- text -->
+
+
+                <div class="timeline--details">
+
+                    <a href="#"> <!-- link to either task or design -->
+                        {{activity.activityType}}
+                    </a>
+
+                    <span class="timeline--details-date" am-time-ago="activity.completedDate"></span>
+                </div>
+            </li>
+
+        </ul>
+
+    </section>
+
+    </div>
+    <!-- /.project--timeline -->
+
+    <div class="project--upload">
+        <div
+            ng-file-drop
+            ng-model="files"
+            class="drop-box"
+            drag-over-class="{
+                accept:'dragover',
+                reject:'dragover-err',
+                delay:100
+            }"
+            multiple="false"
+            allow-dir="false"
+            accept="image/*"
+            ng-file-drop
+            ng-file-change="SingProjectCtrl.onFileSelect($files)"
+            >
+            <div class="div">
+                <div class="drag-container">
+                    <i class="fa fa-cloud-upload"></i>
+                    <p>drag and drop to upload design</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.project--upload -->
+
+
+</div>
+
+<div class="container-fluid project--container-push">
     <div id="content-wrapper">
         <div class="page-content">
             <div class="row">
 
                 <div class="app-header">
-                    <div class="col-xs-1">
-                        <a href="#/projects"><i class="fa fa-arrow-left"></i></a>
-                    </div>
-                <div class="col-xs-3">
-                    <h1>{{SingProjectCtrl.project.name}}</h1>
-                </div>
-                  <div class="col-xs-3">
+                  <div class="col-md-5">
                         <div class="form-group search--form">
                             <input ng-model="Name" type="text" placeholder="Search design by name" class="form-control search--input">
                             <i class="fa fa-search search--icon"></i>
                         </div>
                     </div>
-                    <div class="col-xs-3">
+                    <div class="col-md-3 pull-right">
                         <select ng-model="orderProp" class="form-control">
                             <option value="" selected>Sort by</option>
                             <option value="name">By Name</option>
@@ -33,32 +127,7 @@
 
                 <ul class="list-unstyled">
 
-                    <li class="col-md-4">
-                        <div
-                            ng-file-drop
-                            ng-model="files"
-                            class="drop-box"
-                            drag-over-class="{
-                                accept:'dragover',
-                                reject:'dragover-err',
-                                 delay:100
-                            }"
-                            multiple="false"
-                            allow-dir="false"
-                            accept="image/*"
-                            ng-file-drop
-                            ng-file-change="SingProjectCtrl.onFileSelect($files)"
-                        >
-                             <div class="div">
-                               <div class="drag-container">
-                                    <i class="fa fa-cloud-upload"></i>
-                                        <p>drag and drop to upload design</p>
-                                </div>
-                             </div>
-                        </div> <!-- files -->
-                    </li>
-
-                        <li class ="col-md-4" ng-repeat="des in SingProjectCtrl.project.designs | orderBy: orderProp |filter: Name">
+                        <li class ="col-md-6" ng-repeat="des in SingProjectCtrl.project.designs | orderBy: orderProp |filter: Name">
                         <div class="project--container">
                         <div class="project--img-container">
 
