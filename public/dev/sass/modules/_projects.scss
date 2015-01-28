@@ -94,8 +94,66 @@
 
 }
 
-.app-header {
+
+.fix{
+    position: fixed;
+    z-index: 3;
+    width: 100%;
+    padding-left: 120px;
+    background: $dark-grey;
+}
+
+.contentAnno{
+    margin-top:150px;
+}
+.app-header{
     padding: 35px 0 47px 0;
+}
+.app-header2 {
+    padding: 35px 0 0 0;
+    height:230px;
+    margin-top:-144px;
+    -webkit-transition:  margin-top 1s ease;
+    -moz-transition:  margin-top 1s ease;
+    -o-transition:  margin-top 1s ease;
+    transition: margin-top 1s ease;
+
+}
+.app-headerFull2 {
+    padding: 35px 0 0 0;
+    height:230px;
+    margin-top:0px;
+    -webkit-transition:  margin-top 1s ease;
+    -moz-transition:  margin-top 1s ease;
+    -o-transition:  margin-top 1s ease;
+    transition: margin-top 1s ease;
+   
+
+}
+.headTopRow{
+    height:120px;
+}
+.headBotRow{
+    height:80px;
+    position:relative
+}
+.anno-head-img-title{
+    padding-bottom:5px;
+}
+
+.fa-plus, .fa-minus{
+    position: absolute;
+    right: 5%;
+    top: 30%;
+    font-size: 30px;
+}
+
+input[type="checkbox"]{
+    margin:0 15px 0 5px;
+}
+
+p{
+    margin-top:3px
 }
 
 .search {

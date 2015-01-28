@@ -14,8 +14,10 @@
 		// expose username
 		_this.username = AuthenticationFactory.username;
 
-		_this.register = function(user){
-
+		_this.register = function(form, valid, user){
+			if(!valid){
+				return false;
+			}
 			if(!user || !user.email || !user.password) {
 				_this.user = {};
 			} else {
@@ -29,6 +31,8 @@
 						_this.user = {};
 
 						_this.alertService.setAlert(error);
+					form.$setUntouched();
+					form.$setPristine();
 					});
 			}
 

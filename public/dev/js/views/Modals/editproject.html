@@ -1,8 +1,6 @@
 <div class="modal-body">
-
-    <app-alert></app-alert>
-
-    <form ng-submit="updateProject(project)" role="form" class="modal--form">
+<app-alert></app-alert>
+    <form name="updateForm" ng-submit="updateProject(this.updateForm,updateForm.$valid, project)" role="form" class="modal--form" novalidate>
 
         <span class="fa fa-times modal--form-close" ng-click="cancel()"></span>
 
@@ -14,12 +12,16 @@
 
         <div class="form-group">
             <label for="projectName">Project name</label>
-            <input ng-model="project.name" type="text" class="form-control" placeholder="Enter name" name="projectName">
+            <input ng-model="project.name" type="text" class="form-control" placeholder="Enter name" name="projectName" required>
+
+            <span class="form--error-popup" ng-show="updateForm.projectName.$error.required && (updateForm.projectName.$pristine || updateForm.projectName.$dirty ) && updateForm.$submitted">Project name required</span>
         </div>
 
         <div class="form-group">
             <label for="projectDesc">Project description</label>
-            <textarea ng-model="project.desc" class="form-control project--desc"  placeholder="Description" name="projectDesc" row="3"></textarea>
+            <textarea ng-model="project.desc" class="form-control project--desc"  placeholder="Description" name="projectDesc" row="3" required></textarea>
+
+            <span class="form--error-popup" ng-show="updateForm.projectDesc.$error.required && (updateForm.projectDesc.$pristine || updateForm.projectDesc.$dirty ) && updateForm.$submitted">Description required</span>
         </div>
 
         <div class="form-group">

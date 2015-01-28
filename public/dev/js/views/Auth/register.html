@@ -8,24 +8,37 @@
 
       <h3 class="auth--container-title">Sign up</h3>
 
-      <form name="registerForm"  role="form" ng-submit="authCtrl.register(authCtrl.user)">
+      <form name="registerForm"  role="form" ng-submit=" authCtrl.register(this.registerForm, registerForm.$valid,authCtrl.user)" novalidate>
 
 
       <div class="form-group">
-        <input ng-model="authCtrl.user.username"  type="text" class="form-control"  placeholder="Enter username">
-        <span class="form--error-popup">Please enter a valid email</span>
+        <input ng-model="authCtrl.user.username" name="username" type="text" class="form-control"  placeholder="Enter username" ng-model-options="{ updateOn: 'blur' }" required>
+
+        <span class="form--error-popup" ng-show="registerForm.username.$error.required && (registerForm.username.$pristine || registerForm.username.$dirty ) && registerForm.$submitted">Username required</span>
+
       </div>
 
       <div class="form-group">
-          <input ng-model="authCtrl.user.email"  type="email" class="form-control"  placeholder="Enter email">
+          <input ng-model="authCtrl.user.email" name="email" type="email" class="form-control"  placeholder="Enter email" ng-model-options="{ updateOn: 'blur' }" required>
+
+          <span class="form--error-popup" ng-show="registerForm.email.$error.required && (registerForm.email.$pristine || registerForm.email.$dirty) && registerForm.$submitted">Email required</span>
+
+          <!-- valid email -->
+          <span class="form--error-popup" ng-show="registerForm.email.$touched && registerForm.email.$error.email ">Enter a valid email</span>
       </div>
 
       <div class="form-group">
-          <input ng-model="authCtrl.user.password" type="password" class="form-control"  placeholder="Password">
+          <input ng-model="authCtrl.user.password" name="password" type="password" class="form-control"  placeholder="Password" ng-model-options="{ updateOn: 'blur' }"  required>
+
+          <span class="form--error-popup" ng-show="registerForm.password.$error.required && (registerForm.password.$pristine || registerForm.password.$dirty) && registerForm.$submitted">Password required</span>
       </div>
 
       <div class="form-group">
-          <input ng-model="authCtrl.user.confirmPassword" type="password" class="form-control" placeholder="Confirm Password">
+          <input ng-model="authCtrl.user.confirmPassword" name="confirmPassword" type="password" class="form-control" placeholder="Confirm Password" ng-model-options="{ updateOn: 'blur' }" match="authCtrl.user.password" required>
+
+          <span class="form--error-popup" ng-show="registerForm.confirmPassword.$error.required && (registerForm.confirmPassword.$pristine || registerForm.confirmPassword.$dirty) && registerForm.$submitted">confirmPassword required</span>
+
+          <span class="form--error-popup" ng-show="registerForm.confirmPassword.$error.match">Fields do not match!</span>
       </div>
 
       <button type="submit" class="btn btn-block btn-primary">Sign in</button>
