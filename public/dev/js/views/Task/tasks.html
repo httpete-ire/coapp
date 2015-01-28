@@ -6,7 +6,7 @@
                 <div class="app-header">
                     
                 <div class="col-xs-3">
-                    <h1>{{taskCtrl.tasks.action}} hi</h1>
+                    <h1>{{taskCtrl.tasks[0].assignedBy.username}} </h1>
                 </div>
                   <div class="col-xs-3">
                         <div class="form-group search--form">
@@ -30,10 +30,31 @@
             <div class="row">
             <ul>
                  <li class ="col-md-4" ng-repeat="task in taskCtrl.tasks | orderBy: orderProp |filter: Name">
-                 
-                 <p>{{task.assignedBy.username}}</p>
-                 <p>{{task.action}}</p>
-                 <p>{{task.created}}</p>
+                    <div class="project--container">
+                        <div class="project--img-container">
+                        <a href="#/design/{{task.design._id}}">
+                         <img ng-src="{{task.design.img.thumbnail}}" width="100%">
+                        </a>
+                        <div class="project--img-bg"></div>
+                                    <div class="project--img-settings">
+
+                                        <ul class="project--img-icons">
+                                            <li>
+                                                <a href="#/design/{{task.design._id}}"><span class="fa fa-eye"></span></a>
+                                            </li>
+                                            
+                                        </ul>
+                                    </div>
+                        </div>
+                         <div class="project--details">
+
+                                <div class="project--details-container">
+                                <p>Assigned by: {{task.assignedBy.username}}</p>
+                             <p>Task description: {{task.action}}</p>
+                             <p>Created on :{{task.created}}</p>
+                             </div>
+                             </div>
+                    </div>
                  </li>
             </ul>    
              </div>

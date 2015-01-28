@@ -11,7 +11,6 @@
     	_this.tasks = {};
 
     	_this.getTasks = function(){
-
     		TaskFactory.getTasks()
     		.then(function(data){
     			_this.tasks = data;
@@ -19,6 +18,15 @@
     			_this.tasks = {};
     		})
     	};
+
+        _this.updateTask = function(task){
+            TaskFactory.updateTask()
+            .then(function(data){
+
+            }, function(error){
+
+            })
+        };
 
     	_this.getTasks();
     };
