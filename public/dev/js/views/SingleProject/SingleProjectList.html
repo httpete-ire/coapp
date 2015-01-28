@@ -12,7 +12,6 @@
             <p>{{SingProjectCtrl.project.desc}}</p>
         </div>
 
-
     </div>
     <!-- /.project--details -->
 
@@ -29,8 +28,6 @@
 
         <a href="#" class="project--collabs-add pull-right">add collaborator</a>
 
-
-
     </div>
     <!-- /.project--collabs -->
 
@@ -44,7 +41,7 @@
         <ul class="recent--timeline-list">
 
 
-            <li class="recent--timeline-item clearfix" ng-repeat="activity in SingProjectCtrl.project.recentActivities">
+            <li class="recent--timeline-item clearfix" ng-repeat="activity in SingProjectCtrl.project.recentActivities | orderBy:'completedDate':true">
                 <!-- circle -->
                 <span class="timeline--circle">
                     <span class="fa" ng-class="SingProjectCtrl.getActivtyIcon(activity.activityType)"></span>

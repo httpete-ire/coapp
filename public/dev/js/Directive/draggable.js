@@ -8,12 +8,11 @@
 
 		var parentDiv = angular.element( document.querySelector( '#annotation-img'));
 
-
 		return function(scope, element, attr) {
 
-			var startX = 0, 
-				startY = 0, 
-				x = 0, 
+			var startX = 0,
+				startY = 0,
+				x = 0,
 				y = 0;
 
 			var pageOffset = {
@@ -27,7 +26,7 @@
 
 	        	startX = (e.pageX - pageOffset.x);
 	        	startY = (e.pageY - pageOffset.y);
-	        
+
 	        	$document.on('mousemove', mousemove);
 	        	$document.on('mouseup', mouseup);
 
@@ -69,4 +68,4 @@
 
 	}
 
-})();	
+})();
