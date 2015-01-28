@@ -1,10 +1,8 @@
 <div class="modal-body">
+<app-alert></app-alert>
+    <form name="addProjectForm" ng-submit="addProject(this.addProjectForm,addProjectForm.$valid, project)" role="form" class="modal--form" novalidate>
 
-    <app-alert></app-alert>
-
-    <form ng-submit="addProject(project)" role="form" class="modal--form">
-
-        <span class="fa fa-times" ng-click="cancel()"></span>
+        <span class="fa fa-times modal--form-close" ng-click="cancel()"></span>
 
         <div class="modal--form-header">
             <span class="fa fa-picture-o modal--form-icon"></span>
@@ -14,12 +12,18 @@
 
         <div class="form-group">
             <label for="projectName">Project name</label>
-            <input ng-model="project.name" type="text" class="form-control" placeholder="Enter name" name="projectName">
+            <input ng-model="project.name" type="text" class="form-control" placeholder="Enter name" name="projectName" required>
+
+             <span class="form--error-popup" ng-show="addProjectForm.projectName.$error.required && (addProjectForm.projectName.$pristine || addProjectForm.projectName.$dirty) && addProjectForm.$submitted">Name required</span>
+
+
         </div>
 
         <div class="form-group">
             <label for="projectDesc">Project description</label>
-            <textarea ng-model="project.desc" class="form-control project--desc"  placeholder="Description" name="projectDesc" row="3"></textarea>
+            <textarea ng-model="project.desc" class="form-control project--desc"  placeholder="Description" name="projectDesc" row="3" required></textarea>
+
+            <span class="form--error-popup" ng-show="addProjectForm.projectDesc.$error.required && (addProjectForm.projectDesc.$pristine || addProjectForm.projectDesc.$dirty) && addProjectForm.$submitted">Description required</span>
         </div>
 
         <div class="form-group">

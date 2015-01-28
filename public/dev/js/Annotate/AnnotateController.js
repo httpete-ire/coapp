@@ -5,12 +5,12 @@
     .controller('AnnotateController', AnnotateCtrl);
 
     // @ngInject
-    function AnnotateCtrl(AnnotateFactory, focus, $routeParams, AuthenticationFactory){
+    function AnnotateCtrl(AnnotateFactory, focus, $routeParams, AuthenticationFactory, SingProjFactory){
 
         _this = this;
 
         _this.design = {};
-
+        _this.allDesigns = {};
         _this.openComment = false;
         _this.commentSelected = null;
 
@@ -18,10 +18,34 @@
 
         _this.assignTask = false;
 
+        _this.openHead = false;
+        _this.toggle = function(){
+            console.log(_this.openHead);
+           
+                if (_this.openHead == false){
+                    _this.openHead = true;
+                }
+                else{
+                    _this.openHead = false;
+                }
+            }
+
+           _this.getAllDesigns = function(id){
+            SingProjFactory.getProject(id)
+            .then(function(data){
+                _this.allDesigns = data;
+                }, function(error){
+                _this.allDesigns = {};
+            });
+        }
+        
+        
+
         _this.getDesign = function(){
             AnnotateFactory.getDesign($routeParams.design_id)
             .then(function(data){
                 _this.design = data;
+                _this.getAllDesigns(data.project._id);
                 }, function(error){
                 _this.design = {};
             });
@@ -101,13 +125,23 @@
         }
 
         _this.getDesign();
+        
 
     }
 
-    AnnotateCtrl.$inject = ["AnnotateFactory", "focus", "$routeParams", 'AuthenticationFactory'];
+    AnnotateCtrl.$inject = ["AnnotateFactory", "focus", "$routeParams", 'AuthenticationFactory', 'SingProjFactory'];
 
-    function getMouse(e) {
-        var target = e.target.getBoundingClientRect();
+    function getMouse(e, targ) {
+
+        var target = {};
+
+        if (targ) {
+            target = targ[0].getBoundingClientRect();
+        } else {
+            target = e.target.getBoundingClientRect();
+        }
+
+        console.log(target);
 
         return {
             x: e.clientX - target.left,

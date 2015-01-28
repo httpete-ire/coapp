@@ -1,0 +1,52 @@
+<div class="container-fluid">
+    <div id="content-wrapper">
+        <div class="page-content">
+            <div class="row">
+
+                <div class="app-header">
+                    
+                <div class="col-xs-3">
+                    <h1>{{taskCtrl.tasks.action}} hi</h1>
+                </div>
+                  <div class="col-xs-3">
+                        <div class="form-group search--form">
+                            <input ng-model="Name" type="text" placeholder="Search design by name" class="form-control search--input">
+                            <i class="fa fa-search search--icon"></i>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <select ng-model="orderProp" class="form-control">
+                            <option value="" selected>Sort by</option>
+                            <option value="name">By Name</option>
+                            <option value="-created">Latest</option>
+                            <option value="created">Oldest</option>
+                        </select>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="row">
+            <ul>
+                 <li class ="col-md-4" ng-repeat="task in taskCtrl.tasks | orderBy: orderProp |filter: Name">
+                 
+                 <p>{{task.assignedBy.username}}</p>
+                 <p>{{task.action}}</p>
+                 <p>{{task.created}}</p>
+                 </li>
+            </ul>    
+             </div>
+
+
+
+                        </div> <!-- img-container -->
+                        </div> <!-- container -->
+            
+  
+
+
+
+        </div><!-- End Page Content -->
+    </div><!-- End Content Wrapper -->
+</div>
