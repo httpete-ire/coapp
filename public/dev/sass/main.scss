@@ -14,9 +14,16 @@
 
 @import './theme/_overrides';
 
+$image-size: 1300px;
+
+.design-img-container {
+    position: relative;
+    max-width: $image-size;
+    margin: 0 auto;
+}
 
 .design-img {
-    position: relative;
+    width: 100%;
 }
 
 .marks {

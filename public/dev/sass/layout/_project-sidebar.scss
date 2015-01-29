@@ -1,9 +1,9 @@
 $project-sidebar-color: #2a3336;
 
 .project--sidebar {
-    width: 280px;
+    width: $sidebar-width;
     position: fixed;
-    left: $sidebar-width;
+    right: 0;
     height: 100%;
     background: $project-sidebar-color;
     padding: 20px 20px 20px 20px;
@@ -151,4 +151,7 @@ $project-sidebar-color: #2a3336;
 .project--upload {
     height: 180px;
     margin-top: 20px;
+    position: absolute;
+    bottom: 10px;
+    width: 200px;
 }
