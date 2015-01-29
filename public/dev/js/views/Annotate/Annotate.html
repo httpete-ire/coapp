@@ -4,40 +4,39 @@
                 <div  class="app-header2" ng-class="{true:'app-headerFull2', false:'app-header2' }[AnnotateCtrl.openHead]" ng-style="style">
                      <div class="row headTopRow">
                      <ul>
-                        <li class="col-md-2" ng-repeat="des in AnnotateCtrl.allDesigns.designs" width="200px">
-                            <p class="anno-head-img-title">{{des.name}}</p>
+                        <li class="col-md-2" ng-repeat="des in AnnotateCtrl.allDesigns.designs" width="220px">
+                            
                             <p>{{des.annotations}}</p>
                             <p>{{des.designs}}</p>
-                             <img ng-src="{{ des.img.thumbnail }}" alt="" width="150px">
+                             <img ng-src="{{ des.img.thumbnail }}" alt="" width="200px">
+                             <p class="anno-head-img-title">{{des.name}}</p>
                         </li>
                      </ul>
-                     <div class="col-xs-4">
-                        Text: <input type="checkbox" name="sports" value="text"  />
-                        Image: <input type="checkbox" name="sports" value="image"  />
-                        Layout: <input type="checkbox" name="sports" value="layout"  />
-                        color: <input type="checkbox" name="sports" value="color"  />
-                     </div>
 
-                        <div class="col-xs-3">
-                            <select ng-model="orderProp" class="form-control">
-                                <option value="" selected>Sort by</option>
-                                <option value="name">By Name</option>
-                                <option value="-created">Latest</option>
-                                <option value="created">Oldest</option>
-                            </select>
-                        </div>
+                    
+                     
                     </div>
                     <div class="row headBotRow">
-                        <div class="col-xs-1">
+                        <!-- <div class="col-xs-1">
                             <a href="#/projects/{{AnnotateCtrl.design.project._id}}"><i class="fa fa-arrow-left"></i></a>
+                        </div> -->
+                        <div class="col-xs-5">
+                            <h3 class="pNameFloat">{{AnnotateCtrl.design.project.name}}</h3>
+                            <h4>{{AnnotateCtrl.design.name}}</h4>
                         </div>
-                        <div class="col-xs-3">
-                            <h1>{{AnnotateCtrl.design.name}}</h1>
+                        <div class="col-xs-4 filterBoxes">
+                            Text: <input type="checkbox" name="sports" value="text"  />
+                            Image: <input type="checkbox" name="sports" value="image"  />
+                            Layout: <input type="checkbox" name="sports" value="layout"  />
+                            color: <input type="checkbox" name="sports" value="color"  />
                         </div>
 
-                        <i class="fa fa-minus" ng-click="AnnotateCtrl.toggle()" ng-show="AnnotateCtrl.openHead"></i>
-                        <i class="fa fa-plus" ng-click="AnnotateCtrl.toggle()" ng-show="!(AnnotateCtrl.openHead)"></i>
-                        <!-- <i class="fa fa-plus" ng-click="style={'margin-top':'0px'}"></i> -->
+                        
+                        <i class="fa fa-times" ng-click="AnnotateCtrl.toggle()" ng-show="AnnotateCtrl.openHead"></i>
+                        <i class="fa fa-bars" ng-click="AnnotateCtrl.toggle()" ng-show="!(AnnotateCtrl.openHead)"></i>
+
+
+                        
                     </div>
                 </div> <!-- header -->
             </div>

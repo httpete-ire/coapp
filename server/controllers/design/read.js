@@ -122,7 +122,7 @@ function getPopullateOptions (array) {
     }, {
         field: 'project',
         query: {
-            path: 'project', select: 'collaborators'}
+            path: 'project', select: 'collaborators name'}
     }, {
         field: 'annotations',
         query: [{
