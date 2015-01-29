@@ -54,11 +54,16 @@
                     ng-repeat="mark in AnnotateCtrl.design.annotations track by $index"
                     class="annotation"
                     ng-style="{ 'background' : mark.circle.color, 'top':mark.circle.y - 15 + 'px', 'left': mark.circle.x - 15 + 'px'}"
-                    ng-class="{'is-open': AnnotateCtrl.openComment && $index === AnnotateCtrl.commentSelected && AnnotateCtrl.newAnnotation === null}"
+                    ng-class="{
+                        'is-open': AnnotateCtrl.openComment &&
+                        $index === AnnotateCtrl.commentSelected &&
+                        AnnotateCtrl.newAnnotation === null
+                    }"
                     annotation-id="{{mark._id}}"
+                    open-comment="{{AnnotateCtrl.commentOpen()}}"
                     >
 
-                        <a class="annotation--mark draggable"  ng-click="AnnotateCtrl.toggleComments($index)" ng-class="mark.type">More</a>
+                        <a class="annotation--mark draggable"  ng-dblclick="AnnotateCtrl.toggleComments($index)" ng-class="mark.type">{{$index}}</a>
 
                             <div
                                 class="annotation--details"

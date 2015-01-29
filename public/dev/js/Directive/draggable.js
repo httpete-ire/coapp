@@ -25,6 +25,8 @@
                 y: parentDiv.getBoundingClientRect().top + markOffset.y
             };
 
+            var outOfBOunds = false;
+
             element.on('mousedown', function(e) {
                 // Prevent default dragging of selected content
                 e.preventDefault();
@@ -34,6 +36,11 @@
                 // }
                 // if open do nothing
 
+                if (attr.openComment === 'true') {
+                    $document.off('mousemove', mousemove);
+                    $document.off('mouseup', mouseup);
+                    return;
+                }
                 // check if user is owner of annotation
                 // if not do nothing
 
@@ -52,8 +59,8 @@
                 y = (e.pageY - pageOffset.y);
 
                 if(x < 0 || y < 0) {
-                    mouseup();
                     setPos(startX, startY);
+                    outOfBOunds = true;
                     return;
                 }
 
@@ -68,14 +75,20 @@
                     y: y + 15
                 };
 
-                AnnotateFactory
-                    .updateAnnotation(annotation, $routeParams.design_id)
-                    .then(function (data) {
-                        // reload page
+                if (startX === (startX - x) || startY === (startY - y)) {
+                    return;
+                }
 
-                    }, function (err) {
+                if (!outOfBOunds) {
+                    AnnotateFactory
+                        .updateAnnotation(annotation, $routeParams.design_id)
+                        .then(function (data) {
+                            // reload page
 
-                    });
+                        }, function (err) {
+
+                        });
+                }
 
                 $document.off('mousemove', mousemove);
                 $document.off('mouseup', mouseup);
