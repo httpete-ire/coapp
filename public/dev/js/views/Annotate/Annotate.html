@@ -5,7 +5,7 @@
                      <div class="row headTopRow">
                      <ul>
                         <li class="col-md-2" ng-repeat="des in AnnotateCtrl.allDesigns.designs" width="220px">
-                            
+
                             <p>{{des.annotations}}</p>
                             <p>{{des.designs}}</p>
                              <img ng-src="{{ des.img.thumbnail }}" alt="" width="200px">
@@ -13,8 +13,8 @@
                         </li>
                      </ul>
 
-                    
-                     
+
+
                     </div>
                     <div class="row headBotRow">
                         <!-- <div class="col-xs-1">
@@ -31,12 +31,12 @@
                             color: <input type="checkbox" name="sports" value="color"  />
                         </div>
 
-                        
+
                         <i class="fa fa-times" ng-click="AnnotateCtrl.toggle()" ng-show="AnnotateCtrl.openHead"></i>
                         <i class="fa fa-bars" ng-click="AnnotateCtrl.toggle()" ng-show="!(AnnotateCtrl.openHead)"></i>
 
 
-                        
+
                     </div>
                 </div> <!-- header -->
             </div>
@@ -52,7 +52,7 @@
                     <li draggable
                     ng-repeat="mark in AnnotateCtrl.design.annotations track by $index"
                     class="annotation"
-                    ng-style="{ 'background' : mark.circle.color, 'top':mark.circle.y - 15 + 'px', 'left': mark.circle.x - 15 + 'px'}"
+                    ng-style="{'top':mark.circle.y - 15 + 'px', 'left': mark.circle.x - 15 + 'px'}"
                     ng-class="{
                         'is-open': AnnotateCtrl.openComment &&
                         $index === AnnotateCtrl.commentSelected &&
@@ -159,10 +159,10 @@
                     </li>
 
                     <li class="annotation is-open" ng-show="AnnotateCtrl.newAnnotation !== null"
-                    ng-style="{ 'background' : AnnotateCtrl.newAnnotation.circle.color, 'top':AnnotateCtrl.newAnnotation.circle.y - 15 + 'px', 'left':AnnotateCtrl.newAnnotation.circle.x - 15 + 'px'}"
+                    ng-style="{ 'top':AnnotateCtrl.newAnnotation.circle.y - 15 + 'px', 'left':AnnotateCtrl.newAnnotation.circle.x - 15 + 'px'}"
                     >
 
-                        <a  class="annotation--mark" ng-click="AnnotateCtrl.clearForm()">more</a>
+                        <a  class="annotation--mark" ng-click="AnnotateCtrl.clearForm()"></a>
 
                         <div class="annotation--details"
                         ng-class="AnnotateCtrl.checkCoords(AnnotateCtrl.newAnnotation.circle.x, 500) ? 'annotation--details-left' : 'annotation--details-right'"

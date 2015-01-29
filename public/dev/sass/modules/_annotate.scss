@@ -16,39 +16,15 @@ $is-open: #475f74;
         -webkit-transition: background-color 0.2s;
         -moz-transition: background-color 0.2s;
         transition: background-color 0.2s;
-        text-indent: -9999px;
-    }
+        color: $off-white;
+        text-align: center;
+        line-height: 30px;
+        text-indent: 0;
+        cursor: pointer;
 
-    &--mark::after, &--mark:before {
-        /* rotating plus icon */
-        content: '';
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        bottom: auto;
-        right: auto;
-        -webkit-transform: translateX(-50%) translateY(-50%);
-        -moz-transform: translateX(-50%) translateY(-50%);
-        -ms-transform: translateX(-50%) translateY(-50%);
-        -o-transform: translateX(-50%) translateY(-50%);
-        transform: translateX(-50%) translateY(-50%);
-        background-color: #ffffff;
-        -webkit-transition-property: -webkit-transform;
-        -moz-transition-property: -moz-transform;
-        transition-property: transform;
-        -webkit-transition-duration: 0.2s;
-        -moz-transition-duration: 0.2s;
-        transition-duration: 0.2s;
-    }
-
-    &--mark::after {
-            height: 2px;
-            width: 12px;
-    }
-
-    &--mark::before {
-        height: 12px;
-        width: 2px;
+        &:hover {
+            color: $off-white;
+        }
     }
 
   // annotation popup body
@@ -143,9 +119,7 @@ $is-open: #475f74;
     }
 
     .annotation--mark {
-        background-color: $is-open;
-
-
+        opacity: 0.3;
     }
 
     .annotation--mark::after,

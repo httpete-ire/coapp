@@ -78,16 +78,16 @@
                     return;
                 }
 
-                // if (!outOfBOunds) {
-                //     AnnotateFactory
-                //         .updateAnnotation(annotation, $routeParams.design_id)
-                //         .then(function (data) {
-                //             // reload page
+                if (!outOfBOunds) {
+                    AnnotateFactory
+                        .updateAnnotation(annotation, $routeParams.design_id)
+                        .then(function (data) {
+                            // reload page
 
-                //         }, function (err) {
+                        }, function (err) {
 
-                //         });
-                // }
+                        });
+                }
 
                 $document.off('mousemove', mousemove);
                 $document.off('mouseup', mouseup);
