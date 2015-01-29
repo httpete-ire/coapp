@@ -113,24 +113,23 @@
 .app-header2 {
     padding: 20px 0 0 0;
     height:230px;
-    margin-top:-195px;
-    -webkit-transition:  margin-top 1s ease;
-    -moz-transition:  margin-top 1s ease;
-    -o-transition:  margin-top 1s ease;
-    transition: margin-top 1s ease;
+    margin-top:-185px;
+    -webkit-transition:  margin-top 0.5s ease;
+    -moz-transition:  margin-top 0.5s ease;
+    -o-transition:  margin-top 0.5s ease;
+    transition: margin-top 0.5s ease;
 
 }
 .app-headerFull2 {
     padding: 20px 0 0 0;
     height:230px;
     margin-top:0px;
-    -webkit-transition:  margin-top 1s ease;
-    -moz-transition:  margin-top 1s ease;
-    -o-transition:  margin-top 1s ease;
-    transition: margin-top 1s ease;
-
-
+    -webkit-transition:  margin-top 0.5s ease;
+    -moz-transition:  margin-top 0.5s ease;
+    -o-transition:  margin-top 0.5s ease;
+    transition: margin-top 0.5s ease;
 }
+
 .headTopRow{
     height:163px;
     padding-left:30px;
@@ -138,7 +137,7 @@
 }
 .headBotRow{
     height:34px;
-    padding:17px 0 0 30px;
+    padding:10px 0 0 30px;
     position:relative
 }
 .pNameFloat{
@@ -154,8 +153,8 @@ h4{
 
 .fa-bars, .fa-times{
     position: absolute;
-    right: 5%;
-    top: 54%;
+    right: 40px;
+    top: -5px;
     font-size: 30px;
 }
 .filterBoxes{
@@ -166,17 +165,25 @@ h4{
     display:none;
     margin:0 15px 0 5px;
 
-    
+
 }
 
- .label-text:after{
+.label-text {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.label-text:after{
     content: "\f1db";
     font-family: FontAwesome;
     font-style: normal;
     font-weight: normal;
     text-decoration: inherit;
 /*--adjust as necessary--*/
-    color: #000;
     font-size: 18px;
     padding-right: 0.5em;
     padding-left:5px;
@@ -186,9 +193,25 @@ h4{
     }
     &:checked + .label-text:after{
         content: "\f058";
-        
+
     }
-        
+
+.text-type:after {
+    color: $text-color;
+}
+
+.layout-type:after {
+    color: $layout-color;
+}
+
+.image-type:after {
+    color: $image-color;
+}
+
+.color-type:after {
+    color: $color-color;
+}
+
 p{
     margin-top:3px
 }

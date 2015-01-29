@@ -113,13 +113,16 @@ $sidebar-height: 60px;
 .design-page{
   text-indent:5px;
 }
+
 .design-page .sidebar--list-item a{
-  text-indent:9px;
+  text-indent: 15px;
 }
 
 .design-page .sidebar--list-main{
-  height:50px
+  height:60px;
+  width: 60px;
 }
+
 .design-page .sidebar--list-main > img{
   width:35px;
   padding-top:6px;
