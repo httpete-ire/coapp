@@ -1,71 +1,85 @@
 (function(){
 
-	angular.module('coapp')
-	.directive('draggable', drag);
+    angular.module('coapp')
+    .directive('draggable', drag);
 
-	// @ngInject
-	function drag ($document) {
+    // @ngInject
+    function drag ($document, AnnotateFactory, $routeParams) {
 
-		var parentDiv = angular.element( document.querySelector( '#annotation-img'));
+        var parentDiv = angular.element( document.querySelector( '#annotation-img'));
 
-		return function(scope, element, attr) {
+        return function(scope, element, attr) {
 
-			var startX = 0,
-				startY = 0,
-				x = 0,
-				y = 0;
+            var startX = 0,
+                startY = 0,
+                x = 0,
+                y = 0;
 
-			var pageOffset = {
-				x: 143,
-				y: 165
-			};
+            var pageOffset = {
+                x: 143,
+                y: 165
+            };
 
-	    	element.on('mousedown', function(e) {
-	        	// Prevent default dragging of selected content
-	        	e.preventDefault();
+            element.on('mousedown', function(e) {
+                // Prevent default dragging of selected content
+                e.preventDefault();
 
-	        	startX = (e.pageX - pageOffset.x);
-	        	startY = (e.pageY - pageOffset.y);
+                // check if user is owner of annotation
+                // if not do nothing
 
-	        	$document.on('mousemove', mousemove);
-	        	$document.on('mouseup', mouseup);
+                startX = (e.pageX - pageOffset.x);
+                startY = (e.pageY - pageOffset.y);
 
-	    	});
+                $document.on('mousemove', mousemove);
+                $document.on('mouseup', mouseup);
 
-	    	function mousemove(e) {
-	    		e.preventDefault();
+            });
 
-	    		x = (e.pageX - pageOffset.x) + 15;
-	    		y = (e.pageY - pageOffset.y);
+            function mousemove(e) {
+                e.preventDefault();
 
+                x = (e.pageX - pageOffset.x) + 15;
+                y = (e.pageY - pageOffset.y);
 
+                if(x < 0 || y < 0) {
+                    mouseup();
+                    setPos(startX, startY);
+                    return;
+                }
 
-	    		if(x < 0 || y < 0) {
-	    			mouseup();
-	    			setPos(startX, startY);
-	    			return;
-	    		}
+                setPos(x, y);
+            }
 
+            function mouseup() {
 
-	    		setPos(x, y);
+                var annotation = {
+                    _id: attr.annotationId,
+                    x: x + 15,
+                    y: y + 15
+                };
 
-	    		// update annotation using service
-	    	}
+                AnnotateFactory
+                    .updateAnnotation(annotation, $routeParams.design_id)
+                    .then(function (data) {
+                        // reload page
 
-	    	function mouseup() {
-	      		$document.off('mousemove', mousemove);
-	      		$document.off('mouseup', mouseup);
-	    	}
+                    }, function (err) {
 
-	    	function setPos(x, y) {
-	    		element.css({
-	        		top: y + 'px',
-	        		left: x + 'px'
-	      		});
-	    	}
+                    });
 
-	  	};
+                $document.off('mousemove', mousemove);
+                $document.off('mouseup', mouseup);
+            }
 
-	}
+            function setPos(x, y) {
+                element.css({
+                    top: y + 'px',
+                    left: x + 'px'
+                });
+            }
+
+        };
+
+    }
 
 })();

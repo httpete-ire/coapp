@@ -51,6 +51,23 @@
 
         };
 
+        SingDesign.updateAnnotation = function (anno, designid) {
+
+            var annotationPath = Path + designid + "/annotations/" + anno._id;
+
+            var defer = $q.defer();
+
+            $http.put(annotationPath, anno)
+                .success(function(data){
+                    defer.resolve(data);
+                })
+                .error(function(err, status){
+                    defer.reject(err);
+                });
+
+            return defer.promise;
+        }
+
         SingDesign.addComment = function (comment, designId, annotationId) {
 
             // api/design/:designid/annotations/:annotationid/comments

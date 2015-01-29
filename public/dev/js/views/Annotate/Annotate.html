@@ -17,7 +17,7 @@
                         Layout: <input type="checkbox" name="sports" value="layout"  />
                         color: <input type="checkbox" name="sports" value="color"  />
                      </div>
-                     
+
                         <div class="col-xs-3">
                             <select ng-model="orderProp" class="form-control">
                                 <option value="" selected>Sort by</option>
@@ -34,18 +34,18 @@
                         <div class="col-xs-3">
                             <h1>{{AnnotateCtrl.design.name}}</h1>
                         </div>
-                        
+
                         <i class="fa fa-minus" ng-click="AnnotateCtrl.toggle()" ng-show="AnnotateCtrl.openHead"></i>
                         <i class="fa fa-plus" ng-click="AnnotateCtrl.toggle()" ng-show="!(AnnotateCtrl.openHead)"></i>
                         <!-- <i class="fa fa-plus" ng-click="style={'margin-top':'0px'}"></i> -->
-                    </div> 
+                    </div>
                 </div> <!-- header -->
             </div>
 <div class="container-fluid">
     <div id="content-wrapper">
         <div class="page-content contentAnno">
 
-           
+
             <div class="design-img" id="annotation-">
                 <img ng-src="{{ AnnotateCtrl.design.img.full }}" ng-click="AnnotateCtrl.annotate($event)" class="lan">
                  <ul>
@@ -54,7 +54,9 @@
                     ng-repeat="mark in AnnotateCtrl.design.annotations track by $index"
                     class="annotation"
                     ng-style="{ 'background' : mark.circle.color, 'top':mark.circle.y - 15 + 'px', 'left': mark.circle.x - 15 + 'px'}"
-                    ng-class="{'is-open': AnnotateCtrl.openComment && $index === AnnotateCtrl.commentSelected && AnnotateCtrl.newAnnotation === null}">
+                    ng-class="{'is-open': AnnotateCtrl.openComment && $index === AnnotateCtrl.commentSelected && AnnotateCtrl.newAnnotation === null}"
+                    annotation-id="{{mark._id}}"
+                    >
 
                         <a class="annotation--mark draggable"  ng-click="AnnotateCtrl.toggleComments($index)" ng-class="mark.type">More</a>
 
@@ -77,8 +79,6 @@
                                     <div class="comment--body">
                                         <p>{{mark.body}}</p>
                                     </div>
-
-
 
                                 </div>
 
