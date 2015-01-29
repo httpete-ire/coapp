@@ -162,10 +162,33 @@ h4{
     margin-top: 10px
 }
 
-input[type="checkbox"]{
+.filterBoxes input[type="checkbox"]{
+    display:none;
     margin:0 15px 0 5px;
+
+    
 }
 
+ .label-text:after{
+    content: "\f1db";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+/*--adjust as necessary--*/
+    color: #000;
+    font-size: 18px;
+    padding-right: 0.5em;
+    padding-left:5px;
+    /*position: absolute;
+    top: 10px;
+    left: 0;*/
+    }
+    &:checked + .label-text:after{
+        content: "\f058";
+        
+    }
+        
 p{
     margin-top:3px
 }
