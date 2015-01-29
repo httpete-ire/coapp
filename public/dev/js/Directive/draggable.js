@@ -4,7 +4,7 @@
     .directive('draggable', drag);
 
     // @ngInject
-    function drag ($document, AnnotateFactory, $routeParams) {
+    function drag ($document, AnnotateFactory, $routeParams, $timeout) {
 
         var parentDiv = angular.element( document.querySelector( '#annotation-img'))[0];
 
@@ -31,31 +31,28 @@
                 // Prevent default dragging of selected content
                 e.preventDefault();
 
-                // if () {
-
-                // }
-                // if open do nothing
-
-                if (attr.openComment === 'true') {
-                    $document.off('mousemove', mousemove);
-                    $document.off('mouseup', mouseup);
-                    return;
-                }
-                // check if user is owner of annotation
-                // if not do nothing
-
                 startX = (e.pageX - pageOffset.x);
                 startY = (e.pageY - pageOffset.y);
 
-                $document.on('mousemove', mousemove);
-                $document.on('mouseup', mouseup);
+                $timeout(function(){
+                    $document.on('mousemove', mousemove);
+                    $document.on('mouseup', mouseup);
+                }, 0);
 
             });
 
             function mousemove(e) {
                 e.preventDefault();
 
-                x = (e.pageX - pageOffset.x) + 15;
+                if (attr.openComment === 'true') {
+                    $document.off('mousemove', mousemove);
+                    $document.off('mouseup', mouseup);
+                    return;
+                }
+
+                console.log('new', e.pageY);
+
+                x = (e.pageX - pageOffset.x);
                 y = (e.pageY - pageOffset.y);
 
                 if(x < 0 || y < 0) {
@@ -64,7 +61,7 @@
                     return;
                 }
 
-                setPos(x, y);
+                setPos((startX + (x - startX)),(startY + (y - startY)));
             }
 
             function mouseup() {
@@ -75,20 +72,22 @@
                     y: y + 15
                 };
 
+                console.log('annotation', annotation);
+
                 if (startX === (startX - x) || startY === (startY - y)) {
                     return;
                 }
 
-                if (!outOfBOunds) {
-                    AnnotateFactory
-                        .updateAnnotation(annotation, $routeParams.design_id)
-                        .then(function (data) {
-                            // reload page
+                // if (!outOfBOunds) {
+                //     AnnotateFactory
+                //         .updateAnnotation(annotation, $routeParams.design_id)
+                //         .then(function (data) {
+                //             // reload page
 
-                        }, function (err) {
+                //         }, function (err) {
 
-                        });
-                }
+                //         });
+                // }
 
                 $document.off('mousemove', mousemove);
                 $document.off('mouseup', mouseup);
