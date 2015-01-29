@@ -24,6 +24,11 @@ $image-size: 1300px;
 
 .design-img {
     min-width: 100%;
+    cursor: crosshair;
+}
+
+.drag-mark .annotation--mark {
+    cursor: move;
 }
 
 .marks {

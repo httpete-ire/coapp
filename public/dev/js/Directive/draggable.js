@@ -29,7 +29,6 @@
 
             element.on('mousedown', function(e) {
                 // Prevent default dragging of selected content
-                e.preventDefault();
 
                 startX = (e.pageX - pageOffset.x);
                 startY = (e.pageY - pageOffset.y);
@@ -50,7 +49,7 @@
                     return;
                 }
 
-                console.log('new', e.pageY);
+                element.addClass('drag-mark');
 
                 x = (e.pageX - pageOffset.x);
                 y = (e.pageY - pageOffset.y);
@@ -72,7 +71,7 @@
                     y: y + 15
                 };
 
-                console.log('annotation', annotation);
+                element.removeClass('drag-mark');
 
                 if (startX === (startX - x) || startY === (startY - y)) {
                     return;

@@ -123,7 +123,8 @@ module.exports =  function newAnnotation (req, res, next) {
                 x: req.body.circle.x,
                 y: req.body.circle.y
             },
-            type: req.body.type
+            type: req.body.type,
+            priority: req.body.priority || false
         });
 
         design.save(function(err){

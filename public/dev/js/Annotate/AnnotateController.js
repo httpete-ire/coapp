@@ -76,8 +76,6 @@
         _this.toggleComments = function (index) {
             _this.commentSelected = index;
             _this.openComment = !_this.openComment;
-
-            console.log(_this);
         }
 
         _this.commentOpen = function () {
