@@ -6,7 +6,7 @@
     // @ngInject
     function drag ($document, AnnotateFactory, $routeParams) {
 
-        var parentDiv = angular.element( document.querySelector( '#annotation-img'));
+        var parentDiv = angular.element( document.querySelector( '#annotation-img'))[0];
 
         return function(scope, element, attr) {
 
@@ -15,14 +15,24 @@
                 x = 0,
                 y = 0;
 
+            var markOffset = {
+                x: 25,
+                y: 18
+            };
+
             var pageOffset = {
-                x: 143,
-                y: 165
+                x: parentDiv.getBoundingClientRect().left + markOffset.x,
+                y: parentDiv.getBoundingClientRect().top + markOffset.y
             };
 
             element.on('mousedown', function(e) {
                 // Prevent default dragging of selected content
                 e.preventDefault();
+
+                // if () {
+
+                // }
+                // if open do nothing
 
                 // check if user is owner of annotation
                 // if not do nothing
