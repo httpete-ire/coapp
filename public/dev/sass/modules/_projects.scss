@@ -99,7 +99,8 @@
     position: fixed;
     z-index: 3;
     width: 100%;
-    padding-left: 120px;
+    padding-left: 50px;
+
     background: $dark-grey;
 }
 
@@ -110,9 +111,9 @@
     padding: 35px 0 47px 0;
 }
 .app-header2 {
-    padding: 35px 0 0 0;
+    padding: 20px 0 0 0;
     height:230px;
-    margin-top:-144px;
+    margin-top:-195px;
     -webkit-transition:  margin-top 1s ease;
     -moz-transition:  margin-top 1s ease;
     -o-transition:  margin-top 1s ease;
@@ -120,7 +121,7 @@
 
 }
 .app-headerFull2 {
-    padding: 35px 0 0 0;
+    padding: 20px 0 0 0;
     height:230px;
     margin-top:0px;
     -webkit-transition:  margin-top 1s ease;
@@ -131,21 +132,34 @@
 
 }
 .headTopRow{
-    height:120px;
+    height:163px;
+    padding-left:30px;
+    border-bottom:1px solid $text-grey;
 }
 .headBotRow{
-    height:80px;
+    height:34px;
+    padding:17px 0 0 30px;
     position:relative
+}
+.pNameFloat{
+    float:left;
+    margin-right:10px
+}
+h4{
+    padding-top:8px;
 }
 .anno-head-img-title{
     padding-bottom:5px;
 }
 
-.fa-plus, .fa-minus{
+.fa-bars, .fa-times{
     position: absolute;
     right: 5%;
-    top: 30%;
+    top: 54%;
     font-size: 30px;
+}
+.filterBoxes{
+    margin-top: 10px
 }
 
 input[type="checkbox"]{

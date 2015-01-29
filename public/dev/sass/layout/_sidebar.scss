@@ -109,3 +109,18 @@ $sidebar-height: 60px;
     }
   }
 }
+
+.design-page{
+  text-indent:5px;
+}
+.design-page .sidebar--list-item a{
+  text-indent:9px;
+}
+
+.design-page .sidebar--list-main{
+  height:50px
+}
+.design-page .sidebar--list-main > img{
+  width:50px;
+  padding-top:0px;
+}
