@@ -23,6 +23,24 @@
                     });
         }
 
+        _this.getActivtyIcon = function (activityType) {
+            var klass = '';
+
+            switch (activityType) {
+                case 'new design':
+                    klass = 'fa-file-image-o';
+                    break;
+                case 'new task':
+                    klass = 'fa-check-square-o';
+                    break;
+                case 'new annotation':
+                    klass = 'fa-pencil-square-o';
+                    break;
+            }
+
+            return klass;
+        };
+
         _this.onFileSelect = function($files) {
 
             var file = $files[0];

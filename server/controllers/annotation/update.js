@@ -4,30 +4,36 @@ var Validator = require('./../../helpers/validator.js');
 var async = require('async');
 
 /**
- * @api {post} /api/design/:designid/annotations/:annotationid/comments New comment
+ * @api {put} /api/designs/:designid/annotaions Update annotaion
  *
- * @apiName Add new comment to annotation
+ * @apiName Update annotation
  * @apiGroup Annotation
- *
- * @apiParam {String} body Body of reply
- *
- * @apiPermission User
- * @apiUse NotAuthorized
- *
  */
 module.exports =  function (req, res, next) {
 
-    async.waterfall([function(cb){ // validate data
+    async.waterfall([function (cb) {
 
+        // validate new data
+        //
+        // get design
+        //
+        // get annotation
+        // switch values
+        //
         var validator = new Validator();
 
         validator.addRule({
-            field: 'body',
-            value: req.body.body,
+            field: 'x postition',
+            value: req.body.x,
             rules: ['required']
         });
 
-        // validate data
+        validator.addRule({
+            field: 'y postition',
+            value: req.body.y,
+            rules: ['required']
+        });
+
         if (!validator.validate()) {
             return cb({
                 message: 'invalid data',
@@ -38,15 +44,14 @@ module.exports =  function (req, res, next) {
 
         cb(null);
 
-    }, function(cb) { // get design
+    }, function (cb) {
 
-        Design.findOne({_id: req.params.designid})
+        Design
+            .findOne({_id: req.params.designid})
             .exec(function (err, design) {
-                if (err) {
-                    return cb(err);
-                }
+                if (err) return cb(err);
 
-                if (!design) {
+                if(!design) {
                     return cb({
                         message: 'no design found',
                         status: 404
@@ -56,7 +61,7 @@ module.exports =  function (req, res, next) {
                 cb(null, design);
             });
 
-    }, function(design, cb){ // save comment
+    }, function (design, cb) {
 
         var annotation = design.annotations.id(req.params.annotationid);
 
@@ -67,25 +72,30 @@ module.exports =  function (req, res, next) {
             });
         }
 
-        annotation.comments.push({
-            body: req.body.body,
-            owner: req.user._id
-        });
+        annotation.body = req.body.body || annotation.body;
+        annotation.circle.x = req.body.x;
+        annotation.circle.y = req.body.y;
+
+        cb(null, design);
+
+    }, function (design, cb) {
 
         design.save(function (err) {
+
             if(err) {
                 return cb(err);
             }
 
-            cb(null)
+            cb(null);
+
         });
 
-    }], function (err) {
-        if(err) {
+    }], function(err) {
+        if (err) {
             return next(err);
         }
 
-        return res.sendStatus(201);
+        return res.sendStatus(200);
     });
 
 };

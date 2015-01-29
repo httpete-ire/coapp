@@ -25,6 +25,7 @@ module.exports =  function(app, router) {
 
     router
     .route('/designs/:designid/annotations/:annotationid')
+    .put(annotationCtrl.update)
     .delete(annotationCtrl.delete);
 
     // annotation comments

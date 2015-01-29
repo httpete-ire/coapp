@@ -236,6 +236,16 @@
   },
   {
     "type": "put",
+    "url": "/api/designs/:designid/annotaions",
+    "title": "Update annotaion",
+    "name": "Update_annotation",
+    "group": "Annotation",
+    "version": "0.0.0",
+    "filename": "server/controllers/annotation/update.js",
+    "groupTitle": "Annotation"
+  },
+  {
+    "type": "put",
     "url": "/api/design/:designid/annotations/:annotationid/comments/:commentid",
     "title": "Update comment",
     "parameter": {
@@ -1238,6 +1248,40 @@
     ],
     "version": "0.0.0",
     "filename": "server/controllers/task/read.js",
+    "groupTitle": "Tasks",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NotAuthorized",
+            "description": "<p>You must be proved valid authentication details</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "    HTTP/1.1 401 Unauthorized\n    {\n      \"error\": \"You must be authenticated to perform this action\"\n    }",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "put",
+    "url": "/api/tasks/:taskid",
+    "title": "Update task",
+    "name": "Update_task",
+    "group": "Tasks",
+    "permission": [
+      {
+        "name": "User"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "server/controllers/task/update.js",
     "groupTitle": "Tasks",
     "error": {
       "fields": {
