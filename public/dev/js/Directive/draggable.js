@@ -1,12 +1,49 @@
 (function(){
 
     angular.module('coapp')
-    .directive('draggable', drag);
+    .directive('draggable', drag)
+    .service('containerCoords', containerCoords);
+
+    /**
+     * returns x and y coords of image container relative to the window
+     * @return {object} : x and y coords
+     */
+    // @ngInject
+    function containerCoords ($timeout) {
+
+        // image div
+        var imgDiv = angular.element( document.querySelector( '#annotation-img'))[0];
+
+        console.log(imgDiv.offsetHeight);
+
+        var imgDivRect = imgDiv.getBoundingClientRect();
+
+        var markOffset = {
+            x: 15,
+            y: 15
+        };
+
+        var coords = {
+            x: imgDivRect.left + markOffset.x,
+            y: imgDivRect.top + markOffset.y,
+            width: imgDivRect.width,
+            height: imgDivRect.height
+        };
+
+        // when the page renders it reads the incorrect left position
+        // of the img container, this timeout will execute when the page
+        // has finished rendering thus giving the correct left postition
+        $timeout(function(){
+            coords.x = imgDiv.getBoundingClientRect().left + markOffset.x;
+            coords.y = imgDiv.getBoundingClientRect().top + markOffset.y;
+        }, 0);
+
+        // an object of the coords of the img container
+        return coords;
+    }
 
     // @ngInject
-    function drag ($document, AnnotateFactory, $routeParams, $timeout) {
-
-        var parentDiv = angular.element( document.querySelector( '#annotation-img'))[0];
+    function drag ($document, AnnotateFactory, $routeParams, $timeout, containerCoords, AuthenticationFactory) {
 
         return function(scope, element, attr) {
 
@@ -15,52 +52,46 @@
                 x = 0,
                 y = 0;
 
-            var markOffset = {
-                x: 25,
-                y: 18
-            };
-
-            var pageOffset = {
-                x: parentDiv.getBoundingClientRect().left + markOffset.x,
-                y: parentDiv.getBoundingClientRect().top + markOffset.y
-            };
-
             var outOfBOunds = false;
 
             element.on('mousedown', function(e) {
-                // Prevent default dragging of selected content
 
-                startX = (e.pageX - pageOffset.x);
-                startY = (e.pageY - pageOffset.y);
+                startX = (e.pageX - containerCoords.x);
+                startY = (e.pageY - containerCoords.y);
 
-                $timeout(function(){
-                    $document.on('mousemove', mousemove);
-                    $document.on('mouseup', mouseup);
-                }, 0);
+                // check if user is owner of annotation
+                // and if not return
+                // else set event listeners
+                if ((attr.openComment === 'true') || (!AuthenticationFactory.isOwner(attr.owner))) {
+                    return;
+                }
+
+                $document.on('mousemove', mousemove);
+                $document.on('mouseup', mouseup);
 
             });
 
             function mousemove(e) {
                 e.preventDefault();
 
-                if (attr.openComment === 'true') {
-                    $document.off('mousemove', mousemove);
-                    $document.off('mouseup', mouseup);
-                    return;
-                }
-
+                // change the cursor to a 'move' cursor
                 element.addClass('drag-mark');
 
-                x = (e.pageX - pageOffset.x);
-                y = (e.pageY - pageOffset.y);
+                x = (e.pageX - containerCoords.x);
 
-                if(x < 0 || y < 0) {
+                y = (e.pageY - containerCoords.y);
+
+                console.log(containerCoords.height);
+
+                // if the mark goes out of the image
+                // return it to its start location
+                if(x < 0 || (x > (containerCoords.width + containerCoords.x))|| y < 0) {
                     setPos(startX, startY);
                     outOfBOunds = true;
                     return;
                 }
 
-                setPos((startX + (x - startX)),(startY + (y - startY)));
+                setPos(x ,(startY + (y - startY)));
             }
 
             function mouseup() {

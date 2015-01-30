@@ -28,6 +28,12 @@
             _this.openHead = !_this.openHead;
         };
 
+        /**
+         * get design thumbnail for images
+         *
+         * @param  {[type]} id [description]
+         * @return {[type]}    [description]
+         */
         _this.getAllDesigns = function (id) {
             SingProjFactory
             .getProject(id)
