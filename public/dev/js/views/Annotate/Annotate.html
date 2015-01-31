@@ -26,8 +26,6 @@
                         </li>
                      </ul>
 
-
-
                     </div>
                     <div class="row headBotRow">
                         <!-- <div class="col-xs-1">
@@ -39,28 +37,15 @@
                         </div>
 
                         <div class="col-md-4 filterBoxes pull-right">
-                            <label>
-                                 <input type="checkbox" name="text" value="text" checked />
-                                 <span class="label-text text-type">text</span>
-                            </label>
-                            <label>
-                                 <input type="checkbox" name="color" value="color"  checked/>
-                                 <span class="label-text color-type">color</span>
-                            </label>
-                            <label>
-                                 <input type="checkbox" name="image" value="image" checked />
-                                 <span class="label-text image-type">image</span>
-                            </label>
-                            <label>
-                                 <input type="checkbox" name="layout" value="layout"  checked/>
-                                 <span class="label-text layout-type">layout</span>
+
+                            <label ng-repeat="check in AnnotateCtrl.filterOptions">
+                                <input type="checkbox" ng-model="check.include" name="text" value="text"  />
+                                <span class="label-text" ng-class="[check.klass]" >{{check.name}}</span>
                             </label>
 
                             <i class="fa fa-times" ng-click="AnnotateCtrl.toggle()" ng-show="AnnotateCtrl.openHead"></i>
                             <i class="fa fa-bars" ng-click="AnnotateCtrl.toggle()" ng-show="!(AnnotateCtrl.openHead)"></i>
                         </div>
-
-
 
                     </div>
                 </div> <!-- header -->

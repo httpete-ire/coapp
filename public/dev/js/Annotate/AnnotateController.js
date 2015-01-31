@@ -23,6 +23,13 @@
 
         _this.radioColor = 'type-text';
 
+        _this.filterOptions = [
+                   {name : "text", on : false, klass : "text-type", type : 'type-text'},
+                   {name : "image", on : true, klass : "image-type", type : 'type-image'},
+                   {name : "color", on : true, klass : "color-type", type : 'type-color'},
+                   {name : "layout", on : true, klass : "layout-type", type : 'type-layout'}
+               ];
+
         /*
          *
          */
