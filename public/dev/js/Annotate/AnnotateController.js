@@ -11,6 +11,7 @@
 
         _this.design = {};
         _this.allDesigns = {};
+
         _this.openComment = false;
         _this.commentSelected = null;
 
@@ -20,57 +21,14 @@
 
         _this.openHead = false;
 
-<<<<<<< HEAD
+        _this.radioColor = 'type-text';
+
         _this.filterOptions = [
             {name : "text", on : false, klass : "text-type", type : 'type-text'},
             {name : "image", on : true, klass : "image-type", type : 'type-image'},
             {name : "color", on : true, klass : "color-type", type : 'type-color'},
             {name : "layout", on : true, klass : "layout-type", type : 'type-layout'}
         ];
-
-       
-        _this.typeIncludes = [];
-
-        _this.includeType = function(type){
-
-            var i = _this.typeIncludes.indexOf(type);
-
-            if(i > -1){
-                _this.typeIncludes.splice(i, 1);
-            }else{
-                _this.typeIncludes.push(type);
-            }
-        };
-
-        _this.typeFilter = function(annotation){
-
-            console.log(annotation);
-
-            if( _this.typeIncludes.length > 0){
-                if(_this.typeIncludes.indexOf(annotation.type)){
-                    return;
-                }
-            }
-
-            return annotation;
-        };
-       
-
-        _this.toggle = function(){
-            console.log(_this.openHead);
-           
-                if (_this.openHead == false){
-                    _this.openHead = true;
-                }
-                else{
-                    _this.openHead = false;
-                }
-            }
-
-           _this.getAllDesigns = function(id){
-            SingProjFactory.getProject(id)
-=======
-        _this.radioColor = 'type-text';
 
         /*
          *
@@ -88,18 +46,16 @@
         _this.getAllDesigns = function (id) {
             SingProjFactory
             .getProject(id)
->>>>>>> 1dff6174d2bc94c52e4c2e376749715c9e01616d
             .then(function(data){
                 _this.allDesigns = data;
-                }, function(error){
+            }, function(error){
                 _this.allDesigns = {};
             });
-        }
-        
-        
+        };
 
         _this.getDesign = function(){
-            AnnotateFactory.getDesign($routeParams.design_id)
+            AnnotateFactory
+            .getDesign($routeParams.design_id)
             .then(function(data){
                 _this.design = data;
                 _this.getAllDesigns(data.project._id);
@@ -109,6 +65,13 @@
         }
 
         _this.annotate = function(e) {
+
+            // ensures comment closes when open and click on canvas
+            if(_this.commentSelected != null) {
+                _this.openComment = false;
+                _this.commentSelected = null;
+                return;
+            }
 
             var mouse = getMouse(e);
 
@@ -128,6 +91,10 @@
         _this.toggleComments = function (index) {
             _this.commentSelected = index;
             _this.openComment = !_this.openComment;
+        }
+
+        _this.commentOpen = function () {
+            return _this.openComment;
         }
 
 
@@ -163,8 +130,6 @@
 
         _this.addComment = function (comment, annotation, form) {
 
-
-
             AnnotateFactory
             .addComment(comment, $routeParams.design_id, annotation._id)
             .then(function(data) {
@@ -191,7 +156,6 @@
 
         _this.getDesign();
 
-        
 
     }
 
@@ -206,8 +170,6 @@
         } else {
             target = e.target.getBoundingClientRect();
         }
-
-        console.log(target);
 
         return {
             x: e.clientX - target.left,
