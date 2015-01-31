@@ -12,6 +12,7 @@
 
 
       <div class="form-group">
+      <label for="Username">Username</label>
         <input ng-model="authCtrl.user.username" name="username" type="text" class="form-control"  placeholder="Enter username" ng-model-options="{ updateOn: 'blur' }" required>
 
         <span class="form--error-popup" ng-show="registerForm.username.$error.required && (registerForm.username.$pristine || registerForm.username.$dirty ) && registerForm.$submitted">Username required</span>
@@ -19,6 +20,7 @@
       </div>
 
       <div class="form-group">
+      <label for="Email">Email</label>
           <input ng-model="authCtrl.user.email" name="email" type="email" class="form-control"  placeholder="Enter email" ng-model-options="{ updateOn: 'blur' }" required>
 
           <span class="form--error-popup" ng-show="registerForm.email.$error.required && (registerForm.email.$pristine || registerForm.email.$dirty) && registerForm.$submitted">Email required</span>
@@ -28,12 +30,14 @@
       </div>
 
       <div class="form-group">
+      <label for="Password">Password</label>
           <input ng-model="authCtrl.user.password" name="password" type="password" class="form-control"  placeholder="Password" ng-model-options="{ updateOn: 'blur' }"  required>
 
           <span class="form--error-popup" ng-show="registerForm.password.$error.required && (registerForm.password.$pristine || registerForm.password.$dirty) && registerForm.$submitted">Password required</span>
       </div>
 
       <div class="form-group">
+      <label for="confirmPassword">Confirm Password</label>
           <input ng-model="authCtrl.user.confirmPassword" name="confirmPassword" type="password" class="form-control" placeholder="Confirm Password" ng-model-options="{ updateOn: 'blur' }" match="authCtrl.user.password" required>
 
           <span class="form--error-popup" ng-show="registerForm.confirmPassword.$error.required && (registerForm.confirmPassword.$pristine || registerForm.confirmPassword.$dirty) && registerForm.$submitted">confirmPassword required</span>

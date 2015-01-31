@@ -21,7 +21,8 @@
 
     label {
         text-align: left;
-        margin-bottom: 10px;
+        margin-bottom: 14px;
+        float:left
     }
 
 }
@@ -37,7 +38,7 @@
 .form--error-popup {
     display: block;
     position: absolute;
-    top: 0;
+    top: 30px;
     right: -290px;
     background: $red;
     height: 36px;
