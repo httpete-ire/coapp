@@ -199,33 +199,13 @@
                                     <div class="annotation--details-type">
                                         <p>Type</p>
 
-                                        <div class="annotation--type">
-                                            <input type="radio" id="textRadio" class="hidden--radio" name="radio"ng-model="AnnotateCtrl.radioColor" value="type-text" checked>
-                                            <label for="textRadio">
-                                            <span class="radio--text" tooltip="Text" tooltip-placement="bottom"></span>
+                                        <div class="annotation--type" ng-repeat="check in AnnotateCtrl.filterOptions">
+
+                                            <input type="radio" id="{{check.name}}Radio" class="hidden--radio" name="radio" ng-model="AnnotateCtrl.radioColor" value="{{check.type}}"><label for="{{check.name}}Radio">
+                                            <span class="radio--{{check.name}}" tooltip="{{check.name}}" tooltip-placement="bottom"></span>
                                             </label>
                                         </div>
 
-                                        <div class="annotation--type">
-                                            <input type="radio" id="imageRadio" class="hidden--radio" name="radio" ng-model="AnnotateCtrl.radioColor" value="type-image" />
-                                            <label for="imageRadio">
-                                            <span class="radio--image" tooltip="Image" tooltip-placement="bottom"></span>
-                                            </label>
-                                        </div>
-
-                                        <div class="annotation--type">
-                                            <input type="radio" id="layoutRadio" class="hidden--radio" name="radio" ng-model="AnnotateCtrl.radioColor" value="type-layout" />
-                                            <label for="layoutRadio">
-                                            <span class="radio--layout" tooltip="Layout" tooltip-placement="bottom"></span>
-                                            </label>
-                                        </div>
-
-                                        <div class="annotation--type">
-                                            <input type="radio" id="colorRadio" class="hidden--radio" name="radio" ng-model="AnnotateCtrl.radioColor" value="type-color" />
-                                            <label for="colorRadio">
-                                            <span class="radio--color" tooltip="Color" tooltip-placement="bottom"></span>
-                                            </label>
-                                        </div>
                                     </div>
 
                                     <div class="annotation--details-priority">

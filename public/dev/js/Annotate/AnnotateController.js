@@ -2,10 +2,39 @@
 
 
     angular.module('coapp')
-    .controller('AnnotateController', AnnotateCtrl);
+    .controller('AnnotateController', AnnotateCtrl)
+    .factory('FilterOpts', filterOptions);
+
+    function filterOptions () {
+        var opts = [
+            {
+                name : "text",
+                on : false,
+                klass : "text-type",
+                type : 'type-text'
+            },{
+                 name : "image",
+                on : true,
+                klass : "image-type",
+                type : 'type-image'
+            }, {
+                name : "color",
+                on : true,
+                klass : "color-type",
+                type : 'type-color'
+            }, {
+                name : "layout",
+                on : true,
+                klass : "layout-type",
+                type : 'type-layout'
+            }
+        ];
+
+        return opts;
+    }
 
     // @ngInject
-    function AnnotateCtrl(AnnotateFactory, focus, $routeParams, AuthenticationFactory, SingProjFactory){
+    function AnnotateCtrl(AnnotateFactory, focus, $routeParams, AuthenticationFactory, SingProjFactory, FilterOpts){
 
         _this = this;
 
@@ -23,12 +52,7 @@
 
         _this.radioColor = 'type-text';
 
-        _this.filterOptions = [
-            {name : "text", on : false, klass : "text-type", type : 'type-text'},
-            {name : "image", on : true, klass : "image-type", type : 'type-image'},
-            {name : "color", on : true, klass : "color-type", type : 'type-color'},
-            {name : "layout", on : true, klass : "layout-type", type : 'type-layout'}
-        ];
+        _this.filterOptions = FilterOpts;
         /*
          *
          */
@@ -156,7 +180,7 @@
 
     }
 
-    AnnotateCtrl.$inject = ["AnnotateFactory", "focus", "$routeParams", 'AuthenticationFactory', 'SingProjFactory'];
+    AnnotateCtrl.$inject = ['AnnotateFactory', 'focus', '$routeParams', 'AuthenticationFactory', 'SingProjFactory', 'FilterOpts'];
 
     function getMouse(e, targ) {
 
