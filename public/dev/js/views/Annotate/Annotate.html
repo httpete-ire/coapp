@@ -4,12 +4,25 @@
                 <div  class="app-header2" ng-class="{true:'app-headerFull2', false:'app-header2' }[AnnotateCtrl.openHead]" ng-style="style">
                      <div class="row headTopRow">
                      <ul>
-                        <li class="col-md-2" ng-repeat="des in AnnotateCtrl.allDesigns.designs" width="220px">
 
-                            <p>{{des.annotations}}</p>
-                            <p>{{des.designs}}</p>
-                             <img ng-src="{{ des.img.thumbnail }}" alt="" width="200px">
-                             <p class="anno-head-img-title">{{des.name}}</p>
+                        <li class="head-design-col" ng-repeat="des in AnnotateCtrl.allDesigns.designs">
+
+                            <!-- active-design -->
+                            <div class="head-design-container" ng-if="AnnotateCtrl.matchDesignId(des._id)">
+
+                                <img ng-src="{{ des.img.thumbnail }}" class="design-head-img active-design">
+
+                                <p class="anno-head-img-title">{{des.name}}</p>
+                            </div>
+
+
+                            <div class="head-design-container" ng-if="!AnnotateCtrl.matchDesignId(des._id)">
+                                <a href="#/design/{{des._id}}">
+                                    <img ng-src="{{ des.img.thumbnail }}" class="design-head-img">
+                                </a>
+                                <a href="#/design/{{des._id}}" class="anno-head-img-title">{{des.name}}</a>
+                            </div>
+
                         </li>
                      </ul>
 
@@ -77,10 +90,8 @@
                     >
 
                         <a class="annotation--mark draggable"   ng-dblclick="AnnotateCtrl.toggleComments($index)"
-
-
                         ng-class="{
-                            'priority-mark' : mark.priority == true,
+                            'animated infinite pulse' : mark.priority == true,
                             '{{mark.type}}' : true
                         }">{{$index + 1}}</a>
 
@@ -185,7 +196,7 @@
                     ng-style="{ 'top':AnnotateCtrl.newAnnotation.circle.y - 15 + 'px', 'left':AnnotateCtrl.newAnnotation.circle.x - 15 + 'px'}"
                     >
 
-                        <a class="annotation--mark" ng-click="AnnotateCtrl.clearForm()"></a>
+                        <a class="annotation--mark animated bounceIn" ng-click="AnnotateCtrl.clearForm()"></a>
 
                         <div class="annotation--details"
                         ng-class="AnnotateCtrl.checkCoords(AnnotateCtrl.newAnnotation.circle.x, 500) ? 'annotation--details-left' : 'annotation--details-right'"

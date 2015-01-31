@@ -66,6 +66,8 @@
                     return;
                 }
 
+                element.addClass('drag-mark');
+
                 $document.on('mousemove', mousemove);
                 $document.on('mouseup', mouseup);
 
@@ -75,13 +77,10 @@
                 e.preventDefault();
 
                 // change the cursor to a 'move' cursor
-                element.addClass('drag-mark');
 
                 x = (e.pageX - containerCoords.x);
 
                 y = (e.pageY - containerCoords.y);
-
-                console.log(containerCoords.height);
 
                 // if the mark goes out of the image
                 // return it to its start location
@@ -92,9 +91,21 @@
                 }
 
                 setPos(x ,(startY + (y - startY)));
+
+                console.log('in the mouse move');
             }
 
             function mouseup() {
+
+                element.removeClass('drag-mark');
+
+                console.log('in the mouse up');
+
+                if (startX === (startX - x) || startY === (startY - y) ||outOfBOunds) {
+                    $document.off('mousemove', mousemove);
+                    $document.off('mouseup', mouseup);
+                    return;
+                }
 
                 var annotation = {
                     _id: attr.annotationId,
@@ -102,22 +113,16 @@
                     y: y + 15
                 };
 
-                element.removeClass('drag-mark');
 
-                if (startX === (startX - x) || startY === (startY - y)) {
-                    return;
-                }
 
-                if (!outOfBOunds) {
-                    AnnotateFactory
-                        .updateAnnotation(annotation, $routeParams.design_id)
-                        .then(function (data) {
-                            // reload page
+                AnnotateFactory
+                    .updateAnnotation(annotation, $routeParams.design_id)
+                    .then(function (data) {
+                        // reload page
 
-                        }, function (err) {
+                    }, function (err) {
 
-                        });
-                }
+                });
 
                 $document.off('mousemove', mousemove);
                 $document.off('mouseup', mouseup);

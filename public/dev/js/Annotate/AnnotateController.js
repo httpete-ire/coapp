@@ -137,6 +137,10 @@
             });
         }
 
+        _this.matchDesignId = function (id) {
+            return id === $routeParams.design_id;
+        };
+
         _this.getDesign();
 
 
