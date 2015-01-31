@@ -13,6 +13,7 @@
             <form name="loginForm"  ng-submit="authCtrl.login(this.loginForm,loginForm.$valid, authCtrl.user)" role="form" novalidate>
 
                 <div class="form-group">
+                    <label for="email">Email</label>
                     <input ng-model="authCtrl.user.email" ng-model-options="{ updateOn: 'blur' }" type="email" class="form-control" placeholder="Enter email" name="email" required>
 
                     <span class="form--error-popup" ng-show="loginForm.email.$error.required && loginForm.email.$pristine && loginForm.$submitted">Email required</span>
@@ -23,6 +24,7 @@
                 </div>
 
                 <div class="form-group">
+                <label for="password">Password</label>
                     <input ng-model="authCtrl.user.password" type="password" class="form-control" ng-model-options="{ updateOn: 'blur' }" placeholder="Password" name="password" required>
                     <span class="form--error-popup"  ng-show="loginForm.password.$touched && loginForm.password.$error.required || (loginForm.password.$pristine && loginForm.$submitted)">Password required</span>
 

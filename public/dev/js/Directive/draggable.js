@@ -25,6 +25,8 @@
                 y: parentDiv.getBoundingClientRect().top + markOffset.y
             };
 
+            console.log(pageOffset);
+
             var outOfBOunds = false;
 
             element.on('mousedown', function(e) {

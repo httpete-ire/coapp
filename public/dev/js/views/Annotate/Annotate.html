@@ -20,13 +20,24 @@
                         <!-- <div class="col-xs-1">
                             <a href="#/projects/{{AnnotateCtrl.design.project._id}}"><i class="fa fa-arrow-left"></i></a>
                         </div> -->
-                        <div class="col-md-5">
+                        <div class="col-xs-5">
                             <h3 class="pNameFloat">{{AnnotateCtrl.design.project.name}}</h3>
                             <h4>{{AnnotateCtrl.design.name}}</h4>
                         </div>
+                        <div class="col-xs-4 filterBoxes">
 
-                        <div class="col-md-4 filterBoxes pull-right">
-                            <label>
+
+                         <label ng-repeat="check in AnnotateCtrl.filterOptions">
+                                <input type="checkbox" ng-model="check.include" name="text" value="text"  />
+                                 <span class="label-text" ng-class="[check.klass]" >{{check.name}}</span>
+                            </label>
+
+
+                           <!--  <label ng-repeat=" check in AnnotateCtrl.filterOptions">
+                                <input type="checkbox" ng-model="check.on" name="text" value="text"  />
+                                 <span class="label-text" ng-click="AnnotateCtrl.includeType(check.type)" ng-class="[check.klass]">{{check.name}}</span>
+                            </label> -->
+                            <!-- <label>
                                  <input type="checkbox" name="text" value="text" checked />
                                  <span class="label-text text-type">text</span>
                             </label>
@@ -41,11 +52,13 @@
                             <label>
                                  <input type="checkbox" name="layout" value="layout"  checked/>
                                  <span class="label-text layout-type">layout</span>
-                            </label>
+                            </label>   --> 
 
-                            <i class="fa fa-times" ng-click="AnnotateCtrl.toggle()" ng-show="AnnotateCtrl.openHead"></i>
-                            <i class="fa fa-bars" ng-click="AnnotateCtrl.toggle()" ng-show="!(AnnotateCtrl.openHead)"></i>
                         </div>
+
+
+                        <i class="fa fa-times" ng-click="AnnotateCtrl.toggle()" ng-show="AnnotateCtrl.openHead"></i>
+                        <i class="fa fa-bars" ng-click="AnnotateCtrl.toggle()" ng-show="!(AnnotateCtrl.openHead)"></i>
 
 
 
@@ -61,8 +74,10 @@
                 <img ng-src="{{ AnnotateCtrl.design.img.full }}" ng-click="AnnotateCtrl.annotate($event)" class="design-img">
                  <ul>
 
+                  <!-- ng-repeat="mark in AnnotateCtrl.design.annotations track by $index | filter:AnnotateCtrl.typeFilter(mark)"
+                   -->
                     <li
-                    ng-repeat="mark in AnnotateCtrl.design.annotations track by $index"
+                    ng-repeat="mark in AnnotateCtrl.design.annotations track by $index | filter:{include:true}"
                     class="annotation"
                     ng-style="{'top':mark.circle.y - 15 + 'px', 'left': mark.circle.x - 15 + 'px'}"
                     ng-class="{
