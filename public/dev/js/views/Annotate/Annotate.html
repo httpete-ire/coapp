@@ -4,12 +4,25 @@
                 <div  class="app-header2" ng-class="{true:'app-headerFull2', false:'app-header2' }[AnnotateCtrl.openHead]" ng-style="style">
                      <div class="row headTopRow">
                      <ul>
-                        <li class="col-md-2" ng-repeat="des in AnnotateCtrl.allDesigns.designs" width="220px">
 
-                            <p>{{des.annotations}}</p>
-                            <p>{{des.designs}}</p>
-                             <img ng-src="{{ des.img.thumbnail }}" alt="" width="200px">
-                             <p class="anno-head-img-title">{{des.name}}</p>
+                        <li class="head-design-col" ng-repeat="des in AnnotateCtrl.allDesigns.designs">
+
+                            <!-- active-design -->
+                            <div class="head-design-container" ng-if="AnnotateCtrl.matchDesignId(des._id)">
+
+                                <img ng-src="{{ des.img.thumbnail }}" class="design-head-img active-design">
+
+                                <p class="anno-head-img-title">{{des.name}}</p>
+                            </div>
+
+
+                            <div class="head-design-container" ng-if="!AnnotateCtrl.matchDesignId(des._id)">
+                                <a href="#/design/{{des._id}}">
+                                    <img ng-src="{{ des.img.thumbnail }}" class="design-head-img">
+                                </a>
+                                <a href="#/design/{{des._id}}" class="anno-head-img-title">{{des.name}}</a>
+                            </div>
+
                         </li>
                      </ul>
 
@@ -86,15 +99,14 @@
                         AnnotateCtrl.newAnnotation === null
                     }"
                     annotation-id="{{mark._id}}"
+                    owner="{{mark.owner._id}}"
                     open-comment="{{AnnotateCtrl.commentOpen()}}"
                     draggable
                     >
 
                         <a class="annotation--mark draggable"   ng-dblclick="AnnotateCtrl.toggleComments($index)"
-
-
                         ng-class="{
-                            'priority-mark' : mark.priority == true,
+                            'animated infinite pulse' : mark.priority == true,
                             '{{mark.type}}' : true
                         }">{{$index + 1}}</a>
 
@@ -199,7 +211,7 @@
                     ng-style="{ 'top':AnnotateCtrl.newAnnotation.circle.y - 15 + 'px', 'left':AnnotateCtrl.newAnnotation.circle.x - 15 + 'px'}"
                     >
 
-                        <a class="annotation--mark" ng-click="AnnotateCtrl.clearForm()"></a>
+                        <a class="annotation--mark animated bounceIn" ng-click="AnnotateCtrl.clearForm()" ng-class="[AnnotateCtrl.radioColor]"></a>
 
                         <div class="annotation--details"
                         ng-class="AnnotateCtrl.checkCoords(AnnotateCtrl.newAnnotation.circle.x, 500) ? 'annotation--details-left' : 'annotation--details-right'"
@@ -210,40 +222,45 @@
                             <form ng-submit="AnnotateCtrl.addAnnotation(AnnotateCtrl.newAnnotation)" role="form">
 
                                 <div class="annotation--details-header clearfix">
+                                    <div class="annotation--details-type">
+                                        <p>Type</p>
 
-                                    <!-- radio btns for type -->
-                                    <div class="annotation--type">
-                                        <input type="radio" id="textRadio" class="hidden--radio" name="radio"ng-model="AnnotateCtrl.newAnnotation.type" value="type-text" checked>
-                                        <label for="textRadio">
-                                        <span class="annotation--type-circle circle--text" tooltip="Text" tooltip-placement="bottom"></span>
-                                        </label>
+                                        <div class="annotation--type">
+                                            <input type="radio" id="textRadio" class="hidden--radio" name="radio"ng-model="AnnotateCtrl.radioColor" value="type-text" checked>
+                                            <label for="textRadio">
+                                            <span class="radio--text" tooltip="Text" tooltip-placement="bottom"></span>
+                                            </label>
+                                        </div>
+
+                                        <div class="annotation--type">
+                                            <input type="radio" id="imageRadio" class="hidden--radio" name="radio" ng-model="AnnotateCtrl.radioColor" value="type-image" />
+                                            <label for="imageRadio">
+                                            <span class="radio--image" tooltip="Image" tooltip-placement="bottom"></span>
+                                            </label>
+                                        </div>
+
+                                        <div class="annotation--type">
+                                            <input type="radio" id="layoutRadio" class="hidden--radio" name="radio" ng-model="AnnotateCtrl.radioColor" value="type-layout" />
+                                            <label for="layoutRadio">
+                                            <span class="radio--layout" tooltip="Layout" tooltip-placement="bottom"></span>
+                                            </label>
+                                        </div>
+
+                                        <div class="annotation--type">
+                                            <input type="radio" id="colorRadio" class="hidden--radio" name="radio" ng-model="AnnotateCtrl.radioColor" value="type-color" />
+                                            <label for="colorRadio">
+                                            <span class="radio--color" tooltip="Color" tooltip-placement="bottom"></span>
+                                            </label>
+                                        </div>
                                     </div>
 
-                                    <div class="annotation--type">
-                                        <input type="radio" id="imageRadio" class="hidden--radio" name="radio" ng-model="AnnotateCtrl.newAnnotation.type" value="type-image" />
-                                        <label for="imageRadio">
-                                        <span class="annotation--type-circle circle--image" tooltip="Image" tooltip-placement="bottom"></span>
-                                        </label>
+                                    <div class="annotation--details-priority">
+                                        <p>Priority</p>
+                                        <input type="checkbox" ng-model="AnnotateCtrl.newAnnotation.priority" ng-checked="AnnotateCtrl.newAnnotation.priority == true">
                                     </div>
-
-                                    <div class="annotation--type">
-                                        <input type="radio" id="layoutRadio" class="hidden--radio" name="radio" ng-model="AnnotateCtrl.newAnnotation.type" value="type-layout" />
-                                        <label for="layoutRadio">
-                                        <span class="annotation--type-circle circle--layout" tooltip="Layout" tooltip-placement="bottom"></span>
-                                        </label>
-                                    </div>
-
-                                    <div class="annotation--type">
-                                        <input type="radio" id="colorRadio" class="hidden--radio" name="radio" ng-model="AnnotateCtrl.newAnnotation.type" value="type-color" />
-                                        <label for="colorRadio">
-                                        <span class="annotation--type-circle circle--color" tooltip="Color" tooltip-placement="bottom"></span>
-                                        </label>
-                                    </div>
-
-                                    <input type="checkbox" ng-model="AnnotateCtrl.newAnnotation.priority" ng-checked="AnnotateCtrl.newAnnotation.priority == true">
 
                                     <!-- close popup -->
-                                    <span class="fa fa-close pull-right" ng-click="AnnotateCtrl.clearForm()"></span>
+                                    <span class="fa fa-close annotation--details-close" ng-click="AnnotateCtrl.clearForm()"></span>
                                 </div>
 
                                 <div class="form-group">

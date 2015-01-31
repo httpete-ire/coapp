@@ -20,6 +20,7 @@
 
         _this.openHead = false;
 
+<<<<<<< HEAD
         _this.filterOptions = [
             {name : "text", on : false, klass : "text-type", type : 'type-text'},
             {name : "image", on : true, klass : "image-type", type : 'type-image'},
@@ -68,6 +69,26 @@
 
            _this.getAllDesigns = function(id){
             SingProjFactory.getProject(id)
+=======
+        _this.radioColor = 'type-text';
+
+        /*
+         *
+         */
+        _this.toggle = function () {
+            _this.openHead = !_this.openHead;
+        };
+
+        /**
+         * get design thumbnail for images
+         *
+         * @param  {[type]} id [description]
+         * @return {[type]}    [description]
+         */
+        _this.getAllDesigns = function (id) {
+            SingProjFactory
+            .getProject(id)
+>>>>>>> 1dff6174d2bc94c52e4c2e376749715c9e01616d
             .then(function(data){
                 _this.allDesigns = data;
                 }, function(error){
@@ -116,7 +137,8 @@
 
         _this.addAnnotation = function(annotation) {
 
-            console.log(annotation);
+            // bind the color type to the new annotation
+            annotation.type = _this.radioColor;
 
             AnnotateFactory
                 .addAnnotation(annotation, $routeParams.design_id)
@@ -124,6 +146,9 @@
                     _this.newAnnotation = null;
                     _this.getDesign();
                     _this.assignTask = false;
+
+                    // reset to default color
+                    _this.radioColor = 'type-text';
                 });
         }
 
@@ -159,6 +184,10 @@
                 annotation.comments.push(newComment);
             });
         }
+
+        _this.matchDesignId = function (id) {
+            return id === $routeParams.design_id;
+        };
 
         _this.getDesign();
 

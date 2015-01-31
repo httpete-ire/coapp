@@ -14,6 +14,8 @@
 
 @import './theme/_overrides';
 
+@import './state/_animation';
+
 $image-size: 1300px;
 
 .design-img-container {
@@ -29,6 +31,7 @@ $image-size: 1300px;
 
 .drag-mark .annotation--mark {
     cursor: move;
+    opacity: 0.5;
 }
 
 .marks {

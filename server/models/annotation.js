@@ -46,8 +46,7 @@ var Annotaion = new Schema({
         }
     }],
     type: {
-        type: String,
-        default: 'everyone'
+        type: String
     },
     priority: {
         type: Boolean,
