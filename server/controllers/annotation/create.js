@@ -25,6 +25,8 @@ var async = require('async');
  */
 module.exports =  function newAnnotation (req, res, next) {
 
+    console.log(req);
+
     async.waterfall([function(cb) { // validate data
 
         var validator = new Validator();

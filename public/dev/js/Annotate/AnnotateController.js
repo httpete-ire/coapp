@@ -21,6 +21,8 @@
 
         _this.openHead = false;
 
+        _this.radioColor = 'type-text';
+
         /*
          *
          */
@@ -95,7 +97,8 @@
 
         _this.addAnnotation = function(annotation) {
 
-            console.log(annotation);
+            // bind the color type to the new annotation
+            annotation.type = _this.radioColor;
 
             AnnotateFactory
                 .addAnnotation(annotation, $routeParams.design_id)
@@ -103,6 +106,9 @@
                     _this.newAnnotation = null;
                     _this.getDesign();
                     _this.assignTask = false;
+
+                    // reset to default color
+                    _this.radioColor = 'type-text';
                 });
         }
 
