@@ -209,8 +209,12 @@
                                     </div>
 
                                     <div class="annotation--details-priority">
-                                        <p>Priority</p>
-                                        <input type="checkbox" ng-model="AnnotateCtrl.newAnnotation.priority" ng-checked="AnnotateCtrl.newAnnotation.priority == true">
+                                        <label>
+                                            <p>Priority</p>
+                                            <input type="checkbox" ng-model="AnnotateCtrl.newAnnotation.priority" ng-checked="AnnotateCtrl.newAnnotation.priority == true" class="priority--input">
+                                            <span class="priority--span" ng-class="[check.klass]" >{{check.name}}</span>
+                                        </label>
+
                                     </div>
 
                                     <!-- close popup -->

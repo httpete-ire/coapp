@@ -53,6 +53,7 @@
         _this.radioColor = 'type-text';
 
         _this.filterOptions = FilterOpts;
+
         /*
          *
          */

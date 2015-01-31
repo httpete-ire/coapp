@@ -121,6 +121,10 @@ $is-open: #475f74;
         display: inline-block;
     }
 
+    &--details-priority {
+        margin-left: 20px;
+    }
+
 } // annotation
 
 .is-open {
@@ -226,6 +230,10 @@ $is-open: #475f74;
     display: none;
 }
 
+.priority--input {
+    margin-left: 10px;
+}
+
 .hidden--radio + label span:after {
     content: "\f1db";
     font-family: FontAwesome;
@@ -287,3 +295,32 @@ $is-open: #475f74;
 .priority-mark {
     border: 4px solid red;
 }
+
+// priorty input
+.priority--input {
+    display: none;
+}
+
+.priority--input:checked {
+
+}
+
+.priority--input + span:after {
+    content: "\f1db";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    font-size: 18px;
+    color: $red;
+}
+
+.priority--input:checked + span:after {
+    content: "\f058";
+}
+
+.priority--span {
+    margin-left: 15px;
+}
+
+
