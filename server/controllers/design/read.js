@@ -100,7 +100,7 @@ function populateData (design, cb) {
 
     }, function (callback) {
 
-        dbHelper.populateTasks(design.annotations, callback);
+        taskHelper.populateTasks(design.annotations, callback);
 
     }], function (err, design){
 

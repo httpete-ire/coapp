@@ -9,20 +9,25 @@ var async = require('async');
  * @param  {Array}   annotations :: annotations to populate task
  * @param  {Function} callback   :: callback to call if err / success
  */
-module.exports.populateTasks =  function (annotations, callback) {
+module.exports.populateTasks =  function (array, opts, callback) {
 
-    var opts = [{
-        path: 'assignedBy',
-        select: 'email username'
-    }, {
-        path: 'assignedTo',
-        select: 'email username'
-    }];
+    // if the opts
+    if (typeof opts === 'function') {
+        callback = opts;
+
+        opts = [{
+            path: 'assignedBy',
+            select: 'email username'
+        }, {
+            path: 'assignedTo',
+            select: 'email username'
+        }];
+    };
 
     // loop over each task and populate
-    async.forEach(annotations, function (annotation, cb) {
+    async.forEach(array, function (item, cb) {
 
-        Task.populate(annotation.task, opts, function (err, data){
+        Task.populate(item.task, opts, function (err, data){
 
             if(err) return cb(err);
 
@@ -35,7 +40,7 @@ module.exports.populateTasks =  function (annotations, callback) {
             return callback(err);
         }
 
-        callback(null);
+        callback(null, array);
 
     });
 
