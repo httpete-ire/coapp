@@ -38,11 +38,16 @@
 
 
                         <div class="col-md-4 filterBoxes pull-right">
+                           
 
-                            <label ng-repeat="check in AnnotateCtrl.filterOptions">
-                                <input type="checkbox" ng-model="check.include" name="text" value="text"  />
+                           <label ng-repeat="check in AnnotateCtrl.filterOptions track by $index">
+                                <input type="checkbox" ng-model="check.on" name="text" value="text"  />
                                 <span class="label-text" ng-class="[check.klass]" >{{check.name}}</span>
                             </label>
+
+                           
+
+                            
 
                             <i class="fa fa-times" ng-click="AnnotateCtrl.toggle()" ng-show="AnnotateCtrl.openHead"></i>
                             <i class="fa fa-bars" ng-click="AnnotateCtrl.toggle()" ng-show="!(AnnotateCtrl.openHead)"></i>
@@ -61,11 +66,11 @@
                 <img ng-src="{{ AnnotateCtrl.design.img.full }}" ng-click="AnnotateCtrl.annotate($event)" class="design-img">
                  <ul>
 
-                  <!-- ng-repeat="mark in AnnotateCtrl.design.annotations track by $index | filter:AnnotateCtrl.typeFilter(mark)"
-                   -->
+                  
                     <li
-                    ng-repeat="mark in AnnotateCtrl.design.annotations track by $index | filter:{include:true}"
+                    ng-repeat="mark in AnnotateCtrl.design.annotations | filter:AnnotateCtrl.filterByCategory"
                     class="annotation"
+                    ng-show="AnnotateCtrl.filterOptions[0].on && (mark.type === 'type-text') || AnnotateCtrl.filterOptions[1].on && (mark.type === 'type-image') || AnnotateCtrl.filterOptions[2].on && (mark.type === 'type-color') || AnnotateCtrl.filterOptions[3].on && (mark.type === 'type-layout')"
                     ng-style="{'top':mark.circle.y - 15 + 'px', 'left': mark.circle.x - 15 + 'px'}"
                     ng-class="{
                         'is-open': AnnotateCtrl.openComment &&
@@ -77,13 +82,13 @@
                     open-comment="{{AnnotateCtrl.commentOpen()}}"
                     draggable
                     >
-
+        
                         <a class="annotation--mark draggable"   ng-dblclick="AnnotateCtrl.toggleComments($index)"
                         ng-class="{
                             'animated infinite pulse' : mark.priority == true,
                             '{{mark.type}}' : true
                         }">{{$index + 1}}</a>
-
+                       
                             <div
                                 class="annotation--details"
                                 ng-class="AnnotateCtrl.checkCoords(mark.circle.x, 500) ? 'annotation--details-left' : 'annotation--details-right'"
@@ -246,7 +251,6 @@
                         </div> <!-- /annotation--details -->
                     </li>
                 </ul>
-                <h1>{{AnnotateCtrl.height}}</h1>
             </div> <!-- design-img -->
         </div><!-- End row -->
     </div><!-- End Page Content -->

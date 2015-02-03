@@ -9,7 +9,7 @@
         var opts = [
             {
                 name : "text",
-                on : false,
+                on : true,
                 klass : "text-type",
                 type : 'type-text'
             },{
@@ -52,8 +52,8 @@
 
         _this.radioColor = 'type-text';
 
-        _this.filterOptions = FilterOpts;
 
+        _this.filterOptions = FilterOpts;
         /*
          *
          */
@@ -179,6 +179,7 @@
 
         _this.getDesign();
 
+         
     }
 
     AnnotateCtrl.$inject = ['AnnotateFactory', 'focus', '$routeParams', 'AuthenticationFactory', 'SingProjFactory', 'FilterOpts'];
