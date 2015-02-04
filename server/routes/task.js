@@ -9,8 +9,7 @@ module.exports =  function(app, router) {
 
     // read tasks from a design
     router
-    .route('/designs/:designid/tasks')
-    .put();
+    .route('/designs/:designid/tasks');
 
 
 

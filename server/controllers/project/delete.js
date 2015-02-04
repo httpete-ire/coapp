@@ -77,4 +77,7 @@ module.exports =  function removeProject(req, res, next) {
             );
         });
 
+
+    // update to remove all tasks belonging to that project
+
 };

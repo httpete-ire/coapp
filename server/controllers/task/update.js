@@ -29,12 +29,6 @@ module.exports =  function updateTask (req, res, next) {
             rules: ['required']
         });
 
-        validator.addRule({
-            field: 'isComplete',
-            value: req.body.isComplete,
-            rules: ['required']
-        });
-
         // validate data
         if (!validator.validate()) {
             return cb({
@@ -69,12 +63,16 @@ module.exports =  function updateTask (req, res, next) {
     }, function (task, cb) { // update values
 
         task.action = req.body.action;
+
+        console.log(req.body.isComplete);
         task.isComplete = req.body.isComplete;
 
         task.save(function (err) {
             if (err) {
                 return cb(err);
             }
+
+            console.log(task);
 
             cb(null, task);
         });

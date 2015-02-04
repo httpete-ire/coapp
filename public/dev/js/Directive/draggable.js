@@ -15,9 +15,9 @@
         // image div
         var imgDiv = angular.element( document.querySelector( '#annotation-img'))[0];
 
-        console.log(imgDiv.offsetHeight);
-
         var imgDivRect = imgDiv.getBoundingClientRect();
+
+        console.log('height is: ', imgDivRect.height);
 
         var markOffset = {
             x: 15,
@@ -28,7 +28,8 @@
             x: imgDivRect.left + markOffset.x,
             y: imgDivRect.top + markOffset.y,
             width: imgDivRect.width,
-            height: imgDivRect.height
+            height: imgDiv.offsetHeight,
+            left: imgDivRect.left
         };
 
         // when the page renders it reads the incorrect left position
@@ -37,6 +38,7 @@
         $timeout(function(){
             coords.x = imgDiv.getBoundingClientRect().left + markOffset.x;
             coords.y = imgDiv.getBoundingClientRect().top + markOffset.y;
+            coords.height = imgDiv.offsetHeight;
         }, 0);
 
         // an object of the coords of the img container
@@ -83,9 +85,11 @@
 
                 y = (e.pageY - containerCoords.y);
 
+                var pageWidth = (containerCoords.width + containerCoords.x - containerCoords.x);
+
                 // if the mark goes out of the image
                 // return it to its start location
-                if(x < 0 || (x > (containerCoords.width + containerCoords.x))|| y < 0) {
+                if(x < 0 || (x > pageWidth)|| (y < 0)) {
                     setPos(startX, startY);
                     outOfBOunds = true;
                     return;

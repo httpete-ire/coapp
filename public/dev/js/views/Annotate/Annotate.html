@@ -28,26 +28,17 @@
 
                     </div>
                     <div class="row headBotRow">
-                        <!-- <div class="col-xs-1">
-                            <a href="#/projects/{{AnnotateCtrl.design.project._id}}"><i class="fa fa-arrow-left"></i></a>
-                        </div> -->
-                        <div class="col-xs-5">
+                        <div class="col-md-5">
                             <h3 class="pNameFloat">{{AnnotateCtrl.design.project.name}}</h3>
                             <h4>{{AnnotateCtrl.design.name}}</h4>
                         </div>
 
-
                         <div class="col-md-4 filterBoxes pull-right">
-                           
 
                            <label ng-repeat="check in AnnotateCtrl.filterOptions track by $index">
                                 <input type="checkbox" ng-model="check.on" name="text" value="text"  />
                                 <span class="label-text" ng-class="[check.klass]" >{{check.name}}</span>
                             </label>
-
-                           
-
-                            
 
                             <i class="fa fa-times" ng-click="AnnotateCtrl.toggle()" ng-show="AnnotateCtrl.openHead"></i>
                             <i class="fa fa-bars" ng-click="AnnotateCtrl.toggle()" ng-show="!(AnnotateCtrl.openHead)"></i>
@@ -61,16 +52,14 @@
     <div id="content-wrapper">
         <div class="page-content contentAnno">
 
-
             <div class="design-img-container" id="annotation-img">
                 <img ng-src="{{ AnnotateCtrl.design.img.full }}" ng-click="AnnotateCtrl.annotate($event)" class="design-img">
                  <ul>
 
-                  
                     <li
                     ng-repeat="mark in AnnotateCtrl.design.annotations | filter:AnnotateCtrl.filterByCategory"
                     class="annotation"
-                    ng-show="AnnotateCtrl.filterOptions[0].on && (mark.type === 'type-text') || AnnotateCtrl.filterOptions[1].on && (mark.type === 'type-image') || AnnotateCtrl.filterOptions[2].on && (mark.type === 'type-color') || AnnotateCtrl.filterOptions[3].on && (mark.type === 'type-layout')"
+                    ng-show="AnnotateCtrl.filterOptions[0].on && (mark.type === 'type-text') || AnnotateCtrl.filterOptions[1].on && (mark.type === 'type-image') || AnnotateCtrl.filterOptions[2].on && (mark.type === 'type-color') || AnnotateCtrl.filterOptions[3].on && (mark.type === 'type-layout') || AnnotateCtrl.filterOptions[4].on && (mark.type === 'type-general')"
                     ng-style="{'top':mark.circle.y - 15 + 'px', 'left': mark.circle.x - 15 + 'px'}"
                     ng-class="{
                         'is-open': AnnotateCtrl.openComment &&
@@ -82,13 +71,13 @@
                     open-comment="{{AnnotateCtrl.commentOpen()}}"
                     draggable
                     >
-        
+
                         <a class="annotation--mark draggable"   ng-dblclick="AnnotateCtrl.toggleComments($index)"
                         ng-class="{
                             'animated infinite pulse' : mark.priority == true,
                             '{{mark.type}}' : true
                         }">{{$index + 1}}</a>
-                       
+
                             <div
                                 class="annotation--details"
                                 ng-class="AnnotateCtrl.checkCoords(mark.circle.x, 500) ? 'annotation--details-left' : 'annotation--details-right'"
@@ -142,7 +131,6 @@
 
                                                 <span class="comment--owner">{{comment.owner.username}}</span>
 
-
                                                 <span am-time-ago="comment.created" class="comment--date pull-right fa  fa-clock-o"></span>
 
                                                 <div class="comment--body">
@@ -165,7 +153,7 @@
                                             ng-focus="focus = true"
                                             ng-blur="focus = false"
                                             ng-class="{
-                                                'comment--expand' : focus || (commentForm.reply.$touched && commentForm.reply.$dirty)
+                                                'comment--expand' : focus || (commentForm.reply.$viewValue.length > 0)
                                             }"
                                             placeholder="Enter reply here"
                                             ng-click="alert('adfvad');"
@@ -174,7 +162,7 @@
                                             <input type="hidden" ng-model="AnnotateCtrl.comment.annotation" value="{{mark._id}}">
 
                                             <!-- hide if form is pristine -->
-                                            <button type="submit" class="btn btn-primary btn-block btn-reply" ng-if="focus || (commentForm.reply.$touched && commentForm.reply.$dirty)">Add comment</button>
+                                            <button type="submit" class="btn btn-primary btn-block btn-reply" ng-if="commentForm.reply.$viewValue.length > 0">Add comment</button>
 
                                         </div>
 
@@ -198,24 +186,26 @@
                             <!-- circles -->
                             <!-- close -->
 
-                            <form ng-submit="AnnotateCtrl.addAnnotation(AnnotateCtrl.newAnnotation)" role="form">
+                            <form ng-submit="AnnotateCtrl.addAnnotation(AnnotateCtrl.newAnnotation)" role="form" name="newAnnotation">
 
                                 <div class="annotation--details-header clearfix">
                                     <div class="annotation--details-type">
                                         <p>Type</p>
 
-                                        <div class="annotation--type" ng-repeat="check in AnnotateCtrl.filterOptions">
+                                        <div class="annotation--type-container">
+                                            <div class="annotation--type" ng-repeat="check in AnnotateCtrl.filterOptions">
 
-                                            <input type="radio" id="{{check.name}}Radio" class="hidden--radio" name="radio" ng-model="AnnotateCtrl.radioColor" value="{{check.type}}"><label for="{{check.name}}Radio">
-                                            <span class="radio--{{check.name}}" tooltip="{{check.name}}" tooltip-placement="bottom"></span>
-                                            </label>
+                                                <input type="radio" id="{{check.name}}Radio" class="hidden--radio" name="radio" ng-model="AnnotateCtrl.radioColor" value="{{check.type}}"><label for="{{check.name}}Radio">
+                                                <span class="radio--{{check.name}}" tooltip="{{check.name}}" tooltip-placement="bottom"></span>
+                                                </label>
+                                            </div>
                                         </div>
 
                                     </div>
 
                                     <div class="annotation--details-priority">
                                         <label>
-                                            <p>Priority</p>
+                                            <p class="priority-label">Priority</p>
                                             <input type="checkbox" ng-model="AnnotateCtrl.newAnnotation.priority" ng-checked="AnnotateCtrl.newAnnotation.priority == true" class="priority--input">
                                             <span class="priority--span" ng-class="[check.klass]" >{{check.name}}</span>
                                         </label>
@@ -227,15 +217,23 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="projectDesc">Comment</label>
-                                    <textarea ng-model="AnnotateCtrl.newAnnotation.body" class="form-control project--desc" row="3"></textarea>
+                                    <textarea
+                                    name="annotationBody"
+                                    ng-model="AnnotateCtrl.newAnnotation.body" class="form-control project--desc"
+                                    row="3"
+                                    placeholder="Leave a comment"
+                                    ng-init="commentfocus = false; showBtn = false"
+                                    ng-focus="commentfocus = true; showBtn = true"
+                                    ng-blur="commentfocus = false"
+                                    ng-class="{
+                                        'expand-textarea' : commentfocus || (newAnnotation.annotationBody.$viewValue.length > 0)
+                                    }"></textarea>
                                 </div>
 
                                 <span class="fa fa-plus-square annotation--details-assign" ng-if="!AnnotateCtrl.assignTask" ng-click="AnnotateCtrl.toggleAssign()"> assign as task</span>
 
                                 <div class="annotation--details-collaborators" ng-if="AnnotateCtrl.assignTask">
                                     <div class="form-group">
-                                        <label>Assign to </label> <br />
                                         <select ng-model="AnnotateCtrl.newAnnotation.assignedTo" class="form-control" >
                                             <option value="">Assign to</option>
                                             <option ng-repeat="collaborator in AnnotateCtrl.design.project.collaborators" value="{{collaborator._id}}">{{collaborator.username}}</option>
@@ -243,7 +241,7 @@
                                     </div>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary btn-block">Add annotation</button>
+                                <button type="submit" class="btn btn-primary btn-block annotaion--btn" ng-if="newAnnotation.annotationBody.$viewValue.length > 0">Add annotation</button>
 
                             </form>
                             <!-- form -->

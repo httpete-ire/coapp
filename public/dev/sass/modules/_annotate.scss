@@ -90,9 +90,9 @@ $is-open: #475f74;
         border: 8px solid transparent;
     }
 
-  } // -details
+  }
 
-  // header for annoation
+
     &--details-header {
         margin-bottom: 15px;
         position: relative;
@@ -102,7 +102,6 @@ $is-open: #475f74;
         color: $blue;
         cursor: pointer;
         display: block;
-        margin-bottom: 10px;
 
         &::before {
           margin-right: 10px;
@@ -121,11 +120,28 @@ $is-open: #475f74;
         display: inline-block;
     }
 
+    &--details-type {
+        margin-left: -5px;
+    }
+
     &--details-priority {
         margin-left: 20px;
     }
 
-} // annotation
+}
+
+.annotation--details-type > p {
+    margin-bottom: 3px;
+}
+
+.priority-label {
+    margin-bottom: 3px;
+    cursor: pointer;
+}
+
+.annotaion--btn {
+    margin-top: 15px;
+}
 
 .is-open {
 
@@ -168,6 +184,10 @@ $is-open: #475f74;
     background-color: $layout-color;
 }
 
+.type-general {
+    background-color: #4570FF;
+}
+
 .comment {
     &--owner {
         font-size: 18px;
@@ -204,7 +224,11 @@ $is-open: #475f74;
 
 .annotation--type {
     display: inline-block;
+    margin-right: 4px;
+}
 
+.annotation--type-container {
+    margin-left: -9px;
 }
 
 .radio {
@@ -222,6 +246,10 @@ $is-open: #475f74;
 
     &--color {
         color: $color-color;
+    }
+
+    &--general {
+        color: #4570FF;
     }
 }
 
@@ -320,7 +348,8 @@ $is-open: #475f74;
 }
 
 .priority--span {
-    margin-left: 15px;
+    margin-left: 24px;
+    cursor: pointer;
 }
 
 

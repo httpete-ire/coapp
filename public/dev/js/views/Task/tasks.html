@@ -4,7 +4,7 @@
             <div class="row">
 
                 <div class="app-header">
-                    
+
                     <div class="col-xs-3">
                         <h1>{{taskCtrl.tasks[0].assignedBy.username}} </h1>
                     </div>
@@ -27,41 +27,42 @@
                 </div>
             </div>
 
-            <div class="row">
+            <!-- every project has its own row -->
+                <!-- within that every design has its own col -->
+                    <!-- every task has a list of task objects -->
+
+            <div class="row task--row" ng-repeat="(key, value) in taskCtrl.tasks" data-peoject="{{key}}">
+
+            <h2>{{key}}</h2>
+
                 <ul>
-                     <li class ="col-md-4" ng-repeat="task in taskCtrl.tasks | orderBy: orderProp |filter: Name">
-                        <div class="project--container">
-                            <div class="project--img-container">
-                                <a href="#/design/{{task.design._id}}">
-                                 <img ng-src="{{task.design.img.thumbnail}}" width="100%">
-                                </a>
-                                <div class="project--img-bg"></div>
-                                <div class="project--img-settings">
+                     <li ng-repeat="designObj in value" class="task--col">
 
-                                    <ul class="project--img-icons">
-                                        <li>
-                                            <a href="#/design/{{task.design._id}}"><span class="fa fa-eye"></span></a>
-                                        </li>
-                                        
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="project--details">
+                     <h3>{{designObj.design.name}}</h3>
 
-                                <div class="project--details-container">
-                                    <p>Assigned by: {{task.assignedBy.username}}</p>
-                                    <p>Task description: {{task.action}}</p>
-                                    <p>Created on :{{task.created}}</p>
-                                 </div>
-                            </div>
+                        <div class="project--img-container">
+                            <a href="#/design/{{designObj.design._id}}">
+                                 <img ng-src="{{designObj.design.img.thumbnail}}" width="100%">
+                            </a>
                         </div>
+
+                        <ul class="task--container">
+                            <li ng-repeat="task in designObj.task" class="task--item">
+
+                                <div class="task--checkbox-container">
+                                    <label>
+                                    <input type="checkbox" class="task--checkbox" ng-click="taskCtrl.updateTask(task)" ng-checked="{{task.isComplete}}">
+                                    <span>{{task.action}}</span>
+                                    </label>
+                                </div>
+                            </li>
+                        </ul>
                     </li>
-                </ul>    
-             </div>
+                </ul>
 
-
+            </div>
 
         </div> <!-- img-container -->
     </div> <!-- container -->
 </div><!-- End Page Content -->
-    
+

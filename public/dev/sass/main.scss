@@ -16,16 +16,16 @@
 
 @import './state/_animation';
 
-$image-size: 1300px;
+$image-size: 1200px;
 
 .design-img-container {
     position: relative;
-    max-width: $image-size;
+    width: $image-size;
     margin: 0 auto;
 }
 
 .design-img {
-    min-width: 100%;
+    width: 100%;
     cursor: crosshair;
 }
 
@@ -41,4 +41,8 @@ $image-size: 1300px;
     border-radius: 50%;
     position: absolute;
     display: block;
+}
+
+.popover {
+    color: $text-grey;
 }

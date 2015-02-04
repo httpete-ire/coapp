@@ -1,0 +1,50 @@
+
+.task {
+
+    &--row {
+        white-space: nowrap;
+        overflow-x: auto;
+    }
+
+    &--col {
+        display: inline-block;
+        max-width: 33%;
+        margin-right: 20px;
+    }
+
+    &--container {
+        height: 150px;
+        overflow-y: scroll;
+        background: inherit;
+    }
+
+
+    &--item {
+        padding: 10px 20px;
+        border-bottom: 1px solid $body-bg;
+        background: #fff;
+    }
+
+
+    &--checkbox {
+        display: none;
+
+    }
+
+    &--checkbox + span:before {
+        content: "\f096";
+        font-family: FontAwesome;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: inherit;
+        font-size: 18px;
+        color: $red;
+        margin-right: 10px;
+    }
+
+    &--checkbox:checked + span:before {
+        content: "\f046";
+    }
+}
+
+

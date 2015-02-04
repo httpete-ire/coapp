@@ -27,6 +27,11 @@
                 on : true,
                 klass : "layout-type",
                 type : 'type-layout'
+            }, {
+                name : "general",
+                on : true,
+                klass : "general-type",
+                type : 'type-general'
             }
         ];
 
@@ -83,6 +88,8 @@
             .then(function(data){
                 _this.design = data;
                 _this.getAllDesigns(data.project._id);
+
+                // then call update coords
                 }, function(error){
                 _this.design = {};
             });
@@ -153,6 +160,8 @@
 
         _this.addComment = function (comment, annotation, form) {
 
+            console.log('working');
+
             AnnotateFactory
             .addComment(comment, $routeParams.design_id, annotation._id)
             .then(function(data) {
@@ -179,7 +188,6 @@
 
         _this.getDesign();
 
-         
     }
 
     AnnotateCtrl.$inject = ['AnnotateFactory', 'focus', '$routeParams', 'AuthenticationFactory', 'SingProjFactory', 'FilterOpts'];
