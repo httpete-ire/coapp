@@ -8,6 +8,12 @@
     function filterOptions () {
         var opts = [
             {
+                name : "general",
+                on : true,
+                klass : "general-type",
+                type : 'type-general'
+            },
+            {
                 name : "text",
                 on : true,
                 klass : "text-type",
@@ -27,11 +33,6 @@
                 on : true,
                 klass : "layout-type",
                 type : 'type-layout'
-            }, {
-                name : "general",
-                on : true,
-                klass : "general-type",
-                type : 'type-general'
             }
         ];
 
@@ -55,7 +56,7 @@
 
         _this.openHead = false;
 
-        _this.radioColor = 'type-text';
+        _this.radioColor = 'type-general';
 
 
         _this.filterOptions = FilterOpts;

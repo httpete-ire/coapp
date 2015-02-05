@@ -169,7 +169,7 @@ $is-open: #475f74;
 }
 
 .type-text {
-    background-color: $text-color;
+    background-color: $text-type-color;
 }
 
 .type-image {
@@ -241,7 +241,7 @@ $is-open: #475f74;
     }
 
     &--text {
-        color: $text-color;
+        color: $text-type-color;
     }
 
     &--color {
