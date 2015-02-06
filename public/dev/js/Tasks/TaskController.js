@@ -23,6 +23,8 @@
 
         _this.updateTask = function(task){
 
+            console.log('in the task ctrl');
+
             // toggle the value of task
             task.isComplete = !task.isComplete;
 
@@ -34,7 +36,11 @@
             });
         };
 
-        _this.getTasks();
+        
+
+        
+
+        // _this.getTasks();
     };
 
     TasksController.$inject = ["TaskFactory"];

@@ -40,8 +40,8 @@
                                 <span class="label-text" ng-class="[check.klass]" >{{check.name}}</span>
                             </label>
 
-                            <i class="fa fa-times" ng-click="AnnotateCtrl.toggle()" ng-show="AnnotateCtrl.openHead"></i>
-                            <i class="fa fa-bars" ng-click="AnnotateCtrl.toggle()" ng-show="!(AnnotateCtrl.openHead)"></i>
+                            <i class="fa fa-bars" ng-click="AnnotateCtrl.toggleHeader()" n></i>
+                            
 
                         </div>
 
@@ -95,7 +95,7 @@
                                     <span am-time-ago="mark.created" class="comment--date pull-right fa  fa-clock-o"></span>
 
                                     <div class="comment--body">
-                                        <p>{{mark.body}}</p>
+                                        <p>{{::mark.body}}</p>
                                     </div>
 
                                 </div>
@@ -104,17 +104,43 @@
 
                                     <div class="annotation--task-body">
 
-                                        <!-- hide if task defined -->
-                                        <span ng-if="!mark.task" class="fa fa-plus-square annotation--details-assign" ng-if="!AnnotateCtrl.assignTask"> assign as task</span>
-                                        <!-- no task assigned -->
-
-                                        <div ng-if="mark.task" class="annotation--task-details">
-                                            {{mark.task.action}}
+                                        <div ng-controller="TasksController as taskCtrl" class="task--checkbox-container">
+                                            <label>
+                                            <input type="checkbox" class="task--checkbox" ng-checked="{{mark.task.isComplete}}" ng-click="taskCtrl.updateTask(mark.task)">
+                                            <span>{{mark.task.action}}</span>
+                                            </label>
                                         </div>
+                                    
+                                        <!-- hide if task defined -->
+                                        <span ng-if="!mark.task" class="fa fa-plus-square annotation--details-assign" ng-if="!AnnotateCtrl.assignTask" ng-click="AnnotateCtrl.toggleAssign()"> assign as task</span>
+                                        <!-- no task assigned -->
 
                                     </div>
 
+                                    <div class="annotation--details-collaborators" ng-if="AnnotateCtrl.assignTask" >
+                                        <form name="taskForm" ng-submit="AnnotateCtrl.newTask(mark)">
+                                            <div class="form-group">
+                                                <input type="text" value="Enter Task details" ng-model="mark.body">
+                                            </div>
+                                                <div class="form-group">
+                                                    <select class="form-control" ng-model="AnnotateCtrl.taskAssignedTo">
+                                                    <option value="">Assign to</option>
+                                                    <option ng-repeat="collaborator in AnnotateCtrl.design.project.collaborators" value="{{collaborator._id}}">{{collaborator.username}}</option>
+                                                    </select>
+                                                </div>
 
+                                            <button type="submit" class="btn btn-primary btn-block annotaion--btn">Add task</button>
+                                        </form>
+                                    </div>
+
+                                   <!--  <div class="annotation--details-collaborators" ng-if="AnnotateCtrl.assignTask" >
+                                         <div class="form-group">
+                                            <select ng-model="AnnotateCtrl.newAnnotation.assignedTo" class="form-control" ng-change="AnnotateCtrl.newTask()">
+                                                <option value="">Assign to</option>
+                                                <option ng-repeat="collaborator in AnnotateCtrl.design.project.collaborators" value="{{collaborator._id}}">{{collaborator.username}}</option>
+                                            </select>
+                                        </div>
+                                    </div> -->
 
                                     <!-- task to go here -->
                                     <!-- if no task button to create task -->
