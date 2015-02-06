@@ -28,9 +28,13 @@ var Task = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Design'
     },
-    project: {
-        type: Schema.Types.ObjectId,
-        ref: 'Project'
+    annotation: {
+        type: {
+            type: String
+        },
+        number: {
+            type: Number
+        }
     }
 });
 

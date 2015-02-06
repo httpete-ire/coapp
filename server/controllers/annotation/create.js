@@ -25,8 +25,6 @@ var async = require('async');
  */
 module.exports =  function newAnnotation (req, res, next) {
 
-    console.log(req);
-
     async.waterfall([function(cb) { // validate data
 
         var validator = new Validator();
@@ -88,6 +86,11 @@ module.exports =  function newAnnotation (req, res, next) {
             task.assignedBy = req.user._id;
             task.design = design._id;
 
+            task.annotation = {};
+
+            task.annotation.type = req.body.type;
+            task.annotation.number = (design.annotations.length + 1);
+
             task.save(function (err) {
                 if (err) {
                     return cb(err);
@@ -126,7 +129,8 @@ module.exports =  function newAnnotation (req, res, next) {
                 y: req.body.circle.y
             },
             type: req.body.type,
-            priority: req.body.priority || false
+            priority: req.body.priority || false,
+            number: (design.annotations.length + 1)
         });
 
         design.save(function(err){
@@ -162,10 +166,6 @@ module.exports =  function newAnnotation (req, res, next) {
 
     }, function (design, task, cb) {
 
-        console.log(cb);
-
-
-
         Project
             .findOne({_id: design.project})
             .exec(function(err, project){
@@ -189,7 +189,6 @@ module.exports =  function newAnnotation (req, res, next) {
 
                     cb(null);
                 });
-
 
             });
 

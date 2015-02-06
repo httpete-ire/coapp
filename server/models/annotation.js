@@ -26,10 +26,6 @@ var Annotaion = new Schema({
         },
         y: {
             type: Number
-        },
-        color: {
-            type: String,
-            default: '#8e44ad'
         }
     },
     comments: [{
@@ -51,6 +47,9 @@ var Annotaion = new Schema({
     priority: {
         type: Boolean,
         default: false
+    },
+    number :{
+        type: Number
     }
 });
 

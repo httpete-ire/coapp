@@ -54,8 +54,6 @@ module.exports =  function createTask (req, res, next){
 
     },function (cb) {
 
-        console.log('working');
-
         // get design
         Design
             .findOne({_id: req.params.designid})
@@ -74,6 +72,20 @@ module.exports =  function createTask (req, res, next){
 
     }, function (design, cb) {
 
+        var annotation = design.annotations.id(req.params.annotationid);
+
+        if(!annotation) {
+            return cb({
+                message: 'no annotation found',
+                status: 404
+            });
+        }
+
+        cb(null, design, annotation);
+
+
+    }, function (design, annotation, cb) {
+
         var task = new Task ();
 
         task.action = req.body.action;
@@ -82,15 +94,18 @@ module.exports =  function createTask (req, res, next){
         task.assignedBy = req.user._id;
         task.design = design._id;
 
+        task.annotation.type = annotation.type;
+        task.annotation.number = (design.annotations.length);
+
         task.save(function (err) {
             if (err) {
                 return cb(err);
             }
 
-            cb(null, design, task);
+            cb(null, design, task, annotation);
         });
 
-    },function (design, task, cb) {
+    },function (design, task, annotation, cb) {
         // add to db
         async.parallel([function (callback) {
             // add to user db
@@ -113,15 +128,6 @@ module.exports =  function createTask (req, res, next){
             // add to design and push to annotation
 
             design.tasks.push(task._id);
-
-            var annotation = design.annotations.id(req.params.annotationid);
-
-            if(!annotation) {
-                return callback({
-                    message: 'no annotation found',
-                    status: 404
-                });
-            }
 
             annotation.task = task._id;
 

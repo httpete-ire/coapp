@@ -40,7 +40,7 @@
                             </label>
 
                             <i class="fa fa-bars" ng-click="AnnotateCtrl.toggleHeader()" n></i>
-                            
+
 
                         </div>
 
@@ -76,7 +76,7 @@
                             'animated infinite pulse' : mark.priority == true,
                             '{{mark.type}}' : true
                         }"
-                        >{{$index + 1}}</a>
+                        >{{mark.number}}</a>
 
                             <div
                                 class="annotation--details"
@@ -110,7 +110,7 @@
                                             <span>{{mark.task.action}}</span>
                                             </label>
                                         </div>
-                                    
+
                                         <!-- hide if task defined -->
                                         <span ng-if="!mark.task" class="fa fa-plus-square annotation--details-assign" ng-if="!AnnotateCtrl.assignTask" ng-click="AnnotateCtrl.toggleAssign()"> assign as task</span>
                                         <!-- no task assigned -->
