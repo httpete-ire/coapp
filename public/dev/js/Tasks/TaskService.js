@@ -29,9 +29,7 @@
         };
 
         //update task
-        task.updateTask = function(task){
-
-            console.log(task);
+        task.updateTask = function(task) {
 
             var defer = $q.defer();
 

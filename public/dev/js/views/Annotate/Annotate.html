@@ -15,7 +15,6 @@
                                 <p class="anno-head-img-title">{{des.name}}</p>
                             </div>
 
-
                             <div class="head-design-container" ng-if="!AnnotateCtrl.matchDesignId(des._id)">
                                 <a href="#/design/{{des._id}}">
                                     <img ng-src="{{ des.img.thumbnail }}" class="design-head-img">
@@ -28,12 +27,12 @@
 
                     </div>
                     <div class="row headBotRow">
-                        <div class="col-md-5">
-                            <h3 class="pNameFloat">{{AnnotateCtrl.design.project.name}}</h3>
-                            <h4>{{AnnotateCtrl.design.name}}</h4>
+                        <div class="col-md-5 project--name-header">
+                            <a href="#/projects/{{AnnotateCtrl.design.project._id}}">{{AnnotateCtrl.design.project.name}}</a>
+                            <span> : {{AnnotateCtrl.design.name}}</span>
                         </div>
 
-                        <div class="col-md-4 filterBoxes pull-right">
+                        <div class="col-md-5 filterBoxes pull-right">
 
                            <label ng-repeat="check in AnnotateCtrl.filterOptions track by $index">
                                 <input type="checkbox" ng-model="check.on" name="text" value="text"  />
@@ -59,7 +58,7 @@
                     <li
                     ng-repeat="mark in AnnotateCtrl.design.annotations | filter:AnnotateCtrl.filterByCategory"
                     class="annotation"
-                    ng-show="AnnotateCtrl.filterOptions[0].on && (mark.type === 'type-text') || AnnotateCtrl.filterOptions[1].on && (mark.type === 'type-image') || AnnotateCtrl.filterOptions[2].on && (mark.type === 'type-color') || AnnotateCtrl.filterOptions[3].on && (mark.type === 'type-layout') || AnnotateCtrl.filterOptions[4].on && (mark.type === 'type-general')"
+                    ng-show="AnnotateCtrl.filterOptions[0].on && (mark.type === 'type-general') || AnnotateCtrl.filterOptions[1].on && (mark.type === 'type-text') || AnnotateCtrl.filterOptions[2].on && (mark.type === 'type-image') || AnnotateCtrl.filterOptions[3].on && (mark.type === 'type-color') || AnnotateCtrl.filterOptions[4].on && (mark.type === 'type-layout')"
                     ng-style="{'top':mark.circle.y - 15 + 'px', 'left': mark.circle.x - 15 + 'px'}"
                     ng-class="{
                         'is-open': AnnotateCtrl.openComment &&
@@ -76,7 +75,8 @@
                         ng-class="{
                             'animated infinite pulse' : mark.priority == true,
                             '{{mark.type}}' : true
-                        }">{{$index + 1}}</a>
+                        }"
+                        >{{$index + 1}}</a>
 
                             <div
                                 class="annotation--details"

@@ -11,8 +11,6 @@ module.exports =  function(app, router) {
     router
     .route('/designs/:designid/tasks');
 
-
-
     // specific tasks
     router
     .route('/tasks/:taskid')

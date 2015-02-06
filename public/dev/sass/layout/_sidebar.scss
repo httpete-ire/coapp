@@ -11,10 +11,16 @@ $sidebar-height: 60px;
 .design-page {
   .sidebar-wrapper {
     width: $closed-menu;
+    background: inherit;
   }
 
   .sidebar--list-item {
     width: $closed-menu;
+    display: none;
+  }
+
+  .sidebar--footer {
+    display: none;
   }
 }
 
