@@ -40,7 +40,7 @@
     }
 
     // @ngInject
-    function AnnotateCtrl(AnnotateFactory, focus, $routeParams, AuthenticationFactory, SingProjFactory, FilterOpts){
+    function AnnotateCtrl(AnnotateFactory, focus, $routeParams, AuthenticationFactory, SingProjFactory, FilterOpts, TaskFactory){
 
         _this = this;
 
@@ -53,17 +53,44 @@
         _this.newAnnotation = null;
 
         _this.assignTask = false;
+        
 
         _this.openHead = false;
 
         _this.radioColor = 'type-general';
 
+        _this.taskAssignedTo = null;
+
 
         _this.filterOptions = FilterOpts;
+
+
+        _this.newTask = function(mark){
+
+            var task ={};
+
+            task.designId = $routeParams.design_id;
+            task.annotationId = mark._id;
+            task.action = mark.body;
+
+            console.log(_this.taskAssignedTo);
+
+            task.assignedTo = _this.taskAssignedTo;
+
+            TaskFactory.newTask(task)
+            .then(function(data){
+
+            }, function(error){
+
+            });
+        };
+
+
+
         /*
          *
          */
-        _this.toggle = function () {
+        _this.toggleHeader = function () {
             _this.openHead = !_this.openHead;
         };
 
@@ -191,7 +218,7 @@
 
     }
 
-    AnnotateCtrl.$inject = ['AnnotateFactory', 'focus', '$routeParams', 'AuthenticationFactory', 'SingProjFactory', 'FilterOpts'];
+    AnnotateCtrl.$inject = ['AnnotateFactory', 'focus', '$routeParams', 'AuthenticationFactory', 'SingProjFactory', 'FilterOpts', 'TaskFactory'];
 
     function getMouse(e, targ) {
 

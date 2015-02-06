@@ -10,6 +10,27 @@
         //create task object to add methods to
         var task = {};
 
+
+//http put
+// api/designs/:designid/annotations/:annotationid/tasks/
+  //(anno, task)
+        task.newTask = function(task){
+
+          console.log('in taskFactory');
+
+          var defer = $q.defer();
+
+          $http.post('api/designs/'+ task.designId+'/annotations/'+ task.annotationId+'/tasks', task)
+          .success(function(data){
+            defer.resolve(data);
+          })
+          .error(function(err, status){
+            defer.reject(err);
+          })
+
+          return defer.promise;
+        };
+
         //gets all tasks api/tasks
         task.getTasks = function(){
                 //create the promise object
