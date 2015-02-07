@@ -100,13 +100,7 @@ font-size: 13px
 .project--name-header > .desName{
     cursor: pointer;
 }
-.taskBar > .fa-check-square-o{
-    position: absolute;
-    font-size: 25px;
-    left:-35px;
-    top:4px;
-    color: #232b2d;
-}
+ 
 .taskBar{
     height:100%;
     position: absolute;
@@ -208,9 +202,16 @@ h4{
     padding-bottom:5px;
 }
 
+.fa-check-square-o{
+    position: absolute;
+    font-size: 30px;
+    right:25px;
+    top:-4px;
+    
+}
 .fa-bars, .fa-times{
     position: absolute;
-    right: 40px;
+    right: 60px;
     top: -5px;
     font-size: 30px;
 }

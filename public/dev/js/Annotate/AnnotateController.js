@@ -91,10 +91,13 @@
          * toggle header class to expand header
          */
         _this.toggleHeader = function () {
-            _this.openHead = !_this.openHead;
 
-            if(_this.openSidebar = true){
-                _this.toggleTaskBar();
+            if(_this.openSidebar == true && _this.openHead == false){
+                _this.openHead = true;
+                _this.openSidebar = false;
+            }
+            else{
+                _this.openHead = !_this.openHead;
             }
         };
 
@@ -102,7 +105,14 @@
          * toggle sidebar class to expand taskbar
          */
         _this.toggleTaskBar = function () {
-            _this.openSidebar = !_this.openSidebar;
+
+            if(_this.openHead == true && _this.openSidebar == false){
+                _this.openHead = false
+                _this.openSidebar = true;
+            }
+            else{
+                _this.openSidebar = !_this.openSidebar;
+            }
         };
 
         /**
