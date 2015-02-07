@@ -64,7 +64,6 @@ module.exports =  function updateTask (req, res, next) {
 
         task.action = req.body.action;
 
-        console.log(req.body.isComplete);
         task.isComplete = req.body.isComplete;
 
         task.save(function (err) {
@@ -72,12 +71,11 @@ module.exports =  function updateTask (req, res, next) {
                 return cb(err);
             }
 
-            console.log(task);
-
             cb(null, task);
         });
 
     }, function (task, cb) {
+
         //
         // if task marked as complete
         //

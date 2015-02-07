@@ -35,6 +35,10 @@ var Task = new Schema({
         number: {
             type: Number
         }
+    },
+    project :{
+        type: Schema.Types.ObjectId,
+        ref: 'Project'
     }
 });
 

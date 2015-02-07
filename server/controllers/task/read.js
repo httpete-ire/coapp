@@ -7,6 +7,9 @@ var taskHelper = require('./../../helpers/taskHelper');
 var async = require('async');
 var _ = require('underscore');
 
+// redo tasks
+// read design and users tasks
+
 // database populattion settings
 var populateQuery = {
     'design' : {
