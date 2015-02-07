@@ -48,19 +48,14 @@
         _this.allDesigns = {};
 
         _this.openComment = false;
+
         _this.commentSelected = null;
 
         _this.newAnnotation = null;
 
-        _this.assignTask = false;
-
-
-        _this.openHead = false;
-
         _this.radioColor = 'type-general';
 
         _this.taskAssignedTo = null;
-
 
         _this.filterOptions = FilterOpts;
 

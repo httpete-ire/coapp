@@ -1,4 +1,4 @@
- <div class="row fix">
+ <div class="row fix" ng-init="openHead = false;">
                 <!-- <div class="app-header" ng-style="style"> -->
                 <!-- <div  ng-class="{'app-headerFull2' : openHead}" ng-style="style"> -->
                 <div  class="app-header2" ng-class="{true:'app-headerFull2', false:'app-header2' }[AnnotateCtrl.openHead]" ng-style="style">
@@ -69,6 +69,7 @@
                     owner="{{mark.owner._id}}"
                     open-comment="{{AnnotateCtrl.commentOpen()}}"
                     draggable
+                    ng-init="assignTask = truel"
                     >
 
                         <a class="annotation--mark draggable"   ng-dblclick="AnnotateCtrl.toggleComments($index)"
@@ -82,16 +83,14 @@
                                 class="annotation--details"
                                 ng-class="AnnotateCtrl.checkCoords(mark.circle.x, 500) ? 'annotation--details-left' : 'annotation--details-right'"
                             >
-                                <div class="annotation--details-header clearfix">
-                                    <!-- close popup -->
-                                    <span class="fa fa-close pull-right" ng-click="AnnotateCtrl.toggleComments($index)"></span>
-                                </div>
 
                                 <div class="annotation--details-body clearfix">
 
+                                    <span class="fa fa-close pull-right" ng-click="AnnotateCtrl.toggleComments($index)"></span>
+
                                     <span class="comment--owner">{{mark.owner.username}}</span>
 
-                                    <span am-time-ago="mark.created" class="comment--date pull-right fa  fa-clock-o"></span>
+                                    <span am-time-ago="mark.created" class="comment--date fa  fa-clock-o"></span>
 
                                     <div class="comment--body">
                                         <p>{{::mark.body}}</p>
@@ -113,7 +112,8 @@
                                         <!-- hide if task defined -->
                                         <span
                                         class="fa fa-plus-square annotation--details-assign"
-                                        ng-if="!AnnotateCtrl.assignTask && !mark.task && AnnotateCtrl.isOwner(AnnotateCtrl.design.project.owner)"
+                                        ng-if="
+                                        !AnnotateCtrl.assignTask && !mark.task && AnnotateCtrl.isOwner(AnnotateCtrl.design.project.owner)"
                                         ng-click="AnnotateCtrl.toggleAssign()"> assign as task</span>
 
                                         <!-- show if no task has been assigned and not the project owner -->
@@ -133,7 +133,7 @@
                                                     class="form-control"
                                                     ng-model="AnnotateCtrl.taskAssignedTo"
                                                     class="form-control"
-                                                    ng-init="AnnotateCtrl.taskAssignedTo=null " >
+                                                    ng-init="AnnotateCtrl.taskAssignedTo = null " >
                                                         <option value="null">Assign to</option>
                                                         <option ng-repeat="collaborator in AnnotateCtrl.design.project.collaborators" value="{{collaborator._id}}">{{collaborator.username}}</option>
                                                     </select>
