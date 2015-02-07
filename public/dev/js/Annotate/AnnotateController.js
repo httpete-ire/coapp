@@ -53,7 +53,7 @@
         _this.newAnnotation = null;
 
         _this.assignTask = false;
-        
+
 
         _this.openHead = false;
 
@@ -69,23 +69,21 @@
 
             var task ={};
 
+            // bind values to task objects
             task.designId = $routeParams.design_id;
             task.annotationId = mark._id;
             task.action = mark.body;
-
-            console.log(_this.taskAssignedTo);
-
             task.assignedTo = _this.taskAssignedTo;
 
+            // create tasks and reload page
             TaskFactory.newTask(task)
-            .then(function(data){
+                .then(function(data){
+                    _this.getDesign();
+                    _this.assignTask = false;
+                }, function(error){
 
-            }, function(error){
-
-            });
+                });
         };
-
-
 
         /*
          *
@@ -102,12 +100,12 @@
          */
         _this.getAllDesigns = function (id) {
             SingProjFactory
-            .getProject(id)
-            .then(function(data){
-                _this.allDesigns = data;
-            }, function(error){
-                _this.allDesigns = {};
-            });
+                .getProject(id)
+                .then(function(data){
+                    _this.allDesigns = data;
+                }, function(error){
+                    _this.allDesigns = {};
+                });
         };
 
         _this.getDesign = function(){
@@ -173,7 +171,7 @@
                     _this.assignTask = false;
 
                     // reset to default color
-                    _this.radioColor = 'type-text';
+                    _this.radioColor = 'type-general';
                 });
         }
 
@@ -213,6 +211,8 @@
         _this.matchDesignId = function (id) {
             return id === $routeParams.design_id;
         };
+
+        _this.isOwner = AuthenticationFactory.isOwner;
 
         _this.getDesign();
 

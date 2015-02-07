@@ -11,7 +11,7 @@
 
         var Path = '/api/designs/';
 
-        
+
 
 
         SingDesign.getDesign = function(design_id){
