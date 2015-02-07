@@ -53,6 +53,12 @@
 
         _this.newAnnotation = null;
 
+        _this.assignTask = false;
+
+
+        _this.openHead = false;
+        _this.openSidebar = false;
+
         _this.radioColor = 'type-general';
 
         _this.taskAssignedTo = null;
@@ -81,10 +87,31 @@
         };
 
         /*
-         *
+         * toggle header class to expand header
          */
         _this.toggleHeader = function () {
-            _this.openHead = !_this.openHead;
+
+            if(_this.openSidebar == true && _this.openHead == false){
+                _this.openHead = true;
+                _this.openSidebar = false;
+            }
+            else{
+                _this.openHead = !_this.openHead;
+            }
+        };
+
+        /*
+         * toggle sidebar class to expand taskbar
+         */
+        _this.toggleTaskBar = function () {
+
+            if(_this.openHead == true && _this.openSidebar == false){
+                _this.openHead = false
+                _this.openSidebar = true;
+            }
+            else{
+                _this.openSidebar = !_this.openSidebar;
+            }
         };
 
         /**
@@ -94,13 +121,17 @@
          * @return {[type]}    [description]
          */
         _this.getAllDesigns = function (id) {
+            var opts = {
+                fields: '?fields=designs,name'
+            };
+
             SingProjFactory
-                .getProject(id)
-                .then(function(data){
-                    _this.allDesigns = data;
-                }, function(error){
-                    _this.allDesigns = {};
-                });
+            .getProject(id, opts.fields)
+            .then(function(data){
+                _this.allDesigns = data;
+            }, function(error){
+                _this.allDesigns = {};
+            });
         };
 
         _this.getDesign = function(){

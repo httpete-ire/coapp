@@ -1,56 +1,16 @@
- <div class="row fix" ng-init="openHead = false;">
-                <!-- <div class="app-header" ng-style="style"> -->
-                <!-- <div  ng-class="{'app-headerFull2' : openHead}" ng-style="style"> -->
-                <div  class="app-header2" ng-class="{true:'app-headerFull2', false:'app-header2' }[AnnotateCtrl.openHead]" ng-style="style">
-                     <div class="row headTopRow">
-                     <ul>
-
-                        <li class="head-design-col" ng-repeat="des in AnnotateCtrl.allDesigns.designs">
-
-                            <!-- active-design -->
-                            <div class="head-design-container" ng-if="AnnotateCtrl.matchDesignId(des._id)">
-
-                                <img ng-src="{{ des.img.thumbnail }}" class="design-head-img active-design">
-
-                                <p class="anno-head-img-title">{{des.name}}</p>
-                            </div>
-
-                            <div class="head-design-container" ng-if="!AnnotateCtrl.matchDesignId(des._id)">
-                                <a href="#/design/{{des._id}}">
-                                    <img ng-src="{{ des.img.thumbnail }}" class="design-head-img">
-                                </a>
-                                <a href="#/design/{{des._id}}" class="anno-head-img-title">{{des.name}}</a>
-                            </div>
-
-                        </li>
-                     </ul>
-
-                    </div>
-                    <div class="row headBotRow">
-                        <div class="col-md-5 project--name-header">
-                            <a href="#/projects/{{AnnotateCtrl.design.project._id}}">{{AnnotateCtrl.design.project.name}}</a>
-                            <span> : {{AnnotateCtrl.design.name}}</span>
-                        </div>
-
-                        <div class="col-md-5 filterBoxes pull-right">
-
-                           <label ng-repeat="check in AnnotateCtrl.filterOptions track by $index">
-                                <input type="checkbox" ng-model="check.on" name="text" value="text"  />
-                                <span class="label-text" ng-class="[check.klass]" >{{check.name}}</span>
-                            </label>
-
-                            <i class="fa fa-bars" ng-click="AnnotateCtrl.toggleHeader()" n></i>
+<!-- Main header -->
+<div ng-include src="'dev/js/views/Annotate/AnnotateHeader.html'"></div>
 
 
-                        </div>
+            <!-- task sidebar -->
+<div  class="task-sidebar-closed taskBar" ng-class="{true:'task-sidebar-open', false:'task-sidebar-closed' }[AnnotateCtrl.openSidebar]" ng-style="style">
+                <!-- <i class="fa fa-check-square-o" ng-click="AnnotateCtrl.toggleTaskBar()" ></i> -->
+</div>
 
-                    </div>
-                </div> <!-- header -->
-            </div>
 <div class="container-fluid">
     <div id="content-wrapper">
         <div class="page-content contentAnno">
-
+        <p>double click on mark to open : click and drag on mark to replace</p>
             <div class="design-img-container" id="annotation-img">
                 <img ng-src="{{ AnnotateCtrl.design.img.full }}" ng-click="AnnotateCtrl.annotate($event)" class="design-img">
                  <ul>

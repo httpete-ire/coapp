@@ -13,11 +13,13 @@
             fields: '?fields=designs,name,owner,recentActivities,desc,updated,collaborators'
         };
 
-        SingProj.getProject = function(projectid){
+        SingProj.getProject = function(projectid, opts){
+
+            var fields = opts || paths.fields;
 
             var defer = $q.defer();
 
-            $http.get(paths.api + projectid + paths.fields)
+            $http.get(paths.api + projectid + fields)
                 //calback if succesfull or an error
                 .success(function(data){
                         defer.resolve(data);
