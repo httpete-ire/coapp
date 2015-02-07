@@ -29,7 +29,7 @@
                     <div class="row headBotRow">
                         <div class="col-md-5 project--name-header">
                             <a href="#/projects/{{AnnotateCtrl.design.project._id}}">{{AnnotateCtrl.design.project.name}}</a>
-                            <span> : {{AnnotateCtrl.design.name}}</span>
+                            <span class="desName" ng-click="AnnotateCtrl.toggleHeader()"> : {{AnnotateCtrl.design.name}}</span>
                         </div>
 
                         <div class="col-md-5 filterBoxes pull-right">
@@ -39,7 +39,7 @@
                                 <span class="label-text" ng-class="[check.klass]" >{{check.name}}</span>
                             </label>
 
-                            <i class="fa fa-bars" ng-click="AnnotateCtrl.toggleHeader()" n></i>
+                            <i class="fa fa-bars" ng-click="AnnotateCtrl.toggleHeader()" ></i>
                             
 
                         </div>
@@ -47,10 +47,18 @@
                     </div>
                 </div> <!-- header -->
             </div>
+
+            <!-- task sidebar -->
+            <div  class="task-sidebar-closed taskBar" ng-class="{true:'task-sidebar-open', false:'task-sidebar-closed' }[AnnotateCtrl.openSidebar]" ng-style="style">
+                <i class="fa fa-check-square-o" ng-click="AnnotateCtrl.toggleTaskBar()" ></i>
+            </div>
+
+
+
 <div class="container-fluid">
     <div id="content-wrapper">
         <div class="page-content contentAnno">
-
+        <p>double click on mark to open : click and drag on mark to replace</p>
             <div class="design-img-container" id="annotation-img">
                 <img ng-src="{{ AnnotateCtrl.design.img.full }}" ng-click="AnnotateCtrl.annotate($event)" class="design-img">
                  <ul>

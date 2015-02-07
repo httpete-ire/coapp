@@ -56,7 +56,7 @@
         
 
         _this.openHead = false;
-
+        _this.openSidebar = false;
         _this.radioColor = 'type-general';
 
         _this.taskAssignedTo = null;
@@ -88,10 +88,21 @@
 
 
         /*
-         *
+         * toggle header class to expand header
          */
         _this.toggleHeader = function () {
             _this.openHead = !_this.openHead;
+
+            if(_this.openSidebar = true){
+                _this.toggleTaskBar();
+            }
+        };
+
+        /*
+         * toggle sidebar class to expand taskbar
+         */
+        _this.toggleTaskBar = function () {
+            _this.openSidebar = !_this.openSidebar;
         };
 
         /**
@@ -101,8 +112,12 @@
          * @return {[type]}    [description]
          */
         _this.getAllDesigns = function (id) {
+            var opts = {
+                fields: '?fields=designs,name'
+            };
+
             SingProjFactory
-            .getProject(id)
+            .getProject(id, opts.fields)
             .then(function(data){
                 _this.allDesigns = data;
             }, function(error){
