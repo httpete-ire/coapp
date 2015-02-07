@@ -1,4 +1,5 @@
 var Validator = require('./../../helpers/validator.js');
+var dbHelper = require('./../../helpers/dbHelper.js');
 var Design = require('./../../models/design');
 var Task = require('./../../models/task');
 var User = require('./../../models/user');
@@ -137,6 +138,15 @@ module.exports =  function createTask (req, res, next){
                 return callback(null);
             });
 
+        }, function (callback) {
+
+            var activity = {
+                activityType: 'new task',
+                completedBy: req.user._id,
+                design: task.design
+            };
+
+            dbHelper.createActivity(task.project, activity, cb);
         }], function (err) { // handle parallel callback
             if(err) return cb(err);
 

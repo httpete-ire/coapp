@@ -10,5 +10,6 @@ module.exports =  {
         tmpDir: './../../public/media/tmp',
         size: 2000000, // 2mb
         types: ['.jpg', '.jpeg', '.png']
-    }
+    },
+    maxActivites: 4
 };

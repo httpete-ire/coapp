@@ -4,6 +4,8 @@ var User = require('./../../models/user');
 var Project = require('./../../models/project');
 
 var Validator = require('./../../helpers/validator.js');
+var dbHelper = require('./../../helpers/dbHelper.js');
+
 
 var async = require('async');
 
@@ -166,31 +168,14 @@ module.exports =  function newAnnotation (req, res, next) {
 
     }, function (design, task, cb) {
 
-        Project
-            .findOne({_id: design.project})
-            .exec(function(err, project){
-                if (err) {
-                    return cb(err);
-                }
+        var activity = {
+            activityType: (!task) ? 'new annotation' : 'new task',
+            completedBy: req.user._id,
+            design: design._id
+        };
 
-                var activity = {};
-
-                activity.activityType = (!task) ? 'new annotation' : 'new task';
-
-                activity.completedBy = req.user._id;
-                activity.design = design._id;
-
-                project.recentActivities.push(activity);
-
-                project.save(function(err) {
-                    if(err) {
-                        return cb(err);
-                    }
-
-                    cb(null);
-                });
-
-            });
+        // add the new activity to the project
+        dbHelper.createActivity(design.project, activity, cb);
 
     }], function (err) {
         if (err) {

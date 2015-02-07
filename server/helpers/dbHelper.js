@@ -1,4 +1,8 @@
 var Task = require('./../models/task');
+var Project = require('./../models/project');
+
+var config = require('./../config');
+
 
 var _ = require('underscore');
 var async = require('async');
@@ -17,7 +21,6 @@ module.exports.popullateOpts =  function  (fields, config) {
     // if nothing passed to
     // function pass back an array so the app doesnt crash
     if (!fields || !config || !_.isArray(config)) {
-        console.log('broken')
         return [];
     }
     // // options for population query
@@ -40,4 +43,48 @@ module.exports.popullateOpts =  function  (fields, config) {
     });
 
     return popOpts;
+};
+
+
+/**
+ * create an activity in the activity list of a project
+ *
+ * @return {[type]} [description]
+ */
+module.exports.createActivity =  function (id, activity, callback) {
+
+    // find project
+    // ensure there are no more then four activites
+    // and add activity
+    Project
+    .findOne({_id: id})
+    .exec(function (err, project) {
+        if(err) {
+            return callback(err);
+        }
+
+        if(!project) {
+            return callback({
+                message: 'no project found',
+                status: 404
+            });
+        }
+
+        // add to recent activites of project
+        project.recentActivities.push(activity);
+
+        // remove the oldest activity
+        if (project.recentActivities.length === config.maxActivites) {
+            project.recentActivities.shift();
+        }
+
+        project.save(function(err) {
+            if(err) {
+                return callback(err);
+            }
+
+            callback(null);
+        });
+
+    });
 };

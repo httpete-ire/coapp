@@ -1,6 +1,7 @@
 var Task = require('./../../models/task');
 var Project = require('./../../models/project');
 var Validator = require('./../../helpers/validator.js');
+var dbHelper = require('./../../helpers/dbHelper.js');
 
 var async = require('async');
 
@@ -80,29 +81,15 @@ module.exports =  function updateTask (req, res, next) {
         // if task marked as complete
         //
         if (task.isComplete) {
-            // find the project it belongs too
-            // and add as activity
-            Project
-            .findOne({_id: task.project})
-            .exec(function (err, project) {
 
-                var activity = {
-                    activityType: 'task complete',
-                    completedBy: req.user._id,
-                    design: task.design
-                };
+            var activity = {
+                activityType: 'task complete',
+                completedBy: req.user._id,
+                design: task.design
+            };
 
-                project.recentActivities.push(activity);
+            dbHelper.createActivity(task.project, activity, cb);
 
-                 project.save(function(err) {
-                    if(err) {
-                        return cb(err);
-                    }
-
-                    cb(null);
-                });
-
-            });
         } else {
             cb(null);
         }
