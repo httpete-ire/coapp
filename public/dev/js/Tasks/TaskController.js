@@ -8,22 +8,37 @@
         //set this, to avoid scope
         var _this = this;
 
-        //creat an empty object which will hold our data about tasks
-        _this.tasks = {};
+
+        _this.ownerTasks = [];
+
+        _this.usersTasks = [];
 
         //get tasks function calls the getTasks function from the factory
+        /**
+         * fetch the tasks from the db
+         * @return {[type]} [description]
+         */
         _this.getTasks = function(){
+            console.log('before call');
             TaskFactory.getTasks()
-            .then(function(data){
-                _this.tasks = data;
-            }, function(error){
-                _this.tasks = {};
-            })
+                .then(function(data){
+
+                    if(data.length === 1) {
+                        _this.ownerTasks = data;
+                    } else {
+                        _this.usersTasks = data;
+                    }
+
+                    console.log(_this.ownerTasks);
+
+                    console.log(_this.usersTasks);
+
+                }, function(error){
+                    _this.tasks = {};
+                });
         };
 
         _this.updateTask = function(task){
-
-            console.log('in the task ctrl');
 
             // toggle the value of task
             task.isComplete = !task.isComplete;
@@ -36,11 +51,7 @@
             });
         };
 
-        
-
-        
-
-        // _this.getTasks();
+        _this.getTasks();
     };
 
     TasksController.$inject = ["TaskFactory"];

@@ -72,6 +72,8 @@ module.exports =  function readTasks (req, res, next) {
  */
 function ownerTasks (design, callback) {
 
+    console.log('owner tasks');
+
     var taskQuery = {
         _id: {
             $in : design.tasks
@@ -94,6 +96,9 @@ function ownerTasks (design, callback) {
  * @param  {Function}   callback
  */
 function userTasks (design, userid,  callback) {
+
+    console.log('user tasks');
+
 
     var query = {
         user: generateQuery(design, {assignedTo: userid}),

@@ -10,46 +10,56 @@
         //create task object to add methods to
         var task = {};
 
-
-//http put
-// api/designs/:designid/annotations/:annotationid/tasks/
-  //(anno, task)
+        /**
+         * create a new task in the DB
+         *
+         * @param  {Object} task
+         * @return {Promise}
+         */
         task.newTask = function(task){
 
-          console.log('in taskFactory');
+            var defer = $q.defer();
 
-          var defer = $q.defer();
+            var path = 'api/designs/'+ task.designId+'/annotations/'+ task.annotationId+'/tasks';
 
-          $http.post('api/designs/'+ task.designId+'/annotations/'+ task.annotationId+'/tasks', task)
-          .success(function(data){
-            defer.resolve(data);
-          })
-          .error(function(err, status){
-            defer.reject(err);
-          })
+            $http.post(path, task)
+                .success(function(data){
+                    defer.resolve(data);
+                })
+                .error(function(err, status){
+                    defer.reject(err);
+                });
 
-          return defer.promise;
+            return defer.promise;
         };
 
-        //gets all tasks api/tasks
+        /**
+         * get a list of tasks related to the design and user
+         *
+         * @return {Promise}
+         */
         task.getTasks = function(){
-                //create the promise object
+
               var defer = $q.defer();
 
-              $http.get('api/tasks')
-              //if successful
-              .success(function(data){
-                defer.resolve(data);
-              })
-              //if there is an error
-              .error(function(err, status){
-                defer.reject(err);
-              })
-              return defer.promise;
+              var path = 'api/designs/' + '54d75b92ed4feffb37ae69e7' + '/tasks';
 
+              $http.get(path)
+                .success(function(data){
+                    defer.resolve(data);
+                })
+                .error(function(err, status){
+                    defer.reject(err);
+                });
+
+              return defer.promise;
         };
 
-        //update task
+        /**
+         * update the task in the DB
+         * @param  {Object} task
+         * @return {Promise}
+         */
         task.updateTask = function(task) {
 
             var defer = $q.defer();
@@ -64,9 +74,9 @@
             return defer.promise;
         }
 
-        //return the task object with methods that can be called from the controller
+        // return the task object with methods
+        // that can be called from the controller
         return task;
-
     };
 
     TaskFactory.$inject=['$http', '$q'];
