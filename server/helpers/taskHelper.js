@@ -2,6 +2,14 @@ var Task = require('./../models/task');
 
 var async = require('async');
 
+var populationQuery = [{
+    path: 'assignedBy',
+    select: 'email username'
+}, {
+    path: 'assignedTo',
+    select: 'email username'
+}];
+
 /**
  * loop over array of annotations and
  * populate the task object
@@ -42,6 +50,24 @@ module.exports.populateTasks =  function (array, opts, callback) {
 
         callback(null, array);
 
+    });
+
+};
+
+/**
+ * return tasks based on the where statement
+ * @param  {object}   where    :: query statement
+ * @param  {Function} callback
+ * @return callback function
+ */
+module.exports.getTasks =  function (where, callback) {
+
+    Task
+    .find(where)
+    .populate(populationQuery)
+    .select('-design -project')
+    .exec(function (err, tasks) {
+         return callback(null, tasks);
     });
 
 };

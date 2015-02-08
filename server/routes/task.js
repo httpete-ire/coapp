@@ -9,7 +9,8 @@ module.exports =  function(app, router) {
 
     // read tasks from a design
     router
-    .route('/designs/:designid/tasks');
+    .route('/designs/:designid/tasks')
+    .get(taskCtrl.read);;
 
     // specific tasks
     router
@@ -17,10 +18,5 @@ module.exports =  function(app, router) {
     .put(taskCtrl.update);
 
     // .delete(taskCtrl.delete);
-
-    // find user tasks
-    router
-    .route('/tasks')
-    .get(taskCtrl.read);
 
 };

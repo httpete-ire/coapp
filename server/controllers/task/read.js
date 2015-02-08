@@ -1,4 +1,3 @@
-var User = require('./../../models/user');
 var Task = require('./../../models/task');
 var Design = require('./../../models/design');
 var Project = require('./../../models/project');
@@ -7,45 +6,8 @@ var taskHelper = require('./../../helpers/taskHelper');
 var async = require('async');
 var _ = require('underscore');
 
-// redo tasks
-// read design and users tasks
-
-// database populattion settings
-var populateQuery = {
-    'design' : {
-        path: 'design',
-        select: 'name img.thumbnail project'
-    },
-    'project' : {
-        path: 'design.project',
-        select: 'name'
-    }
-};
-
 /**
- * database query to group tasks by designs
- * @type {Object}
- */
-var designGroup = {
-    $group : {
-        _id : '$design',
-        design : {
-            $first: '$design'
-        },
-        task: {
-            $push: {
-                _id: '$_id',
-                action: '$action',
-                isComplete: '$isComplete',
-                assignedTo: '$assignedTo',
-                assignedBy: '$assignedBy'
-            }
-        }
-    }
-}
-
-/**
- * @api {get} /api/tasks/ Get users task list
+ * @api {get} /api/:designid/tasks Get users task list
  *
  * @apiName Get users tasks
  * @apiGroup Tasks
@@ -57,85 +19,128 @@ var designGroup = {
  */
 module.exports =  function readTasks (req, res, next) {
 
-    async.waterfall([function (cb) { // find user
+    // find design and project
+    async.waterfall([function (cb) {
 
-        if (!req.user._id) {
-            return cb({
-                message: 'no user found with that id',
-                status: 404
+        // find design
+        Design
+            .findOne({_id: req.params.designid})
+            .select('tasks project')
+            .exec(function (err, design) {
+                if (err) return cb(err);
+
+                cb(null, design);
             });
+
+    }, function (design, cb) {
+
+        // find project and select owner
+        Project
+            .findOne({_id: design.project})
+            .select('owner')
+            .exec(function (err, project) {
+                if (err) return cb(err);
+
+                cb(null, project, design);
+            });
+
+    }, function (project, design, cb) {
+
+        // if user is the owner load all tasks
+        if (req.user._id === project.owner + '') {
+            ownerTasks(design, cb);
+        } else {
+            // otherwise only load the users tasks
+            userTasks(design, req.user._id, cb);
         }
 
-        // find the logged in user and
-        // their list of tasks
-        User
-        .findOne({_id: req.user._id})
-        .exec(function(err, user){
-            if (err) return cb(err);
-
-            if (!user.tasks.length) {
-                return cb({
-                    message: 'no tasks found',
-                    status: 404
-                });
-            }
-
-            cb(null, user.tasks);
-        });
-
-    }, function (tasks, cb) { // group tasks by design
-
-        var taskQuery = Task.aggregate([
-            { '$match' : {_id: { $in: tasks }}},
-            designGroup
-        ]);
-
-        // execute database query
-        taskQuery.exec(function(err, tasks) {
-            if (err) return cb(err);
-
-            if (!tasks.length) {
-                return cb({
-                    message: 'no tasks found',
-                    status: 404
-                });
-            }
-
-            cb(null, tasks);
-
-        });
-
-    }, function (tasks, cb) { // populate design object
-
-        Design.populate( tasks, populateQuery.design, function(err,tasks) {
-            if (err) throw err;
-            cb(null, tasks);
-        });
-
-    }, function (tasks, cb) { // populate project object
-
-        Project.populate( tasks, populateQuery.project, function(err,tasks) {
-            if (err) throw err;
-
-            cb(null, tasks);
-        });
-
-    }, function (tasks, cb) {
-
-        // loop over every task and poppulate its user objects
-        taskHelper.populateTasks(tasks, cb);
-
     }], function (err, response) {
-        // handle errors
-        if (err) return next(err);
+        if (err) {
+            return next(err);
+        }
 
-        // finally group tasks and design under specific projects
-        response = _.groupBy(response, function (task) {
-            return task.design.project.name;
-        });
-
-        // send tasks back
-        res.json(response);
-
+        res.send(response);
     });
-};
+}; // end of route handler
+
+/**
+ * for the owner of the project we fetch all tasks
+ * belonging to the design
+ *
+ * @param  {Object}   design
+ * @param  {Function} callback
+ */
+function ownerTasks (design, callback) {
+
+    var taskQuery = {
+        _id: {
+            $in : design.tasks
+        }
+    };
+
+    runQuery([
+        function (cb) {
+            taskHelper.getTasks(taskQuery, cb);
+        }
+    ], callback);
+}
+
+/**
+ * for collabartors of a project we fetch both their tasks
+ * and tasks assigned to other users
+ *
+ * @param  {Object}     design
+ * @param  {ObjectID}   userid
+ * @param  {Function}   callback
+ */
+function userTasks (design, userid,  callback) {
+
+    var query = {
+        user: generateQuery(design, {assignedTo: userid}),
+        other: generateQuery(design, {assignedTo: { $ne: userid}})
+    };
+
+    var userQuery = [
+        function (cb) {
+            taskHelper.getTasks(query.user, cb);
+        },
+        function (cb) {
+            taskHelper.getTasks(query.other, cb);
+        }
+    ];
+
+    runQuery(userQuery, callback);
+}
+
+/**
+ * execute the query in parallel which will return an array of tasks
+ *
+ * @param  {Array}   queryArray
+ * @param  {Function} callback
+ */
+function runQuery (queryArray, callback) {
+    // in parrell run a query to get the users tasks
+    // and tasks assigned to other users
+    async.parallel(queryArray, function (err, tasks) {
+        if(err) return callback(err);
+
+        return callback(null, tasks);
+    });
+}
+
+/**
+ * return a query object which will get run on the db
+ *
+ * @param  {Object} design
+ * @param  {Object} typeQuery
+ */
+function generateQuery (design, typeQuery) {
+
+    return { $and : [
+        {
+            design: design
+        },
+            typeQuery
+        ]
+    }
+}
