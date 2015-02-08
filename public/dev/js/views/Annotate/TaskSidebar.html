@@ -12,6 +12,8 @@ ng-class="{
         <ul class="task--list">
             <li class="task--list-item" ng-repeat="task in taskCtrl.ownerTasks[0]">
                 {{task.annotation.number}} task is : {{task.isComplete}}
+
+                {{task.assignedTo.username}}
             </li>
         </ul>
 
@@ -25,6 +27,8 @@ ng-class="{
             <ul class="task--list">
                 <li class="task--list-item" ng-repeat="task in taskList">
                     {{task.annotation.number}} task is : {{task.isComplete}}
+
+                    {{task.assignedTo.username}}
                 </li>
             </ul>
 

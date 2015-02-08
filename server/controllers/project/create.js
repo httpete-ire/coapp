@@ -36,6 +36,10 @@ var Validator = require('./../../helpers/validator.js');
  */
 module.exports =  function newProject (req, res, next) {
 
+
+    // use async library
+    // then create new activity in project timeline list
+
     var validator = new Validator();
 
     validator.addRule({
