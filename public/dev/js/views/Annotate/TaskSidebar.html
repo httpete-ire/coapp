@@ -1,0 +1,35 @@
+<!-- task sidebar -->
+<div class="task-sidebar-closed taskBar"
+ng-class="{
+    true:'task-sidebar-open',
+    false:'task-sidebar-closed'
+}[AnnotateCtrl.openSidebar]"
+>
+
+    <!-- owner tasks -->
+    <div class="task-container user-task-list" ng-if="taskCtrl.ownerTasks.length  > 0">
+
+        <ul class="task--list">
+            <li class="task--list-item" ng-repeat="task in taskCtrl.ownerTasks[0]">
+                {{task.annotation.number}} task is : {{task.isComplete}}
+            </li>
+        </ul>
+
+    </div>
+
+    <!-- user tasks -->
+    <div ng-if="taskCtrl.usersTasks.length > 0">
+
+        <div class="task-container" ng-repeat="taskList in taskCtrl.usersTasks">
+
+            <ul class="task--list">
+                <li class="task--list-item" ng-repeat="task in taskList">
+                    {{task.annotation.number}} task is : {{task.isComplete}}
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+
+</div>

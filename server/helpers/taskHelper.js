@@ -66,6 +66,7 @@ module.exports.getTasks =  function (where, callback) {
     .find(where)
     .populate(populationQuery)
     .select('-design -project')
+    .sort('isComplete')
     .exec(function (err, tasks) {
          return callback(null, tasks);
     });

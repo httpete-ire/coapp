@@ -19,7 +19,6 @@
          * @return {[type]} [description]
          */
         _this.getTasks = function(){
-            console.log('before call');
             TaskFactory.getTasks()
                 .then(function(data){
 
@@ -29,16 +28,14 @@
                         _this.usersTasks = data;
                     }
 
-                    console.log(_this.ownerTasks);
-
-                    console.log(_this.usersTasks);
-
                 }, function(error){
                     _this.tasks = {};
                 });
         };
 
         _this.updateTask = function(task){
+
+            console.log('upading');
 
             // toggle the value of task
             task.isComplete = !task.isComplete;
@@ -50,8 +47,6 @@
 
             });
         };
-
-        _this.getTasks();
     };
 
     TasksController.$inject = ["TaskFactory"];

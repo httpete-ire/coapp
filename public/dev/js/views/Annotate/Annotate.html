@@ -1,18 +1,10 @@
 <!-- Main header -->
 <div ng-include src="'dev/js/views/Annotate/AnnotateHeader.html'"></div>
 
+<!-- Main header -->
+<div ng-controller="TasksController as taskCtrl" ng-include src="'dev/js/views/Annotate/TaskSidebar.html'" ng-init="taskCtrl.getTasks()"></div>
 
-            <!-- task sidebar -->
-<div  class="task-sidebar-closed taskBar"
-ng-class="{
-    true:'task-sidebar-open',
-    false:'task-sidebar-closed'
-}[AnnotateCtrl.openSidebar]"
-ng-style="style">
-
-</div>
-
-<div class="container-fluid">
+<div class="container-fluid" ng-controller="TasksController as taskCtrl">
     <div id="content-wrapper">
         <div class="page-content contentAnno">
         <p>double click on mark to open : click and drag on mark to replace</p>
@@ -67,7 +59,8 @@ ng-style="style">
 
                                     <div class="annotation--task-body">
 
-                                        <div ng-controller="TasksController as taskCtrl" class="task--checkbox-container" ng-if="mark.task">
+                                        <div class="task--checkbox-container" ng-if="mark.task"
+                                        >
                                             <label>
                                                 <input type="checkbox" class="task--checkbox" ng-checked="{{mark.task.isComplete}}" ng-click="taskCtrl.updateTask(mark.task)">
                                                 <span>{{mark.task.action}}</span>
@@ -77,8 +70,7 @@ ng-style="style">
                                         <!-- hide if task defined -->
                                         <span
                                         class="fa fa-plus-square annotation--details-assign"
-                                        ng-if="
-                                        !AnnotateCtrl.assignTask && !mark.task && AnnotateCtrl.isOwner(AnnotateCtrl.design.project.owner)"
+                                        ng-if="!AnnotateCtrl.assignTask && !mark.task && AnnotateCtrl.isOwner(AnnotateCtrl.design.project.owner)"
                                         ng-click="AnnotateCtrl.toggleAssign()"> assign as task</span>
 
                                         <!-- show if no task has been assigned and not the project owner -->
