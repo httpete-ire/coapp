@@ -11,5 +11,5 @@ module.exports =  {
         size: 2000000, // 2mb
         types: ['.jpg', '.jpeg', '.png']
     },
-    maxActivites: 4
+    maxActivites: 5
 };

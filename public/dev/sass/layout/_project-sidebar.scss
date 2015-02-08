@@ -79,10 +79,6 @@ $project-sidebar-color: #2a3336;
 }
 
 .project--timeline {
-    height: 210px;
-    margin-top: 10px;
-    position: absolute;
-    bottom: 260px;
     width: 80%;
 
     &-title {
@@ -102,7 +98,7 @@ $project-sidebar-color: #2a3336;
     &::before {
         content: '';
         position: absolute;
-        height: 100%;
+        height: 96%;
         width: 5px;
         background: $text-grey;
         z-index: 10;
