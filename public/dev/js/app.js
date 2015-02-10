@@ -37,7 +37,7 @@
             controller: 'TasksController',
             controllerAs: 'taskCtrl',
             access:{
-                requiredLogin: false
+                requiredLogin: true
             }
         })
         .when('/projects', {

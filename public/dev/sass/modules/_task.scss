@@ -54,4 +54,143 @@
     }
 }
 
+.taskBar{
+    height:100%;
+    position: fixed;
+    right: 0px;
+    top: 60px;
+    z-index: 3;
+    background: $dark-grey;
+    padding: 0;
+}
 
+$task-sidebar-width: 280px;
+
+
+.task-sidebar-closed {
+    padding: 20px 15px 0 15px;
+    margin-right:-$task-sidebar-width;
+    -webkit-transition:  margin-right 0.5s ease;
+    -moz-transition:  margin-right 0.5s ease;
+    -o-transition:  margin-right 0.5s ease;
+    transition: margin-right 0.5s ease;
+}
+
+.task-sidebar-open {
+    padding: 20px 15px 0 15px;
+    width: $task-sidebar-width;
+    margin-right:0px;
+    -webkit-transition:  margin-right 0.5s ease;
+    -moz-transition:  margin-right 0.5s ease;
+    -o-transition:  margin-right 0.5s ease;
+    transition: margin-right 0.5s ease;
+}
+
+.task--icon {
+    position: absolute;
+    font-size: 30px;
+    right:25px;
+    top:-4px;
+}
+
+.task--list {
+    overflow: scroll;
+    height: 100%;
+    padding-top: 20px;
+    border-top: 1px solid $text-grey;
+
+    &-title {
+        color: $off-white;
+        margin-bottom: 10px;
+
+        > h4 {
+            float: left;
+        }
+
+        .pull-right {
+            margin-top: 10px;
+        }
+    }
+
+    &-item {
+        margin-bottom: 30px;
+    }
+
+    &-details {
+        margin-bottom: 20px;
+    }
+
+    &-action {
+        color: $off-white;
+    }
+
+    &-action label {
+        margin-left: 8px;
+        color: $off-white;
+    }
+
+    &-action .task--checkbox + span:before {
+        color: $off-white;
+    }
+}
+
+.task--details {
+    &-circles {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 27px;
+        color: $off-white;
+    }
+
+    &-number {
+        margin-left: -5px;
+    }
+
+    &-date {
+        display: inline-block;
+        width: 180px;
+        font-size: 12px;
+        margin-left: 30px;
+    }
+}
+
+.circles-type- {
+    &general {
+        border: 2px solid $general-color;
+    }
+
+    &color {
+        border: 2px solid $color-color;
+    }
+
+    &text {
+        border: 2px solid $text-type-color;
+    }
+
+    &layout {
+        border: 2px solid $layout-color;
+    }
+
+    &image {
+        border: 2px solid $image-color;
+    }
+}
+
+.task-container {
+    height: 37%;
+}
+
+.task-container:nth-child(2) {
+    margin-top: 70px;
+}
+
+.owner-task-container {
+    height: 80%;
+}
+
+.task-complete .pull-right {
+    text-decoration: line-through;
+}
