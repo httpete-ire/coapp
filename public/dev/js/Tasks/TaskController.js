@@ -8,7 +8,7 @@
         //set this, to avoid scope
         var _this = this;
 
-
+        _this.allUserTasks = [];
         _this.ownerTasks = [];
 
         _this.usersTasks = [];
@@ -33,6 +33,19 @@
                     _this.tasks = {};
                 });
         };
+
+
+        //gets tasks for task page
+        _this.getUserTasks = function(){
+            TaskFactory.getUserTasks()
+            .then(function(data){
+                _this.allUserTasks = data;
+            }, function(error){
+                _this.allUserTasks = {};
+            });
+        };
+
+        
 
         _this.updateTask = function(task){
 

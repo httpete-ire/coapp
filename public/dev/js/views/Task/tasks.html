@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" ng-init="taskCtrl.getUserTasks()">
     <div id="content-wrapper">
         <div class="page-content">
             <div class="row">
@@ -6,7 +6,7 @@
                 <div class="app-header">
 
                     <div class="col-xs-3">
-                        <h1>{{taskCtrl.tasks[0].assignedBy.username}} </h1>
+                        <h1>All Tasks </h1>
                     </div>
                     <div class="col-xs-3">
                         <div class="form-group search--form">
@@ -31,14 +31,14 @@
                 <!-- within that every design has its own col -->
                     <!-- every task has a list of task objects -->
 
-            <div class="row task--row" ng-repeat="(key, value) in taskCtrl.tasks" data-peoject="{{key}}">
+            <div class="row task--row" ng-repeat="(key, value) in taskCtrl.allUserTasks" data-peoject="{{key}}">
 
             <h2>{{key}}</h2>
 
                 <ul>
                      <li ng-repeat="designObj in value" class="task--col">
 
-                     <h3>{{designObj.design.name}}</h3>
+                     <h5>{{designObj.design.name}}</h5>
 
                         <div class="project--img-container">
                             <a href="#/design/{{designObj.design._id}}">
