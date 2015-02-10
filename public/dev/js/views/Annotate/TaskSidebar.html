@@ -7,32 +7,101 @@ ng-class="{
 >
 
     <!-- owner tasks -->
-    <div class="task-container user-task-list" ng-if="taskCtrl.ownerTasks.length  > 0">
+    <div class="task-container owner-task-container" ng-if="taskCtrl.ownerTasks.length  > 0">
+
+        <div class="task--list-title clearfix">
+            <h4 class="task--list-title">All tasks</h4> <span class="pull-right">({{taskCtrl.ownerTasks[0].length}})</span>
+        </div>
 
         <ul class="task--list">
-            <li class="task--list-item" ng-repeat="task in taskCtrl.ownerTasks[0]">
-                {{task.annotation.number}} task is : {{task.isComplete}}
 
-                {{task.assignedTo.username}}
+            <li class="task--list-item" ng-repeat="task in taskCtrl.ownerTasks[0]">
+
+                <div class="task--list-details">
+
+                    <div class="task--details-circles"
+                    ng-class="'circles-' + task.annotation.type">
+                        <span class="task--details-number">{{task.annotation.number}}</span>
+                    </div>
+
+                    <div class="task--details-date">
+                        <span class="pull-left">created : </span>
+                        <div class="pull-right" am-time-ago="task.created"></div>
+                    </div>
+
+                </div>
+                <!-- /.task--list-details -->
+                <div class="task--list-action clearfix" ng-class="{
+                    'task-complete' : task.isComplete
+                }">
+
+                    <!-- checkbox -->
+                    <label>
+                        <input type="checkbox" class="task--checkbox" ng-checked="{{task.isComplete}}" ng-click="taskCtrl.updateTask(task)">
+                        <span></span>
+                    </label>
+
+                    <span class="pull-right">{{task.action}}</span>
+                </div>
+                <!-- /.task--list-action --><!--
+                {{task.isComplete}}
+
+                {{task.assignedTo.username}} -->
             </li>
+
         </ul>
 
     </div>
 
     <!-- user tasks -->
-    <div ng-if="taskCtrl.usersTasks.length > 0">
+    <div class="task-container" ng-repeat="taskList in taskCtrl.usersTasks" ng-if="taskCtrl.usersTasks.length > 0">
 
-        <div class="task-container" ng-repeat="taskList in taskCtrl.usersTasks">
-
-            <ul class="task--list">
-                <li class="task--list-item" ng-repeat="task in taskList">
-                    {{task.annotation.number}} task is : {{task.isComplete}}
-
-                    {{task.assignedTo.username}}
-                </li>
-            </ul>
-
+        <div class="task--list-title clearfix">
+            <h4>{{$index === 0 ? 'User tasks' : 'Other tasks'}}</h4> <span class="pull-right">({{taskList.length}})</span>
         </div>
+
+        <ul class="task--list">
+            <li class="task--list-item" ng-repeat="task in taskList">
+
+                <div class="task--list-details">
+
+                    <div class="task--details-circles"
+                    ng-class="'circles-' + task.annotation.type">
+                        <span class="task--details-number">{{task.annotation.number}}</span>
+                    </div>
+
+                    <!-- users tasks -->
+                    <div class="task--details-date" ng-if="$parent.$index === 0">
+                        <span class="pull-left">created : </span>
+                        <div class="pull-right" am-time-ago="task.created"></div>
+                    </div>
+
+                    <!-- other tasks -->
+                    <div class="task--details-date" ng-if="$parent.$index !== 0">
+                        <span class="pull-left">assigned to : </span>
+                        <div class="pull-right" >{{task.assignedTo.username}}</div>
+                    </div>
+
+                </div>
+<!--
+                {{task.annotation.number}} task is : {{task.isComplete}}
+
+                {{task.assignedTo.username}} -->
+
+                <div class="task--list-action clearfix" ng-class="{
+                    'task-complete' : task.isComplete
+                }">
+
+                    <!-- checkbox -->
+                    <label>
+                        <input type="checkbox" class="task--checkbox" ng-checked="{{task.isComplete}}" ng-click="taskCtrl.updateTask(task)" ng-if="$parent.$index === 0">
+                        <span></span>
+                    </label>
+
+                    <span class="pull-right">{{task.action}}</span>
+                </div>
+            </li>
+        </ul>
 
     </div>
 

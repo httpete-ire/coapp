@@ -100,38 +100,8 @@ font-size: 13px
 .project--name-header > .desName{
     cursor: pointer;
 }
- 
-.taskBar{
-    height:100%;
-    position: absolute;
-    position: fixed;
-    right: 0px;
-    top: 60px;
-    z-index: 3;
-    /*width: 240px;*/
-    /*padding-left: 50px;*/
-    background: $dark-grey;
-}
-.task-sidebar-closed {
-    padding: 20px 0 0 0;
-    width: 240px;
-    margin-right:-240px;
-    -webkit-transition:  margin-right 0.5s ease;
-    -moz-transition:  margin-right 0.5s ease;
-    -o-transition:  margin-right 0.5s ease;
-    transition: margin-right 0.5s ease;
 
-}
 
-.task-sidebar-open {
-    padding: 20px 0 0 0;
-    width: 240px;
-    margin-right:0px;
-    -webkit-transition:  margin-right 0.5s ease;
-    -moz-transition:  margin-right 0.5s ease;
-    -o-transition:  margin-right 0.5s ease;
-    transition: margin-right 0.5s ease;
-}
 
 .fix{
     position: fixed;
@@ -202,13 +172,6 @@ h4{
     padding-bottom:5px;
 }
 
-.fa-check-square-o{
-    position: absolute;
-    font-size: 30px;
-    right:25px;
-    top:-4px;
-    
-}
 .fa-bars, .fa-times{
     position: absolute;
     right: 60px;
@@ -328,8 +291,6 @@ p{
 .fa-arrow-left{
     font-size: 40px
 }
-
-
 
 
 .formError{
