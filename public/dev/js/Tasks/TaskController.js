@@ -4,7 +4,7 @@
     .controller('TasksController', TasksController);
 
     //sets up controller to handle task data
-    function TasksController(TaskFactory){
+    function TasksController(TaskFactory, $routeParams){
         //set this, to avoid scope
         var _this = this;
 
@@ -19,7 +19,8 @@
          * @return {[type]} [description]
          */
         _this.getTasks = function(){
-            TaskFactory.getTasks()
+
+            TaskFactory.getTasks($routeParams.design_id)
                 .then(function(data){
 
                     if(data.length === 1) {
@@ -49,6 +50,6 @@
         };
     };
 
-    TasksController.$inject = ["TaskFactory"];
+    TasksController.$inject = ["TaskFactory", "$routeParams"];
 
 })();

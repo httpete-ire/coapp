@@ -38,11 +38,11 @@
          *
          * @return {Promise}
          */
-        task.getTasks = function(){
+        task.getTasks = function(id){
 
               var defer = $q.defer();
 
-              var path = 'api/designs/' + '54d75b92ed4feffb37ae69e7' + '/tasks';
+              var path = 'api/designs/' + id + '/tasks';
 
               $http.get(path)
                 .success(function(data){
