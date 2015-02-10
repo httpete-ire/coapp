@@ -17,6 +17,10 @@ module.exports =  function(app, router) {
     .route('/tasks/:taskid')
     .put(taskCtrl.update);
 
+    router
+    .route('/tasks')
+    .get(taskCtrl.readUserTasks);
+
     // .delete(taskCtrl.delete);
 
 };

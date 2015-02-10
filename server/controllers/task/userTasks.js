@@ -54,7 +54,7 @@ var designGroup = {
  */
 module.exports =  function readTasks (req, res, next) {
 
-    async.waterfall(%5Bfunction (cb) { // find user
+    async.waterfall([function (cb) { // find user
 
         if (!req.user._id) {
             return cb({
@@ -66,7 +66,7 @@ module.exports =  function readTasks (req, res, next) {
         // find the logged in user and
         // their list of tasks
         User
-        .findOne({_id: req.user._id%7D)
+        .findOne({_id: req.user._id})
         .exec(function(err, user){
             if (err) return cb(err);
 
@@ -82,7 +82,7 @@ module.exports =  function readTasks (req, res, next) {
 
     }, function (tasks, cb) { // group tasks by design
 
-        var taskQuery = Task.aggregate(%5B
+        var taskQuery = Task.aggregate([
             { '$match' : {_id: { $in: tasks }}},
             designGroup
         ]);
