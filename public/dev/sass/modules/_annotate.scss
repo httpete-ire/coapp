@@ -120,10 +120,6 @@ $is-open: #475f74;
         display: inline-block;
     }
 
-    &--details-type {
-        margin-left: -5px;
-    }
-
     &--details-priority {
         margin-left: 20px;
     }
@@ -137,6 +133,7 @@ $is-open: #475f74;
 .priority-label {
     margin-bottom: 3px;
     cursor: pointer;
+    font-weight: 400;
 }
 
 .annotaion--btn {
@@ -223,11 +220,11 @@ $is-open: #475f74;
 
 .annotation--type {
     display: inline-block;
-    margin-right: 4px;
-}
+    margin-right: 10px;
 
-.annotation--type-container {
-    margin-left: -9px;
+    label {
+        cursor: pointer;
+    }
 }
 
 .radio {
@@ -358,3 +355,37 @@ $is-open: #475f74;
     padding-bottom: 15px;
 }
 
+.filter--options {
+    margin-top: 10px;
+    display: inline-block;
+    margin-right: 30px;
+}
+
+.filter--options input[type="checkbox"]{
+    display:none;
+    margin:0 15px 0 5px;
+}
+
+.filter--options-header {
+    text-align: right;
+
+    > .fa {
+        cursor: pointer;
+    }
+}
+
+// annotate header icons
+
+// .fa-bars, .fa-times{
+//     position: absolute;
+//     right: 60px;
+//     top: -5px;
+//     font-size: 30px;
+// }
+
+// .task--icon {
+//     position: absolute;
+//     font-size: 30px;
+//     right:25px;
+//     top:-4px;
+// }

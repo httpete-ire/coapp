@@ -34,6 +34,10 @@
                             'animated infinite pulse' : mark.priority == true,
                             '{{mark.type}}' : true
                         }"
+                        popover-title="{{mark.owner.username}}"
+                        popover-placement="bottom" popover="{{::mark.body}}"
+                        popover-trigger="mouseenter"
+                        popover-popup-delay="250"
                         >{{mark.number}}</a>
 
                             <div

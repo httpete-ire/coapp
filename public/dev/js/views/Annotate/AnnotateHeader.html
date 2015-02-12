@@ -32,12 +32,13 @@
                             <span class="desName" ng-click="AnnotateCtrl.toggleHeader()"> : {{AnnotateCtrl.design.name}}</span>
                         </div>
 
-                        <div class="col-md-5 filterBoxes pull-right">
-
-                           <label ng-repeat="check in AnnotateCtrl.filterOptions track by $index">
-                                <input type="checkbox" ng-model="check.on" name="text" value="text"  />
-                                <span class="label-text" ng-class="[check.klass]" >{{check.name}}</span>
-                            </label>
+                        <div class="col-md-7 filter--options-header pull-right">
+                           <div class="filter--options">
+                               <label ng-repeat="check in AnnotateCtrl.filterOptions track by $index">
+                                    <input type="checkbox" ng-model="check.on" name="text" value="text"  />
+                                    <span class="label-text" ng-class="[check.klass]" >{{check.name}}</span>
+                                </label>
+                           </div>
 
                             <i class="fa fa-bars" ng-click="AnnotateCtrl.toggleHeader()" ></i>
                             <i class="fa fa-check-square-o task--icon" ng-click="AnnotateCtrl.toggleTaskBar()" ></i>

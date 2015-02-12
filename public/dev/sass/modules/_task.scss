@@ -1,4 +1,3 @@
-
 .task {
 
     &--row {
@@ -86,13 +85,6 @@ $task-sidebar-width: 280px;
     transition: margin-right 0.5s ease;
 }
 
-.task--icon {
-    position: absolute;
-    font-size: 30px;
-    right:25px;
-    top:-4px;
-}
-
 .task--list {
     overflow: scroll;
     height: 100%;
@@ -113,7 +105,12 @@ $task-sidebar-width: 280px;
     }
 
     &-item {
-        margin-bottom: 30px;
+        padding: 15px 0;
+        border-bottom: 1px solid #363636;
+    }
+
+    &-item:last-child {
+        margin-bottom: 0;
     }
 
     &-details {
@@ -131,7 +128,9 @@ $task-sidebar-width: 280px;
 
     &-action .task--checkbox + span:before {
         color: $off-white;
+        cursor: pointer;
     }
+
 }
 
 .task--details {
@@ -143,10 +142,6 @@ $task-sidebar-width: 280px;
         text-align: center;
         line-height: 27px;
         color: $off-white;
-    }
-
-    &-number {
-        margin-left: -5px;
     }
 
     &-date {
@@ -184,13 +179,35 @@ $task-sidebar-width: 280px;
 }
 
 .task-container:nth-child(2) {
-    margin-top: 70px;
+    padding-top: 40px;
+    height: 42%;
 }
 
 .owner-task-container {
     height: 80%;
 }
 
-.task-complete .pull-right {
-    text-decoration: line-through;
+.task-complete {
+    color: $text-color;
+
+    & .task--action-action {
+        text-decoration: line-through;
+    }
+
+    & .task--checkbox + span:before {
+            color: $text-color;
+    }
+}
+
+.task--action {
+    &-checkbox {
+        float: left;
+        padding-top: 2px;
+    }
+
+    &-action {
+        float: left;
+        width: 180px;
+        margin-left: 20px;
+    }
 }

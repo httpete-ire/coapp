@@ -3,5 +3,7 @@ module.exports =  {
     read: require('./read.js'),
     update: require('./update.js'),
     delete: require('./delete.js'),
-    readUserTasks: require('./userTasks')
+    readUserTasks: require('./userTasks'),
+    projectWithTasks: require('./projectWithTasks'),
+    designWithTasks: require('./designWithTasks')
 };

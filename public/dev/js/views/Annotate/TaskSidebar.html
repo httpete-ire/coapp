@@ -21,7 +21,7 @@ ng-class="{
 
                     <div class="task--details-circles"
                     ng-class="'circles-' + task.annotation.type">
-                        <span class="task--details-number">{{task.annotation.number}}</span>
+                        <span>{{task.annotation.number}}</span>
                     </div>
 
                     <div class="task--details-date">
@@ -36,12 +36,17 @@ ng-class="{
                 }">
 
                     <!-- checkbox -->
-                    <label>
-                        <input type="checkbox" class="task--checkbox" ng-checked="{{task.isComplete}}" ng-click="taskCtrl.updateTask(task)">
-                        <span></span>
-                    </label>
+                    <div class="task--action-checkbox">
+                        <label>
+                            <input type="checkbox" class="task--checkbox" ng-checked="{{task.isComplete}}" ng-click="taskCtrl.updateTask(task)">
+                            <span></span>
+                        </label>
+                    </div>
 
-                    <span class="pull-right">{{task.action}}</span>
+                    <div class="task--action-action">
+                        <span>{{task.action}}</span>
+                    </div>
+
                 </div>
                 <!-- /.task--list-action --><!--
                 {{task.isComplete}}
@@ -93,12 +98,18 @@ ng-class="{
                 }">
 
                     <!-- checkbox -->
-                    <label>
-                        <input type="checkbox" class="task--checkbox" ng-checked="{{task.isComplete}}" ng-click="taskCtrl.updateTask(task)" ng-if="$parent.$index === 0">
-                        <span></span>
-                    </label>
+                    <div class="task--action-checkbox">
+                        <label>
+                            <input type="checkbox" class="task--checkbox" ng-checked="{{task.isComplete}}" ng-click="taskCtrl.updateTask(task)">
+                            <span></span>
+                        </label>
+                    </div>
 
-                    <span class="pull-right">{{task.action}}</span>
+                    <div class="task--action-action">
+                        <span>{{task.action}}</span>
+                    </div>
+
+
                 </div>
             </li>
         </ul>

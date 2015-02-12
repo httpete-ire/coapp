@@ -172,26 +172,10 @@ h4{
     padding-bottom:5px;
 }
 
-.fa-bars, .fa-times{
-    position: absolute;
-    right: 60px;
-    top: -5px;
-    font-size: 30px;
-}
-
 .design-head-img {
     max-width: 100%;
     display: block;
     margin-bottom: 10px;
-}
-
-.filterBoxes{
-    margin-top: 10px
-}
-
-.filterBoxes input[type="checkbox"]{
-    display:none;
-    margin:0 15px 0 5px;
 }
 
 .head-design-col {
@@ -207,6 +191,7 @@ h4{
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    cursor: pointer;
 }
 
 .label-text:after{
@@ -217,8 +202,7 @@ h4{
     text-decoration: inherit;
 /*--adjust as necessary--*/
     font-size: 18px;
-    padding-right: 0.5em;
-    padding-left:5px;
+    padding: 0 15px 0 10px;
     /*position: absolute;
     top: 10px;
     left: 0;*/

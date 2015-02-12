@@ -21,6 +21,14 @@ module.exports =  function(app, router) {
     .route('/tasks')
     .get(taskCtrl.readUserTasks);
 
+    router
+    .route('/tasks/projects')
+    .get(taskCtrl.projectWithTasks);
+
+    router
+    .route('/tasks/projects/:projectid')
+    .get(taskCtrl.designWithTasks);
+
     // .delete(taskCtrl.delete);
 
 };
