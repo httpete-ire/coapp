@@ -35,16 +35,16 @@ ng-class="{
                     'task-complete' : task.isComplete
                 }">
 
+                    <div class="task--action-action">
+                        <span>{{task.action}}</span>
+                    </div>
+
                     <!-- checkbox -->
                     <div class="task--action-checkbox">
                         <label>
                             <input type="checkbox" class="task--checkbox" ng-checked="{{task.isComplete}}" ng-click="taskCtrl.updateTask(task)">
                             <span></span>
                         </label>
-                    </div>
-
-                    <div class="task--action-action">
-                        <span>{{task.action}}</span>
                     </div>
 
                 </div>

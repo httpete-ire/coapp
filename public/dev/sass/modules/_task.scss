@@ -200,14 +200,16 @@ $task-sidebar-width: 280px;
 }
 
 .task--action {
+
+    font-size: 14px;
     &-checkbox {
-        float: left;
+        float: right;
         padding-top: 2px;
     }
 
     &-action {
         float: left;
-        width: 180px;
-        margin-left: 20px;
+        width: 210px;
+        line-height: 21px;
     }
 }
