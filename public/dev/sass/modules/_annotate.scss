@@ -159,6 +159,10 @@ $is-open: #475f74;
         -o-transform: translateX(-50%) translateY(-50%) rotate(135deg);
         transform: translateX(-50%) translateY(-50%) rotate(135deg);
     }
+
+    .popover {
+        display: none !important;
+    }
 }
 
 .annotation--mark {
@@ -271,6 +275,8 @@ $is-open: #475f74;
     content: "\f192";
 }
 
+$task-border : lighten($text-grey, 47);
+
 .annotation--task {
 
     &-container {
@@ -280,6 +286,8 @@ $is-open: #475f74;
 
     &-body {
         padding: 15px;
+        border-bottom: 1px solid $task-border;
+        border-top: 1px solid $task-border;
     }
 
     &-empty {
@@ -374,18 +382,20 @@ $is-open: #475f74;
     }
 }
 
-// annotate header icons
+.annotation--helper {
+    margin: 10px;
+    color: lighten($text-color, 40%);
+}
 
-// .fa-bars, .fa-times{
-//     position: absolute;
-//     right: 60px;
-//     top: -5px;
-//     font-size: 30px;
-// }
+.is-task > .annotation--mark {
+    width: 33px;
+    height: 33px;
+}
 
-// .task--icon {
-//     position: absolute;
-//     font-size: 30px;
-//     right:25px;
-//     top:-4px;
-// }
+.is-task .task--active {
+    border: 3px solid #e74c3c;
+}
+
+.is-task .task--complete {
+    border: 3px solid #2ecc71;
+}

@@ -4,14 +4,19 @@
     .controller('TasksController', TasksController);
 
     //sets up controller to handle task data
-    function TasksController(TaskFactory, $stateParams){
+    function TasksController(TaskFactory, $stateParams, $scope){
         //set this, to avoid scope
         var _this = this;
-         
+
         _this.allUserTasks = [];
         _this.ownerTasks = [];
 
         _this.usersTasks = [];
+
+        // listen for the annotation controller to complete a task
+        $scope.$on('updatedTask', function (e) {
+            _this.getTasks();
+        });
 
         //get tasks function calls the getTasks function from the factory
         /**
@@ -37,7 +42,7 @@
 
         //gets tasks for task page
         _this.getUserTasks = function(){
-            console.log('adfadsfasdfas chelsea');
+
             TaskFactory.getUserTasks()
             .then(function(data){
                 _this.allUserTasks = data;
@@ -46,17 +51,16 @@
             });
         };
 
-        
+
 
         _this.updateTask = function(task){
-
-            console.log('upading');
 
             // toggle the value of task
             task.isComplete = !task.isComplete;
 
             TaskFactory.updateTask(task)
             .then(function(data){
+                // successful updated
 
             }, function(error){
 
@@ -64,6 +68,6 @@
         };
     };
 
-    TasksController.$inject = ["TaskFactory", "$stateParams"];
+    TasksController.$inject = ["TaskFactory", "$stateParams", "$scope"];
 
 })();

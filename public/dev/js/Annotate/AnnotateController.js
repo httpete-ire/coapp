@@ -40,7 +40,7 @@
     }
 
     // @ngInject
-    function AnnotateCtrl(AnnotateFactory, focus, $stateParams, AuthenticationFactory, SingProjFactory, FilterOpts, TaskFactory){
+    function AnnotateCtrl(AnnotateFactory, focus, $stateParams, AuthenticationFactory, SingProjFactory, FilterOpts, TaskFactory, $rootScope){
 
         _this = this;
 
@@ -65,6 +65,20 @@
 
         _this.filterOptions = FilterOpts;
 
+        _this.updateTask = function(task){
+
+            // toggle the value of task
+            task.isComplete = !task.isComplete;
+
+            TaskFactory.updateTask(task)
+            .then(function(data){
+                _this.getDesign();
+                // emit the event so the task controller can update the sidebar
+                $rootScope.$broadcast('updatedTask');
+            }, function(error){
+
+            });
+        };
 
         _this.newTask = function(mark){
 
@@ -244,7 +258,7 @@
 
     }
 
-    AnnotateCtrl.$inject = ['AnnotateFactory', 'focus', '$stateParams', 'AuthenticationFactory', 'SingProjFactory', 'FilterOpts', 'TaskFactory'];
+    AnnotateCtrl.$inject = ['AnnotateFactory', 'focus', '$stateParams', 'AuthenticationFactory', 'SingProjFactory', 'FilterOpts', 'TaskFactory', '$rootScope'];
 
     function getMouse(e, targ) {
 

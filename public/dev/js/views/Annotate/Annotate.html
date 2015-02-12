@@ -7,8 +7,14 @@
 <div class="container-fluid" ng-controller="TasksController as taskCtrl">
     <div id="content-wrapper">
         <div class="page-content contentAnno">
-        <p>double click on mark to open : click and drag on mark to replace</p>
+
             <div class="design-img-container" id="annotation-img">
+
+                <!-- help icon -->
+                <!-- <p>double click on mark to open : click and drag on mark to replace</p> -->
+
+                <span class="fa fa-question-circle annotation--helper" tooltip-placement="right" tooltip="dbl click to open annotation or click and drag to update position"></span>
+
                 <img ng-src="{{ AnnotateCtrl.design.img.full }}" ng-click="AnnotateCtrl.annotate($event)" class="design-img">
                  <ul>
 
@@ -18,9 +24,10 @@
                     ng-show="AnnotateCtrl.filterOptions[0].on && (mark.type === 'type-general') || AnnotateCtrl.filterOptions[1].on && (mark.type === 'type-text') || AnnotateCtrl.filterOptions[2].on && (mark.type === 'type-image') || AnnotateCtrl.filterOptions[3].on && (mark.type === 'type-color') || AnnotateCtrl.filterOptions[4].on && (mark.type === 'type-layout')"
                     ng-style="{'top':mark.circle.y - 15 + 'px', 'left': mark.circle.x - 15 + 'px'}"
                     ng-class="{
-                        'is-open': AnnotateCtrl.openComment &&
+                        'is-open' : AnnotateCtrl.openComment &&
                         $index === AnnotateCtrl.commentSelected &&
-                        AnnotateCtrl.newAnnotation === null
+                        AnnotateCtrl.newAnnotation === null,
+                        'is-task' : mark.task
                     }"
                     annotation-id="{{mark._id}}"
                     owner="{{mark.owner._id}}"
@@ -32,7 +39,9 @@
                         <a class="annotation--mark draggable"   ng-dblclick="AnnotateCtrl.toggleComments($index)"
                         ng-class="{
                             'animated infinite pulse' : mark.priority == true,
-                            '{{mark.type}}' : true
+                            '{{mark.type}}' : true,
+                            'task--complete' : mark.task.isComplete,
+                            'task--active' : !mark.task.isComplete
                         }"
                         popover-title="{{mark.owner.username}}"
                         popover-placement="bottom" popover="{{::mark.body}}"
@@ -66,7 +75,7 @@
                                         <div class="task--checkbox-container" ng-if="mark.task"
                                         >
                                             <label>
-                                                <input type="checkbox" class="task--checkbox" ng-checked="{{mark.task.isComplete}}" ng-click="taskCtrl.updateTask(mark.task)">
+                                                <input type="checkbox" class="task--checkbox" ng-checked="{{mark.task.isComplete}}" ng-click="AnnotateCtrl.updateTask(mark.task)">
                                                 <span>{{mark.task.action}}</span>
                                             </label>
                                         </div>
