@@ -5,7 +5,7 @@
     .factory('AnnotateFactory', AnnotateFactory);
 
     // @ngInject
-    function AnnotateFactory ($http, $q, $routeParams) {
+    function AnnotateFactory ($http, $q, $stateParams) {
         //epmty object to be returned when methods are added
         var SingDesign = {};
 
@@ -92,6 +92,6 @@
 
         return SingDesign;
     }
-    AnnotateFactory.$inject = ["$http", "$q", "$routeParams"];
+    AnnotateFactory.$inject = ["$http", "$q", "$stateParams"];
 
 })();

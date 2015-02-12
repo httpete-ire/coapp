@@ -1,22 +1,24 @@
 (function () {
     'use strict';
     //main aoolication name: coapp. ngRoute for page routing
-    angular.module('coapp', ['ngRoute', 'ui.bootstrap', 'angularFileUpload', 'angularMoment', 'validation.match'])
+    angular.module('coapp', ['ui.router', 'ui.bootstrap', 'angularFileUpload', 'angularMoment', 'validation.match'])
     .config(appConfig)
     .run(appRun);
 
     // @ngInject
-    function appConfig ($routeProvider, $httpProvider){
-
+    function appConfig ($urlRouterProvider, $stateProvider, $httpProvider){
+        $urlRouterProvider.otherwise("/landing");
         //set template based on the url
-        $routeProvider
-        .when('/landing', {
+        $stateProvider
+        .state('landing', {
+            url: '/landing',
             templateUrl: 'dev/js/views/landing.html',
             access:{
                 requiredLogin: false
             }
         })
-        .when('/login', {
+        .state('login', {
+            url: '/login',
             templateUrl: 'dev/js/views/Auth/login.html',
             controller: 'AuthController',
             controllerAs: 'authCtrl',
@@ -24,7 +26,8 @@
                 requiredLogin: false
             }
         })
-        .when('/register',{
+        .state('register',{
+            url: '/register',
             templateUrl: 'dev/js/views/Auth/register.html',
             controller: 'AuthController',
             controllerAs: 'authCtrl',
@@ -32,15 +35,24 @@
                 requiredLogin: false
             }
         })
-        .when('/tasks',{
-            templateUrl: 'dev/js/views/Task/tasks.html',
+        .state('tasks',{
+            url: '/tasks',
+            templateUrl: 'dev/js/views/Task/taskLeftPanel.html',
             controller: 'TasksController',
             controllerAs: 'taskCtrl',
             access:{
                 requiredLogin: true
             }
         })
-        .when('/projects', {
+        .state('tasks.design', {
+            url: '/:design',
+            templateUrl: 'dev/js/views/Task/taskDesignPanel.html',
+            controller: function($scope, $stateParams){
+                $scope.design = $stateParams.design;
+            }
+        })
+        .state('projects', {
+            url: '/projects',
             templateUrl: 'dev/js/views/Projects/list.html',
             activeLink: 'projects',
             controller: 'ProjectsController',
@@ -49,7 +61,8 @@
                 requiredLogin: true
             }
         })
-        .when('/projects/:project_id', {
+        .state('projects/:project_id', {
+            url: '/projects/:project_id',
             templateUrl: 'dev/js/views/SingleProject/SingleProjectList.html',
             activeLink: 'projects',
             controller: 'SingleProjectController',
@@ -58,7 +71,8 @@
                 requiredLogin: true
             }
         })
-        .when('/design/:design_id', {
+        .state('design/:design_id', {
+            url: '/design/:design_id',
             templateUrl: 'dev/js/views/Annotate/Annotate.html',
             activeLink: 'proejcts',
             controller: 'AnnotateController',
@@ -66,28 +80,27 @@
             access:{
                 requiredLogin: true
             }
-        }).otherwise({
-            redirectTo: '/landing'
         });
+        
+
 
         $httpProvider.interceptors.push('TokenInterceptor');
 
     }
 
-    appConfig.$inject = ["$routeProvider", "$httpProvider"];
+    appConfig.$inject = ["$urlRouterProvider", "$stateProvider", "$httpProvider"];
 
     // @ngInject
     function appRun ($rootScope, $window, $location, AuthenticationFactory, alertService) {
         AuthenticationFactory.check();
 
-        // @ngInject
-        $rootScope.$on('$routeChangeStart', function (event, nextRoute, currentRoute){
-
-            // close alerts between page changes
+        
+        
+        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams ){
             alertService.close();
 
-            if((nextRoute.access && nextRoute.access.requiredLogin) && !AuthenticationFactory.isLogged) {
-                 event.preventDefault();        // hack to prevent page loading
+            if((toState.access && toState.access.requiredLogin) && !AuthenticationFactory.isLogged) {
+                 event.preventDefault();  
                 $location.path('/login');
             } else {
                 if(!AuthenticationFactory.user && !AuthenticationFactory.username) {
@@ -97,8 +110,8 @@
             }
         });
 
-        // @ngInject
-        $rootScope.$on('$routeChangeSuccess', function (event, nextRoute, currentRoute){
+        
+        $rootScope.$on('$stateChangeSuccess', function (event, nextRoute, currentRoute){
 
             $rootScope.isLoggedIn = AuthenticationFactory.isLogged;
 

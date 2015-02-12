@@ -4,10 +4,10 @@
     .controller('TasksController', TasksController);
 
     //sets up controller to handle task data
-    function TasksController(TaskFactory, $routeParams){
+    function TasksController(TaskFactory, $stateParams){
         //set this, to avoid scope
         var _this = this;
-
+         
         _this.allUserTasks = [];
         _this.ownerTasks = [];
 
@@ -20,7 +20,7 @@
          */
         _this.getTasks = function(){
 
-            TaskFactory.getTasks($routeParams.design_id)
+            TaskFactory.getTasks($stateParams.design_id)
                 .then(function(data){
 
                     if(data.length === 1) {
@@ -37,6 +37,7 @@
 
         //gets tasks for task page
         _this.getUserTasks = function(){
+            console.log('adfadsfasdfas chelsea');
             TaskFactory.getUserTasks()
             .then(function(data){
                 _this.allUserTasks = data;
@@ -63,6 +64,6 @@
         };
     };
 
-    TasksController.$inject = ["TaskFactory", "$routeParams"];
+    TasksController.$inject = ["TaskFactory", "$stateParams"];
 
 })();

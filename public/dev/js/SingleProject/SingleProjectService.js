@@ -4,7 +4,7 @@
     angular.module('coapp')
     .factory('SingProjFactory', singleProjectFactory);
 
-    function singleProjectFactory ($http, $q, $routeParams, $upload) {
+    function singleProjectFactory ($http, $q, $stateParams, $upload) {
         //epmty object to be returned when methods are added
         var SingProj = {};
 
@@ -69,6 +69,6 @@
         return SingProj;
     }
 
-    singleProjectFactory.$inject = ['$http', '$q', '$routeParams', '$upload'];
+    singleProjectFactory.$inject = ['$http', '$q', '$stateParams', '$upload'];
 
 })();
