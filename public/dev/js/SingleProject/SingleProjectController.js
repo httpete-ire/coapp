@@ -6,7 +6,7 @@
 
 
 
-    function SingProjCtrl(SingProjFactory, $scope, $upload, $routeParams, AuthenticationFactory){
+    function SingProjCtrl(SingProjFactory, $scope, $upload, $stateParams, AuthenticationFactory){
 
         _this = this;
         _this.project = {};
@@ -17,7 +17,7 @@
 
         _this.getProjectDesigns=function(){
 
-            SingProjFactory.getProject($routeParams.project_id)
+            SingProjFactory.getProject($stateParams.project_id)
 
             .then(function(data){
                 // dsuccess
@@ -79,7 +79,7 @@
             var file = $files[0];
 
             $scope.upload = SingProjFactory
-                            .upload(file, $routeParams.project_id)
+                            .upload(file, $stateParams.project_id)
                             .then(function(data){
                                 _this.getProjectDesigns();
                             });
@@ -95,7 +95,7 @@
         });
     }
 
-    SingProjCtrl.$inject = ["SingProjFactory",'$scope', '$upload', '$routeParams', 'AuthenticationFactory'];
+    SingProjCtrl.$inject = ["SingProjFactory",'$scope', '$upload', '$stateParams', 'AuthenticationFactory'];
 
     function SingProjModalCtrl ($scope, $modalInstance, object, SingProjFactory, $rootScope, $window) {
 

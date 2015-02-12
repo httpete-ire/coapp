@@ -12,14 +12,14 @@
     'design-page' : designPage
     }">
 
-    <!-- if logged in include sidebar -->
-    <div ng-if="isLoggedIn" ng-include="'dev/js/views/sidebar.html'"></div>
+     <div ng-if="isLoggedIn" ng-include="'dev/js/views/sidebar.html'"></div>
 
-    <div ng-view></div>
+    <div ui-view></div>
 
 <script src="dev/lib/moment/min/moment.min.js"></script>
 <script src="dev/lib/angular/angular.js"></script>
-<script src="dev/lib/angular-route/angular-route.js"></script>
+
+<script src="dev/lib/angular-ui-router/release/angular-ui-router.js"></script>
 <script src="dev/lib/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 <script src="dev/lib/ng-file-upload/angular-file-upload.js"></script>
 <script src="dev/lib/angular-moment/angular-moment.js"></script>
@@ -52,7 +52,6 @@
 
 <script src="dev/js/Tasks/TaskService.js"></script>
 <script src="dev/js/Tasks/TaskController.js"></script>
-
 
 
 <!-- <script src="dev/js/Projects/ProjectsModalController.js"></script> -->

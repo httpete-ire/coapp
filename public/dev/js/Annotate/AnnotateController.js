@@ -40,7 +40,7 @@
     }
 
     // @ngInject
-    function AnnotateCtrl(AnnotateFactory, focus, $routeParams, AuthenticationFactory, SingProjFactory, FilterOpts, TaskFactory){
+    function AnnotateCtrl(AnnotateFactory, focus, $stateParams, AuthenticationFactory, SingProjFactory, FilterOpts, TaskFactory){
 
         _this = this;
 
@@ -71,7 +71,7 @@
             var task ={};
 
             // bind values to task objects
-            task.designId = $routeParams.design_id;
+            task.designId = $stateParams.design_id;
             task.annotationId = mark._id;
             task.action = mark.body;
             task.assignedTo = _this.taskAssignedTo;
@@ -136,7 +136,7 @@
 
         _this.getDesign = function(){
             AnnotateFactory
-            .getDesign($routeParams.design_id)
+            .getDesign($stateParams.design_id)
             .then(function(data){
                 _this.design = data;
                 _this.getAllDesigns(data.project._id);
@@ -190,7 +190,7 @@
             annotation.type = _this.radioColor;
 
             AnnotateFactory
-                .addAnnotation(annotation, $routeParams.design_id)
+                .addAnnotation(annotation, $stateParams.design_id)
                 .then(function(data){
                     _this.newAnnotation = null;
                     _this.getDesign();
@@ -215,7 +215,7 @@
             console.log('working');
 
             AnnotateFactory
-            .addComment(comment, $routeParams.design_id, annotation._id)
+            .addComment(comment, $stateParams.design_id, annotation._id)
             .then(function(data) {
                 // add new comment object to list of comments
                 var newComment = {};
@@ -235,7 +235,7 @@
         }
 
         _this.matchDesignId = function (id) {
-            return id === $routeParams.design_id;
+            return id === $stateParams.design_id;
         };
 
         _this.isOwner = AuthenticationFactory.isOwner;
@@ -244,7 +244,7 @@
 
     }
 
-    AnnotateCtrl.$inject = ['AnnotateFactory', 'focus', '$routeParams', 'AuthenticationFactory', 'SingProjFactory', 'FilterOpts', 'TaskFactory'];
+    AnnotateCtrl.$inject = ['AnnotateFactory', 'focus', '$stateParams', 'AuthenticationFactory', 'SingProjFactory', 'FilterOpts', 'TaskFactory'];
 
     function getMouse(e, targ) {
 
