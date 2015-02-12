@@ -10,16 +10,16 @@
      *
      * @ngInject
      */
-    function SidebarController($route) {
+    function SidebarController($state) {
 
         var _this = this;
 
-        // expose the route provider
+        // expose the state provider
         // so active links can be set
-        _this.route = $route;
+        _this.state = $state;
 
     }
 
-    SidebarController.$inject = ["$route"];
+    SidebarController.$inject = ["$state"];
 
 })();

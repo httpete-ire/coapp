@@ -1,0 +1,14 @@
+<div class="col-md-3" >
+{{design}}
+<h2>{{key}}</h2>
+
+
+       <div ng-repeat="(key, value) in taskCtrl.allUserTasks">
+            <pre>key is {{key}} <br />
+
+                value is {{value}}</pre>
+            
+        </div> 
+<!-- </ul> -->
+</div>
+<div ui-view></div>

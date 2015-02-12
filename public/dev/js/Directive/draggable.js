@@ -46,7 +46,7 @@
     }
 
     // @ngInject
-    function drag ($document, AnnotateFactory, $routeParams, $timeout, containerCoords, AuthenticationFactory) {
+    function drag ($document, AnnotateFactory, $stateParams, $timeout, containerCoords, AuthenticationFactory) {
 
         return function(scope, element, attr) {
 
@@ -121,7 +121,7 @@
 
 
                 AnnotateFactory
-                    .updateAnnotation(annotation, $routeParams.design_id)
+                    .updateAnnotation(annotation, $stateParams.design_id)
                     .then(function (data) {
                         // reload page
 
