@@ -35,8 +35,8 @@
                 requiredLogin: false
             }
         })
-        .state('tasks',{
-            url: '/tasks',
+        .state('tasklist',{
+            url: '/tasklist',
             templateUrl: 'dev/js/views/Task/taskLeftPanel.html',
             controller: 'TasksController',
             controllerAs: 'taskCtrl',
@@ -44,11 +44,11 @@
                 requiredLogin: true
             }
         })
-        .state('tasks.design', {
-            url: '/:design',
+        .state('tasklist.design', {
+            url: '/design/:project_id',
             templateUrl: 'dev/js/views/Task/taskDesignPanel.html',
-            controller: function($scope, $stateParams){
-                $scope.design = $stateParams.design;
+            controller: function($scope, $stateParams, $state, TaskProject){
+                TaskProject.setId($stateParams.project_id);
             }
         })
         .state('projects', {
@@ -112,7 +112,7 @@
 
         
         $rootScope.$on('$stateChangeSuccess', function (event, nextRoute, currentRoute){
-
+            // console.log('current',currentRoute);
             $rootScope.isLoggedIn = AuthenticationFactory.isLogged;
 
 

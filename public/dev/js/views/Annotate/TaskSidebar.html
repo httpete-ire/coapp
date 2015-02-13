@@ -3,7 +3,7 @@
 ng-class="{
     true:'task-sidebar-open',
     false:'task-sidebar-closed'
-}[AnnotateCtrl.openSidebar]"
+}[AnnotateCtrl.openSidebar || taskCtrl.openSidebar]"
 >
 
     <!-- owner tasks -->

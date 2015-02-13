@@ -1,16 +1,23 @@
- <div  ng-init="taskCtrl.getUserTasks()">
- <div class="col-md-3 col-md-offset-3" ng-repeat="(key, value) in taskCtrl.allUserTasks">
-                projects
+<div class="task-panel-container project">
+	<h3 class="task-left-pannel-title">Projects</h3>
+	<div  ng-init="taskCtrl.getUserProjectsWithTasks()">
 
-    <div ng-repeat="designObj in value">
-        <div class="col-md-6">
-       <a href="#/tasks/{{designObj.design._id}}"> 
-       <img ng-src="{{designObj.design.img.thumbnail}}" width="100%"> </a>
+	<div class="col-md-3 task-panel" panel-height>
+	        
 
-       
-        </div>
-    </div>
+	    <div ng-repeat="project in taskCtrl.allUserProjectsWithTasks" class="task-project-thumbnail">
+	        
+	       
+	       <a href="#/tasklist/design/{{project._id}}"> 
+		      <img ng-src="{{project.thumbnail}}" width="100%" > 
+		       <h4>{{project.name}}</h4>
+	       </a>
 
+	       
+	        
+	    </div>
+
+	</div>
+	<div ui-view></div>
 </div>
-<div ui-view></div>
 </div>
