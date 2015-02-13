@@ -3,18 +3,18 @@
 	<div  ng-init="taskCtrl.getUserProjectsWithTasks()">
 
 	<div class="col-md-3 task-panel" panel-height>
-	        
+
 
 	    <div ng-repeat="project in taskCtrl.allUserProjectsWithTasks" class="task-project-thumbnail">
-	        
-	       
-	       <a href="#/tasklist/design/{{project._id}}"> 
-		      <img ng-src="{{project.thumbnail}}" width="100%" > 
+
+
+	       <a href="#/tasklist/design/{{project._id}}">
+		      <img ng-src="{{project.thumbnail}}" width="100%" >
 		       <h4>{{project.name}}</h4>
 	       </a>
 
-	       
-	        
+
+
 	    </div>
 
 	</div>

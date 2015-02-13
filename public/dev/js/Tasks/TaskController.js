@@ -67,7 +67,6 @@
         _this.getUserProjectsWithTasks = function(){
 
             TaskFactory.getUserProjectsWithTasks()
-
             .then(function(data){
                 _this.allUserProjectsWithTasks = data;
 
@@ -107,6 +106,16 @@
 
             });
         };
+
+        _this.activeProject = function (id) {
+            console.log('id is : ', id);
+            console.log(id === TaskProject.getId());
+            return id === TaskProject.getId();
+        };
+
+        _this.activeDesign = function (id) {
+            return id === _this.currectTasks;
+        }
     };
 
 
