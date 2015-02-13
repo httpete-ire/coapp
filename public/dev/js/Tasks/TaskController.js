@@ -4,23 +4,41 @@
     .controller('TasksController', TasksController);
 
     //sets up controller to handle task data
-    function TasksController(TaskFactory, $stateParams){
+    function TasksController(TaskFactory, $stateParams, $scope, TaskProject){
         //set this, to avoid scope
         var _this = this;
-         
-        _this.allUserTasks = [];
+        // 
+        _this.allUserProjectsWithTasks = [];
+        _this.designsWithTasks = [];
         _this.ownerTasks = [];
 
         _this.usersTasks = [];
+
+        _this.openSidebar = false;
+
+        _this.currectTasks = null;
+
+
+        _this.toggleTaskBar = function () {
+            _this.openSidebar = !_this.openSidebar;
+        };
 
         //get tasks function calls the getTasks function from the factory
         /**
          * fetch the tasks from the db
          * @return {[type]} [description]
          */
-        _this.getTasks = function(){
+        _this.getTasks = function(id){
 
-            TaskFactory.getTasks($stateParams.design_id)
+            if (_this.currectTasks === id) {
+                return;
+            }
+
+            var tasklistPage = (id !== undefined);
+            
+            var _id = id || $stateParams.design_id;
+
+            TaskFactory.getTasks(_id)
                 .then(function(data){
 
                     if(data.length === 1) {
@@ -29,24 +47,44 @@
                         _this.usersTasks = data;
                     }
 
+                    if(tasklistPage) {
+                        _this.openSidebar = true;
+                         _this.currectTasks = _id;
+                    }
+
                 }, function(error){
                     _this.tasks = {};
                 });
         };
 
+        //get user projects that contain tasks
+        //left panel
+        _this.getUserProjectsWithTasks = function(){
 
-        //gets tasks for task page
-        _this.getUserTasks = function(){
-            console.log('adfadsfasdfas chelsea');
-            TaskFactory.getUserTasks()
+            TaskFactory.getUserProjectsWithTasks()
             .then(function(data){
-                _this.allUserTasks = data;
+                _this.allUserProjectsWithTasks = data;
+
             }, function(error){
-                _this.allUserTasks = {};
+                _this.allUserProjectsWithTasks = {};
             });
         };
 
-        
+        //get designs with user tasks
+        //center panel
+        _this.getDesignsWithTasks = function(){
+
+            var id = TaskProject.getId();
+
+            _this.openSidebar = false;
+
+            TaskFactory.getDesignsWithTasks(id)
+                .then(function(data){
+                    _this.designsWithTasks = data;
+            }), function(error){
+                    _this.designsWithTasks = {}
+            };
+        };
 
         _this.updateTask = function(task){
 
@@ -64,6 +102,6 @@
         };
     };
 
-    TasksController.$inject = ["TaskFactory", "$stateParams"];
+    TasksController.$inject = ["TaskFactory", "$stateParams", "$scope", "TaskProject"];
 
 })();

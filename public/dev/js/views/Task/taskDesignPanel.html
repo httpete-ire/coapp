@@ -1,14 +1,16 @@
-<div class="col-md-3" >
-{{design}}
-<h2>{{key}}</h2>
+  <div class="task-panel-container design">
+	<h3 class="task-left-pannel-title">Designs</h3>
+ <div  ng-init="taskCtrl.getDesignsWithTasks()" >
 
+	 <div class="col-md-3 task-panel right-panel" panel-height>
+	          
 
-       <div ng-repeat="(key, value) in taskCtrl.allUserTasks">
-            <pre>key is {{key}} <br />
-
-                value is {{value}}</pre>
-            
-        </div> 
-<!-- </ul> -->
+	    <div ng-repeat="design in taskCtrl.designsWithTasks" class="task-project-thumbnail">
+	        
+	       		<img ng-src="{{design.img.thumbnail}}" width="100%" ng-click="taskCtrl.getTasks(design._id)"> 
+	       <h4>{{design.name}}</h4>
+	    </div>
+	</div>
+	<div ng-include src="'dev/js/views/Annotate/TaskSidebar.html'"></div>
 </div>
-<div ui-view></div>
+</div>

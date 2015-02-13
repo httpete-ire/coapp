@@ -211,3 +211,28 @@ $task-sidebar-width: 280px;
         margin-left: 20px;
     }
 }
+.design--taskspanel{
+    position:relative;
+
+    .taskBar{
+        top:0;
+    }
+}
+.task-panel-container{
+    margin-left:270px;
+}
+.design{
+    margin-left:0px;
+}
+.task-panel{
+    
+    margin-top:35px;
+    overflow-y:scroll;
+}
+
+.right-panel{
+    margin-left:10px
+}
+.task-project-thumbnail{
+    margin-top:35px;
+}

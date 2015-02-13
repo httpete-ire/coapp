@@ -33,10 +33,13 @@
             return defer.promise;
         };
 
-        task.getUserTasks = function(){
+
+        //get projects that contain tasks
+        //left panel
+        task.getUserProjectsWithTasks = function(){
             var defer = $q.defer();
 
-            var path = 'api/tasks';
+            var path = 'api/tasks/projects';
 
             $http.get(path)
             .success(function(data){
@@ -49,13 +52,29 @@
             return defer.promise;
         };
 
+        task.getDesignsWithTasks = function(id){
+          var defer = $q.defer();
+
+          var path = 'api/tasks/projects/' + id;
+
+          $http.get(path)
+          .success(function(data){
+            defer.resolve(data);
+          })
+          .error(function(err, status){
+            defer.reject(err);
+          })
+
+          return defer.promise;
+        };
+
         /**
          * get a list of tasks related to the design and user
          *
          * @return {Promise}
          */
         task.getTasks = function(id){
-
+            console.log(id);
               var defer = $q.defer();
 
               var path = 'api/designs/' + id + '/tasks';
