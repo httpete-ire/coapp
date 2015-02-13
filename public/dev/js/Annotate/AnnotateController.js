@@ -95,6 +95,8 @@
                 .then(function(data){
                     _this.getDesign();
                     _this.assignTask = false;
+                    // force the task-bar to update
+                    $rootScope.$broadcast('updatedTask');
                 }, function(error){
 
                 });
@@ -203,6 +205,8 @@
             // bind the color type to the new annotation
             annotation.type = _this.radioColor;
 
+            console.log(annotation);
+
             AnnotateFactory
                 .addAnnotation(annotation, $stateParams.design_id)
                 .then(function(data){
@@ -212,6 +216,12 @@
 
                     // reset to default color
                     _this.radioColor = 'type-general';
+
+                    // if the annotation includes a task
+                    // update the task list
+                    if (annotation.assignedTo) {
+                        $rootScope.$broadcast('updatedTask');
+                    }
                 });
         }
 

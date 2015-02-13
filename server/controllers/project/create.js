@@ -1,9 +1,9 @@
 var Project = require('./../../models/project');
 var User = require('./../../models/user');
-var _ = require('underscore');
 var Validator = require('./../../helpers/validator.js');
 
-'use strict';
+var _ = require('underscore');
+var async = require('async');
 
 /**
  * @api {post} /api/projects Add project
@@ -36,62 +36,61 @@ var Validator = require('./../../helpers/validator.js');
  */
 module.exports =  function newProject (req, res, next) {
 
+    async.waterfall([function (cb) {
 
-    // use async library
-    // then create new activity in project timeline list
+        var validator = new Validator();
 
-    var validator = new Validator();
-
-    validator.addRule({
-        field: 'name',
-        value: req.body.name,
-        rules: ['required']
-    });
-
-    validator.addRule({
-        field: 'desc',
-        value: req.body.desc,
-        rules: ['required']
-    });
-
-    // validate data
-    if (!validator.validate()) {
-        return next({
-            message: 'invalid data',
-            status: 422,
-            fields: validator.getErrors()
+        validator.addRule({
+            field: 'name',
+            value: req.body.name,
+            rules: ['required']
         });
-    }
 
-    // start prooject query
-    var query = Project.findOne();
+        validator.addRule({
+            field: 'desc',
+            value: req.body.desc,
+            rules: ['required']
+        });
 
-    // ensure a user can only have one project
-    // with the same name
-    query.where({
-        $and: [
-            {name: req.body.name},
-            {owner: req.user._id}
-        ]
-    });
-
-    // ensure a user can only have one project with the same name
-    query.exec(function (err, project) {
-
-        if (err) {
-            return next(err);
-        }
-
-        if (project) {
-            // project already exists so return conflict error
-            return next({
-                message: req.body.name + ' is already used',
-                status: 409
+        // validate data and return err if invalid
+        if (!validator.validate()) {
+            return cb({
+                message: 'invalid data',
+                status: 422,
+                fields: validator.getErrors()
             });
         }
 
+        return cb(null)
+
+
+    }, function (cb) {
+
+        Project.findOne({
+            $and: [
+                {name: req.body.name},
+                {owner: req.user._id}
+            ]
+        }).exec(function (err, project){
+            if (err) {
+                return cb(err);
+            }
+
+            if (project) {
+                // project already exists so return conflict error
+                return cb({
+                    message: req.body.name + ' is already used',
+                    status: 409
+                });
+            }
+
+            cb(null);
+        });
+
+    }, function (cb) {
+
+        // no project found so we can create a new one
         var project = new Project();
-        var collaborators = [];
 
         project.name = req.body.name;
         project.desc = req.body.desc;
@@ -99,53 +98,79 @@ module.exports =  function newProject (req, res, next) {
         // set the owner to the user logged in
         project.owner = req.user._id;
 
-        /**
-         * check if collaborators is defined
-         */
-        if (req.body.collaborators.length) {
+        addCollaborators(req.body.collaborators, project);
 
-            // if collaborators is sepearted by a comma
-            // create an array with them and the owner
-            if (req.body.collaborators.length > 1) {
-                collaborators = req.body.collaborators;
-            } else { // only one collaborator add them and the owner
-                collaborators.push(req.body.collaborators);
-            }
-            collaborators.push(project.owner);
-        } else { // else add the owner to the collaborators list
-            collaborators = [project.owner];
-        }
-
-        // set project collaborator list
-        _.each(collaborators, function (user) {
-            project.collaborators.push(user);
+        // create a new activity
+        project.recentActivities.push({
+            activityType: 'new project',
+            completedBy: req.user._id,
+            design: null
         });
 
         // save project
         project.save(function (err) {
             if(err) {
-                return next(err);
+                return cb(err);
             }
 
-            // update every user who is listed as a collaborator
-            // and add the project to their project list
-             User
-            .update({ _id: {$in: project.collaborators}},
-                    // add project to user
-                    {$addToSet : { projects : project._id} },
-                    {multi:true},
-                    function(err, numEffected) {
-
-                        if (err) {
-                            return next(err);
-                        }
-
-                        res.send(201);
-                    }
-            );
-
+            cb(null, project);
         });
 
+
+    }, function (project, cb) {
+        // update every user who is listed as a collaborator
+        // and add the project to their project list
+         User
+        .update({ _id: {$in: project.collaborators}},
+                // add project to user
+                {$addToSet : { projects : project._id} },
+                {multi:true},
+                function(err, numEffected) {
+
+                    if (err) {
+                        return next(err);
+                    }
+
+                    res.send(201);
+                }
+        );
+    }], function(err) {
+         if (err) {
+            return next(err);
+        }
+
+        return res.send(201);
+    });
+};
+
+/**
+ * add collaborators to the project
+ *
+ * @param {Array} collaborators
+ * @param {Object} project
+ */
+function addCollaborators (collaborators, project) {
+
+    // if their are no collaborators add the owner as one
+    if (!collaborators || !collaborators.length) {
+        project.collaborators.push(project.owner);
+        return;
+    }
+
+    var collabArray = [];
+
+    if (collaborators.length > 1) {
+        collabArray = collaborators;
+    } else { // only one collaborator add them and the owner
+        collabArray.push(req.body.collaborators);
+    }
+
+    // add the owner
+    collabArray.push(project.owner);
+
+    // bind to project object
+    _.each(collabArray, function (user) {
+            project.collaborators.push(user);
     });
 
-};
+}

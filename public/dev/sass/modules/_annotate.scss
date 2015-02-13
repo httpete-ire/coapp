@@ -387,15 +387,34 @@ $task-border : lighten($text-grey, 47);
     color: lighten($text-color, 40%);
 }
 
-.is-task > .annotation--mark {
-    width: 33px;
-    height: 33px;
-}
+// .is-task > .annotation--mark {
+//     width: 33px;
+//     height: 33px;
+// }
 
 .is-task .task--active {
-    border: 3px solid #e74c3c;
+    // border: 3px solid #e74c3c;
 }
 
 .is-task .task--complete {
-    border: 3px solid #2ecc71;
+    // border: 3px solid #2ecc71;
+    opacity: 0.4;
+}
+
+
+// annotation task complete
+.task--checkbox-container-complete {
+
+    .task--box-check {
+        color: lighten($text-color, 40%);
+    }
+
+    .task--box-action {
+        color: lighten($text-color, 40%);
+        text-decoration: line-through;
+    }
+}
+
+.task--box-check {
+    float: left;
 }

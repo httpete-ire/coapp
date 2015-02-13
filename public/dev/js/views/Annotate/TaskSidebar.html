@@ -15,6 +15,12 @@ ng-class="{
 
         <ul class="task--list">
 
+            <li class="task--list-item" ng-if="taskCtrl.ownerTasks[0].length === 0">
+
+                no tasks assigned
+
+            </li>
+
             <li class="task--list-item" ng-repeat="task in taskCtrl.ownerTasks[0]">
 
                 <div class="task--list-details">
@@ -48,10 +54,7 @@ ng-class="{
                     </div>
 
                 </div>
-                <!-- /.task--list-action --><!--
-                {{task.isComplete}}
-
-                {{task.assignedTo.username}} -->
+                <!-- /.task--list-action -->
             </li>
 
         </ul>
@@ -66,6 +69,13 @@ ng-class="{
         </div>
 
         <ul class="task--list">
+            <li class="task--list-item" ng-if="taskList.length === 0">
+
+                no tasks assigned
+
+            </li>
+
+
             <li class="task--list-item" ng-repeat="task in taskList">
 
                 <div class="task--list-details">
@@ -88,19 +98,15 @@ ng-class="{
                     </div>
 
                 </div>
-<!--
-                {{task.annotation.number}} task is : {{task.isComplete}}
-
-                {{task.assignedTo.username}} -->
 
                 <div class="task--list-action clearfix" ng-class="{
                     'task-complete' : task.isComplete
                 }">
 
                     <!-- checkbox -->
-                    <div class="task--action-checkbox">
+                    <div class="task--action-checkbox" ng-if="$parent.$index === 0">
                         <label>
-                            <input type="checkbox" class="task--checkbox" ng-checked="{{task.isComplete}}" ng-click="taskCtrl.updateTask(task)">
+                            <input type="checkbox" class="task--checkbox" ng-checked="{{task.isComplete}}" ng-click="AnnotateCtrl.updateTask(task)">
                             <span></span>
                         </label>
                     </div>

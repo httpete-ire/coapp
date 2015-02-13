@@ -25,7 +25,6 @@
         background: #fff;
     }
 
-
     &--checkbox {
         display: none;
 
@@ -38,7 +37,6 @@
         font-weight: normal;
         text-decoration: inherit;
         font-size: 18px;
-        color: $red;
         margin-right: 10px;
     }
 
@@ -111,6 +109,7 @@ $task-sidebar-width: 280px;
 
     &-item:last-child {
         margin-bottom: 0;
+        border-bottom: none;
     }
 
     &-details {

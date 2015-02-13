@@ -13,7 +13,7 @@
                 <!-- help icon -->
                 <!-- <p>double click on mark to open : click and drag on mark to replace</p> -->
 
-                <span class="fa fa-question-circle annotation--helper" tooltip-placement="right" tooltip="dbl click to open annotation or click and drag to update position"></span>
+                <span class="fa fa-question-circle annotation--helper" tooltip-placement="right" tooltip="dbl click to open annotation or click and drag to update position" ></span>
 
                 <img ng-src="{{ AnnotateCtrl.design.img.full }}" ng-click="AnnotateCtrl.annotate($event)" class="design-img">
                  <ul>
@@ -73,11 +73,21 @@
                                     <div class="annotation--task-body">
 
                                         <div class="task--checkbox-container" ng-if="mark.task"
+                                        ng-class="{
+                                            'task--checkbox-container-complete': {{mark.task.isComplete}}
+                                        }"
                                         >
-                                            <label>
-                                                <input type="checkbox" class="task--checkbox" ng-checked="{{mark.task.isComplete}}" ng-click="AnnotateCtrl.updateTask(mark.task)">
+                                            <div class="task--box-check">
+                                                <label>
+                                                    <input type="checkbox" class="task--checkbox" ng-checked="{{mark.task.isComplete}}" ng-click="AnnotateCtrl.updateTask(mark.task)">
+                                                    <span></span>
+                                                </label>
+                                            </div>
+
+                                            <div class="task--box-action">
                                                 <span>{{mark.task.action}}</span>
-                                            </label>
+                                            </div>
+
                                         </div>
 
                                         <!-- hide if task defined -->
