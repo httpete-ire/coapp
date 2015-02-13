@@ -2,9 +2,12 @@
 
 	 <div  ng-init="taskCtrl.getDesignsWithTasks()" >
 
-		 <div class="col-md-4 task-panel-container-inner design-panel">
+		 <div class="col-md-4 task-panel-container-inner design-panel clearfix">
 
-			 <h3 class="task-left-pannel-title">Designs</h3>
+			 <div class="task--title-container clearfix">
+				 <h4 class="task-left-pannel-title">Designs</h4>
+				 <span class="pull-right">({{taskCtrl.designsWithTasks.length}})</span>
+			 </div>
 
 			<div class="project--thumbnail-container" panel-height>
 				<div ng-repeat="design in taskCtrl.designsWithTasks" class="task-project-thumbnail">

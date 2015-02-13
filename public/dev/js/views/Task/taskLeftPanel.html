@@ -3,9 +3,12 @@
     <div  ng-init="taskCtrl.getUserProjectsWithTasks()">
 
 
-    <div class="col-md-4 task-panel-container-inner">
+    <div class="col-md-4 task-panel-container-inner clearfix">
 
-        <h3 class="task-left-pannel-title">Projects</h3>
+        <div class="task--title-container clearfix">
+        	<h4 class="pull-left">Projects</h4>
+        	<span class="pull-right">({{taskCtrl.allUserProjectsWithTasks.length}})</span>
+        </div>
 
 
         <div class="project--thumbnail-container" panel-height>

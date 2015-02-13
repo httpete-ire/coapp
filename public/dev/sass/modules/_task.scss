@@ -229,10 +229,12 @@ $task-sidebar-width: 280px;
     }
 }
 
-.task-panel-container-inner{
+.task--title-container > span {
+    margin-top:10px;
+}
 
-    margin-top:25px;
-
+.task-left-pannel-title{
+    float:left
 }
 .design-panel{
         margin-left:2%;
@@ -240,6 +242,8 @@ $task-sidebar-width: 280px;
 
 .project--thumbnail-container{
     overflow-y:scroll;
+    border-top: 1px solid lighten($text-grey,45%);
+    margin-top: 19px;
 }
 
 .right-panel{
