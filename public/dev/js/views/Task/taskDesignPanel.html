@@ -1,15 +1,15 @@
   <div class="task-design-container">
-	
+
 	 <div  ng-init="taskCtrl.getDesignsWithTasks()" >
 
 		 <div class="col-md-4 task-panel-container-inner design-panel">
 
 			 <h3 class="task-left-pannel-title">Designs</h3>
-			          
+
 			<div class="project--thumbnail-container" panel-height>
 				<div ng-repeat="design in taskCtrl.designsWithTasks" class="task-project-thumbnail">
-				        
-				    <img ng-src="{{design.img.thumbnail}}" width="100%" ng-click="taskCtrl.getTasks(design._id)"> 
+
+				    <img ng-src="{{design.img.thumbnail}}" width="100%" ng-click="taskCtrl.getTasks(design._id)" ng-class="{ 'active-image': taskCtrl.activeDesign(design._id) }">
 				    <h4>{{design.name}}</h4>
 			    </div>
 			</div>

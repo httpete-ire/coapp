@@ -1,28 +1,28 @@
 <div class="task-panel-container project">
 
-	<div  ng-init="taskCtrl.getUserProjectsWithTasks()">
+    <div  ng-init="taskCtrl.getUserProjectsWithTasks()">
 
 
-	<div class="col-md-4 task-panel-container-inner">
+    <div class="col-md-4 task-panel-container-inner">
 
-		<h3 class="task-left-pannel-title">Projects</h3>
-
-
-		<div class="project--thumbnail-container" panel-height>
-			    <div ng-repeat="project in taskCtrl.allUserProjectsWithTasks" class="task-project-thumbnail">
+        <h3 class="task-left-pannel-title">Projects</h3>
 
 
-			       <a href="#/tasklist/design/{{project._id}}">
-				      <img ng-src="{{project.thumbnail}}" width="100%" ng-class="{ 'active-image': taskCtrl.activeProject(project._id) }">
-			       </a>
-			       <h4>{{project.name}}</h4>
+        <div class="project--thumbnail-container" panel-height>
+                <div ng-repeat="project in taskCtrl.allUserProjectsWithTasks" class="task-project-thumbnail">
+
+
+                   <a href="#/tasklist/design/{{project._id}}">
+                      <img ng-src="{{project.thumbnail}}" width="100%" ng-class="{ 'active-image': taskCtrl.activeProject(project._id) }">
+                   </a>
+                   <h4>{{project.name}}</h4>
 
 
 
-			    </div>
-		</div>
+                </div>
+        </div>
 
-	</div>
-	<div ui-view class="design-panel-view"></div>
+    </div>
+    <div ui-view class="design-panel-view"></div>
 </div>
 </div>
