@@ -47,7 +47,11 @@
                         popover-placement="bottom" popover="{{::mark.body}}"
                         popover-trigger="mouseenter"
                         popover-popup-delay="250"
-                        >{{mark.number}}</a>
+                        >
+                        <i class="fa fa-reddit" ng-if="mark.task && !mark.task.isComplete" ></i>
+                        <i class="fa fa-check" ng-if="mark.task.isComplete" ></i>
+                        <i class="fa fa-comment" ng-if="!mark.task && !mark.task.isComplete" ></i>
+                        </a>
 
                             <div
                                 class="annotation--details"

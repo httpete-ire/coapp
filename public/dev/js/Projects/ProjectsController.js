@@ -102,7 +102,7 @@
                 $modalInstance.dismiss('cancel');
                 //Broadcasts out, for a listener to listen for
                 $rootScope.$broadcast('project-change');
-                $scope.project = null;//to set the form back to blank
+                console.log($scope.project);
             }, function(error){
                 // handle alerts here
                 $scope.alertService.setAlert(error.response.message);
