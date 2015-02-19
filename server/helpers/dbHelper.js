@@ -1,6 +1,5 @@
 var Task = require('./../models/task');
 var Project = require('./../models/project');
-
 var config = require('./../config');
 
 
@@ -59,6 +58,7 @@ module.exports.createActivity =  function (id, activity, callback) {
     Project
     .findOne({_id: id})
     .exec(function (err, project) {
+
         if(err) {
             return callback(err);
         }

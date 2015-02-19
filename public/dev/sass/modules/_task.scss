@@ -258,3 +258,31 @@ $task-sidebar-width: 280px;
 .active-image {
     border: 3px solid $green;
 }
+
+.faded-image {
+    opacity: 0.4;
+}
+
+.design--thumbnail {
+    position: relative;
+    z-index: 1000;
+
+
+    &:last-child {
+        &:before {
+            content: '';
+            display: none;
+        }
+    }
+
+    &:before {
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 5px;
+        background: #5B7075;
+        z-index: -1;
+        left: 50%;
+        top: 100px;
+    }
+}

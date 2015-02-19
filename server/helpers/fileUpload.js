@@ -91,8 +91,6 @@ function removeImgs (images, projectId, cb) {
 
     var uploadDir = path.resolve(__dirname + opts.uploadsDir + '/');
 
-    console.log(uploadDir);
-
     async.each(images, function (img, cb) {
         // get the name of the image
         var imgPath = img.indexOf(projectId.toString());

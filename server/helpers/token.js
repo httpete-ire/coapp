@@ -1,5 +1,3 @@
-'use strict';
-
 var jwt = require('jwt-simple');
 var tokenConfig = require('./../config').token;
 

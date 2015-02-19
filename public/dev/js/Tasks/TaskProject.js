@@ -6,7 +6,7 @@
     function TaskProject () {
 
         // private variable
-        
+
 
         var TaskProject = {
             _id: null
@@ -19,6 +19,10 @@
         TaskProject.getId = function () {
             return TaskProject._id;
         }
+
+        TaskProject.reset = function () {
+            return TaskProject._id = null;
+        };
 
         return TaskProject;
 

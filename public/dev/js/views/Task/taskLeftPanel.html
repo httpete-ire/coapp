@@ -1,12 +1,12 @@
 <div class="task-panel-container project">
 
-    <div  ng-init="taskCtrl.getUserProjectsWithTasks()">
+    <div ng-init="taskCtrl.init()">
 
 
     <div class="col-md-4 task-panel-container-inner clearfix">
 
         <div class="task--title-container clearfix">
-        	<h4 class="pull-left">Projects</h4>
+        	<h4 class="pull-left">Projects with tasks</h4>
         	<span class="pull-right">({{taskCtrl.allUserProjectsWithTasks.length}})</span>
         </div>
 
@@ -16,7 +16,8 @@
 
 
                    <a href="#/tasklist/design/{{project._id}}">
-                      <img ng-src="{{project.thumbnail}}" width="100%" ng-class="{ 'active-image': taskCtrl.activeProject(project._id) }">
+                      <img ng-src="{{project.thumbnail}}" width="100%" ng-class="{ 'active-image': taskCtrl.activeProject(project._id),
+                          'faded-image': !taskCtrl.activeProject(project._id) && taskCtrl.hasActiveProject }">
                    </a>
                    <h4>{{project.name}}</h4>
 

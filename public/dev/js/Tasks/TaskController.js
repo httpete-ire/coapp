@@ -22,12 +22,17 @@
 
         _this.openSidebar = false;
 
-        _this.currectTasks = null;
+        _this.currentTask = null;
+
+        _this.hasActiveProject;
+
+        _this.hasActiveDesign = false;
 
 
         _this.toggleTaskBar = function () {
             _this.openSidebar = !_this.openSidebar;
         };
+
         //get tasks function calls the getTasks function from the factory
         /**
          * fetch the tasks from the db
@@ -35,7 +40,9 @@
          */
         _this.getTasks = function(id){
 
-            if (_this.currectTasks === id) {
+            _this.hasActiveDesign = true;
+
+            if (_this.currentTask === id) {
                 return;
             }
 
@@ -54,7 +61,7 @@
 
                     if(tasklistPage) {
                         _this.openSidebar = true;
-                         _this.currectTasks = _id;
+                         _this.currentTask = _id;
                     }
 
                 }, function(error){
@@ -82,7 +89,13 @@
 
             var id = TaskProject.getId();
 
+            _this.currentTask = null;
+
+            _this.hasActiveDesign = false;
+
             _this.openSidebar = false;
+
+            _this.hasActiveProject = true;
 
             TaskFactory.getDesignsWithTasks(id)
                 .then(function(data){
@@ -107,14 +120,19 @@
             });
         };
 
+        _this.init = function () {
+            TaskProject.reset();
+            this.getUserProjectsWithTasks();
+            this.currentTask = null;
+            this.hasActiveProject = false;
+        };
+
         _this.activeProject = function (id) {
-            console.log('id is : ', id);
-            console.log(id === TaskProject.getId());
             return id === TaskProject.getId();
         };
 
         _this.activeDesign = function (id) {
-            return id === _this.currectTasks;
+            return id === _this.currentTask;
         }
     };
 

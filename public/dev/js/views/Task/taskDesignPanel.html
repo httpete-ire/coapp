@@ -5,14 +5,15 @@
 		 <div class="col-md-4 task-panel-container-inner design-panel clearfix">
 
 			 <div class="task--title-container clearfix">
-				 <h4 class="task-left-pannel-title">Designs</h4>
+				 <h4 class="task-left-pannel-title">Designs with tasks</h4>
 				 <span class="pull-right">({{taskCtrl.designsWithTasks.length}})</span>
 			 </div>
 
 			<div class="project--thumbnail-container" panel-height>
-				<div ng-repeat="design in taskCtrl.designsWithTasks" class="task-project-thumbnail">
+				<div ng-repeat="design in taskCtrl.designsWithTasks" class="task-project-thumbnail design--thumbnail">
 
-				    <img ng-src="{{design.img.thumbnail}}" width="100%" ng-click="taskCtrl.getTasks(design._id)" ng-class="{ 'active-image': taskCtrl.activeDesign(design._id) }">
+				    <img ng-src="{{design.img.thumbnail}}" width="100%" ng-click="taskCtrl.getTasks(design._id)" ng-class="{ 'active-image': taskCtrl.activeDesign(design._id),
+				    'faded-image': !taskCtrl.activeDesign(design._id) && taskCtrl.hasActiveDesign }">
 				    <h4>{{design.name}}</h4>
 			    </div>
 			</div>
