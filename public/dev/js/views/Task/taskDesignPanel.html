@@ -1,23 +1,29 @@
   <div class="task-design-container">
 
-	 <div  ng-init="taskCtrl.getDesignsWithTasks()" >
+     <div  ng-init="taskCtrl.getDesignsWithTasks()" >
 
-		 <div class="col-md-4 task-panel-container-inner design-panel clearfix">
+         <div class="col-md-4 task-panel-container-inner design-panel clearfix">
 
-			 <div class="task--title-container clearfix">
-				 <h4 class="task-left-pannel-title">Designs with tasks</h4>
-				 <span class="pull-right">({{taskCtrl.designsWithTasks.length}})</span>
-			 </div>
+             <div class="task--title-container clearfix">
+                 <h4 class="task-left-pannel-title">Designs with tasks</h4>
+                 <span class="pull-right">({{taskCtrl.designsWithTasks.length}})</span>
+             </div>
 
-			<div class="project--thumbnail-container" panel-height>
-				<div ng-repeat="design in taskCtrl.designsWithTasks" class="task-project-thumbnail design--thumbnail">
+            <div class="project--thumbnail-container" panel-height>
+                <div ng-repeat="design in taskCtrl.designsWithTasks" class="task-project-thumbnail design--thumbnail">
 
-				    <img ng-src="{{design.img.thumbnail}}" width="100%" ng-click="taskCtrl.getTasks(design._id)" ng-class="{ 'active-image': taskCtrl.activeDesign(design._id),
-				    'faded-image': !taskCtrl.activeDesign(design._id) && taskCtrl.hasActiveDesign }">
-				    <h4>{{design.name}}</h4>
-			    </div>
-			</div>
-		</div>
-		<div ng-include src="'dev/js/views/Annotate/TaskSidebar.html'"></div>
-	</div>
+
+                    <div class="design--thumbnail-container" ng-click="taskCtrl.getTasks(design._id)">
+                        <img ng-src="{{design.img.thumbnail}}" width="100%" ng-class="{ 'active-image': taskCtrl.activeDesign(design._id)}">
+
+                        <div ng-class="{
+                            'design--thumbnail-overlay' : !taskCtrl.activeDesign(design._id) && taskCtrl.hasActiveDesign
+                        }"></div>
+                    </div>
+                    <h4>{{design.name}}</h4>
+                </div>
+            </div>
+        </div>
+        <div ng-include src="'dev/js/views/Annotate/TaskSidebar.html'"></div>
+    </div>
 </div>

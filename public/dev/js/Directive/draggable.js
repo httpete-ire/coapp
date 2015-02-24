@@ -17,8 +17,6 @@
 
         var imgDivRect = imgDiv.getBoundingClientRect();
 
-        console.log('height is: ', imgDivRect.height);
-
         var markOffset = {
             x: 15,
             y: 15
@@ -40,6 +38,15 @@
             coords.y = imgDiv.getBoundingClientRect().top + markOffset.y;
             coords.height = imgDiv.offsetHeight;
         }, 0);
+
+        /**
+         * update x postition of the image, the window can resize so
+         * the image moves so the new x coords must be updated
+         *
+         */
+        coords.update = function () {
+            this.x = imgDiv.getBoundingClientRect().left + markOffset.x;
+        };
 
         // an object of the coords of the img container
         return coords;
@@ -69,6 +76,8 @@
                     return;
                 }
 
+                containerCoords.update();
+
                 element.addClass('drag-mark');
 
                 $document.on('mousemove', mousemove);
@@ -96,15 +105,11 @@
                 }
 
                 setPos(x ,(startY + (y - startY)));
-
-                console.log('in the mouse move');
             }
 
             function mouseup() {
 
                 element.removeClass('drag-mark');
-
-                console.log('in the mouse up');
 
                 if (startX === (startX - x) || startY === (startY - y) ||outOfBOunds) {
                     $document.off('mousemove', mousemove);
@@ -117,8 +122,6 @@
                     x: x + 15,
                     y: y + 15
                 };
-
-
 
                 AnnotateFactory
                     .updateAnnotation(annotation, $stateParams.design_id)
