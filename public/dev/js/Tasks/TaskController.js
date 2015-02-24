@@ -8,7 +8,7 @@
     function TasksController(TaskFactory, $stateParams, $scope, TaskProject){
         //set this, to avoid scope
         var _this = this;
-        
+
         //array to hold all projects that the user has tasks in
         _this.allUserProjectsWithTasks = [];
         //array to hold all designs within the project
@@ -33,9 +33,17 @@
 
         _this.hasActiveDesign = false;
 
+        _this.tasklistPage = false;
+
+        _this.designId;
+
         //method called from task view to open and close the task sidebar
         _this.toggleTaskBar = function () {
             _this.openSidebar = !_this.openSidebar;
+        };
+
+        _this.isTaskPage = function () {
+            return _this.tasklistPage;
         };
 
         //get tasks function calls the getTasks function from the factory
@@ -51,9 +59,11 @@
                 return;
             }
 
-            var tasklistPage = (id !== undefined);
+            _this.tasklistPage = (id !== undefined);
 
             var _id = id || $stateParams.design_id;
+
+            _this.designId = _id;
             //call getTasks from the taskService using a given id
             TaskFactory.getTasks(_id)
                 .then(function(data){
@@ -63,9 +73,9 @@
                         _this.usersTasks = data;
                     }
 
-                    if(tasklistPage) {
+                    if(_this.tasklistPage) {
                         _this.openSidebar = true;
-                         _this.currentTask = _id;
+                        _this.currentTask = _id;
                     }
 
                 }, function(error){

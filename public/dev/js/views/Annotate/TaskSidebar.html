@@ -10,7 +10,12 @@ ng-class="{
     <div class="task-container owner-task-container" ng-if="taskCtrl.ownerTasks.length  > 0">
 
         <div class="task--list-title clearfix">
-            <h4 class="task--list-title">All tasks</h4> <span class="pull-right">({{taskCtrl.ownerTasks[0].length}})</span>
+            <h4 class="task--list-title">All tasks</h4>
+
+
+            <a href="#/design/{{taskCtrl.designId}}" ng-if="taskCtrl.isTaskPage()" class="task--design-link">go to design</a>
+
+            <span class="pull-right">({{taskCtrl.ownerTasks[0].length}})</span>
         </div>
 
         <ul class="task--list">
@@ -46,7 +51,7 @@ ng-class="{
                     </div>
 
                     <!-- checkbox -->
-                    <div class="task--action-checkbox">
+                    <div class="task--action-checkbox" ng-if="!taskCtrl.isTaskPage()">
                         <label>
                             <input type="checkbox" class="task--checkbox" ng-checked="{{task.isComplete}}" ng-click="AnnotateCtrl.updateTask(task)">
                             <span></span>
