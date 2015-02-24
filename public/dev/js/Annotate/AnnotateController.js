@@ -73,7 +73,7 @@
             
             var klass;
             if(mark.task && !mark.task.isComplete){
-                klass = "fa-reddit"
+                klass = "fa-ellipsis-h"
             }
             else if(mark.task && mark.task.isComplete){
                 klass = "fa-check"

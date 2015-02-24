@@ -44,7 +44,8 @@
                         popover-popup-delay="250"
                         >
                         <!-- icon on annotation done by class in controller -->
-                        <i class="fa " ng-class="[AnnotateCtrl.toggleAnnotationClass(mark)]" ></i>
+                        <i class="fa " ng-class="[AnnotateCtrl.toggleAnnotationClass(mark)]" ng-hide="AnnotateCtrl.openSidebar && mark.task"></i>
+                        <span ng-show="AnnotateCtrl.openSidebar && mark.task">{{mark.number}}</span>
                         </a>
 
                             <div

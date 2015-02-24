@@ -34,7 +34,8 @@
 
                         <div class="col-md-7 filter--options-header pull-right">
                            <div class="filter--options">
-                               <label ng-repeat="check in AnnotateCtrl.filterOptions track by $index">
+                                <span class="filterText">Filter by type : </span>    
+                                <label ng-repeat="check in AnnotateCtrl.filterOptions track by $index">
                                     <input type="checkbox" ng-model="check.on" name="text" value="text"  />
                                     <span class="label-text" ng-class="[check.klass]" >{{check.name}}</span>
                                 </label>
