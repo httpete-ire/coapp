@@ -1,29 +1,8 @@
-<<<<<<< HEAD
- <!-- this template will gold all designs for a specific projects -->
- <div class="task-design-container">
-  	<!-- initalise data with getDesignsWithTasks method -->
-	 <div  ng-init="taskCtrl.getDesignsWithTasks()" >
-		 <div class="col-md-4 task-panel-container-inner design-panel clearfix">
-			 <div class="task--title-container clearfix">
-				 <h4 class="task-left-pannel-title">Designs with tasks</h4>
-				 <span class="pull-right">({{taskCtrl.designsWithTasks.length}})</span>
-			 </div>
+ <!-- this template will hold all designs for a specific projects -->
+<div class="task-design-container">
 
-			<div class="project--thumbnail-container" panel-height>
-				<div ng-repeat="design in taskCtrl.designsWithTasks" class="task-project-thumbnail design--thumbnail">
-				    <img ng-src="{{design.img.thumbnail}}" width="100%" ng-click="taskCtrl.getTasks(design._id)" ng-class="{ 'active-image': taskCtrl.activeDesign(design._id),
-				    'faded-image': !taskCtrl.activeDesign(design._id) && taskCtrl.hasActiveDesign }">
-				    <h4>{{design.name}}</h4>
-			    </div>
-			</div>
-		</div>
-		<!-- include the task sidebar template -->
-		<div ng-include src="'dev/js/views/Annotate/TaskSidebar.html'"></div>
-	</div>
-=======
-  <div class="task-design-container">
-
-     <div  ng-init="taskCtrl.getDesignsWithTasks()" >
+    <!-- initalise data with getDesignsWithTasks method -->
+    <div  ng-init="taskCtrl.getDesignsWithTasks()" >
 
          <div class="col-md-4 task-panel-container-inner design-panel clearfix">
 
@@ -49,5 +28,4 @@
         </div>
         <div ng-include src="'dev/js/views/Annotate/TaskSidebar.html'"></div>
     </div>
->>>>>>> 821fe4e2daf17ad87a4cd47aab622a96a8d40257
 </div>
