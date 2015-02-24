@@ -16,6 +16,7 @@
         var imgDiv = angular.element( document.querySelector( '#annotation-img'))[0];
         //get the offset from the window
         var imgDivRect = imgDiv.getBoundingClientRect();
+
         //offset the x and y by the with and height of the annotation to center it
         var markOffset = {
             x: 15,
@@ -38,6 +39,15 @@
             coords.y = imgDiv.getBoundingClientRect().top + markOffset.y;
             coords.height = imgDiv.offsetHeight;
         }, 0);
+
+        /**
+         * update x postition of the image, the window can resize so
+         * the image moves so the new x coords must be updated
+         *
+         */
+        coords.update = function () {
+            this.x = imgDiv.getBoundingClientRect().left + markOffset.x;
+        };
 
         // an object of the coords of the img container
         return coords;
@@ -66,8 +76,12 @@
                 if ((attr.openComment === 'true') || (!AuthenticationFactory.isOwner(attr.owner))) {
                     return;
                 }
+
                 //add a class to allow for dragging the annotation
                 element.addClass('drag-mark');
+
+                containerCoords.update();
+                
                 //set up mouseMove and mouseUp listeners
                 $document.on('mousemove', mousemove);
                 $document.on('mouseup', mouseup);
@@ -93,7 +107,6 @@
                 }
                 //set the new x and y
                 setPos(x ,(startY + (y - startY)));
-
             }
 
             //when the user releases the mouse
@@ -112,7 +125,6 @@
                     x: x + 15,
                     y: y + 15
                 };
-
 
                 //call the update Annotation function to set its new coordinates
                 AnnotateFactory

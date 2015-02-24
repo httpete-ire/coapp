@@ -94,12 +94,10 @@
 
             var id = TaskProject.getId();
 
+            // reset default values
             _this.currentTask = null;
-
             _this.hasActiveDesign = false;
-
             _this.openSidebar = false;
-
             _this.hasActiveProject = true;
             //call getDesignsWithTasks from taskService
             TaskFactory.getDesignsWithTasks(id)
