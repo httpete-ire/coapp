@@ -12,18 +12,16 @@
     // @ngInject
     function containerCoords ($timeout) {
 
-        // image div
+        // store the image div for x and y position
         var imgDiv = angular.element( document.querySelector( '#annotation-img'))[0];
-
+        //get the offset from the window
         var imgDivRect = imgDiv.getBoundingClientRect();
-
-        console.log('height is: ', imgDivRect.height);
-
+        //offset the x and y by the with and height of the annotation to center it
         var markOffset = {
             x: 15,
             y: 15
         };
-
+        //an object to store the coordinates needed
         var coords = {
             x: imgDivRect.left + markOffset.x,
             y: imgDivRect.top + markOffset.y,
@@ -54,11 +52,11 @@
                 startY = 0,
                 x = 0,
                 y = 0;
-
+            //used to check if an annotaion is dragged off the image
             var outOfBOunds = false;
-
+            //event listener for mousedown
             element.on('mousedown', function(e) {
-
+                //get the x and y of mouse
                 startX = (e.pageX - containerCoords.x);
                 startY = (e.pageY - containerCoords.y);
 
@@ -68,18 +66,17 @@
                 if ((attr.openComment === 'true') || (!AuthenticationFactory.isOwner(attr.owner))) {
                     return;
                 }
-
+                //add a class to allow for dragging the annotation
                 element.addClass('drag-mark');
-
+                //set up mouseMove and mouseUp listeners
                 $document.on('mousemove', mousemove);
                 $document.on('mouseup', mouseup);
 
             });
 
+            //function to set new x and y position of annotation
             function mousemove(e) {
                 e.preventDefault();
-
-                // change the cursor to a 'move' cursor
 
                 x = (e.pageX - containerCoords.x);
 
@@ -94,17 +91,15 @@
                     outOfBOunds = true;
                     return;
                 }
-
+                //set the new x and y
                 setPos(x ,(startY + (y - startY)));
 
-                console.log('in the mouse move');
             }
 
+            //when the user releases the mouse
             function mouseup() {
-
+                //remove the class drag-mark to stop the annotation from being draggable
                 element.removeClass('drag-mark');
-
-                console.log('in the mouse up');
 
                 if (startX === (startX - x) || startY === (startY - y) ||outOfBOunds) {
                     $document.off('mousemove', mousemove);
@@ -119,16 +114,15 @@
                 };
 
 
-
+                //call the update Annotation function to set its new coordinates
                 AnnotateFactory
                     .updateAnnotation(annotation, $stateParams.design_id)
                     .then(function (data) {
                         // reload page
-
                     }, function (err) {
 
                 });
-
+                //remove event listeners
                 $document.off('mousemove', mousemove);
                 $document.off('mouseup', mouseup);
             }
@@ -139,6 +133,7 @@
                     left: x + 'px'
                 });
             }
+            
 
         };
 

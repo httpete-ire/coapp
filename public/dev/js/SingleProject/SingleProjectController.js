@@ -5,30 +5,32 @@
     .controller('SingleProjectModalController', SingProjModalCtrl);
 
 
-
+    //set up controller with dependencies, $stateParams retreives the current url
     function SingProjCtrl(SingProjFactory, $scope, $upload, $stateParams, AuthenticationFactory){
 
         _this = this;
+        //set up object to hold the data about a single project
         _this.project = {};
 
         // set collabartor list to an empty string when the page loads
         // when the database returns its results we then populate the list
         _this.collaborators = 'test';
 
+        //get all the designs for a single project
         _this.getProjectDesigns=function(){
-
+            //call getProjects from the singleProjectService, passing in the id from the stateParams
             SingProjFactory.getProject($stateParams.project_id)
-
-            .then(function(data){
-                // dsuccess
-                _this.project = data;
-                _this.setCollaborators(_this.project.collaborators);
-            }, function(error){
-                // error
-                _this.project = {};
-            });
+                .then(function(data){
+                    // on success set the project object to the data retreived
+                    _this.project = data;
+                    _this.setCollaborators(_this.project.collaborators);
+                }, function(error){
+                    // error
+                    _this.project = {};
+                });
         }
 
+        //??
         _this.getActivtyIcon = function (activityType) {
             var klass = '';
 
@@ -74,18 +76,21 @@
             _this.collaborators = userList;
         };
 
+        //upload a file to the server
         _this.onFileSelect = function($files) {
-
+            //get thr first file uploaded
             var file = $files[0];
-
+            //upload a file to the current project using the id from the stateParams
             $scope.upload = SingProjFactory
                             .upload(file, $stateParams.project_id)
                             .then(function(data){
+                                //when done update the designs view 
                                 _this.getProjectDesigns();
                             });
 
         };
 
+        //
         _this.getProjectDesigns();
 
         _this.isOwner = AuthenticationFactory.isOwner;
@@ -94,11 +99,12 @@
             _this.getProjectDesigns();
         });
     }
-
+    //inject dependencies, $upload for file upload
     SingProjCtrl.$inject = ["SingProjFactory",'$scope', '$upload', '$stateParams', 'AuthenticationFactory'];
 
+    //modal controller, used for deleting a design
     function SingProjModalCtrl ($scope, $modalInstance, object, SingProjFactory, $rootScope, $window) {
-
+        //??
         $scope.design = {};
 
         // expose object to modal scope

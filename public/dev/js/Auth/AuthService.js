@@ -6,13 +6,16 @@
     .factory('AuthenticationFactory', AuthenticationFactory);
 
     // @ngInject
+    //handles user data from the server to the application for authentication
     function AuthFactory($window, $location, $http, $q, AuthenticationFactory){
+        //set up an object to append methods too
         var auth = {};
 
+        //login for a user, pass a user as parameter
         auth.login = function(user){
-
+            //set up the defer instance
             var defer = $q.defer();
-
+            //make a post request passing in the user object
             $http.post('/auth/login', user)
                 .success(function(data){
                     defer.resolve(data);
@@ -20,14 +23,15 @@
                 .error(function(err, status){
                     defer.reject(err);
                 })
-
+            //return the promise
             return defer.promise;
         };
 
+        //register a new user to the system
         auth.register = function(user){
-
+            //set up the promise instance
             var defer = $q.defer();
-
+            //make a post request passing in the user object
              $http.post('/auth/register', user)
                 .success(function(data){
                     defer.resolve(data);
@@ -35,21 +39,22 @@
                 .error(function(err, status){
                     defer.reject(err);
                 })
-
             return defer.promise;
         };
 
+        //logout a user
         auth.logout = function($location) {
+            //if the user is logged in set the isLogged variable to false
+            //then remove the user token and user from the localstorage
             if (AuthenticationFactory.isLogged) {
                 AuthenticationFactory.isLogged = false;
-
                 delete $window.localStorage.user;
                 delete $window.localStorage.token;
-
                 delete AuthenticationFactory.user;
             }
         };
 
+        //return the auth object with appended methods
         return auth;
     }
     AuthFactory.$inject = ["$window", "$location", "$http", "$q", "AuthenticationFactory"];

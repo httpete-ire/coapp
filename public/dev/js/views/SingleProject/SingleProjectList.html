@@ -1,11 +1,7 @@
 <div class="project--sidebar">
-
     <div class="project--specs">
-
         <h2>{{SingProjectCtrl.project.name}}</h2>
-
         <!-- <span popover="{{SingProjectCtrl.printCollaborators(SingProjectCtrl.project.collaborators)}}" popover-trigger="mouseenter" popover-placement="left">here</span> -->
-
         <div class="project--specs-details">
             <div class="project--specs-date clearfix">
                 <p>Last updated<span am-time-ago="SingProjectCtrl.project.updated" class="pull-right"></span></p>
@@ -13,14 +9,11 @@
 
             <p>{{SingProjectCtrl.project.desc}}</p>
         </div>
-
     </div>
-    <!-- /.project--details -->
-
+    
     <div class="project--collabs">
-
-        <h4 class="project--collabs-title" popover="{{SingProjectCtrl.collaborators}}" popover-trigger="mouseenter" popover-placement="bottom">collaborators</h4> <span>({{SingProjectCtrl.project.collaborators.length}})</span>
-
+        <h4 class="project--collabs-title" popover="{{SingProjectCtrl.collaborators}}" popover-trigger="mouseenter" popover-placement="bottom">collaborators</h4> 
+        <span>({{SingProjectCtrl.project.collaborators.length}})</span>
         <!-- if collabarorators do this -->
         <!-- <ul class="project--collabs-list">
             <li ng-repeat="collab in SingProjectCtrl.project.collaborators" class="project--collabs-list-item" >
@@ -29,45 +22,32 @@
         </ul> -->
 
         <!-- <a href="#" class="project--collabs-add pull-right">add collaborator</a> -->
-
     </div>
     <!-- /.project--collabs -->
 
     <div class="project--timeline">
-
-    <h4 class="project--timeline-title">recent activities</h4>
-
-    <!-- show if there are any recent activites -->
-    <section class="recent--timeline">
-
-        <ul class="recent--timeline-list">
-
-
-            <li class="recent--timeline-item clearfix" ng-repeat="activity in SingProjectCtrl.project.recentActivities | orderBy:'completedDate':true">
-                <!-- circle -->
-                <span class="timeline--circle">
-                    <span class="fa" ng-class="SingProjectCtrl.getActivtyIcon(activity.activityType)"></span>
-                </span>
-                <!-- text -->
-
-
-                <div class="timeline--details">
-
-                    <a href="#"> <!-- link to either task or design -->
-                        {{activity.activityType}}
-                    </a>
-
-                    <span class="timeline--details-date" am-time-ago="activity.completedDate"></span>
-                </div>
-            </li>
-
-        </ul>
-
-    </section>
-
+        <h4 class="project--timeline-title">recent activities</h4>
+        <!-- show if there are any recent activites -->
+        <section class="recent--timeline">
+            <ul class="recent--timeline-list">
+                <li class="recent--timeline-item clearfix" ng-repeat="activity in SingProjectCtrl.project.recentActivities | orderBy:'completedDate':true">
+                    <!-- circle -->
+                    <span class="timeline--circle">
+                        <span class="fa" ng-class="SingProjectCtrl.getActivtyIcon(activity.activityType)"></span>
+                    </span>
+                    <div class="timeline--details">
+                        <a href="#"> <!-- link to either task or design -->
+                            {{activity.activityType}}
+                        </a>
+                        <span class="timeline--details-date" am-time-ago="activity.completedDate"></span>
+                    </div>
+                </li>
+            </ul>
+        </section>
     </div>
     <!-- /.project--timeline -->
 
+    <!-- drag area for uploading images -->
     <div class="project--upload">
         <div
             ng-file-drop
@@ -93,8 +73,6 @@
         </div>
     </div>
     <!-- /.project--upload -->
-
-
 </div>
 
 <div class="container-fluid project--container-push">
@@ -122,25 +100,18 @@
                 </div>
             </div>
             <div class="row">
-
-
                 <ul class="list-unstyled">
-
-                        <li class ="col-md-6" ng-repeat="des in SingProjectCtrl.project.designs | orderBy: orderProp |filter: Name">
+                    <li class ="col-md-6" ng-repeat="des in SingProjectCtrl.project.designs | orderBy: orderProp |filter: Name">
                         <div class="project--container">
-                        <div class="project--img-container">
+                            <div class="project--img-container">
+                                <div class="project-img">
+                                    <a href="#/design/{{des._id}}">
+                                        <img ng-src="{{ des.img.thumbnail }}" alt="" width="100%">
+                                    </a>
+                                </div>
 
-
-                        <div class="project-img">
-                            <a href="#/design/{{des._id}}">
-                                <img ng-src="{{ des.img.thumbnail }}" alt="" width="100%">
-                            </a>
-
-                        </div>
-
-                        <div class="project--img-bg"></div>
+                                <div class="project--img-bg"></div>
                                     <div class="project--img-settings">
-
                                         <ul class="project--img-icons">
                                             <li>
                                                 <a href="#/design/{{des._id}}"><span class="fa fa-eye"></span></a>
@@ -157,32 +128,20 @@
                                         </ul>
                                     </div>
                             </div>
-
-
                             <div class="project--details">
-
                                 <div class="project--details-container">
-
                                     <div class="project--details-name col-md-6">
                                         <h4><a href="#/design/{{des._id}}">{{ des.name}}</a>   </h4>
                                     </div>
 
                                 </div> <!-- details-container -->
                             </div>  <!-- project--details -->
-                        <!-- </li> -->
-
-
+                            <!-- </li> -->
                         </div> <!-- img-container -->
-                        </div> <!-- container -->
-
+           
                     </li>
-
-
                 </ul>
             </div>
-
-
-
         </div><!-- End Page Content -->
     </div><!-- End Content Wrapper -->
-</div>
+</div><!-- container -->

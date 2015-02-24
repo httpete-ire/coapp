@@ -1,18 +1,23 @@
 (function () {
     'use strict';
-    //main aoolication name: coapp. ngRoute for page routing
+    //main application name: coapp. ui-router for page routing
     angular.module('coapp', ['ui.router', 'ui.bootstrap', 'angularFileUpload', 'angularMoment', 'validation.match'])
     .config(appConfig)
     .run(appRun);
 
     // @ngInject
+    //set up function to handle page routing and controllers
     function appConfig ($urlRouterProvider, $stateProvider, $httpProvider){
+        //if any other url is entered direct the user to the landing page
         $urlRouterProvider.otherwise("/landing");
         //set template based on the url
         $stateProvider
+        //state is the current url
         .state('landing', {
             url: '/landing',
+            //use this template
             templateUrl: 'dev/js/views/landing.html',
+            //user must be logged in to view this page
             access:{
                 requiredLogin: false
             }
@@ -93,8 +98,6 @@
     // @ngInject
     function appRun ($rootScope, $window, $location, AuthenticationFactory, alertService) {
         AuthenticationFactory.check();
-
-        
         
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams ){
             alertService.close();

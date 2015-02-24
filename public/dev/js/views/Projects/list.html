@@ -1,31 +1,30 @@
 <div class="container-fluid">
     <div id="content-wrapper">
         <div class="page-content">
-        <div class="row">
+        
+            <div class="row">
+                    <div class="app-header">
+                        <div class="col-xs-3">
+                            <div class="form-group search--form">
+                                <input ng-model="Name" type="text" placeholder="Search project by name" class="form-control search--input">
+                                <i class="fa fa-search search--icon"></i>
+                            </div>
+                        </div>
 
-                <div class="app-header">
-                    <div class="col-xs-3">
-                        <div class="form-group search--form">
-                            <input ng-model="Name" type="text" placeholder="Search project by name" class="form-control search--input">
-                            <i class="fa fa-search search--icon"></i>
+                        <div class="col-xs-3">
+                            <select ng-model="orderProp" class="form-control">
+                                <option value="" selected>Sort by</option>
+                                <option value="name">By Name</option>
+                                <option value="-created">Latest</option>
+                                <option value="created">Oldest</option>
+                            </select>
+                        </div>
+                        <!-- add new project button -->
+                        <div class="col-xs-6">
+                            <span class="btn btn-success pull-right" modal ctrl="ProjectModalController" ctrlAs="projectModalCtrl" template="addproject" windowClass="micky" size="sm">Add new project</span>
                         </div>
                     </div>
-
-                    <div class="col-xs-3">
-                        <select ng-model="orderProp" class="form-control">
-                            <option value="" selected>Sort by</option>
-                            <option value="name">By Name</option>
-                            <option value="-created">Latest</option>
-                            <option value="created">Oldest</option>
-                        </select>
-                    </div>
-
-                    <div class="col-xs-6">
-                        <span class="btn btn-success pull-right" modal ctrl="ProjectModalController" ctrlAs="projectModalCtrl" template="addproject" windowClass="micky" size="sm">Add new project</span>
-
-                    </div>
-                </div>
-        </div>
+            </div>
 
             <div class="row">
                 <ul class="list-unstyled">
@@ -44,6 +43,7 @@
                                             <li>
                                                 <a href="#/projects/{{proj._id}}"><span class="fa fa-eye"></span></a>
                                             </li>
+                                            <!-- ng-if if the user is the owner show icons -->
                                             <li ng-if="projectCtrl.isOwner(proj.owner)"> <!-- edit -->
                                                 <a modal ctrl="ProjectModalController" template="editproject" size="sm" id="{{proj._id}}"><span class="fa fa-edit"></span></a>
                                             </li>
@@ -58,36 +58,24 @@
                             </div>
 
                             <div class="project--details">
-
                                 <div class="project--details-container">
-
                                     <div class="project--details-name col-md-6">
                                         <h4 class="project--details-name"><a href="#/projects/{{proj._id}}">{{proj.name}}</a></h4>
                                     </div>
 
                                     <div class="col-md-6">
                                         <span class="fa fa-file-image-o pull-right">
-
-
-                                    <ng-pluralize count="{{proj.designCount}}"
-                                    when="{'one': '1 design', 'other': '{} designs'}"></ng-pluralize>
-
-
-                                     </span>
-
-                                     </div>
-
+                                            <ng-pluralize count="{{proj.designCount}}"
+                                            when="{'one': '1 design', 'other': '{} designs'}"></ng-pluralize>
+                                        </span>
+                                    </div>
                                 </div> <!-- project details-container -->
                             </div> <!-- 'project details' -->
-
                         </div>
-
                     </li>
-
                 </ul>
             </div>
-        </div>
 
-        </div><!-- End Page Content -->
-    </div><!-- End Content Wrapper -->
-</div>
+        </div>
+    </div><!-- End Page Content -->
+</div><!-- End Content Wrapper -->

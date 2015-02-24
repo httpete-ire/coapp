@@ -5,9 +5,6 @@
 
     function TaskProject () {
 
-        // private variable
-
-
         var TaskProject = {
             _id: null
         };

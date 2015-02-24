@@ -1,34 +1,29 @@
-<!-- Main header -->
+<!-- include the header template -->
 <div ng-include src="'dev/js/views/Annotate/AnnotateHeader.html'"></div>
 
-<!-- Main header -->
+<!-- include the sidebar template -->
 <div ng-controller="TasksController as taskCtrl" ng-include src="'dev/js/views/Annotate/TaskSidebar.html'" ng-init="taskCtrl.getTasks()"></div>
 
 <div class="container-fluid" ng-controller="TasksController as taskCtrl">
     <div id="content-wrapper">
         <div class="page-content contentAnno">
-
             <div class="design-img-container" id="annotation-img">
-
                 <!-- help icon -->
-                <!-- <p>double click on mark to open : click and drag on mark to replace</p> -->
-
                 <span class="fa fa-question-circle annotation--helper" tooltip-placement="right" tooltip="dbl click to open annotation or click and drag to update position" ></span>
 
                 <img ng-src="{{ AnnotateCtrl.design.img.full }}" ng-click="AnnotateCtrl.annotate($event)" class="design-img">
                  <ul>
-
                     <li
                     ng-repeat="mark in AnnotateCtrl.design.annotations | filter:AnnotateCtrl.filterByCategory"
                     class="annotation"
                     ng-show="AnnotateCtrl.filterOptions[0].on && (mark.type === 'type-general') || AnnotateCtrl.filterOptions[1].on && (mark.type === 'type-text') || AnnotateCtrl.filterOptions[2].on && (mark.type === 'type-image') || AnnotateCtrl.filterOptions[3].on && (mark.type === 'type-color') || AnnotateCtrl.filterOptions[4].on && (mark.type === 'type-layout')"
                     ng-style="{'top':mark.circle.y - 15 + 'px', 'left': mark.circle.x - 15 + 'px'}"
                     ng-class="{
-                        'is-open' : AnnotateCtrl.openComment &&
-                        $index === AnnotateCtrl.commentSelected &&
-                        AnnotateCtrl.newAnnotation === null,
-                        'is-task' : mark.task
-                    }"
+                                'is-open' : AnnotateCtrl.openComment &&
+                                $index === AnnotateCtrl.commentSelected &&
+                                AnnotateCtrl.newAnnotation === null,
+                                'is-task' : mark.task
+                            }"
                     annotation-id="{{mark._id}}"
                     owner="{{mark.owner._id}}"
                     open-comment="{{AnnotateCtrl.commentOpen()}}"
@@ -48,9 +43,8 @@
                         popover-trigger="mouseenter"
                         popover-popup-delay="250"
                         >
-                        <i class="fa fa-reddit" ng-if="mark.task && !mark.task.isComplete" ></i>
-                        <i class="fa fa-check" ng-if="mark.task.isComplete" ></i>
-                        <i class="fa fa-comment" ng-if="!mark.task && !mark.task.isComplete" ></i>
+                        <!-- icon on annotation done by class in controller -->
+                        <i class="fa " ng-class="[AnnotateCtrl.toggleAnnotationClass(mark)]" ></i>
                         </a>
 
                             <div

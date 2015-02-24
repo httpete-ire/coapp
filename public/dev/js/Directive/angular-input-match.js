@@ -4,6 +4,7 @@ angular.module('validation.match', []);
 
 angular.module('validation.match').directive('match', match);
 
+//this module is used for password matching on the register form
 function match ($parse) {
     return {
         require: '?ngModel',

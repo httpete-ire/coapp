@@ -8,12 +8,10 @@
     function AnnotateFactory ($http, $q, $stateParams) {
         //epmty object to be returned when methods are added
         var SingDesign = {};
-
+        //api path for http calls
         var Path = '/api/designs/';
 
-
-
-
+        //get a design using the design id passed from the controller
         SingDesign.getDesign = function(design_id){
 
             var defer = $q.defer();
@@ -35,6 +33,8 @@
 
         };
 
+        //add an annotation using the anno object passed from the controller, and assign it to the
+        //design passed in
         SingDesign.addAnnotation = function(anno, designId){
 
             var addAnnotationPath = Path + designId + "/annotations";
@@ -53,6 +53,7 @@
 
         };
 
+        //update an annotations x and y position, called form the draggable directive
         SingDesign.updateAnnotation = function (anno, designid) {
 
             var annotationPath = Path + designid + "/annotations/" + anno._id;
@@ -70,9 +71,8 @@
             return defer.promise;
         }
 
+        //add a comment to a design
         SingDesign.addComment = function (comment, designId, annotationId) {
-
-            // api/design/:designid/annotations/:annotationid/comments
 
             var defer = $q.defer();
 
