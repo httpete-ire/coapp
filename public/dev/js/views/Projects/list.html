@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div id="content-wrapper">
         <div class="page-content">
-        
+
             <div class="row">
                     <div class="app-header">
                         <div class="col-xs-3">
@@ -21,7 +21,7 @@
                         </div>
                         <!-- add new project button -->
                         <div class="col-xs-6">
-                            <span class="btn btn-success pull-right" modal ctrl="ProjectModalController" ctrlAs="projectModalCtrl" template="addproject" size="sm" ng-show="projectCtrl.projects.length === 0">Add new project</span>
+                            <span class="btn btn-success pull-right" modal ctrl="ProjectModalController" ctrlAs="projectModalCtrl" template="addproject" size="sm" ng-show="projectCtrl.projects.length > 0">Add new project</span>
                         </div>
                     </div>
             </div>
@@ -74,7 +74,7 @@
                         </div>
                     </li>
                 </ul>
-                
+
                 <!-- show if there are no projects -->
                 <div class="project--newProjects" ng-show="projectCtrl.projects.length === 0">
                     <img src="./../../../media/icon.png" width="100%">

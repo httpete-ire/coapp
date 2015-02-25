@@ -1,7 +1,6 @@
 <div class="project--sidebar">
     <div class="project--specs">
         <h2>{{SingProjectCtrl.project.name}}</h2>
-        <!-- <span popover="{{SingProjectCtrl.printCollaborators(SingProjectCtrl.project.collaborators)}}" popover-trigger="mouseenter" popover-placement="left">here</span> -->
         <div class="project--specs-details">
             <div class="project--specs-date clearfix">
                 <p>Last updated<span am-time-ago="SingProjectCtrl.project.updated" class="pull-right"></span></p>
@@ -10,18 +9,10 @@
             <p>{{SingProjectCtrl.project.desc}}</p>
         </div>
     </div>
-    
-    <div class="project--collabs">
-        <h4 class="project--collabs-title" popover="{{SingProjectCtrl.collaborators}}" popover-trigger="mouseenter" popover-placement="bottom">collaborators</h4> 
-        <span>({{SingProjectCtrl.project.collaborators.length}})</span>
-        <!-- if collabarorators do this -->
-        <!-- <ul class="project--collabs-list">
-            <li ng-repeat="collab in SingProjectCtrl.project.collaborators" class="project--collabs-list-item" >
-                <p class="project--collabs-name">{{collab.username}}</p>
-            </li>
-        </ul> -->
 
-        <!-- <a href="#" class="project--collabs-add pull-right">add collaborator</a> -->
+    <div class="project--collabs">
+        <h4 class="project--collabs-title" popover="{{SingProjectCtrl.collaborators}}" popover-trigger="mouseenter" popover-placement="bottom">collaborators</h4>
+        <span>({{SingProjectCtrl.project.collaborators.length}})</span>
     </div>
     <!-- /.project--collabs -->
 
@@ -36,9 +27,9 @@
                         <span class="fa" ng-class="SingProjectCtrl.getActivtyIcon(activity.activityType)"></span>
                     </span>
                     <div class="timeline--details">
-                        <a href="#"> <!-- link to either task or design -->
+                        <span> <!-- link to either task or design -->
                             {{activity.activityType}}
-                        </a>
+                        </span>
                         <span class="timeline--details-date" am-time-ago="activity.completedDate"></span>
                     </div>
                 </li>
@@ -116,9 +107,6 @@
                                             <li>
                                                 <a href="#/design/{{des._id}}"><span class="fa fa-eye"></span></a>
                                             </li>
-                                            <!-- <li ng-if="projectCtrl.isOwner(proj.owner)">
-                                                <a modal ctrl="ProjectModalController" template="editproject" size="sm" id="{{proj._id}}"><span class="fa fa-edit"></span></a>
-                                            </li>-->
                                             <li ng-if="SingProjectCtrl.isOwner(SingProjectCtrl.project.owner)">
                                                 <modal template="deletedesign" ctrl="SingleProjectModalController" id="{{des._id}}" name="{{des.name}}" size="sm">
                                                     <span class="fa fa-trash-o"></span>
@@ -138,7 +126,7 @@
                             </div>  <!-- project--details -->
                             <!-- </li> -->
                         </div> <!-- img-container -->
-           
+
                     </li>
                 </ul>
                  <i class="fa fa-mail-reply" ng-show="SingProjectCtrl.project.designs.length === 0"></i>

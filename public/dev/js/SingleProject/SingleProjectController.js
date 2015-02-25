@@ -44,6 +44,12 @@
                 case 'new annotation':
                     klass = 'fa-pencil-square-o';
                     break;
+                case 'task complete':
+                    klass = 'fa-check';
+                    break;
+                case 'new project':
+                    klass = 'fa-plus';
+                    break;
             }
 
             return klass;
@@ -84,7 +90,7 @@
             $scope.upload = SingProjFactory
                             .upload(file, $stateParams.project_id)
                             .then(function(data){
-                                //when done update the designs view 
+                                //when done update the designs view
                                 _this.getProjectDesigns();
                             });
 
