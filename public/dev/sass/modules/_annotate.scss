@@ -386,10 +386,15 @@ $task-border : lighten($text-grey, 47);
 
 .annotation--helper {
     margin: 10px;
-    color: lighten($text-color, 40%);
+    color: $dark-grey;
+    margin-left:30px
 }
 
-
+.tooltip{
+   
+    margin-right:20px;
+    width:200px;
+}
 
 
 // annotation task complete
