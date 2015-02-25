@@ -107,7 +107,8 @@ gulp.task('views', function () {
     console.log($);
     gulp.src(paths.client.views)
         .pipe($.angularTemplatecache({
-            module: 'templates'
+            module: 'templates',
+            standalone: true
         }))
         .pipe(gulp.dest(paths.build));
 });

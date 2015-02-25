@@ -4,14 +4,14 @@
 
             <div class="row">
                     <div class="app-header">
-                        <div class="col-xs-3">
+                        <div class="col-md-3">
                             <div class="form-group search--form">
                                 <input ng-model="Name" type="text" placeholder="Search project by name" class="form-control search--input">
                                 <i class="fa fa-search search--icon"></i>
                             </div>
                         </div>
 
-                        <div class="col-xs-3">
+                        <div class="col-md-3">
                             <select ng-model="orderProp" class="form-control">
                                 <option value="" selected>Sort by</option>
                                 <option value="name">By Name</option>
@@ -20,7 +20,7 @@
                             </select>
                         </div>
                         <!-- add new project button -->
-                        <div class="col-xs-6">
+                        <div class="col-md-6">
                             <span class="btn btn-success pull-right" modal ctrl="ProjectModalController" ctrlAs="projectModalCtrl" template="addproject" size="sm" ng-show="projectCtrl.projects.length > 0">Add new project</span>
                         </div>
                     </div>

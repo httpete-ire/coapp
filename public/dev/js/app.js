@@ -1,7 +1,7 @@
 (function () {
     'use strict';
     //main application name: coapp. ui-router for page routing
-    angular.module('coapp', ['ui.router', 'ui.bootstrap', 'angularFileUpload', 'angularMoment', 'validation.match'])
+    angular.module('coapp', ['ui.router', 'ui.bootstrap', 'angularFileUpload', 'angularMoment', 'validation.match', 'templates'])
     .config(appConfig)
     .run(appRun);
 
@@ -86,7 +86,7 @@
                 requiredLogin: true
             }
         });
-        
+
 
 
         $httpProvider.interceptors.push('TokenInterceptor');
@@ -98,12 +98,12 @@
     // @ngInject
     function appRun ($rootScope, $window, $location, AuthenticationFactory, alertService) {
         AuthenticationFactory.check();
-        
+
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams ){
             alertService.close();
 
             if((toState.access && toState.access.requiredLogin) && !AuthenticationFactory.isLogged) {
-                 event.preventDefault();  
+                 event.preventDefault();
                 $location.path('/login');
             } else {
                 if(!AuthenticationFactory.user && !AuthenticationFactory.username) {
@@ -113,7 +113,7 @@
             }
         });
 
-        
+
         $rootScope.$on('$stateChangeSuccess', function (event, nextRoute, currentRoute){
             // console.log('current',currentRoute);
             $rootScope.isLoggedIn = AuthenticationFactory.isLogged;

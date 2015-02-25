@@ -14,10 +14,10 @@
         var modalViews = 'dev/js/views/Modals/';
 
         return {
-            transclude: true,    // so html
+            transclude: true,
             restrict: 'EA',
+            // click event uses the open function of the directive
             template: '<span ng-click="open()" ng-transclude></span>',
-
             scope: {
                 size: '@',
                 ctrl: '@',
@@ -25,13 +25,13 @@
                 id: '@',
                 name:'@'
             },
-
             link: function (scope, element, attrs) {
 
                 scope.open = function(){
 
-                    console.log(scope.name);
-
+                    // create a new instance of the modal using
+                    // the values passed to the directive
+                    // values include : template, controller and modal size
                     var modalInstance = $modal.open({
                         templateUrl: modalViews + attrs.template + '.html',
                         controller: scope.ctrl,
@@ -53,9 +53,8 @@
             }
         };
 
-
-
     }
+
     modal.$inject = ["$modal"];
 
 })();
