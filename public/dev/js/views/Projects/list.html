@@ -21,12 +21,12 @@
                         </div>
                         <!-- add new project button -->
                         <div class="col-xs-6">
-                            <span class="btn btn-success pull-right" modal ctrl="ProjectModalController" ctrlAs="projectModalCtrl" template="addproject" windowClass="micky" size="sm">Add new project</span>
+                            <span class="btn btn-success pull-right" modal ctrl="ProjectModalController" ctrlAs="projectModalCtrl" template="addproject" size="sm" ng-show="projectCtrl.projects.length === 0">Add new project</span>
                         </div>
                     </div>
             </div>
 
-            <div class="row">
+            <div class="row list-container">
                 <ul class="list-unstyled">
                     <li class ="col-md-4" ng-repeat="proj in projectCtrl.projects | orderBy: orderProp |filter: Name">
 
@@ -74,6 +74,11 @@
                         </div>
                     </li>
                 </ul>
+                
+                <!-- show if there are no projects -->
+                <div class="project--newProjects" ng-show="projectCtrl.projects.length === 0">
+                    <img src="./../../../media/icon.png" width="100%">
+                </div>
             </div>
 
         </div>

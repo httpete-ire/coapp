@@ -294,3 +294,40 @@ p{
 .project--container-push {
     margin-right: 240px;
 }
+
+.fa-mail-reply{
+    -ms-transform: rotate(179deg); /* IE 9 */
+    -webkit-transform: rotate(179deg); /* Chrome, Safari, Opera */
+    transform: rotate(179deg);
+    position: absolute;
+    bottom: 20px;
+    right: 280px;
+    font-size: 147px;
+    color: $blue
+    }
+.list-container .fa-mail-reply{
+    -ms-transform: rotate(90deg); /* IE 9 */
+    -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+    transform: rotate(90deg);
+    position: absolute;
+    top: 130px;
+    height:140px;
+    right: 50px;
+    font-size: 147px;
+    color: $blue
+}
+
+.project--newProjects{
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    padding: 0px;
+    height: 200px;
+    width: 200px;
+    
+
+    
+}
+
+
+
