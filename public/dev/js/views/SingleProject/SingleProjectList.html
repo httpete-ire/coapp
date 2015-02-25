@@ -81,13 +81,13 @@
             <div class="row">
 
                 <div class="app-header">
-                  <div class="col-md-5">
+                  <div class="col-md-3">
                         <div class="form-group search--form">
                             <input ng-model="Name" type="text" placeholder="Search design by name" class="form-control search--input">
                             <i class="fa fa-search search--icon"></i>
                         </div>
                     </div>
-                    <div class="col-md-3 pull-right">
+                    <div class="col-md-3 ">
                         <select ng-model="orderProp" class="form-control">
                             <option value="" selected>Sort by</option>
                             <option value="name">By Name</option>
@@ -141,7 +141,8 @@
            
                     </li>
                 </ul>
-                 <i class="fa fa-mail-reply" ng-show="SingProjectCtrl.project.designs.length === 0"></i>
+                 <i class="fa fa-mail-forward" ng-show="SingProjectCtrl.project.designs.length === 0"
+                 ng-class="{'animated infinite pulse' : SingProjectCtrl.project.designs.length === 0}"></i>
 
             </div>
         </div><!-- End Page Content -->

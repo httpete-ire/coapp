@@ -298,20 +298,16 @@ p{
     margin-right: 240px;
 }
 
-.fa-mail-reply{
-    -ms-transform: rotate(179deg); /* IE 9 */
-    -webkit-transform: rotate(179deg); /* Chrome, Safari, Opera */
-    transform: rotate(179deg);
+.fa-mail-forward{
+    
     position: absolute;
-    bottom: 20px;
+    bottom: 57px;
     right: 280px;
-    font-size: 147px;
+    font-size: 93px;
     color: $blue
     }
-.list-container .fa-mail-reply{
-    -ms-transform: rotate(90deg); /* IE 9 */
-    -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
-    transform: rotate(90deg);
+.list-container .fa-mail-forward{
+   
     position: absolute;
     top: 130px;
     height:140px;
