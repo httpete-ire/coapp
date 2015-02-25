@@ -1,7 +1,7 @@
 (function () {
     'use strict';
     //main application name: coapp. ui-router for page routing
-    angular.module('coapp', ['ui.router', 'ui.bootstrap', 'angularFileUpload', 'angularMoment', 'validation.match', 'templates'])
+    angular.module('coapp', ['ui.router', 'ui.bootstrap', 'angularFileUpload', 'angularMoment', 'validation.match'])
     .config(appConfig)
     .run(appRun);
 
