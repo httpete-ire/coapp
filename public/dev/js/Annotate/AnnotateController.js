@@ -70,21 +70,21 @@
         _this.filterOptions = FilterOpts;
 
         _this.toggleAnnotationClass = function(mark){
-            
+
             var klass;
             if(mark.task && !mark.task.isComplete){
                 klass = "fa-ellipsis-h"
             }
             else if(mark.task && mark.task.isComplete){
                 klass = "fa-check"
-            }   
+            }
             else if(!mark.task && mark.comments.length > 0){
                 klass = "fa-comments"
-            }    
+            }
             else if(!mark.task){
                 klass = "fa-comment"
             }
-             
+
             return klass;
         }
 
@@ -199,6 +199,9 @@
             }
             //get the mouse coordinates, helper function at bottom
             var mouse = getMouse(e);
+
+            console.log(mouse);
+
             //create an annotate object, with a cirle object appended
             var newAnnote = {};
             newAnnote.circle = {};

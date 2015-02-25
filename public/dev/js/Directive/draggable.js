@@ -46,7 +46,7 @@
          *
          */
         coords.update = function () {
-            this.x = imgDiv.getBoundingClientRect().left + markOffset.x;
+            this.x = angular.element( document.querySelector( '#annotation-img'))[0].getBoundingClientRect().left + markOffset.x;
         };
 
         // an object of the coords of the img container
@@ -66,6 +66,9 @@
             var outOfBOunds = false;
             //event listener for mousedown
             element.on('mousedown', function(e) {
+
+                containerCoords.update();
+
                 //get the x and y of mouse
                 startX = (e.pageX - containerCoords.x);
                 startY = (e.pageY - containerCoords.y);
@@ -77,11 +80,6 @@
                     return;
                 }
 
-                //add a class to allow for dragging the annotation
-                element.addClass('drag-mark');
-
-                containerCoords.update();
-                
                 //set up mouseMove and mouseUp listeners
                 $document.on('mousemove', mousemove);
                 $document.on('mouseup', mouseup);
@@ -90,6 +88,10 @@
 
             //function to set new x and y position of annotation
             function mousemove(e) {
+
+                //add a class to allow for dragging the annotation
+                element.addClass('drag-mark');
+
                 e.preventDefault();
 
                 x = (e.pageX - containerCoords.x);
@@ -123,7 +125,7 @@
                 var annotation = {
                     _id: attr.annotationId,
                     x: x + 15,
-                    y: y + 15
+                    y: y - 18.5
                 };
 
                 //call the update Annotation function to set its new coordinates
@@ -134,6 +136,7 @@
                     }, function (err) {
 
                 });
+
                 //remove event listeners
                 $document.off('mousemove', mousemove);
                 $document.off('mouseup', mouseup);
@@ -145,7 +148,7 @@
                     left: x + 'px'
                 });
             }
-            
+
 
         };
 
