@@ -2,7 +2,6 @@
 
     &-container {
         overflow: hidden;
-        max-height: 250px;
         position: relative;
         border-radius: 4px;
         border:2px solid rgba(#b8b8b8, 0.3);
@@ -81,6 +80,10 @@
             &::before {
                 margin-right: 8px
             }
+        }
+
+        .fa-file-image-o {
+            margin-top: 13px;
         }
 
     }
