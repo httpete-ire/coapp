@@ -6,7 +6,11 @@
     .service('alertService', alertService);
 
     /**
-     * @ngInject
+     *  setup of alert dialog box and functions
+     *  to show, set alert message and close alert
+     *  dialog box
+     *
+     *  @ngInject
      */
     function alertService ($timeout) {
 
@@ -14,6 +18,7 @@
 
         var alertService = this;
 
+        // set some default values on the service
         alertService.alertMessage = "Something Failed";
         alertService.alertType = "danger";
         alertService.showAlert = false;

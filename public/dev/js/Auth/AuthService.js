@@ -59,6 +59,9 @@
     }
     AuthFactory.$inject = ["$window", "$location", "$http", "$q", "AuthenticationFactory"];
 
+    // service to check if a user is logged in and
+    //  has a valid token
+    //
     // @ngInject
     function AuthenticationFactory ($window){
 
@@ -83,17 +86,34 @@
 
         return auth;
     }
+
     AuthenticationFactory.$inject = ["$window"];
 
+    // interceptor service that gets executed before a HTTP
+    // request is made
+    //
+    // the request function gets executed when a HTTP request
+    // is called, it checks if there is a token and binds it to the
+    // HTTP header
+    //
+    // the responseError function gets excuted when an HTTP
+    // request returns an error status
+    //
+    // the response functions get excuted when the HTTP request
+    // returns a valid status
+    //
     // @ngInject
-    function TokenInterceptor ($window, $location, $q) {
+    function TokenInterceptor ($window, $q) {
         var tokenIntercept = {};
 
         tokenIntercept.request = function(config){
+
             config.headers = config.headers || {};
+
             if($window.localStorage.token){
                 config.headers.auth = "Bearer " + $window.localStorage.token;
             }
+
             return config;
         };
 
@@ -107,7 +127,8 @@
 
         return tokenIntercept;
     }
-    TokenInterceptor.$inject = ["$window", "$location", "$q"];
+
+    TokenInterceptor.$inject = ["$window", "$q"];
 
 
 })();

@@ -110,8 +110,7 @@
 
     //modal controller, used for deleting a design
     function SingProjModalCtrl ($scope, $modalInstance, object, SingProjFactory, $rootScope, $window) {
-        //??
-        $scope.design = {};
+
 
         // expose object to modal scope
         $scope.object = object;

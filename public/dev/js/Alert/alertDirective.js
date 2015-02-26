@@ -6,6 +6,8 @@
     .directive('appAlert', appAlert);
 
     /**
+     *  directive for showing bootstrap alerts boxes
+     *
      * @ngInject
      */
     function appAlert () {
@@ -15,7 +17,5 @@
             template: '<alert ng-if="appAlert.alertService.showAlert" type="{{ appAlert.alertService.alertType }}" >{{ appAlert.alertService.alertMessage }}</alert>'
         };
     }
-
-    // close="appAlert.closeAlert()"
 
 })();

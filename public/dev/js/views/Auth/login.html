@@ -14,7 +14,7 @@
 
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input ng-model="authCtrl.user.email" ng-model-options="{ updateOn: 'blur' }" type="email" class="form-control" placeholder="Enter email" name="email" required>
+                    <input ng-model="authCtrl.user.email" ng-model-options="{ updateOn: 'blur' }" type="email" class="form-control" placeholder="Enter email" name="email" required set-focus>
 
                     <span class="form--error-popup" ng-show="loginForm.email.$error.required && loginForm.email.$pristine && loginForm.$submitted">Email required</span>
 

@@ -3,31 +3,24 @@
     'use strict';
 
     angular.module('coapp')
-    .directive('setFocus', focus)
-    .factory('focus', focusFactory);
+    .directive('setFocus', setFocus);
 
     /**
-     * @ngInject
+     *  set the focus of the element when the page loads
+     *
+     *  @ngInject
      */
-    function focus () {
-        return function(scope, elem, attr) {
-            scope.$on('setFocus', function(e, name) {
-                if(name === attr.setFocus) {
+    function setFocus ($timeout) {
+        return {
+            restrict: 'A',
+            link : function (scope, elem, attr) {
+                $timeout(function(){
                     elem[0].focus();
-                }
-            });
+                }, 0);
+            }
         };
     }
 
-    function focusFactory ($rootScope, $timeout) {
-        return function(name) {
-          $timeout(function (){
-            $rootScope.$broadcast('setFocus', name);
-          });
-        }
-    }
-
-    focusFactory.$inject = ["$rootScope", "$timeout"];
-
+    setFocus.$inject = ["$timeout"];
 
 })();

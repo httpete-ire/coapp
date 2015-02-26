@@ -13,7 +13,7 @@
 
       <div class="form-group">
       <label for="Username">Username</label>
-        <input ng-model="authCtrl.user.username" name="username" type="text" class="form-control"  placeholder="Enter username" ng-model-options="{ updateOn: 'blur' }" required>
+        <input ng-model="authCtrl.user.username" name="username" type="text" class="form-control"  placeholder="Enter username" ng-model-options="{ updateOn: 'blur' }" required set-focus>
 
         <span class="form--error-popup" ng-show="registerForm.username.$error.required && (registerForm.username.$pristine || registerForm.username.$dirty ) && registerForm.$submitted">Username required</span>
 

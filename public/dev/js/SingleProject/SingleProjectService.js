@@ -18,7 +18,9 @@
         //get a single project based on the project id
         SingProj.getProject = function(projectid, opts){
 
+            // set fields to opts or defaults to settings above
             var fields = opts || paths.fields;
+
             //set up promise object instance
             var defer = $q.defer();
 
@@ -60,18 +62,19 @@
             //set up defer instance
             var defer = $q.defer();
 
+            // use the angularFileUpload module to upload
+            // files to the server
             $upload.upload({
                 url: uploadUrl,
                 file: file
             })
-                 .success(function(data, status, headers, config) {
+            .success(function(data, status, headers, config) {
                     defer.resolve(data);
-                }).error(function(err, status){
+            }).error(function(err, status){
                         defer.reject(err);
-                });
+            });
 
             return defer.promise;
-
         };
 
         //return the SingProj object with attached methods

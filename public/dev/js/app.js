@@ -1,7 +1,12 @@
 (function () {
     'use strict';
     //main application name: coapp. ui-router for page routing
-    angular.module('coapp', ['ui.router', 'ui.bootstrap', 'angularFileUpload', 'angularMoment', 'validation.match'])
+    angular
+    .module('coapp', ['ui.router',
+                      'ui.bootstrap',
+                      'angularFileUpload',
+                      'angularMoment',
+                      'validation.match'])
     .config(appConfig)
     .run(appRun);
 
@@ -95,10 +100,22 @@
 
     appConfig.$inject = ["$urlRouterProvider", "$stateProvider", "$httpProvider"];
 
+    // the
+    //
+    //
     // @ngInject
     function appRun ($rootScope, $window, $location, AuthenticationFactory, alertService) {
+
+        // update the auth service to check if the user is logged in
         AuthenticationFactory.check();
 
+        // this function gets called when the route changes, the current
+        // route and next route are passed as params.
+        //
+        // The purpose of the functions is to check if the next route
+        // requires the user to be logged in, if the user is not
+        // logged in it redirects them to the login screen
+        //
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams ){
             alertService.close();
 
@@ -113,23 +130,21 @@
             }
         });
 
-
+        // function is called when the route change is successful
+        //
+        //  ensures a logged in user can not access
+        //  the login / register forms
+        //
         $rootScope.$on('$stateChangeSuccess', function (event, nextRoute, currentRoute){
-            // console.log('current',currentRoute);
+
             $rootScope.isLoggedIn = AuthenticationFactory.isLogged;
-
-
-            if($location.path().slice(0, 7) === '/design') {
-                $rootScope.designPage = true;
-            } else {
-                $rootScope.designPage = false;
-            }
 
             if (AuthenticationFactory.isLogged &&
                 ($location.path() === '/login' || $location.path() === '/landing' || $location.path() === '/register')){
                 $location.path('/projects');
             }
         });
+
     }
 
     appRun.$inject = ["$rootScope", "$window", "$location", "AuthenticationFactory", "alertService"];

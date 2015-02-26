@@ -26,15 +26,12 @@
         //boolean for sidebar, expand if false, hide if true
         _this.openSidebar = false;
 
-        //
+        // used on the task page to see which project / design
+        // is currently selected
         _this.currentTask = null;
-
         _this.hasActiveProject;
-
         _this.hasActiveDesign = false;
-
         _this.tasklistPage = false;
-
         _this.designId;
 
         //method called from task view to open and close the task sidebar
@@ -102,6 +99,7 @@
         //center panel on task view page
         _this.getDesignsWithTasks = function(){
 
+            // get the id of the selected project
             var id = TaskProject.getId();
 
             // reset default values
@@ -130,7 +128,7 @@
                 .then(function(data){
                     // successful updated
                 }, function(error){
-
+                    console.error(error);
                 });
         };
 

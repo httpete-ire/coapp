@@ -162,7 +162,7 @@
          * @return {[type]}    [description]
          */
         _this.getAllDesigns = function (id) {
-            //store the query in an object
+            // the query string for the API
             var opts = {
                 fields: '?fields=designs,name'
             };
