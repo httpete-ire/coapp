@@ -24,8 +24,7 @@ module.exports =  function removeProject(req, res, next) {
     // get the id from the URL
     var projectid = req.params.projectid;
 
-    // remove project and if succesful
-    // remove project reference from users
+    // remove the project
     Project
         .findOneAndRemove({
             $and: [
@@ -46,6 +45,8 @@ module.exports =  function removeProject(req, res, next) {
                 });
             }
 
+            // project removal was successful so we remove the
+            // its reference from every collaborator
             User.update({
                     // update every user who is a
                     // collaborator on the project
@@ -61,6 +62,7 @@ module.exports =  function removeProject(req, res, next) {
                         return next(err);
                     }
 
+                    // project directory path
                     var projectDir = path.resolve(__dirname + mediaPaths + '/' + projectid);
 
                     // delete project directory
@@ -71,13 +73,9 @@ module.exports =  function removeProject(req, res, next) {
                         }
 
                         res.sendStatus(200);
-
                     });
                 }
             );
         });
-
-
-    // update to remove all tasks belonging to that project
 
 };

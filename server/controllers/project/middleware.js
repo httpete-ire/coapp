@@ -1,5 +1,8 @@
 var Project = require('./../../models/project');
 
+//
+// middleware to check if project already exists
+//
 module.exports =  function (req, res, next) {
     Project
     .findOne({_id: req.params.projectid})

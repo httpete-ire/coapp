@@ -21,7 +21,9 @@ var populateQuery = {
 
 /**
  * database query to group tasks by designs
+ *
  * @type {Object}
+ *
  */
 var designGroup = {
     $group : {
@@ -80,8 +82,9 @@ module.exports =  function readTasks (req, res, next) {
             cb(null, user.tasks);
         });
 
-    }, function (tasks, cb) { // group tasks by design
+    }, function (tasks, cb) {
 
+        // group tasks by design
         var taskQuery = Task.aggregate([
             { '$match' : {_id: { $in: tasks }}},
             designGroup
@@ -102,15 +105,17 @@ module.exports =  function readTasks (req, res, next) {
 
         });
 
-    }, function (tasks, cb) { // populate design object
+    }, function (tasks, cb) {
 
+        // populate the design objects
         Design.populate( tasks, populateQuery.design, function(err,tasks) {
             if (err) throw err;
             cb(null, tasks);
         });
 
-    }, function (tasks, cb) { // populate project object
+    }, function (tasks, cb) {
 
+        // populate the project objects
         Project.populate( tasks, populateQuery.project, function(err,tasks) {
             if (err) throw err;
 

@@ -20,8 +20,9 @@ var _ = require('underscore');
  *
  */
 module.exports =  function (req, res, next) {
-    // find the logged in user so project ID's
-    // cen be retrieved
+
+    // find the logged in user so we can
+    // retrieve there projects
     User
     .findOne({_id: req.user._id})
     .exec(function (err, user) {

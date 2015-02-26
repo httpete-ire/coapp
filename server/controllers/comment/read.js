@@ -29,20 +29,24 @@ var async = require('async');
  */
 module.exports =  function (req, res, next) {
 
-    async.waterfall([function (cb){ // get design
+    async.waterfall([function (cb){
 
-        Design.findOne({_id: req.params.designid})
-            .populate('annotations.comments.owner', 'email username')
-            .exec(function (err, design) {
-                if(err) {
-                    return cb(err);
-                }
+        // get design
+        Design.findOne({
+            _id: req.params.designid
+        })
+        .populate('annotations.comments.owner', 'email username')
+        .exec(function (err, design) {
+            if(err) {
+                return cb(err);
+            }
 
-                cb(null, design);
-            });
+            cb(null, design);
+        });
 
-    },function (design, cb) { // get comments
-        // remove
+    },function (design, cb) {
+
+        // retrieve the annotations commenets
         var comments = design.annotations.id(req.params.annotationid)
         .comments;
 

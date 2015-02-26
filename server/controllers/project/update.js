@@ -28,6 +28,8 @@ var async = require('async');
  */
 module.exports =  function removeProject(req, res, next) {
 
+    // validate the data
+
     var validator = new Validator();
 
     validator.addRule({
@@ -54,8 +56,9 @@ module.exports =  function removeProject(req, res, next) {
     // get the id from the URL
     var projectid = req.params.projectid;
 
-    // remove project and if succesful
-    // remove project reference from users
+    // find the correct project
+    // only the owner of the project can
+    // update its values
     Project
         .findOne({
             $and: [

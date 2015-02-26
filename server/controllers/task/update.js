@@ -42,8 +42,9 @@ module.exports =  function updateTask (req, res, next) {
         cb(null);
 
 
-    }, function (cb) { // find task by id
+    }, function (cb) {
 
+        // find a task and pass to next function
         Task
         .findOne({_id: req.params.taskid})
         .exec(function (err, task) {
@@ -61,12 +62,14 @@ module.exports =  function updateTask (req, res, next) {
             cb(null, task);
         });
 
-    }, function (task, cb) { // update values
+    }, function (task, cb) {
 
+        // update the values of the task
         task.action = req.body.action;
 
         task.isComplete = req.body.isComplete;
 
+        // save the task and pass to the next function
         task.save(function (err) {
             if (err) {
                 return cb(err);
@@ -77,9 +80,7 @@ module.exports =  function updateTask (req, res, next) {
 
     }, function (task, cb) {
 
-        //
-        // if task marked as complete
-        //
+        // if task is complete, create a new activity in the project
         if (task.isComplete) {
 
             var activity = {
@@ -88,6 +89,7 @@ module.exports =  function updateTask (req, res, next) {
                 design: task.design
             };
 
+            // insert activity
             dbHelper.createActivity(task.project, activity, cb);
 
         } else {
