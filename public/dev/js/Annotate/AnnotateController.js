@@ -200,8 +200,6 @@
             //get the mouse coordinates, helper function at bottom
             var mouse = getMouse(e);
 
-            console.log(mouse);
-
             //create an annotate object, with a cirle object appended
             var newAnnote = {};
             newAnnote.circle = {};
@@ -210,7 +208,7 @@
             newAnnote.circle.y = mouse.y;
             newAnnote.circle.color = '#000';
 
-            focus('focus-this');
+            // focus('focus-this');
 
             _this.newAnnotation = newAnnote;
         };
