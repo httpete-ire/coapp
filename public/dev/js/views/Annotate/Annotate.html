@@ -75,7 +75,7 @@
                                         >
                                             <div class="task--box-check">
                                                 <label>
-                                                    <input type="checkbox" class="task--checkbox" ng-checked="{{mark.task.isComplete}}" ng-click="AnnotateCtrl.updateTask(mark.task)">
+                                                    <input type="checkbox" class="task--checkbox" ng-checked="{{mark.task.isComplete}}" ng-click="AnnotateCtrl.updateTask(mark.task)" >
                                                     <span></span>
                                                 </label>
                                             </div>
@@ -146,12 +146,8 @@
                                     </ul>
 
                                     <!-- form to add new comment -->
-
-
                                     <form name="commentForm" role="form" ng-submit="AnnotateCtrl.addComment(AnnotateCtrl.comment, mark, this)">
-
                                         <div class="form-group">
-
                                             <textarea class="form-control annotation--comments-reply" row="3"
                                             ng-model="AnnotateCtrl.comment.body" name="reply"
                                             ng-init="focus = false"
@@ -163,19 +159,13 @@
                                             placeholder="Enter reply here"
                                             ng-click="alert('adfvad');"
                                             ></textarea>
-
                                             <input type="hidden" ng-model="AnnotateCtrl.comment.annotation" value="{{mark._id}}">
-
                                             <!-- hide if form is pristine -->
                                             <button type="submit" class="btn btn-primary btn-block btn-reply" ng-if="commentForm.reply.$viewValue.length > 0">Add comment</button>
-
                                         </div>
-
                                     </form>
-
                                 </div>
                                 <!-- /.annotation--comments -->
-
                             </div>
                     </li>
 
