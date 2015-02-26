@@ -40,10 +40,7 @@ var User = require('./../../models/user.js');
  */
 module.exports =  function(req, res, next) {
 
-    // get query string
-    // search database for users
-    // excluding users selectd (id)
-    // return results
+    // query the database for a user
 
     var name = req.query.search;
 

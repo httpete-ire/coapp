@@ -135,7 +135,6 @@ function runQuery (queryArray, callback) {
  * @param  {Object} typeQuery
  */
 function generateQuery (design, typeQuery) {
-
     return { $and : [
         {
             design: design

@@ -11,13 +11,17 @@ function expires (numDays) {
 
     var date = new Date();
 
+    // return the new date
     return date.setDate(date.getDate() + numDays);
 }
 
 /**
  * generate the token with the user object and an expiration date
- * @param  {[type]} user [description]
- * @return {[type]}      [description]
+ * as the payload
+ *
+ * @param  {object} user
+ *
+ * @return {JWT} the encoded token
  */
 function createToken (user, date) {
     var payLoad = {
@@ -29,6 +33,7 @@ function createToken (user, date) {
     return jwt.encode(payLoad, tokenConfig.secret);
 }
 
+// export the function attached to the object
 module.exports = {
     createToken: createToken
 };

@@ -139,6 +139,12 @@
 
             $rootScope.isLoggedIn = AuthenticationFactory.isLogged;
 
+            if ($location.path().slice(0, 7) === '/design') {
+                $rootScope.designPage = true;
+            } else {
+                $rootScope.designPage =false;
+            }
+
             if (AuthenticationFactory.isLogged &&
                 ($location.path() === '/login' || $location.path() === '/landing' || $location.path() === '/register')){
                 $location.path('/projects');

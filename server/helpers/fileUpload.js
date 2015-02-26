@@ -14,9 +14,16 @@ var opts = {
     }
 };
 
+/**
+ * check if the directories exist and if false create them
+ *
+ * @param  {String} path of directory to check for
+ *
+ */
 function exists (dir) {
     'use strict';
 
+    // check if path exists
     fs.exists(path.resolve(dir), function (exists) {
         if (!exists) {
             mkdirp.sync(path.resolve(dir), function (err) {
@@ -46,6 +53,14 @@ function checkExists (dir) {
     }
 }
 
+/**
+ * upload an image and generate a thumbnail, calls the cb
+ * function when complete
+ *
+ * @param  {Object}   fileInfo
+ * @param  {Function} callback function to call when complete
+ *
+ */
 function upload (fileInfo, cb) {
 
     // move image to upload directory
@@ -59,15 +74,19 @@ function upload (fileInfo, cb) {
             // generate thumbnails
             lwip.open(fileInfo.uploadDir + '/' + fileInfo.name, function (err, image) {
 
+                // calculate the aspect ratio of the image
+                var aspectRatio = fileInfo.dimensions.height / fileInfo.dimensions.width * opts.thumbnail.width;
+
                 if (image) {
                     image.batch()
-                    .resize(opts.thumbnail.width, fileInfo.dimensions.height / fileInfo.dimensions.width * opts.thumbnail.width)
+                    .resize(opts.thumbnail.width, aspectRatio)
                     .crop(0, 0, opts.thumbnail.width, opts.thumbnail.height)
                     .writeFile(fileInfo.uploadDir + '/thumbnails/' + fileInfo.name , function (err){
 
                         if(err) {
                             cb(err);
                         } else {
+                            // complete so we can call the callback function
                             cb();
                         }
 
@@ -111,6 +130,7 @@ function removeImgs (images, projectId, cb) {
 
 }
 
+// export an object that contains all the above functions
 module.exports = {
     checkExists: checkExists,
     upload: upload,

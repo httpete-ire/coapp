@@ -27,6 +27,7 @@ var async = require('async');
 module.exports =  function createTask (req, res, next){
 
     async.waterfall([function (cb) {
+
         // validate data
         var validator = new Validator();
 
@@ -55,7 +56,7 @@ module.exports =  function createTask (req, res, next){
 
     },function (cb) {
 
-        // get design
+        // query for the specfic design
         Design
             .findOne({_id: req.params.designid})
             .exec(function (err, design) {
@@ -73,6 +74,7 @@ module.exports =  function createTask (req, res, next){
 
     }, function (design, cb) {
 
+        // serach the designs annotation sub-document
         var annotation = design.annotations.id(req.params.annotationid);
 
         if(!annotation) {
@@ -87,6 +89,7 @@ module.exports =  function createTask (req, res, next){
 
     }, function (design, annotation, cb) {
 
+        // creae a new task and bind values to it
         var task = new Task ();
 
         task.action = req.body.action;
@@ -96,7 +99,7 @@ module.exports =  function createTask (req, res, next){
         task.design = design._id;
 
         task.annotation.type = annotation.type;
-        task.annotation.number = (design.annotations.length);
+        task.annotation.number = design.annotations.length;
 
         task.save(function (err) {
             if (err) {
@@ -107,8 +110,12 @@ module.exports =  function createTask (req, res, next){
         });
 
     },function (design, task, annotation, cb) {
-        // add to db
+
+        // in parallel insert the task into the user object,
+        // add it to the list of tasks in the design and create
+        // a new activity in the project model
         async.parallel([function (callback) {
+
             // add to user db
             User
                 .findOne({_id: req.user._id})
@@ -126,8 +133,8 @@ module.exports =  function createTask (req, res, next){
                     });
                 });
         }, function (callback) {
-            // add to design and push to annotation
 
+            // add to design and push to annotation
             design.tasks.push(task._id);
 
             annotation.task = task._id;
@@ -146,7 +153,9 @@ module.exports =  function createTask (req, res, next){
                 design: task.design
             };
 
+            // add the activity to the project
             dbHelper.createActivity(task.project, activity, cb);
+
         }], function (err) { // handle parallel callback
             if(err) return cb(err);
 

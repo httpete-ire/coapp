@@ -8,32 +8,45 @@ var opts = {
     uploadsDir: './../../public/media/uploads'
 };
 
+/**
+ * store infomation about a file
+ *
+ * @param {Object} file [description]
+ * @param {[type]} opt  [description]
+ *
+ */
 function FileInfo (file, opt) {
-  this.name = file.name;
-  this.designName = createName(file.name);
-  this.size = file.size;
-  this.type = file.type;
-  this.path = file.path;
-  this.uploadDir = null;
-  this.dimensions = sizeOf(file.path);
-  this.modified = file.lastMod;
-  this.deleteType = 'DELETE';
-  this.opts = opt || {};
+    this.name = file.name;
+    this.designName = createName(file.name);
+    this.size = file.size;
+    this.type = file.type;
+    this.path = file.path;
+    this.uploadDir = null;
+    this.dimensions = sizeOf(file.path);
+    this.modified = file.lastMod;
+    this.deleteType = 'DELETE';
+    this.opts = opt || {};
 };
 
+/**
+ * set the uploadDir for the file
+ *
+ */
 FileInfo.prototype.init = function () {
-    var _this = this;
-
-    _this.uploadDir = path.resolve(__dirname + opts.uploadsDir  + '/' +  _this.opts.project + '/');
+    this.uploadDir = path.resolve(__dirname + opts.uploadsDir  + '/' +  this.opts.project + '/');
 }
 
+/**
+ * timestamp the name so we get no conflicts with names
+ *
+ */
 FileInfo.prototype.safeName = function() {
 
     var name = this.name.substring(0, this.name.lastIndexOf('.'));
 
     var ext = path.extname(this.name);
 
-    // replace whitesoace with '-'
+    // replace whitespace with '-'
     name = name.replace(/\s/g, '-');
 
     // timestamp the name of the file
@@ -43,6 +56,10 @@ FileInfo.prototype.safeName = function() {
     this.name = name + ext;
 };
 
+/**
+ * generate a URL for the image and thumbnail path
+ *
+ */
 FileInfo.prototype.urls = function(req) {
     var _this = this;
 
@@ -59,6 +76,7 @@ FileInfo.prototype.urls = function(req) {
 
 /**
  * validate the file based on file size and type
+ *
  * @return {Object} containing if valid and msg
  */
 FileInfo.prototype.validate = function() {
@@ -79,9 +97,18 @@ FileInfo.prototype.validate = function() {
     };
 };
 
+/**
+ * remove - from the name and Capitalise the first letter
+ *
+ * @param  {String} name
+ *
+ * @return {String} new name
+ */
 function createName(name) {
     var newName = name.replace(/-/g, ' ');
 
     return newName.charAt(0).toUpperCase() + newName.slice(1, newName.indexOf('.'));
 }
+
+// export the constructor
 module.exports =  FileInfo;

@@ -6,9 +6,12 @@ var Design = require('./../../models/design');
 var async = require('async');
 var _ = require('underscore');
 
+//
+// get a list of designs that the user has tasks in
+//
 module.exports =  function readTasks (req, res, next) {
 
-    async.waterfall([function (cb) { // find user
+    async.waterfall([function (cb) {
 
         if (!req.user._id) {
             return cb({
@@ -34,8 +37,10 @@ module.exports =  function readTasks (req, res, next) {
             cb(null, user.tasks);
         });
 
-    }, function (tasks, cb) { // group tasks by design
+    }, function (tasks, cb) {
 
+        // find the users tasks and
+        // group by design
         Task.find({
             $and : [
                 {
@@ -58,6 +63,7 @@ module.exports =  function readTasks (req, res, next) {
         });
     }, function (designs, cb) {
 
+        // retrieve the designs name and images
         Design.find({
             _id: {
                 $in: designs

@@ -11,6 +11,7 @@ var fileUpload  = require('./fileUpload.js');
 /**
  * Sets middleware and properties for the app
  * @param  {object} app - app object to attach middleware to
+ *
  * @return app
  */
 module.exports =  function(app) {

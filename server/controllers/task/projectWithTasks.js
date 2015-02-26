@@ -44,8 +44,10 @@ module.exports =  function readTasks (req, res, next) {
             cb(null, user.tasks);
         });
 
-    }, function (tasks, cb) { // group tasks by design
+    }, function (tasks, cb) {
 
+        // find the users tasks and
+        // group by design
         Task.find({
             _id: {
                 $in: tasks
@@ -60,8 +62,10 @@ module.exports =  function readTasks (req, res, next) {
 
             cb(null, projects);
         });
+
     }, function (projects, cb) {
 
+        // retrieve the projects name and images
         Project.find({
             _id: {
                 $in: projects

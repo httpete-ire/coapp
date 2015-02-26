@@ -43,7 +43,7 @@
     }
 
     // @ngInject
-    function AnnotateCtrl(AnnotateFactory, focus, $stateParams, AuthenticationFactory, SingProjFactory, FilterOpts, TaskFactory, $rootScope){
+    function AnnotateCtrl(AnnotateFactory, $stateParams, AuthenticationFactory, SingProjFactory, FilterOpts, TaskFactory, $rootScope){
 
         _this = this;
         //object to gold information about a design
@@ -295,7 +295,7 @@
 
     }
     //inject dependencies into controller
-    AnnotateCtrl.$inject = ['AnnotateFactory', 'focus', '$stateParams', 'AuthenticationFactory', 'SingProjFactory', 'FilterOpts', 'TaskFactory', '$rootScope'];
+    AnnotateCtrl.$inject = ['AnnotateFactory','$stateParams', 'AuthenticationFactory', 'SingProjFactory', 'FilterOpts', 'TaskFactory', '$rootScope'];
 
     //helper function to get x and y position of mouse events
     function getMouse(e, targ) {

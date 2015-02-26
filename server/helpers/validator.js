@@ -92,6 +92,7 @@ Validator.prototype.validateRule = function(validRules) {
 
 /**
  * validate every rule added using the add rule method
+ *
  * @return {Boolean} :: returns if the form is valid or not
  */
 Validator.prototype.validate = function() {
