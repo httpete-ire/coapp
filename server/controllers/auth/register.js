@@ -99,7 +99,7 @@ module.exports =  function login (req, res, next) {
                     return res.status(500).send(err);
                 }
 
-                return res.send(200);
+                return res.sendStatus(200);
             });
         }
     });

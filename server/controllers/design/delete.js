@@ -65,21 +65,56 @@ module.exports =  function (req, res, next) {
                         message: 'no project found',
                         status: 404
                     });
-                }
+                }1
 
                 project.designs.pull(design._id);
 
-                // decrement the counter
-                --project.designCount;
+                // if project has no designs set thumbnail img
+                if (!project.designs.length) {
 
-                project.save(function(err, project){
-                    if (err) {
-                        return cb(err);
-                    }
+                    project.thumbnail = 'http://placehold.it/350X200';
 
                     return cb(null, project, design);
-                });
+
+                } else {
+
+                    var lastDesign = project.designs[project.designs.length - 1];
+
+                    // get one design from db and set thumbnail
+                    Design.findOne({
+                        _id: lastDesign
+                    })
+                    .select('img')
+                    .exec(function(err, d) {
+
+                        if (err) {
+                            return cb(err);
+                        }
+
+                        project.thumbnail = d.img.thumbnail;
+
+                        return cb(null, project, design);
+                    });
+
+
+                }
+
+
+
             });
+        }, function (project, design, cb) {
+
+            // decrement the counter
+            --project.designCount;
+
+            project.save(function(err, project){
+                if (err) {
+                    return cb(err);
+                }
+
+                return cb(null, project, design);
+            });
+
         },
         // remove imgs
         function (project, design, cb) {

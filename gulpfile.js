@@ -95,7 +95,7 @@ gulp.task('ng', function () {
         .pipe(gulp.dest(paths.client.js));
 });
 
-gulp.task('build', function () {
+gulp.task('build', ['restore', 'sass'],function () {
     return gulp.src(paths.client.app)
         .pipe($.ngAnnotate())
         .pipe($.concat('app.min.js'))
