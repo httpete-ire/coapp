@@ -1,7 +1,7 @@
 // load variables first to override bootstrap
 @import './theme/variables';
 // load vendor libraries
-@import './../lib/bootstrap-sass-official/assets/stylesheets/_bootstrap';
+@import './../lib/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';
 @import './../lib/fontawesome/scss/font-awesome';
 
 // load base settings
