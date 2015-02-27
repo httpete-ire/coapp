@@ -1,7 +1,6 @@
 module.exports =  {
     publicDir: './../../public',
     db:'mongodb://localhost:27017/coapp',
-    testdb: 'mongodb://localhost:27017/testcoapp',
     token: {
         secret: 'this.is.sparta',
         expires: 7 // days
