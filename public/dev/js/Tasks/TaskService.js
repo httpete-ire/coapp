@@ -69,11 +69,10 @@
 
         /**
          * get a list of tasks related to the design and user
-         * 
+         *
          * @return {Promise}
          */
         task.getTasks = function(id){
-            console.log(id);
             var defer = $q.defer();
 
             var path = 'api/designs/' + id + '/tasks';

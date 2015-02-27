@@ -212,6 +212,11 @@ $is-open: #475f74;
     }
 }
 
+
+.main--comment-owner {
+    display: block;
+}
+
 /*
  *
  *
@@ -390,7 +395,7 @@ $task-border : lighten($text-grey, 47);
     margin-left:30px
 }
 
-.tooltip{
+.design-img-container > .tooltip{
 
     margin-right:20px;
     width:200px;

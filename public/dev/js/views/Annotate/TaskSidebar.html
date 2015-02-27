@@ -70,8 +70,14 @@ ng-class="{
     <div class="task-container" ng-repeat="taskList in taskCtrl.usersTasks" ng-if="taskCtrl.usersTasks.length > 0">
 
         <div class="task--list-title clearfix">
-            <h4>{{$index === 0 ? 'User tasks' : 'Other tasks'}}</h4> <span class="pull-right">({{taskList.length}})</span>
+            <h4>{{$index === 0 ? 'User tasks' : 'Other tasks'}}</h4>
+
+            <a href="#/design/{{taskCtrl.designId}}" ng-if="taskCtrl.isTaskPage()" class="task--design-link">go to design</a>
+
+            <span class="pull-right">({{taskList.length}})</span>
         </div>
+
+
 
         <ul class="task--list">
             <li class="task--list-item" ng-if="taskList.length === 0">
@@ -109,7 +115,7 @@ ng-class="{
                 }">
 
                     <!-- checkbox -->
-                    <div class="task--action-checkbox" ng-if="$parent.$index === 0">
+                    <div class="task--action-checkbox" ng-if="!taskCtrl.isTaskPage()">
                         <label>
                             <input type="checkbox" class="task--checkbox" ng-checked="{{task.isComplete}}" ng-click="AnnotateCtrl.updateTask(task)">
                             <span></span>
