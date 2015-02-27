@@ -30,7 +30,8 @@ the application requires the following dependencies -
     
     change db settings in ./server/config/index.js to path of mongodb
     
-    // build the front end dependencies
+    // build the front end dependencies,
+    // populate database and compile sass files
     gulp build
     
     // start application
