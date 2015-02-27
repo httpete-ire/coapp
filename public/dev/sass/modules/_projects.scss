@@ -108,7 +108,7 @@ font-size: 13px
 
 .fix{
     position: fixed;
-    z-index: 2000;
+    z-index: 999;
     width: 100%;
     padding-left: 50px;
 
@@ -299,7 +299,7 @@ p{
 }
 
 .fa-mail-forward{
-    
+
     position: absolute;
     bottom: 57px;
     right: 280px;
@@ -307,7 +307,7 @@ p{
     color: $blue
     }
 .list-container .fa-mail-forward{
-   
+
     position: absolute;
     top: 130px;
     height:140px;
@@ -323,9 +323,9 @@ p{
     padding: 0px;
     height: 200px;
     width: 200px;
-    
 
-    
+
+
 }
 
 
