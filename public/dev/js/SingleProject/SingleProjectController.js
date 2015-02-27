@@ -8,7 +8,7 @@
     //set up controller with dependencies, $stateParams retreives the current url
     function SingProjCtrl(SingProjFactory, $scope, $upload, $stateParams, AuthenticationFactory){
 
-        _this = this;
+       var _this = this;
         //set up object to hold the data about a single project
         _this.project = {};
 
