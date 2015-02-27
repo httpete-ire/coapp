@@ -144,7 +144,7 @@ $is-open: #475f74;
 
     .annotation--details {
         display: block;
-        z-index: 1999;
+        z-index: 900;
     }
 
     .annotation--mark {
@@ -391,7 +391,7 @@ $task-border : lighten($text-grey, 47);
 }
 
 .tooltip{
-   
+
     margin-right:20px;
     width:200px;
 }
