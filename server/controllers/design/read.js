@@ -27,6 +27,8 @@ module.exports =  function getDesign (req, res, next) {
 
     async.waterfall([function (cb) {
 
+        // search for a design, if one found
+        // pass to callback function
         var designId = req.params.designid;
 
         var designQuery = Design.findOne({
@@ -63,6 +65,7 @@ module.exports =  function getDesign (req, res, next) {
 
     }, function (design, cb) {
 
+        // populate the project and task object
         populateData(design, cb);
 
     }], function (err, design) {
@@ -100,6 +103,7 @@ function populateData (design, cb) {
 
     }, function (callback) {
 
+        // populate the tasks
         taskHelper.populateTasks(design.annotations, callback);
 
     }], function (err, design){
@@ -112,6 +116,10 @@ function populateData (design, cb) {
     });
 };
 
+/**
+ * array of data to populate
+ *
+ */
 function getPopullateOptions (array) {
 
     // config settings for popullation

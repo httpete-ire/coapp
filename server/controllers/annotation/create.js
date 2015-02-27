@@ -27,8 +27,9 @@ var async = require('async');
  */
 module.exports =  function newAnnotation (req, res, next) {
 
-    async.waterfall([function(cb) { // validate data
+    async.waterfall([function(cb) {
 
+        // validate data
         var validator = new Validator();
 
         validator.addRule({
@@ -49,7 +50,6 @@ module.exports =  function newAnnotation (req, res, next) {
             rules: ['required']
         });
 
-        // validate data
         if (!validator.validate()) {
             return cb({
                 message: 'invalid data',
@@ -60,36 +60,39 @@ module.exports =  function newAnnotation (req, res, next) {
 
         cb(null);
 
-    }, function (cb) { // find design
+    }, function (cb) {
+
         Design
-            .findOne({_id: req.params.designid})
-            .exec(function (err, design) {
-                if (err) return cb(err);
+        .findOne({
+            _id: req.params.designid
+        })
+        .exec(function (err, design) {
+            if (err) return cb(err);
 
-                if(!design) {
-                    return cb({
-                        message: 'no design found',
-                        status: 404
-                    });
-                }
+            if(!design) {
+                return cb({
+                    message: 'no design found',
+                    status: 404
+                });
+            }
 
-                cb(null, design);
-            });
+            cb(null, design);
+        });
 
-    }, function (design, cb) { // create new task
+    }, function (design, cb) {
 
+        // if the request body has an assignedTo value we create a new task
         if(req.body.assignedTo) {
 
             var task = new Task ();
 
+            // bind values to the task object
             task.action = req.body.body;
             task.project = design.project;
             task.assignedTo = req.body.assignedTo;
             task.assignedBy = req.user._id;
             task.design = design._id;
-
             task.annotation = {};
-
             task.annotation.type = req.body.type;
             task.annotation.number = (design.annotations.length + 1);
 
@@ -143,13 +146,15 @@ module.exports =  function newAnnotation (req, res, next) {
             cb(null, design, task);
         });
 
-    }, function (design, task, cb) { // if task is defined add to user
+    }, function (design, task, cb) {
 
         // no task so return callback
         if (!task) {
             return cb(null, design, task);
         }
 
+        // if task is set, push the task to the user
+        // who the task is assigned to
         User.findOne({
             _id: req.body.assignedTo
         })
@@ -168,6 +173,7 @@ module.exports =  function newAnnotation (req, res, next) {
 
     }, function (design, task, cb) {
 
+        // create a new activity
         var activity = {
             activityType: (!task) ? 'new annotation' : 'new task',
             completedBy: req.user._id,

@@ -15,25 +15,31 @@ var async = require('async');
  */
 module.exports =  function (req, res, next) {
 
-    async.waterfall([function (cb) { // get design
-        Design.findOne({_id: req.params.designid})
-            .exec(function(err, design) {
-                if (err) return cb(err);
+    async.waterfall([function (cb) {
 
-                if(!design) {
-                    return cb({
-                        message: 'no design found',
-                        status: 404
-                    });
-                }
+        // find one design
+        Design.findOne({
+            _id: req.params.designid
+        })
+        .exec(function(err, design) {
+            if (err) return cb(err);
 
-                cb(null, design);
-            });
-    }, function (design, cb) { // remove comment
+            if(!design) {
+                return cb({
+                    message: 'no design found',
+                    status: 404
+                });
+            }
 
+            cb(null, design);
+        });
+    }, function (design, cb) {
+
+        // get the annotations comments
         var comments = design.annotations.id(req.params.annotationid)
         .comments;
 
+        // remove the specific comment
         comments.id(req.params.commentid).remove();
 
         design.save(function(err){

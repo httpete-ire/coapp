@@ -17,20 +17,25 @@ module.exports =  function (req, res, next) {
 
 
     async.waterfall([function (cb) {
-        Design.findOne({_id: req.params.designid})
-            .exec(function(err, design) {
-                if (err) return cb(err);
+        // find a design
+        Design.findOne({
+            _id: req.params.designid
+        })
+        .exec(function(err, design) {
+            if (err) return cb(err);
 
-                if(!design) {
-                    return cb({
-                        message: 'no design found',
-                        status: 404
-                    });
-                }
+            if(!design) {
+                return cb({
+                    message: 'no design found',
+                    status: 404
+                });
+            }
 
-                cb(null, design);
-            });
+            cb(null, design);
+        });
+
     }, function (design, cb) {
+        // find the correct annotation
         var annotation = design.annotations.id(req.params.annotationid);
 
         if (!annotation) {
@@ -40,6 +45,7 @@ module.exports =  function (req, res, next) {
             });
         }
 
+        // ensure only the owner of the annotation can delete it
         if(!annotation.owner.equals(req.user._id)) {
             return cb({
                 message: 'you must be the owner of the annoatation to delete it',
@@ -47,6 +53,7 @@ module.exports =  function (req, res, next) {
             })
         }
 
+        // remove it
         annotation.remove();
 
         design.save(function(err){

@@ -17,8 +17,9 @@ var async = require('async');
  */
 module.exports =  function (req, res, next) {
 
-    async.waterfall([function(cb){ // validate data
+    async.waterfall([function (cb) {
 
+        // validate data
         var validator = new Validator();
 
         validator.addRule({
@@ -38,26 +39,30 @@ module.exports =  function (req, res, next) {
 
         cb(null);
 
-    }, function(cb) { // get design
+    }, function(cb) {
 
-        Design.findOne({_id: req.params.designid})
-            .exec(function (err, design) {
-                if (err) {
-                    return cb(err);
-                }
+        // get design using the query string
+        Design.findOne({
+            _id: req.params.designid
+        })
+        .exec(function (err, design) {
+            if (err) {
+                return cb(err);
+            }
 
-                if (!design) {
-                    return cb({
-                        message: 'no design found',
-                        status: 404
-                    });
-                }
+            if (!design) {
+                return cb({
+                    message: 'no design found',
+                    status: 404
+                });
+            }
 
-                cb(null, design);
-            });
+            cb(null, design);
+        });
 
-    }, function(design, cb){ // save comment
+    }, function(design, cb){
 
+        // serach for the correct annotation
         var annotation = design.annotations.id(req.params.annotationid);
 
         if(!annotation) {
@@ -67,6 +72,7 @@ module.exports =  function (req, res, next) {
             });
         }
 
+        // add a comment object
         annotation.comments.push({
             body: req.body.body,
             owner: req.user._id

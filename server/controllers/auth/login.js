@@ -42,6 +42,7 @@ var Validator = require('./../../helpers/validator.js');
  */
 function login (req, res, next) {
 
+    // validate the input data
     var validator = new Validator();
 
     validator.addRule({

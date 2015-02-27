@@ -38,6 +38,8 @@ module.exports =  function newProject (req, res, next) {
 
     async.waterfall([function (cb) {
 
+        // validate the data
+
         var validator = new Validator();
 
         validator.addRule({
@@ -52,7 +54,6 @@ module.exports =  function newProject (req, res, next) {
             rules: ['required']
         });
 
-        // validate data and return err if invalid
         if (!validator.validate()) {
             return cb({
                 message: 'invalid data',
@@ -66,6 +67,7 @@ module.exports =  function newProject (req, res, next) {
 
     }, function (cb) {
 
+        // see if the project all ready exists in the DB
         Project.findOne({
             $and: [
                 {name: req.body.name},
@@ -98,6 +100,7 @@ module.exports =  function newProject (req, res, next) {
         // set the owner to the user logged in
         project.owner = req.user._id;
 
+        // loop over the collaborator list and attach to the project
         addCollaborators(req.body.collaborators, project);
 
         // create a new activity
@@ -118,6 +121,7 @@ module.exports =  function newProject (req, res, next) {
 
 
     }, function (project, cb) {
+
         // update every user who is listed as a collaborator
         // and add the project to their project list
          User
@@ -161,7 +165,8 @@ function addCollaborators (collaborators, project) {
 
     if (collaborators.length > 1) {
         collabArray = collaborators;
-    } else { // only one collaborator add them and the owner
+    } else {
+        // only one collaborator add them and the owner
         collabArray.push(req.body.collaborators);
     }
 

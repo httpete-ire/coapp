@@ -14,12 +14,6 @@ module.exports =  function (req, res, next) {
     async.waterfall([function (cb) {
 
         // validate new data
-        //
-        // get design
-        //
-        // get annotation
-        // switch values
-        //
         var validator = new Validator();
 
         validator.addRule({
@@ -47,19 +41,21 @@ module.exports =  function (req, res, next) {
     }, function (cb) {
 
         Design
-            .findOne({_id: req.params.designid})
-            .exec(function (err, design) {
-                if (err) return cb(err);
+        .findOne({
+            _id: req.params.designid
+        })
+        .exec(function (err, design) {
+            if (err) return cb(err);
 
-                if(!design) {
-                    return cb({
-                        message: 'no design found',
-                        status: 404
-                    });
-                }
+            if(!design) {
+                return cb({
+                    message: 'no design found',
+                    status: 404
+                });
+            }
 
-                cb(null, design);
-            });
+            cb(null, design);
+        });
 
     }, function (design, cb) {
 
@@ -72,6 +68,7 @@ module.exports =  function (req, res, next) {
             });
         }
 
+        // update the annotation
         annotation.body = req.body.body || annotation.body;
         annotation.circle.x = req.body.x;
         annotation.circle.y = req.body.y;
