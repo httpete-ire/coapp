@@ -45,7 +45,7 @@
     // @ngInject
     function AnnotateCtrl(AnnotateFactory, $stateParams, AuthenticationFactory, SingProjFactory, FilterOpts, TaskFactory, $rootScope){
 
-        _this = this;
+        var _this = this;
         //object to gold information about a design
         _this.design = {};
         //object to hold all designs returned from the service
