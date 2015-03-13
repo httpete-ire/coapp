@@ -100,6 +100,10 @@ module.exports =  function newProject (req, res, next) {
         // set the owner to the user logged in
         project.owner = req.user._id;
 
+        console.log(req);
+
+        console.log(req.body.collaborators);
+
         // loop over the collaborator list and attach to the project
         addCollaborators(req.body.collaborators, project);
 
@@ -167,7 +171,7 @@ function addCollaborators (collaborators, project) {
         collabArray = collaborators;
     } else {
         // only one collaborator add them and the owner
-        collabArray.push(req.body.collaborators);
+        collabArray.push(collaborators);
     }
 
     // add the owner
